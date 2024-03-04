@@ -17,6 +17,7 @@ void main() {
 
       /// Register Service locator
       await serviceLocator();
+      await SupabaseService.init();
       await KakaoMapService.init();
       // await SupabaseService.init();
 

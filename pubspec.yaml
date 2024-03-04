@@ -23,13 +23,19 @@ dependencies:
   oktoast: ^3.4.0
   flutter_screenutil: ^5.9.0
   logger: ^2.1.0
+
+  # local storage
   hive_flutter: ^1.1.0
-  kakao_map_plugin: ^0.2.5
 
   # Freezed
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
 
+  # supabase
+  supabase_flutter: ^2.3.4
+
+  # kakao
+  kakao_map_plugin: ^0.2.5
 
 dev_dependencies:
   flutter_test:

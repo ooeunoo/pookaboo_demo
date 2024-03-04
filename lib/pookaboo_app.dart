@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pookaboo/di.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
-import 'package:pookaboo/shared/constant/Constants.dart';
+import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/localization/generated/strings.dart';
 import 'package:pookaboo/shared/localization/l10n.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
@@ -62,7 +62,7 @@ class PookabooApp extends StatelessWidget {
                     child: child!,
                   );
                 },
-                title: Constants.get.appName,
+                title: Config.get.appName,
                 theme: themeLight(context),
                 darkTheme: themeDark(context),
                 // locale: Locale(data.type ?? "en"),

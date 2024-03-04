@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/pages/app.dart';
 import 'package:pookaboo/layers/auth/presentation/pages/login/login.dart';
-import 'package:pookaboo/layers/profile/presentation/pages/profile.dart';
+import 'package:pookaboo/layers/user/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/splash/presentation/pages/splash.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map.dart';
 
