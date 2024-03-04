@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
-import 'package:pookaboo/layers/splash/presentation/bloc/splash_bloc.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
 
 GetIt sl = GetIt.instance;
@@ -63,9 +63,7 @@ void _useCase() {
   // sl.registerLazySingleton(() => GetUsers(sl()));
 }
 
-void _bloc() {
-  sl.registerFactory(() => SplashBloc());
-}
+void _bloc() {}
 
 void _cubit() {
   // /// Auth
@@ -73,7 +71,7 @@ void _cubit() {
   // sl.registerFactory(() => AuthCubit(sl()));
 
   // /// Users
-  // sl.registerFactory(() => UsersCubit(sl()));
+  sl.registerFactory(() => NavigationCubit());
   sl.registerFactory(() => SettingsCubit());
   // sl.registerFactory(() => MainCubit());
 }

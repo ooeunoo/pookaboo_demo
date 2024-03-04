@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pookaboo/di.dart';
 import 'package:pookaboo/pookaboo_app.dart';
+import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
 // import 'package:flutter_auth_app/utils/utils.dart';
 
@@ -16,6 +17,7 @@ void main() {
 
       /// Register Service locator
       await serviceLocator();
+      await KakaoMapService.init();
       // await SupabaseService.init();
 
       return SystemChrome.setPreferredOrientations(

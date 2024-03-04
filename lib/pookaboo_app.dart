@@ -29,7 +29,6 @@ class PookabooApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<SettingsCubit>()..getActiveTheme()),
-        // BlocProvider(create: (_) => sl<AuthCubit>()),
       ],
       child: OKToast(
         child: ScreenUtilInit(
