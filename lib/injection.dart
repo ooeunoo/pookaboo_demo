@@ -1,11 +1,18 @@
 import 'package:get_it/get_it.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
+import 'package:pookaboo/layers/auth/data/repositories/auth_repositort_impl.dart';
+import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
+import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
+import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
+import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
+import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 GetIt sl = GetIt.instance;
 
-Future<void> serviceLocator({
+Future<void> configureDependencies({
   bool isUnitTest = false,
   bool isHiveEnable = true,
   String prefixBox = '',
@@ -15,11 +22,13 @@ Future<void> serviceLocator({
     await sl.reset();
   }
   // sl.registerSingleton<DioClient>(DioClient(isUnitTest: isUnitTest));
+
+  _service();
   _dataSources();
   _repositories();
-  _bloc();
   _useCase();
   _cubit();
+  _bloc();
   if (isHiveEnable) {
     await _initHiveBoxes(
       isUnitTest: isUnitTest,
@@ -36,42 +45,33 @@ Future<void> _initHiveBoxes({
   sl.registerSingleton<MainBoxMixin>(MainBoxMixin());
 }
 
-/// Register repositories
 void _repositories() {
-  // sl.registerLazySingleton<AuthRepository>(
-  //   () => AuthRepositoryImpl(sl(), sl()),
-  // );
-  // sl.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl(sl()));
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(sl()),
+  );
 }
 
-/// Register dataSources
-void _dataSources() {
-  // sl.registerLazySingleton<AuthRemoteDatasource>(
-  //   () => AuthRemoteDatasourceImpl(sl()),
-  // );
-  // sl.registerLazySingleton<UsersRemoteDatasource>(
-  //   () => UsersRemoteDatasourceImpl(sl()),
-  // );
-}
+void _dataSources() {}
 
 void _useCase() {
-  /// Auth
-  // sl.registerLazySingleton(() => PostLogin(sl()));
-  // sl.registerLazySingleton(() => PostRegister(sl()));
-
-  // /// Users
-  // sl.registerLazySingleton(() => GetUsers(sl()));
+  sl.registerLazySingleton(() => AuthUseCase(authRepository: sl()));
 }
 
-void _bloc() {}
+void _bloc() {
+  sl.registerFactory(() => AuthBloc(sl()));
+}
 
 void _cubit() {
-  // /// Auth
-  // sl.registerFactory(() => RegisterCubit(sl()));
-  // sl.registerFactory(() => AuthCubit(sl()));
-
-  // /// Users
   sl.registerFactory(() => NavigationCubit());
   sl.registerFactory(() => SettingsCubit());
-  // sl.registerFactory(() => MainCubit());
+}
+
+void _service() async {
+  // Supabase
+  await SupabaseService.init();
+  sl.registerSingleton<SupabaseService>(SupabaseService());
+
+  // Kakao Map
+  await KakaoMapService.init();
+  sl.registerSingleton<KakaoMapService>(KakaoMapService());
 }

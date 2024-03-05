@@ -3,7 +3,7 @@ import 'dart:async';
 // import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pookaboo/di.dart';
+import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/pookaboo_app.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
@@ -16,10 +16,7 @@ void main() {
       WidgetsFlutterBinding.ensureInitialized();
 
       /// Register Service locator
-      await serviceLocator();
-      await SupabaseService.init();
-      await KakaoMapService.init();
-      // await SupabaseService.init();
+      await configureDependencies();
 
       return SystemChrome.setPreferredOrientations(
         [

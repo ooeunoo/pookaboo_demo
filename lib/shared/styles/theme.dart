@@ -5,99 +5,78 @@ import 'package:pookaboo/shared/styles/palette.dart';
 
 /// Light theme
 ThemeData themeLight(BuildContext context) => ThemeData(
-      fontFamily: 'Poppins',
+      fontFamily: 'Pretendard',
       useMaterial3: true,
       primaryColor: Palette.pinkLatte,
       disabledColor: Palette.shadowDark,
       hintColor: Palette.subText,
-      cardColor: Palette.background,
+      cardColor: Palette.card,
       scaffoldBackgroundColor: Palette.background,
-      colorScheme: const ColorScheme.light().copyWith(
-        primary: Palette.primary,
-        background: Palette.background,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Palette.background,
+        type: BottomNavigationBarType.fixed,
+        selectedIconTheme:
+            IconThemeData(size: Dimens.icon, color: Palette.icon),
+        unselectedIconTheme:
+            IconThemeData(size: Dimens.icon, color: Palette.iconSub),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
       ),
       textTheme: TextTheme(
-        displayLarge: Theme.of(context).textTheme.displayLarge?.copyWith(
-              fontSize: Dimens.displayLarge,
-              color: Palette.text,
-            ),
-        displayMedium: Theme.of(context).textTheme.displayMedium?.copyWith(
-              fontSize: Dimens.displayMedium,
-              color: Palette.text,
-            ),
-        displaySmall: Theme.of(context).textTheme.displaySmall?.copyWith(
-              fontSize: Dimens.displaySmall,
-              color: Palette.text,
-            ),
-        headlineMedium: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontSize: Dimens.headlineMedium,
-              color: Palette.text,
-            ),
-        headlineSmall: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontSize: Dimens.headlineSmall,
-              color: Palette.text,
-            ),
-        titleLarge: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontSize: Dimens.titleLarge,
-              color: Palette.text,
-            ),
-        titleMedium: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontSize: Dimens.titleMedium,
-              color: Palette.text,
-            ),
-        titleSmall: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontSize: Dimens.titleSmall,
-              color: Palette.text,
-            ),
         bodyLarge: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w600,
               fontSize: Dimens.bodyLarge,
               color: Palette.text,
             ),
         bodyMedium: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w600,
               fontSize: Dimens.bodyMedium,
               color: Palette.text,
             ),
         bodySmall: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w500,
               fontSize: Dimens.bodySmall,
               color: Palette.text,
             ),
         labelLarge: Theme.of(context).textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.w500,
               fontSize: Dimens.labelLarge,
-              color: Palette.text,
+              color: Palette.subText,
+            ),
+        labelMedium: Theme.of(context).textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: Dimens.labelLarge,
+              color: Palette.subText,
             ),
         labelSmall: Theme.of(context).textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w500,
               fontSize: Dimens.labelSmall,
               letterSpacing: 0.25,
-              color: Palette.text,
+              color: Palette.subText,
             ),
       ),
       appBarTheme: const AppBarTheme().copyWith(
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
         color: Palette.background,
-        iconTheme: const IconThemeData(color: Palette.pinkLatte),
+        iconTheme: const IconThemeData(color: Palette.icon),
         systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
           statusBarColor: Colors.transparent,
         ),
         surfaceTintColor: Palette.background,
         shadowColor: Palette.shadow,
       ),
-      drawerTheme: const DrawerThemeData().copyWith(
-        elevation: Dimens.zero,
-        surfaceTintColor: Palette.background,
-        backgroundColor: Palette.background,
-      ),
       bottomSheetTheme: const BottomSheetThemeData().copyWith(
-        backgroundColor: Palette.background,
+        backgroundColor: Palette.bottomSheetBackground,
         surfaceTintColor: Colors.transparent,
         elevation: Dimens.zero,
       ),
       dialogTheme: const DialogTheme().copyWith(
-        backgroundColor: Palette.background,
+        backgroundColor: Palette.dialog,
         surfaceTintColor: Colors.transparent,
         elevation: Dimens.zero,
       ),
       brightness: Brightness.light,
-      iconTheme: const IconThemeData(color: Palette.primary),
+      iconTheme: const IconThemeData(color: Palette.icon),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       extensions: const <ThemeExtension<dynamic>>[
         PookabooColors(
@@ -126,119 +105,101 @@ ThemeData themeLight(BuildContext context) => ThemeData(
 
 /// Dark theme
 ThemeData themeDark(BuildContext context) => ThemeData(
-      fontFamily: 'Poppins',
+      fontFamily: 'Pretendard',
       useMaterial3: true,
       primaryColor: Palette.pinkMocha,
       disabledColor: Palette.shadowDark,
       hintColor: Palette.subTextDark,
-      cardColor: Palette.backgroundDark,
+      cardColor: Palette.cardDark,
       scaffoldBackgroundColor: Palette.backgroundDark,
-      colorScheme: const ColorScheme.dark().copyWith(primary: Palette.primary),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Palette.background,
+        type: BottomNavigationBarType.fixed,
+        selectedIconTheme:
+            IconThemeData(size: Dimens.icon, color: Palette.icon),
+        unselectedIconTheme:
+            IconThemeData(size: Dimens.icon, color: Palette.iconSub),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        elevation: 0,
+      ),
       textTheme: TextTheme(
-        displayLarge: Theme.of(context).textTheme.displayLarge?.copyWith(
-              fontSize: Dimens.displayLarge,
-              color: Palette.textDark,
-            ),
-        displayMedium: Theme.of(context).textTheme.displayMedium?.copyWith(
-              fontSize: Dimens.displayMedium,
-              color: Palette.textDark,
-            ),
-        displaySmall: Theme.of(context).textTheme.displaySmall?.copyWith(
-              fontSize: Dimens.displaySmall,
-              color: Palette.textDark,
-            ),
-        headlineMedium: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontSize: Dimens.headlineMedium,
-              color: Palette.textDark,
-            ),
-        headlineSmall: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontSize: Dimens.headlineSmall,
-              color: Palette.textDark,
-            ),
-        titleLarge: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontSize: Dimens.titleLarge,
-              color: Palette.textDark,
-            ),
-        titleMedium: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontSize: Dimens.titleMedium,
-              color: Palette.textDark,
-            ),
-        titleSmall: Theme.of(context).textTheme.titleSmall?.copyWith(
-              fontSize: Dimens.titleSmall,
-              color: Palette.textDark,
-            ),
         bodyLarge: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.w600,
               fontSize: Dimens.bodyLarge,
               color: Palette.textDark,
             ),
         bodyMedium: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w600,
               fontSize: Dimens.bodyMedium,
               color: Palette.textDark,
             ),
         bodySmall: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w500,
               fontSize: Dimens.bodySmall,
               color: Palette.textDark,
             ),
         labelLarge: Theme.of(context).textTheme.labelLarge?.copyWith(
+              fontWeight: FontWeight.w500,
               fontSize: Dimens.labelLarge,
-              color: Palette.textDark,
+              color: Palette.subTextDark,
+            ),
+        labelMedium: Theme.of(context).textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: Dimens.labelLarge,
+              color: Palette.subTextDark,
             ),
         labelSmall: Theme.of(context).textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w500,
               fontSize: Dimens.labelSmall,
               letterSpacing: 0.25,
-              color: Palette.textDark,
+              color: Palette.subTextDark,
             ),
       ),
       appBarTheme: const AppBarTheme().copyWith(
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
-        iconTheme: const IconThemeData(color: Palette.pinkMocha),
-        color: Palette.backgroundDark,
-        systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+        color: Palette.background,
+        iconTheme: const IconThemeData(color: Palette.icon),
+        systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
           statusBarColor: Colors.transparent,
         ),
-        surfaceTintColor: Palette.backgroundDark,
-        shadowColor: Palette.shadowDark,
-      ),
-      drawerTheme: const DrawerThemeData().copyWith(
-        elevation: Dimens.zero,
-        surfaceTintColor: Palette.backgroundDark,
-        backgroundColor: Palette.backgroundDark,
-        shadowColor: Palette.shadowDark,
+        surfaceTintColor: Palette.background,
+        shadowColor: Palette.shadow,
       ),
       bottomSheetTheme: const BottomSheetThemeData().copyWith(
-        backgroundColor: Palette.backgroundDark,
+        backgroundColor: Palette.bottomSheetBackground,
         surfaceTintColor: Colors.transparent,
         elevation: Dimens.zero,
       ),
       dialogTheme: const DialogTheme().copyWith(
-        backgroundColor: Palette.backgroundDark,
+        backgroundColor: Palette.dialog,
         surfaceTintColor: Colors.transparent,
         elevation: Dimens.zero,
       ),
-      brightness: Brightness.dark,
-      iconTheme: const IconThemeData(color: Palette.primary),
+      brightness: Brightness.light,
+      iconTheme: const IconThemeData(color: Palette.icon),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       extensions: const <ThemeExtension<dynamic>>[
         PookabooColors(
-          background: Palette.backgroundDark,
-          buttonText: Palette.textDark,
-          card: Palette.cardDark,
-          subtitle: Palette.subTextDark,
+          background: Palette.background,
+          card: Palette.card,
+          buttonText: Palette.text,
+          subtitle: Palette.subText,
           shadow: Palette.shadowDark,
-          green: Palette.greenMocha,
-          roseWater: Palette.roseWaterMocha,
-          flamingo: Palette.flamingoMocha,
-          pink: Palette.pinkMocha,
-          mauve: Palette.mauveMocha,
-          maroon: Palette.maroonMocha,
-          peach: Palette.peachMocha,
-          yellow: Palette.yellowMocha,
-          teal: Palette.tealMocha,
-          sapphire: Palette.sapphireMocha,
-          sky: Palette.skyMocha,
-          blue: Palette.blueMocha,
-          lavender: Palette.lavenderMocha,
-          red: Palette.redMocha,
+          green: Palette.greenLatte,
+          roseWater: Palette.roseWaterLatte,
+          flamingo: Palette.flamingoLatte,
+          pink: Palette.pinkLatte,
+          mauve: Palette.mauveLatte,
+          maroon: Palette.maroonLatte,
+          peach: Palette.peachLatte,
+          yellow: Palette.yellowLatte,
+          teal: Palette.tealLatte,
+          sapphire: Palette.sapphireLatte,
+          sky: Palette.skyLatte,
+          blue: Palette.blueLatte,
+          lavender: Palette.lavenderLatte,
+          red: Palette.redLatte,
         ),
       ],
     );

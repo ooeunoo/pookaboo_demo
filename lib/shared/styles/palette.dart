@@ -54,20 +54,58 @@ import 'package:flutter/material.dart';
 class Palette {
   Palette._();
 
+  // primart
   static const Color primary = Color(0xffE18925);
   static const Color primaryLight = Color(0xffF7B553);
 
-  static const Color background = Color(0xffeff1f5);
-  static const Color backgroundDark = Color(0xff1e1e2e);
-  static const Color card = Color(0xffccd0da);
-  static const Color cardDark = Color(0xff313244);
-  static const Color text = Color(0xff4c4f69);
-  static const Color textDark = Color(0xffcdd6f4);
-  static const Color subText = Color(0xff9ca0b0);
-  static const Color subTextDark = Color(0xff6c7086);
+  // background
+  static const Color background = Color(0xff191A1F);
+  static const Color backgroundDark = Color(0xff191A1F);
+
+  // bottom sheet background
+  static const Color bottomSheetBackground = Color(0xff202328);
+  static const Color bottomSheetBackgroundDark = Color(0xff202328);
+
+  // dialog background
+  static const Color dialog = Color(0xff31363F);
+  static const Color dialogDark = Color(0xff31363F);
+
+  // card
+  static const Color card = Color(0xff191A1F);
+  static const Color cardDark = Color(0xff191A1F);
+
+  // text
+  static const Color text = Color(0xffF2F3F5);
+  static const Color textDark = Color(0xffF2F3F5);
+  static const Color subText = Color(0xff9EA5B3);
+  static const Color subTextDark = Color(0xff9EA5B3);
+  static const Color buttonText = Color(0xff191A1F);
+  static const Color buttonTextDark = Color(0xff191A1F);
+
+  static const Color highlightText = Color(0xffFF4D4D);
+  static const Color highlightTextDark = Color(0xffFF4D4D);
+  static const Color highlightSubText = Color(0xff3D98FF);
+  static const Color highlightSubTextDark = Color(0xff3D98FF);
+
+  // button
+  static const Color button = Color(0xffFFFB7A);
+  static const Color buttonDark = Color(0xffFFFB7A);
+
+  // shadow
   static const Color shadow = Color(0xff8c8fa1);
   static const Color shadowDark = Color(0xff7f849c);
 
+  // icon
+  static const Color icon = Color(0xffF2F3F5);
+  static const Color iconDark = Color(0xffF2F3F5);
+  static const Color iconSub = Color(0xff7d7c7f);
+  static const Color iconSubDark = Color(0xff7d7c7f);
+
+  // divider
+  static const Color divider = Color(0xff101114);
+  static const Color dividerDark = Color(0xff101114);
+
+  // other
   static const Color redMocha = Color(0xfff38ba8);
   static const Color greenMocha = Color(0xffa6e3a1);
   static const Color roseWaterMocha = Color(0xfff5e0dc);

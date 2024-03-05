@@ -1,14 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
-import 'package:pookaboo/shared/utils/helper/data_helper.dart';
+import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pookaboo/shared/services/hive/main_box.dart';
 
-class SettingsCubit extends Cubit<DataHelper> with MainBoxMixin {
-  SettingsCubit() : super(DataHelper(type: "en"));
+part 'setting_state.dart';
+part 'setting_cubit.freezed.dart';
+
+class SettingsCubit extends Cubit<SettingState> with MainBoxMixin {
+  SettingsCubit() : super(SettingState(type: "en"));
 
   void updateTheme(ActiveTheme activeTheme) {
     addData(MainBoxKeys.theme, activeTheme.name);
     emit(
-      DataHelper(
+      SettingState(
         activeTheme: activeTheme,
         type: getData(MainBoxKeys.locale) ?? "en",
       ),
@@ -18,7 +24,7 @@ class SettingsCubit extends Cubit<DataHelper> with MainBoxMixin {
   void updateLanguage(String type) {
     /// Update locale code
     addData(MainBoxKeys.locale, type);
-    emit(DataHelper(type: type, activeTheme: getActiveTheme()));
+    emit(SettingState(type: type, activeTheme: getActiveTheme()));
   }
 
   ActiveTheme getActiveTheme() {
@@ -28,7 +34,7 @@ class SettingsCubit extends Cubit<DataHelper> with MainBoxMixin {
           (getData(MainBoxKeys.theme) ?? ActiveTheme.system.name),
     );
     emit(
-      DataHelper(
+      SettingState(
         activeTheme: activeTheme,
         type: getData(MainBoxKeys.locale) ?? "en",
       ),

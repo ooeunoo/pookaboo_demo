@@ -1,11 +1,12 @@
 part of 'navigation_cubit.dart';
 
-class NavigationState extends Equatable {
-  final String bottomNavItems;
-  final int index;
+@freezed
+class NavigationState with _$NavigationState {
+  const factory NavigationState({
+    required String path,
+    required int index,
+  }) = _NavigationState;
 
-  const NavigationState({required this.bottomNavItems, required this.index});
-
-  @override
-  List<Object> get props => [bottomNavItems, index];
+  factory NavigationState.initial() =>
+      const NavigationState(path: '', index: 0);
 }

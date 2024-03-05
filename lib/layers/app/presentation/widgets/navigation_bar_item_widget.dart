@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-class NavigationBarItem extends BottomNavigationBarItem {
+class NavigationBarItemWidget extends BottomNavigationBarItem {
   final String initialLocation;
 
-  NavigationBarItem(
+  NavigationBarItemWidget(
       {required this.initialLocation, required super.icon, super.label});
 }

@@ -1,6 +1,7 @@
 import 'dart:isolate';
 
 import 'package:pookaboo/shared/constant/env.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 ///
@@ -38,7 +39,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 ///
 ///
 
-mixin SupabaseService {
+class SupabaseService {
   static Future<void> init() async {
     await Supabase.initialize(
       url: Env.get.supaBaseUrl,
@@ -62,5 +63,44 @@ mixin SupabaseService {
     //     );
     //   }).sendPort,
     // );
+  }
+
+  SupabaseClient _client() {
+    return Supabase.instance.client;
+  }
+
+  void signInWithOAuth({required OAuthProvider provider}) async {
+    await _client().auth.signInWithOAuth(OAuthProvider.kakao,
+        redirectTo: 'io.supabase.flutterquickstart://login-callback/'
+
+        // 만약 앱이 설치되어있는지 확인할 수 있다면
+        // authScreenLaunchMode: <확인> ? LaunchMode.externalApplication : LaunchMode.platformDefault,
+        );
+  }
+
+  void signInWithEmailPassword(
+      {required String email, required String password}) async {
+    await _client().auth.signInWithPassword(email: email, password: password);
+  }
+
+  void signUpWithEmailPassword(
+      {required String email, required String password}) async {
+    await _client().auth.signUp(email: email, password: password);
+  }
+
+  Stream<User?> getCurrentUser() {
+    return _client().auth.onAuthStateChange.map((event) => event.session?.user);
+  }
+
+  User? getSignedInUser() {
+    return _client().auth.currentUser;
+  }
+
+  String getAccessToken() {
+    return _client().auth.currentSession?.accessToken ?? '';
+  }
+
+  Future<void> signOut() async {
+    return _client().auth.signOut();
   }
 }

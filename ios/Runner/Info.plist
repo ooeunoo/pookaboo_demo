@@ -45,6 +45,7 @@
 		<true />
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true />
+		<!-- Kakao Map -->
 		<key>NSAppTransportSecurity</key>
 		<dict>
 			<key>NSAllowsArbitraryLoads</key>
@@ -54,6 +55,8 @@
 		</dict>
 		<key>io.flutter.embedded_views_preview</key>
 		<true />
+
+		<!-- Supabase for Deep Links -->
 		<key>CFBundleURLTypes</key>
 		<array>
 			<dict>
@@ -61,7 +64,7 @@
 				<string>Editor</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>io.supabase.flutterexample</string>
+					<string>io.supabase.flutterquickstart</string>
 				</array>
 			</dict>
 		</array>

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// github : https://www.github.com/Lzyct <(’_’<)
 ///*********************************************
 /// © 2020 | All Right Reserved
-class Parent extends StatefulWidget {
+class AppParent extends StatefulWidget {
   final Widget? child;
   final PreferredSize? appBar;
   final bool avoidBottomInset;
@@ -18,7 +18,7 @@ class Parent extends StatefulWidget {
   final Key? scaffoldKey;
   final bool extendBodyBehindAppBar;
 
-  const Parent({
+  const AppParent({
     super.key,
     this.child,
     this.appBar,
@@ -33,10 +33,10 @@ class Parent extends StatefulWidget {
   });
 
   @override
-  _ParentState createState() => _ParentState();
+  _AppParentState createState() => _AppParentState();
 }
 
-class _ParentState extends State<Parent> {
+class _AppParentState extends State<AppParent> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
