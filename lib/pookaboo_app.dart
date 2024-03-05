@@ -8,7 +8,7 @@ import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/constant/config.dart';
-import 'package:pookaboo/shared/localization/generated/strings.dart';
+import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/localization/l10n.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
@@ -49,7 +49,7 @@ class PookabooApp extends StatelessWidget {
               builder: (_, data) => MaterialApp.router(
                 routerConfig: AppRoute.router,
                 localizationsDelegates: const [
-                  Strings.delegate,
+                  Messages.delegate,
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
@@ -69,7 +69,7 @@ class PookabooApp extends StatelessWidget {
                 title: Config.get.appName,
                 theme: themeLight(context),
                 // darkTheme: themeDark(context),
-                locale: Locale(data.type ?? "en"),
+                locale: Locale(data.type ?? "ko"),
                 supportedLocales: L10n.all,
                 // themeMode: data.activeTheme.mode,
               ),

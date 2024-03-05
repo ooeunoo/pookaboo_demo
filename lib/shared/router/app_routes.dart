@@ -9,7 +9,7 @@ import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/auth/presentation/pages/login/login.dart';
 import 'package:pookaboo/layers/user/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/splash/presentation/pages/splash.dart';
-import 'package:pookaboo/layers/toilet/presentation/pages/map.dart';
+import 'package:pookaboo/layers/toilet/presentation/pages/toilet_map/toilet_map.dart';
 import 'package:pookaboo/shared/router/router_refresh_stream.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 

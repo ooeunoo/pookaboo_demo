@@ -1,6 +1,6 @@
 arb-dir: lib/shared/localization
 output-dir: lib/shared/localization/generated
 template-arb-file: intl_en.arb
-output-localization-file: strings.dart
-output-class: Strings
+output-localization-file: message.dart
+output-class: Messages
 synthetic-package: false

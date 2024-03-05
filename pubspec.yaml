@@ -14,6 +14,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  intl: ^0.18.1
+  
   cupertino_icons: ^1.0.6
   go_router: ^13.2.0
   flutter_bloc: ^8.1.4
@@ -56,15 +58,18 @@ dev_dependencies:
   # injectable
   injectable_generator: ^2.4.1
 
-  
+  # intl
+  intl_generator: ^0.4.1
 
 flutter:
-
+  generate: true 
   uses-material-design: true
 
   assets:
     - assets/images/
     - assets/fonts/
+    - assets/svg/
+
 
   # example:
   fonts:
@@ -78,5 +83,8 @@ flutter:
 
 scripts:
   run: flutter run --dart-define-from-file=".env"
-  build_l10n: flutter gen-l10n
+  build_l10n: flutter pub run intl_generator:generate_from_arb --output-dir=lib/shared/localization/generated --no-use-deferred-loading lib/main.dart lib/shared/localization/intl_*.arb
   build: flutter packages pub run build_runner build --delete-conflicting-outputs  
+
+
+

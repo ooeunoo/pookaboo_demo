@@ -4,17 +4,18 @@ class L10n {
   L10n._();
 
   static final all = [
-    const Locale('en'),
-    const Locale('id'),
+    const Locale('ko', ""),
+    const Locale('en', ""),
   ];
 
   static String getFlag(String code) {
     switch (code) {
-      case 'id':
-        return 'Bahasa';
+      case 'ko':
+        return 'Korean';
       case 'en':
-      default:
         return 'English';
+      default:
+        return 'Korean';
     }
   }
 }

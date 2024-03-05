@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 /// © 2020 | All Right Reserved
 class AppParent extends StatefulWidget {
   final Widget? child;
-  final PreferredSize? appBar;
+  final AppBar? appBar;
   final bool avoidBottomInset;
   final Widget? floatingButton;
   final Widget? bottomNavigation;

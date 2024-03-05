@@ -11,7 +11,8 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> signInWithKakao() async {
-    _supabaseService.signInWithOAuth(provider: OAuthProvider.kakao);
+    _supabaseService.client.auth.signInWithOAuth(OAuthProvider.kakao,
+        redirectTo: 'io.supabase.flutterquickstart://login-callback/');
   }
 
   @override
@@ -23,32 +24,34 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password}) async {
-    _supabaseService.signInWithEmailPassword(email: email, password: password);
+    _supabaseService.client.auth
+        .signInWithPassword(email: email, password: password);
   }
 
   @override
   Future<void> signUpWithEmailAndPassword(
       {required String email, required String password}) async {
-    _supabaseService.signUpWithEmailPassword(email: email, password: password);
+    _supabaseService.client.auth.signUp(email: email, password: password);
   }
 
   @override
   Future<void> signOut() async {
-    await _supabaseService.signOut();
+    await _supabaseService.client.auth.signOut();
   }
 
   @override
   Stream<User?> getCurrentUser() {
-    return _supabaseService.getCurrentUser();
+    return _supabaseService.client.auth.onAuthStateChange
+        .map((event) => event.session?.user);
   }
 
   @override
   User? getSignedInUser() {
-    return _supabaseService.getSignedInUser();
+    return _supabaseService.client.auth.currentUser;
   }
 
   @override
   String getAccessToken() {
-    return _supabaseService.getAccessToken();
+    return _supabaseService.client.auth.currentSession?.accessToken ?? "";
   }
 }

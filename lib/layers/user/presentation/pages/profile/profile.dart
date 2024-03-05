@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/user/presentation/widgets/signin_screen.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_button.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
           return const SignInScreen(); // 로그인 위젯 반환
         },
         orElse: () {
+          log.d('아직 로그인 되지않음');
           return Center(child: AppButton(title: "로그아웃", onPressed: _signOut));
         },
       ),

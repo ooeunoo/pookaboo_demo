@@ -1,4 +1,8 @@
 {
+  "@@locale": "en", 
+  "startWithKakao": "Start With Kakao",
+  "myPage": "MyPage",
+  "recommendSignIn": "After logging in or signing up, you can receive detailed bathroom information",
   "dashboard": "Dashboard",
   "about": "About",
   "selectDate": "Choose Date",

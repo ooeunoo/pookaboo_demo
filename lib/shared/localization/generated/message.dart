@@ -5,22 +5,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
-import 'strings_en.dart';
-import 'strings_id.dart';
+import 'message_en.dart';
+import 'message_ko.dart';
 
-/// Callers can lookup localized strings with an instance of Strings
-/// returned by `Strings.of(context)`.
+/// Callers can lookup localized strings with an instance of Messages
+/// returned by `Messages.of(context)`.
 ///
-/// Applications need to include `Strings.delegate()` in their app's
+/// Applications need to include `Messages.delegate()` in their app's
 /// `localizationDelegates` list, and the locales they support in the app's
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'generated/strings.dart';
+/// import 'generated/message.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: Strings.localizationsDelegates,
-///   supportedLocales: Strings.supportedLocales,
+///   localizationsDelegates: Messages.localizationsDelegates,
+///   supportedLocales: Messages.supportedLocales,
 ///   home: MyApplicationHome(),
 /// );
 /// ```
@@ -57,18 +57,18 @@ import 'strings_id.dart';
 /// Select and expand the newly-created Localizations item then, for each
 /// locale your application supports, add a new item and select the locale
 /// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the Strings.supportedLocales
+/// be consistent with the languages listed in the Messages.supportedLocales
 /// property.
-abstract class Strings {
-  Strings(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+abstract class Messages {
+  Messages(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static Strings? of(BuildContext context) {
-    return Localizations.of<Strings>(context, Strings);
+  static Messages? of(BuildContext context) {
+    return Localizations.of<Messages>(context, Messages);
   }
 
-  static const LocalizationsDelegate<Strings> delegate = _StringsDelegate();
+  static const LocalizationsDelegate<Messages> delegate = _MessagesDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -90,8 +90,26 @@ abstract class Strings {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('id')
+    Locale('ko')
   ];
+
+  /// No description provided for @startWithKakao.
+  ///
+  /// In en, this message translates to:
+  /// **'Start With Kakao'**
+  String get startWithKakao;
+
+  /// No description provided for @myPage.
+  ///
+  /// In en, this message translates to:
+  /// **'MyPage'**
+  String get myPage;
+
+  /// No description provided for @recommendSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'After logging in or signing up, you can receive detailed bathroom information'**
+  String get recommendSignIn;
 
   /// No description provided for @dashboard.
   ///
@@ -256,32 +274,32 @@ abstract class Strings {
   String get yes;
 }
 
-class _StringsDelegate extends LocalizationsDelegate<Strings> {
-  const _StringsDelegate();
+class _MessagesDelegate extends LocalizationsDelegate<Messages> {
+  const _MessagesDelegate();
 
   @override
-  Future<Strings> load(Locale locale) {
-    return SynchronousFuture<Strings>(lookupStrings(locale));
+  Future<Messages> load(Locale locale) {
+    return SynchronousFuture<Messages>(lookupMessages(locale));
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'id'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ko'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(_StringsDelegate old) => false;
+  bool shouldReload(_MessagesDelegate old) => false;
 }
 
-Strings lookupStrings(Locale locale) {
+Messages lookupMessages(Locale locale) {
 
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return StringsEn();
-    case 'id': return StringsId();
+    case 'en': return MessagesEn();
+    case 'ko': return MessagesKo();
   }
 
   throw FlutterError(
-    'Strings.delegate failed to load unsupported locale "$locale". This is likely '
+    'Messages.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
     'that was used.'

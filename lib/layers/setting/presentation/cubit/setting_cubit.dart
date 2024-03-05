@@ -9,14 +9,14 @@ part 'setting_state.dart';
 part 'setting_cubit.freezed.dart';
 
 class SettingsCubit extends Cubit<SettingState> with MainBoxMixin {
-  SettingsCubit() : super(SettingState(type: "en"));
+  SettingsCubit() : super(SettingState(type: "ko"));
 
   void updateTheme(ActiveTheme activeTheme) {
     addData(MainBoxKeys.theme, activeTheme.name);
     emit(
       SettingState(
         activeTheme: activeTheme,
-        type: getData(MainBoxKeys.locale) ?? "en",
+        type: getData(MainBoxKeys.locale) ?? "ko",
       ),
     );
   }
@@ -36,7 +36,7 @@ class SettingsCubit extends Cubit<SettingState> with MainBoxMixin {
     emit(
       SettingState(
         activeTheme: activeTheme,
-        type: getData(MainBoxKeys.locale) ?? "en",
+        type: getData(MainBoxKeys.locale) ?? "ko",
       ),
     );
     return activeTheme;

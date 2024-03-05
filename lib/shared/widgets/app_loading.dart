@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pookaboo/shared/localization/generated/strings.dart';
+import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/widgets/app_color_loaders.dart';
 
 class AppLoading extends StatelessWidget {
@@ -17,7 +17,7 @@ class AppLoading extends StatelessWidget {
           Visibility(
             visible: showMessage,
             child: Text(
-              Strings.of(context)!.pleaseWait,
+              Messages.of(context)!.pleaseWait,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),

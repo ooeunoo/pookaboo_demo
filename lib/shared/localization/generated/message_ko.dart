@@ -1,38 +1,47 @@
-import 'strings.dart';
+import 'message.dart';
 
-/// The translations for Indonesian (`id`).
-class StringsId extends Strings {
-  StringsId([String locale = 'id']) : super(locale);
-
-  @override
-  String get dashboard => 'Beranda';
+/// The translations for Korean (`ko`).
+class MessagesKo extends Messages {
+  MessagesKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get about => 'Tentang';
+  String get startWithKakao => '카카오로 시작하기';
 
   @override
-  String get selectDate => 'Pilih Tanggal';
+  String get myPage => '마이페이지';
 
   @override
-  String get selectTime => 'Pilih Waktu';
+  String get recommendSignIn => '로그인 또는 회원가입 후 \n자세한 화장실 정보를 받아 보세요';
 
   @override
-  String get select => 'Pilih';
+  String get dashboard => '대시보드';
 
   @override
-  String get cancel => 'Batal';
+  String get about => '정보 보기';
 
   @override
-  String get pleaseWait => 'Harap tunggu...';
+  String get selectDate => '선택 날짜';
 
   @override
-  String get login => 'Masuk';
+  String get selectTime => '선택 시간';
 
   @override
-  String get email => 'Email';
+  String get select => '선택';
 
   @override
-  String get password => 'Kata Sandi';
+  String get cancel => '취소';
+
+  @override
+  String get pleaseWait => '잠시만 기다려주세요...';
+
+  @override
+  String get login => '로그인';
+
+  @override
+  String get email => '이메일';
+
+  @override
+  String get password => '비밀번호';
 
   @override
   String get register => 'Daftar';

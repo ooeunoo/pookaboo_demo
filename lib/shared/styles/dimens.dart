@@ -51,9 +51,9 @@ class Dimens {
   static double profilePicture = 110.w;
   static double birthdayCalendar = 120.w;
 
-  static double buttonH = 40.w;
+  static double buttonH = 52.w;
   static double imageW = 110.w;
 
-  static const double cornerRadius = 15;
+  static const double cornerRadius = 16;
   static const double cornerRadiusBottomSheet = 30;
 }
