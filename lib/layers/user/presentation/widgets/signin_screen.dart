@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
@@ -52,8 +53,11 @@ class _SignInFormState extends State<SignInScreen> {
               ),
               AppSpacerV(value: Dimens.space24),
               AppButton(
-                title: Messages.of(context)!.login,
+                title: Messages.of(context)!.startWithKakao,
                 onPressed: _signInWithKakao,
+                image: SvgPicture.asset(
+                  Images.kakaoLogo,
+                ),
               )
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
+import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +16,7 @@ class AppButton extends StatelessWidget {
   final Color? titleColor;
   final double? fontSize;
   final Color? splashColor;
-  final Image? image; // 이미지 추가
+  final Widget? image; // 이미지 추가
 
   const AppButton({
     super.key,
@@ -56,9 +57,14 @@ class AppButton extends StatelessWidget {
             if (image != null) // 이미지가 있는 경우에만 표시
               Padding(
                 padding:
-                    EdgeInsets.only(right: Dimens.space8), // 이미지와 텍스트 사이 간격 조정
-                child: image!,
+                    EdgeInsets.only(right: Dimens.space4), // 이미지와 텍스트 사이 간격 조정
+                child: SizedBox(
+                  width: Dimens.icon, // 이미지의 너비 지정
+                  height: Dimens.icon, // 이미지의 높이 지정
+                  child: image!,
+                ),
               ),
+            AppSpacerH(value: Dimens.space8),
             AppText(
               title,
               style: Theme.of(context)

@@ -43,6 +43,9 @@ dependencies:
   # google
   google_sign_in: ^6.2.1
 
+  # svg
+  flutter_svg: ^2.0.10+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
