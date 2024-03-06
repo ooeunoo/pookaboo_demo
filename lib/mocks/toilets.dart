@@ -1,0 +1,40 @@
+List<Map<String, dynamic>> get_toilets_mock() {
+  return [
+    {
+      "id": 1,
+      "name": '롯데백화점 구관 지하2층',
+      "type": '상업시설',
+      "visible": true,
+      "gender": true,
+      "password": false,
+      "password_tip": '',
+      "rating": 0,
+      "reviews": 0,
+      "location_type": '상업시설',
+      "address": '서울 영등포구 영등포동3가 10-11',
+      "road_address": '서울 영등포구 경인로 849',
+      "location_tip": '',
+      "city": '서울특별시',
+      "lat": 37.5167988382465,
+      "long": 126.907034099612,
+    },
+    {
+      "id": 2,
+      "name": '우면산 (대성사 옆)',
+      "type": '공공용시설',
+      "visible": true,
+      "gender": true,
+      "password": false,
+      "password_tip": '',
+      "rating": 0,
+      "reviews": 0,
+      "location_type": '공공용시설',
+      "address": '서울 서초구 서초동 산 138-2',
+      "road_address": '서울 서초구 남부순환로 2406',
+      "location_tip": '',
+      "city": '서울특별시',
+      "lat": 37.4757601050597,
+      "long": 127.014958845156,
+    }
+  ];
+}

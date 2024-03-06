@@ -27,6 +27,9 @@ dependencies:
   logger: ^2.1.0
   injectable: ^2.3.2
 
+  # geo locator
+  geolocator: ^11.0.0
+
   # local storage
   hive_flutter: ^1.1.0
 
@@ -73,7 +76,6 @@ flutter:
     - assets/fonts/
     - assets/svg/
 
-
   # example:
   fonts:
     - family: Pretendard
@@ -83,11 +85,7 @@ flutter:
         - asset: assets/fonts/Pretendard-Regular.ttf
         - asset: assets/fonts/Pretendard-Medium.ttf
 
-
 scripts:
   run: flutter run --dart-define-from-file=".env"
   build_l10n: flutter pub run intl_generator:generate_from_arb --output-dir=lib/shared/localization/generated --no-use-deferred-loading lib/main.dart lib/shared/localization/intl_*.arb
-  build: flutter packages pub run build_runner build --delete-conflicting-outputs  
-
-
-
+  build: flutter packages pub run build_runner build --delete-conflicting-outputs

@@ -5,7 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class AuthUseCase {
   final AuthRepository authRepository;
 
-  AuthUseCase({required this.authRepository});
+  AuthUseCase(this.authRepository);
 
   Future<void> signInWithKakao() async {
     await authRepository.signInWithKakao();

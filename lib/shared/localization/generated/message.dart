@@ -111,6 +111,24 @@ abstract class Messages {
   /// **'After logging in or signing up, you can receive detailed bathroom information'**
   String get recommendSignIn;
 
+  /// No description provided for @toiletFilterTime.
+  ///
+  /// In en, this message translates to:
+  /// **'time'**
+  String get toiletFilterTime;
+
+  /// No description provided for @toiletFilterGender.
+  ///
+  /// In en, this message translates to:
+  /// **'gender'**
+  String get toiletFilterGender;
+
+  /// No description provided for @toiletFilterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'password'**
+  String get toiletFilterPassword;
+
   /// No description provided for @dashboard.
   ///
   /// In en, this message translates to:

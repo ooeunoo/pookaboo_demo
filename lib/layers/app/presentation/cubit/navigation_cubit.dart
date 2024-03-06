@@ -1,7 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 
 part 'navigation_state.dart';

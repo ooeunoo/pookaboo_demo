@@ -14,6 +14,15 @@ class MessagesKo extends Messages {
   String get recommendSignIn => '로그인 또는 회원가입 후 \n자세한 화장실 정보를 받아 보세요';
 
   @override
+  String get toiletFilterTime => '현재운영';
+
+  @override
+  String get toiletFilterGender => '남녀분리';
+
+  @override
+  String get toiletFilterPassword => '개방';
+
+  @override
   String get dashboard => '대시보드';
 
   @override

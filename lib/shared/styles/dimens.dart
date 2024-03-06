@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Dimens {
@@ -29,6 +30,7 @@ class Dimens {
   static double space8 = 8.w;
   static double space12 = 12.w;
   static double space16 = 16.w;
+  static double space20 = 20.w;
   static double space24 = 24.w;
   static double space30 = 30.w;
   static double space36 = 36.w;
@@ -56,4 +58,6 @@ class Dimens {
 
   static const double cornerRadius = 16;
   static const double cornerRadiusBottomSheet = 30;
+
+  static double statusbarHeight(context) => MediaQuery.of(context).padding.top;
 }

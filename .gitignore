@@ -44,3 +44,7 @@ app.*.map.json
 
 # envrionment
 .env
+
+
+/python_scripts/pookaboo.json
+/python_scripts/env/

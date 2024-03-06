@@ -14,6 +14,15 @@ class MessagesEn extends Messages {
   String get recommendSignIn => 'After logging in or signing up, you can receive detailed bathroom information';
 
   @override
+  String get toiletFilterTime => 'time';
+
+  @override
+  String get toiletFilterGender => 'gender';
+
+  @override
+  String get toiletFilterPassword => 'password';
+
+  @override
   String get dashboard => 'Dashboard';
 
   @override

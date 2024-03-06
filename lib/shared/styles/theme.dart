@@ -45,7 +45,7 @@ ThemeData themeLight(BuildContext context) => ThemeData(
             ),
         labelMedium: Theme.of(context).textTheme.labelMedium?.copyWith(
               fontWeight: FontWeight.w500,
-              fontSize: Dimens.labelLarge,
+              fontSize: Dimens.labelMedium,
               color: Palette.subText,
             ),
         labelSmall: Theme.of(context).textTheme.labelSmall?.copyWith(

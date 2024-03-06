@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
+import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
@@ -32,13 +33,14 @@ class PookabooApp extends StatelessWidget {
         BlocProvider(
             create: (_) =>
                 sl<AuthBloc>()..add(const AuthEvent.initialCheckRequested())),
+        BlocProvider(create: (_) => sl<MapBloc>())
       ],
       child: OKToast(
         child: ScreenUtilInit(
           /// Set screen size to make responsive
           /// Almost all device
 
-          designSize: const Size(375, 667),
+          designSize: const Size(375, 812),
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, __) {
@@ -77,6 +79,6 @@ class PookabooApp extends StatelessWidget {
           },
         ),
       ),
-    );
+    )
   }
 }
