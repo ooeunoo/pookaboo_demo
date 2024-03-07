@@ -4,16 +4,27 @@ part of 'map_bloc.dart';
 abstract class MapEvent extends Equatable {}
 
 /////////////////////////////////
+/// Map Create
+/// 지도 생성
+////////////////////////////////
+class MapCreateEvent extends MapEvent {
+  final KakaoMapController controller;
+
+  MapCreateEvent({required this.controller});
+
+  @override
+  List<Object?> get props => [controller];
+}
+
+/////////////////////////////////
 /// Get Near By Toilets
 /// 현재 근처 화장실 찾기
 ////////////////////////////////
 class GetNearByToiletsEvent extends MapEvent {
-  final LatLngBounds bound;
-
-  GetNearByToiletsEvent({required this.bound});
+  GetNearByToiletsEvent();
 
   @override
-  List<Object?> get props => [bound];
+  List<Object?> get props => [];
 }
 
 /////////////////////////////////
@@ -21,11 +32,10 @@ class GetNearByToiletsEvent extends MapEvent {
 /// 내 위치로 이동
 ////////////////////////////////
 class MoveToMyPositionEvent extends MapEvent {
-  final KakaoMapController mapController;
-  MoveToMyPositionEvent({required this.mapController});
+  MoveToMyPositionEvent();
 
   @override
-  List<Object> get props => [mapController];
+  List<Object> get props => [];
 }
 
 /////////////////////////////////

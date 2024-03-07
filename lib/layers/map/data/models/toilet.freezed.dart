@@ -298,9 +298,9 @@ class _$ToiletImpl implements _Toilet {
       required this.visible,
       required this.gender,
       required this.password,
-      required this.password_tip,
-      required this.rating,
-      required this.reviews,
+      this.password_tip = "",
+      this.rating = 0,
+      this.reviews = 0,
       required this.location_type,
       required this.address,
       required this.road_address,
@@ -325,10 +325,13 @@ class _$ToiletImpl implements _Toilet {
   @override
   final bool password;
   @override
+  @JsonKey()
   final String password_tip;
   @override
+  @JsonKey()
   final double rating;
   @override
+  @JsonKey()
   final double reviews;
   @override
   final String location_type;
@@ -421,9 +424,9 @@ abstract class _Toilet implements Toilet {
       required final bool visible,
       required final bool gender,
       required final bool password,
-      required final String password_tip,
-      required final double rating,
-      required final double reviews,
+      final String password_tip,
+      final double rating,
+      final double reviews,
       required final String location_type,
       required final String address,
       required final String road_address,

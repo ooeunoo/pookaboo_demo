@@ -12,6 +12,26 @@ class InitialState extends MapState {
 }
 
 /////////////////////////////////
+/// Map Created
+////////////////////////////////
+class MapCreatedState extends MapState {
+  final KakaoMapController controller;
+
+  MapCreatedState({required this.controller});
+
+  @override
+  List<Object> get props => [controller];
+}
+
+/////////////////////////////////
+/// Moved Map
+////////////////////////////////
+class MovedMapState extends MapState {
+  @override
+  List<Object> get props => [];
+}
+
+/////////////////////////////////
 /// Searching Toilet
 ////////////////////////////////
 class SearchingToiletState extends MapState {

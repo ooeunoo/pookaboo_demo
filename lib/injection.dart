@@ -7,13 +7,13 @@ import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasources.dart';
 import 'package:pookaboo/layers/map/data/repositories/map_repository_impl.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
+import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -62,7 +62,10 @@ void _dataSources() {
 }
 
 void _useCase() {
-  sl.registerLazySingleton(() => AuthUseCase(sl()));
+  sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl()));
+
+  sl.registerLazySingleton<GetNearByToiletsUseCase>(
+      () => GetNearByToiletsUseCase(sl()));
 }
 
 void _bloc() {

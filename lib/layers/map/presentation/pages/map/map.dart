@@ -6,6 +6,7 @@ import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_chip.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 
@@ -20,13 +21,12 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  late KakaoMapController _mapController;
-
   // void _getVisibleRegionBounds() async {
   //   //LatLngBounds{sw: LatLng{latitude: 33.44726741665278, longitude: 126.56857014538832}, ne: LatLng{latitude: 33.45412509132144, longitude: 126.57276324214196}}
   //   LatLngBounds bound = await _controller.getBounds();
   //   print('bound $bound');
   // }
+  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -39,25 +39,23 @@ class _MapPageState extends State<MapPage> {
             ///////////////////////////////////
             BlocListener<MapBloc, MapState>(
               listener: (context, state) {
-                // if (state is MapCenterChangedState) {
-                //   // 블록에서 받은 새로운 지도 중심을 사용하여 지도를 이동합니다.
-                //   _moveMapToCenter(context, state.newCenter);
-                // }
+                // 초기화 상태라면 내 위치로 이동하기
+                if (state is MapCreatedState) {
+                  context.read<MapBloc>().add(MoveToMyPositionEvent());
+                } else if (state is MovedMapState) {
+                  context.read<MapBloc>().add(GetNearByToiletsEvent());
+                } else if (state is LoadedToiletMarkerState) {
+                  markers = state.markers;
+                }
               },
               child: KakaoMap(
-                center: initialCenter,
-                onMapCreated: ((controller) async {
-                  _mapController = controller;
-
-                  setState(() {});
-                }), // onMapTap: (latLng) {
-                // print(latLng);
-                // 사용자가 지도를 탭하면 블록에 새로운 지도 중심을 전달합니다.
-                // context
-                //     .read<MapBloc>()
-                //     .add(MapCenterChangedEvent(newCenter: latLng));
-                // },
-              ),
+                  center: initialCenter,
+                  onMapCreated: ((controller) async {
+                    context
+                        .read<MapBloc>()
+                        .add(MapCreateEvent(controller: controller));
+                  }),
+                  markers: markers.toList()),
             ),
             ////////////////////////////////////
             ///  FILTER CHIP
@@ -102,8 +100,7 @@ class _MapPageState extends State<MapPage> {
                 bottom: Dimens.bottomBarHeight(context) + Dimens.space24,
                 child: GestureDetector(
                   onTap: () {
-                    context.read<MapBloc>().add(
-                        MoveToMyPositionEvent(mapController: _mapController));
+                    context.read<MapBloc>().add(MoveToMyPositionEvent());
                   },
                   child: Container(
                     width: 40,

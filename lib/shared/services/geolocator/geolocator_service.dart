@@ -101,7 +101,6 @@ class GeolocatorService {
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    log.d('serviceEnabled: $serviceEnabled');
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
@@ -110,7 +109,6 @@ class GeolocatorService {
     }
 
     permission = await Geolocator.checkPermission();
-    log.d('permission: $permission');
 
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -123,20 +121,12 @@ class GeolocatorService {
         return Future.error('Location permissions are denied');
       }
     }
-    log.d('permission: $permission');
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-
-    log.d('h');
-
-    final position = await Geolocator.getCurrentPosition();
-    log.d('a');
-
-    log.d('permission: ${position.latitude}');
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.

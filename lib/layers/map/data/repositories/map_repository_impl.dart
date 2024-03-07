@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasources.dart';
+import 'package:pookaboo/layers/map/data/models/toilet.dart';
+import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
-import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets.dart';
-import 'package:pookaboo/mocks/toilets.dart';
+import 'package:pookaboo/shared/error/failure.dart';
 
 class MapRepositoryImpl implements MapRepository {
   final ToiletRemoteDatasource toiletRemoteDatasource;
@@ -10,9 +11,10 @@ class MapRepositoryImpl implements MapRepository {
   const MapRepositoryImpl(this.toiletRemoteDatasource);
 
   @override
-  Future<List<Map<String, dynamic>>> getNearByToilets() async {
-    await Future.delayed(const Duration(seconds: 1));
-    final res = toiletRemoteDatasource.getNearByToilets();
-    return res;
+  Future<Either<Failure, List<Toilet>>> getNearByToiletsImpl(
+      GetNearByToiletsParams params) async {
+    final response =
+        await toiletRemoteDatasource.getNearByToiletsDatasource(params);
+    return response;
   }
 }
