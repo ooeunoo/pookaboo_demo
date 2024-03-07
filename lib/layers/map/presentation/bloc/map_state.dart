@@ -52,6 +52,18 @@ class LoadedToiletMarkerState extends MapState {
 }
 
 /////////////////////////////////
+/// Loaded Selected Toilet Information
+////////////////////////////////
+class LoadedSelectedToiletInformationState extends MapState {
+  final Set<Marker> markers;
+
+  LoadedSelectedToiletInformationState({required this.markers});
+
+  @override
+  List<Object> get props => [markers];
+}
+
+/////////////////////////////////
 /// Error
 ////////////////////////////////
 class ErrorState extends MapState {

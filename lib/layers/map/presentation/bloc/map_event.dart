@@ -43,10 +43,10 @@ class MoveToMyPositionEvent extends MapEvent {
 /// 특정 화장실 선택
 ////////////////////////////////
 class SelectedToiletMarkerEvent extends MapEvent {
-  final Marker marker;
+  final int toiletId;
 
-  SelectedToiletMarkerEvent({required this.marker});
+  SelectedToiletMarkerEvent({required this.toiletId});
 
   @override
-  List<Object> get props => [marker];
+  List<Object> get props => [toiletId];
 }

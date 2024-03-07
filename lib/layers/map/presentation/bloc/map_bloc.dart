@@ -116,5 +116,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /// [SelectedToiletMarkerEvent] Event Handler
   ////////////////////////////////
   Future<void> _onSelectedToiletMarkerEvent(
-      SelectedToiletMarkerEvent event, Emitter<MapState> emit) async {}
+      SelectedToiletMarkerEvent event, Emitter<MapState> emit) async {
+        try {
+
+        } catch (e) {
+          
+        }
+        
+      }
 }
