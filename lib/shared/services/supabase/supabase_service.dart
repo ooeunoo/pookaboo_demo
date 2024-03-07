@@ -1,43 +1,36 @@
-import 'dart:isolate';
-
 import 'package:pookaboo/shared/constant/env.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-///
-///
-/// AndroidManifest.xml
-///<intent-filter>
-///    <action android:name="android.intent.action.MAIN"/>
-///    <category android:name="android.intent.category.LAUNCHER"/>
-///</intent-filter>
-///<intent-filter>
-///    <action android:name="android.intent.action.VIEW" />
-///
-///    <category android:name="android.intent.category.DEFAULT" />
-///    <category android:name="android.intent.category.BROWSABLE" />
-///<!-- Accepts URIs that begin with packageID, oauth -->
-///<data android:scheme="com.example.supabase" android:host="oauth"/>
-///
-///</intent-filter>
-///
-///
-///
-///
-/// Info.plist
-///<key>CFBundleURLTypes</key>
-///<array>
-///	<dict>
-///		<key>CFBundleTypeRole</key>
-///		<string>Editor</string>
-///		<key>CFBundleURLSchemes</key>
-///		<array>
-///			<string>io.supabase.flutterexample</string>
-///		</array>
-///	</dict>
-///</array>
-///
-///
+///[AndroidManifest.xml]
+/******************************** 
+<intent-filter>
+    <action android:name="android.intent.action.MAIN"/>
+    <category android:name="android.intent.category.LAUNCHER"/>
+</intent-filter>
+<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+<!-- Accepts URIs that begin with packageID, oauth -->
+<data android:scheme="com.example.supabase" android:host="oauth"/>
+</intent-filter>
+********************************/
+
+///[Info.plist]
+/*******************************
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>io.supabase.flutterexample</string>
+		</array>
+	</dict>
+</array>
+*****************************/
 
 class SupabaseService {
   static Future<void> init() async {

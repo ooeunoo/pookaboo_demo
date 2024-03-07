@@ -79,6 +79,6 @@ class PookabooApp extends StatelessWidget {
           },
         ),
       ),
-    )
+    );
   }
 }

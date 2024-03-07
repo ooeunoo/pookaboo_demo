@@ -8,12 +8,24 @@ abstract class MapEvent extends Equatable {}
 /// 현재 근처 화장실 찾기
 ////////////////////////////////
 class GetNearByToiletsEvent extends MapEvent {
-  final LatLng loc;
+  final LatLngBounds bound;
 
-  GetNearByToiletsEvent({required this.loc});
+  GetNearByToiletsEvent({required this.bound});
 
   @override
-  List<Object?> get props => [loc];
+  List<Object?> get props => [bound];
+}
+
+/////////////////////////////////
+/// Move to my position
+/// 내 위치로 이동
+////////////////////////////////
+class MoveToMyPositionEvent extends MapEvent {
+  final KakaoMapController mapController;
+  MoveToMyPositionEvent({required this.mapController});
+
+  @override
+  List<Object> get props => [mapController];
 }
 
 /////////////////////////////////

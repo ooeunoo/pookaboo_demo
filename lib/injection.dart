@@ -9,6 +9,7 @@ import 'package:pookaboo/layers/map/data/repositories/map_repository_impl.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
+import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
@@ -66,7 +67,7 @@ void _useCase() {
 
 void _bloc() {
   sl.registerFactory(() => AuthBloc(sl()));
-  sl.registerFactory(() => MapBloc(sl()));
+  sl.registerFactory(() => MapBloc(sl(), sl()));
 }
 
 void _cubit() {
@@ -82,4 +83,7 @@ void _service() async {
   // Kakao Map
   await KakaoMapService.init();
   sl.registerSingleton<KakaoMapService>(KakaoMapService());
+
+  // Geolocator
+  sl.registerSingleton<GeolocatorService>(GeolocatorService());
 }

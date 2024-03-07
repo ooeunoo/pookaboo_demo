@@ -9,4 +9,5 @@ class Images {
   static String key = 'assets/svg/key.svg';
   static String gender = 'assets/svg/gender.svg';
   static String alarm = 'assets/svg/alarm.svg';
+  static String currentPosition = 'assets/svg/current_position.svg';
 }
