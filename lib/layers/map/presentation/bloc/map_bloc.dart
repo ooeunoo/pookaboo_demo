@@ -79,9 +79,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         log.d('herer');
         Set<Marker> markers = r.map<Marker>((toilet) {
           return Marker(
-              markerId: toilet.id.toString(),
-              latLng: LatLng(toilet.lat, toilet.lng));
+            markerId: toilet.id.toString(),
+            latLng: LatLng(
+              toilet.lat,
+              toilet.lng,
+            ),
+          );
         }).toSet();
+
         emit(LoadedToiletMarkerState(markers: markers));
       });
     } catch (e) {

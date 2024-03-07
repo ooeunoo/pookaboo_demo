@@ -55,6 +55,10 @@ class _MapPageState extends State<MapPage> {
                         .read<MapBloc>()
                         .add(MapCreateEvent(controller: controller));
                   }),
+                  onMarkerTap: (markerId, latLng, zoomLevel) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('marker click:\n\n$latLng')));
+                  },
                   markers: markers.toList()),
             ),
             ////////////////////////////////////
