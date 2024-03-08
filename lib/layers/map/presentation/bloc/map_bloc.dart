@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
 import 'package:pookaboo/mocks/toilets.dart';
+import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
@@ -36,7 +38,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<MapCreateEvent>(_onMapCreateEvent);
     on<GetNearByToiletsEvent>(_onGetNearByToiletsEvent);
     on<MoveToMyPositionEvent>(_onMoveToMyPositionEvent);
-    on<SelectedToiletMarkerEvent>(_onSelectedToiletMarkerEvent);
+    on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
   }
 
   /////////////////////////////////
@@ -113,17 +115,27 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   /////////////////////////////////
-  /// [SelectedToiletMarkerEvent] Event Handler
+  /// [SelecteToiletMarkerEvent] Event Handler
   ////////////////////////////////
-  Future<void> _onSelectedToiletMarkerEvent(
-      SelectedToiletMarkerEvent event, Emitter<MapState> emit) async {
+  Future<void> _onSelecteToiletMarkerEvent(
+      SelecteToiletMarkerEvent event, Emitter<MapState> emit) async {
     try {
       final int toiletId = event.toiletId;
-      log.d('toilet id: $toiletId');
       final response = await _getToiletByIdUseCase.call(toiletId);
-      log.d(response.toString());
+
+      response.fold((l) {
+        // error
+        //  if (l is ServerFailure) {
+        //   emit(_Failure(l.message ?? ""));
+        // }
+        log.e(l);
+      }, (r) {
+        emit(LoadedSelectedToiletState(toilet: r));
+      });
     } catch (e) {
       log.e(e);
     }
   }
+
+ 
 }

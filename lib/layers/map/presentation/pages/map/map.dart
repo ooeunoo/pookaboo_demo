@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
@@ -21,12 +22,32 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  // void _getVisibleRegionBounds() async {
-  //   //LatLngBounds{sw: LatLng{latitude: 33.44726741665278, longitude: 126.56857014538832}, ne: LatLng{latitude: 33.45412509132144, longitude: 126.57276324214196}}
-  //   LatLngBounds bound = await _controller.getBounds();
-  //   print('bound $bound');
-  // }
   Set<Marker> markers = {};
+
+  void _showBottomSheet(BuildContext context, Toilet toilet) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (_) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.3,
+          minChildSize: 0.3,
+          maxChildSize: 0.9,
+          snapSizes: const [0.3, 0.9],
+          snap: true,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: const Column(
+                children: [Text("hello")],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +67,8 @@ class _MapPageState extends State<MapPage> {
                   context.read<MapBloc>().add(GetNearByToiletsEvent());
                 } else if (state is LoadedToiletMarkersState) {
                   markers = state.markers;
+                } else if (state is LoadedSelectedToiletState) {
+                  _showBottomSheet(context, state.toilet);
                 }
               },
               child: KakaoMap(
@@ -59,7 +82,7 @@ class _MapPageState extends State<MapPage> {
                         .add(MapCreateEvent(controller: controller));
                   }),
                   onMarkerTap: (markerId, _, __) {
-                    context.read<MapBloc>().add(SelectedToiletMarkerEvent(
+                    context.read<MapBloc>().add(SelecteToiletMarkerEvent(
                         toiletId: int.parse(markerId)));
                   },
                   markers: markers.toList()),

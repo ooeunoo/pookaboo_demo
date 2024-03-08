@@ -40,7 +40,7 @@ class SearchingToiletState extends MapState {
 }
 
 /////////////////////////////////
-/// Loaded Toilet Marker
+/// Loaded Toilet Markers
 ////////////////////////////////
 class LoadedToiletMarkersState extends MapState {
   final Set<Marker> markers;
@@ -52,15 +52,15 @@ class LoadedToiletMarkersState extends MapState {
 }
 
 /////////////////////////////////
-/// Loaded Selected Toilet Information
+/// Loaded Selected Toilet 
 ////////////////////////////////
-class LoadedSelectedToiletInformationState extends MapState {
-  final Set<Marker> markers;
+class LoadedSelectedToiletState extends MapState {
+  final Toilet toilet;
 
-  LoadedSelectedToiletInformationState({required this.markers});
+  LoadedSelectedToiletState({required this.toilet});
 
   @override
-  List<Object> get props => [markers];
+  List<Object> get props => [toilet];
 }
 
 /////////////////////////////////
