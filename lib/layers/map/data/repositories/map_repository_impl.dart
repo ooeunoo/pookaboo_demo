@@ -17,4 +17,10 @@ class MapRepositoryImpl implements MapRepository {
         await toiletRemoteDatasource.getNearByToiletsDatasource(params);
     return response;
   }
+
+  @override
+  Future<Either<Failure, Toilet>> getToiletByIdImpl(int id) async {
+    final response = await toiletRemoteDatasource.getToiletByIdDatasource(id);
+    return response;
+  }
 }

@@ -7,6 +7,7 @@ import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
+import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
 import 'package:pookaboo/mocks/toilets.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -24,11 +25,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /// UseCase
   ////////////////////////////////
   final GetNearByToiletsUseCase _getNearByToiletsUseCase;
+  final GetToiletByIdUseCase _getToiletByIdUseCase;
 
   /////////////////////////////////
   /// Event Mapping
   ////////////////////////////////
-  MapBloc(this._geolocatorService, this._getNearByToiletsUseCase)
+  MapBloc(this._geolocatorService, this._getNearByToiletsUseCase,
+      this._getToiletByIdUseCase)
       : super(InitialState()) {
     on<MapCreateEvent>(_onMapCreateEvent);
     on<GetNearByToiletsEvent>(_onGetNearByToiletsEvent);
@@ -59,15 +62,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ) async {
     try {
       emit(SearchingToiletState());
-      log.d('in');
       // 현재 화면의 왼쪽 하단과 오른쪽 상단 좌표
       LatLngBounds bounds = await _mapController.getBounds();
-
+      log.d('bounds: ${bounds.toJson()}');
       GetNearByToiletsParams params = GetNearByToiletsParams(
           bounds: bounds, filterOfPassword: false, filterOfVisible: true);
 
       final response = await _getNearByToiletsUseCase.call(params);
-      log.d('response');
 
       response.fold((l) {
         // error
@@ -76,7 +77,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         // }
         log.e(l);
       }, (r) {
-        log.d('herer');
         Set<Marker> markers = r.map<Marker>((toilet) {
           return Marker(
             markerId: toilet.id.toString(),
@@ -87,7 +87,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           );
         }).toSet();
 
-        emit(LoadedToiletMarkerState(markers: markers));
+        emit(LoadedToiletMarkersState(markers: markers));
       });
     } catch (e) {
       log.e(e);
@@ -117,11 +117,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ////////////////////////////////
   Future<void> _onSelectedToiletMarkerEvent(
       SelectedToiletMarkerEvent event, Emitter<MapState> emit) async {
-        try {
-
-        } catch (e) {
-          
-        }
-        
-      }
+    try {
+      final int toiletId = event.toiletId;
+      log.d('toilet id: $toiletId');
+      final response = await _getToiletByIdUseCase.call(toiletId);
+      log.d(response.toString());
+    } catch (e) {
+      log.e(e);
+    }
+  }
 }

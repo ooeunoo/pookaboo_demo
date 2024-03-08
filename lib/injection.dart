@@ -8,6 +8,7 @@ import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasources.d
 import 'package:pookaboo/layers/map/data/repositories/map_repository_impl.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
+import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
@@ -66,11 +67,14 @@ void _useCase() {
 
   sl.registerLazySingleton<GetNearByToiletsUseCase>(
       () => GetNearByToiletsUseCase(sl()));
+
+  sl.registerLazySingleton<GetToiletByIdUseCase>(
+      () => GetToiletByIdUseCase(sl()));
 }
 
 void _bloc() {
   sl.registerFactory(() => AuthBloc(sl()));
-  sl.registerFactory(() => MapBloc(sl(), sl()));
+  sl.registerFactory(() => MapBloc(sl(), sl(), sl()));
 }
 
 void _cubit() {

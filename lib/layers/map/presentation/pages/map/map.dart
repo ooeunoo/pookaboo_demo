@@ -44,19 +44,21 @@ class _MapPageState extends State<MapPage> {
                   context.read<MapBloc>().add(MoveToMyPositionEvent());
                 } else if (state is MovedMapState) {
                   context.read<MapBloc>().add(GetNearByToiletsEvent());
-                } else if (state is LoadedToiletMarkerState) {
+                } else if (state is LoadedToiletMarkersState) {
                   markers = state.markers;
                 }
               },
               child: KakaoMap(
                   center: initialCenter,
+                  onMapTap: (LatLng loc) {
+                    context.read<MapBloc>().add(GetNearByToiletsEvent());
+                  },
                   onMapCreated: ((controller) async {
                     context
                         .read<MapBloc>()
                         .add(MapCreateEvent(controller: controller));
                   }),
                   onMarkerTap: (markerId, _, __) {
-                    log.d(markerId);
                     context.read<MapBloc>().add(SelectedToiletMarkerEvent(
                         toiletId: int.parse(markerId)));
                   },

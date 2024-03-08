@@ -6,4 +6,6 @@ import 'package:pookaboo/shared/error/failure.dart';
 abstract class MapRepository {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsImpl(
       GetNearByToiletsParams params);
+
+  Future<Either<Failure, Toilet>> getToiletByIdImpl(int id);
 }
