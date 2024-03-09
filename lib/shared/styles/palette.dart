@@ -70,6 +70,9 @@ class Palette {
   static const Color dividerBackground = Color(0xff101114);
   static const Color dividerBackgroundDark = Color(0xff101114);
 
+  static const Color subDividerBackground = Color(0xff5A606C);
+  static const Color subDividerBackgroundDark = Color(0xff5A606C);
+
   // dialog background
   static const Color dialog = Color(0xff31363F);
   static const Color dialogDark = Color(0xff31363F);
@@ -90,6 +93,9 @@ class Palette {
   static const Color highlightTextDark = Color(0xffFF4D4D);
   static const Color highlightSubText = Color(0xff3D98FF);
   static const Color highlightSubTextDark = Color(0xff3D98FF);
+
+  static const Color scoreHighlightText = Color(0xffE0DD6B);
+  static const Color scoreHighlightTextDark = Color(0xffE0DD6B);
 
   // button
   static const Color button = Color(0xffFFFB7A);

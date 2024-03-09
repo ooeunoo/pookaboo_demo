@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/widgets/app_divider.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
@@ -39,12 +41,15 @@ class _ReviewUndoneState extends State<ReviewUndone> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: reviews.length * 2 - 1, // Divider를 추가하기 위해 항목 수를 2배로 늘립니다.
+      itemCount: reviews.length * 2 - 1, // Divider를 추가하기 위해 항목 수를 2배
       itemBuilder: (context, index) {
         if (index.isOdd) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-            child: const Divider(),
+            child: AppDivider(
+              color: Palette.subDividerBackground,
+              height: Dimens.space1,
+            ),
           ); // 홀수 인덱스에 Divider를 추가합니다.
         }
 
@@ -58,11 +63,11 @@ class _ReviewUndoneState extends State<ReviewUndone> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(6.67), // 이미지를 네모난 느낌으로 만듦
+                borderRadius: BorderRadius.circular(6.67),
                 child: Image.network(
                   review['image'],
-                  width: 46,
-                  height: 46,
+                  width: Dimens.imageW,
+                  height: Dimens.imageW,
                   fit: BoxFit.cover,
                 ),
               ),

@@ -8,20 +8,28 @@ class AppText extends StatelessWidget {
   final FontWeight? fontWeight;
   final double? letterSpacing;
   final double? lineHeight;
+  final int? maxLines;
+  final TextOverflow? overflow;
 
-  const AppText(
-    this.text, {
-    required this.style,
-    super.key,
-    this.color,
-    this.align,
-    this.fontWeight,
-    this.letterSpacing,
-    this.lineHeight,
-  });
+  const AppText(this.text,
+      {required this.style,
+      super.key,
+      this.color,
+      this.align,
+      this.fontWeight,
+      this.letterSpacing,
+      this.lineHeight,
+      this.maxLines,
+      this.overflow});
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, textAlign: align, style: style);
+    return Text(
+      text,
+      textAlign: align,
+      style: style,
+      maxLines: maxLines,
+      overflow: overflow,
+    );
   }
 }

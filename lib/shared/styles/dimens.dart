@@ -23,6 +23,7 @@ class Dimens {
   static double icon = 24.sp;
 
   static double zero = 0;
+  static double space1 = 1.w;
   static double space2 = 2.w;
   static double space3 = 3.w;
   static double space4 = 4.w;
@@ -54,7 +55,7 @@ class Dimens {
   static double birthdayCalendar = 120.w;
 
   static double buttonH = 52.w;
-  static double imageW = 110.w;
+  static double imageW = 46.w;
 
   static const double cornerRadius = 16;
   static const double cornerRadiusBottomSheet = 30;

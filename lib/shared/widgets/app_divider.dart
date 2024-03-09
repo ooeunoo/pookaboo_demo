@@ -3,10 +3,15 @@ import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 
 class AppDivider extends StatelessWidget {
-  const AppDivider({super.key});
+  final Color? color;
+  final double? height;
+
+  const AppDivider({super.key, this.color, this.height});
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: Palette.dividerBackground, height: Dimens.space16);
+    return Container(
+        color: color ?? Palette.dividerBackground,
+        height: height ?? Dimens.space16);
   }
 }
