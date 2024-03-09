@@ -7,6 +7,7 @@ import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_chip.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
@@ -23,30 +24,61 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   Set<Marker> markers = {};
+  DraggableScrollableController controller = DraggableScrollableController();
+
+  @override
+  void initState() {
+    controller.addListener(() {
+      if (controller.size > 0.2) {
+        print(controller.size);
+        setState(() {
+          // Your logic here
+        });
+      } else {
+        setState(() {
+          // Your logic here
+        });
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   void _showBottomSheet(BuildContext context, Toilet toilet) {
-    showModalBottomSheet(
-      context: context,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (_) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.3,
-          minChildSize: 0.3,
-          maxChildSize: 0.9,
-          snapSizes: const [0.3, 0.9],
-          snap: true,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
-              child: const Column(
-                children: [Text("hello")],
-              ),
-            );
-          },
-        );
-      },
-    );
+    // showModalBottomSheet(
+    //   context: context,
+    //   showDragHandle: true,
+    //   enableDrag: true,
+    //   clipBehavior: Clip.hardEdge,
+    //   isScrollControlled: true,
+    //   shape: const RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.only(
+    //       topLeft: Radius.circular(20),
+    //       topRight: Radius.circular(20),
+    //     ),
+    //   ),
+    //   builder: (_) {
+    //     return DraggableScrollableSheet(
+    //       controller: controller,
+    //       initialChildSize: 0.3,
+    //       snapSizes: const [0.3, 0.9],
+    //       snap: true,
+    //       builder: (BuildContext context, ScrollController scrollController) {
+    //         return SingleChildScrollView(
+    //           controller: scrollController,
+    //           child: const Column(
+    //             children: [Text("hello")],
+    //           ),
+    //         );
+    //       },
+    //     );
+    //   },
+    // );
   }
 
   @override
@@ -141,7 +173,7 @@ class _MapPageState extends State<MapPage> {
                       border:
                           Border.all(width: 1, color: const Color(0xFFD3D7DF)),
                       // gap: const EdgeInsets.all(10),
-                      color: Colors.white,
+                      color: Palette.white,
                     ),
                     child: SvgPicture.asset(
                       Images.currentPosition,

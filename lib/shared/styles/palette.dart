@@ -66,6 +66,10 @@ class Palette {
   static const Color bottomSheetBackground = Color(0xff202328);
   static const Color bottomSheetBackgroundDark = Color(0xff202328);
 
+  // divider background
+  static const Color dividerBackground = Color(0xff101114);
+  static const Color dividerBackgroundDark = Color(0xff101114);
+
   // dialog background
   static const Color dialog = Color(0xff31363F);
   static const Color dialogDark = Color(0xff31363F);
@@ -106,6 +110,7 @@ class Palette {
   static const Color dividerDark = Color(0xff101114);
 
   // other
+  static const Color white = Color(0xffFFFFFF);
   static const Color redMocha = Color(0xfff38ba8);
   static const Color greenMocha = Color(0xffa6e3a1);
   static const Color roseWaterMocha = Color(0xfff5e0dc);

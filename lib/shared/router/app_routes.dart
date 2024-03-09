@@ -10,6 +10,7 @@ import 'package:pookaboo/layers/auth/presentation/pages/login/login.dart';
 import 'package:pookaboo/layers/user/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/splash/presentation/pages/splash.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/map.dart';
+import 'package:pookaboo/layers/user/presentation/pages/review/review.dart';
 import 'package:pookaboo/shared/router/router_refresh_stream.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
@@ -21,6 +22,9 @@ enum Routes {
 
   // profile page
   profile("/profile"),
+
+  // review page
+  reviews("/reviews"),
 
   // Auth Page
   // login("/auth/login"),
@@ -67,12 +71,6 @@ class AppRoute {
             pageBuilder: (context, state) => const NoTransitionPage(
               child: MapPage(),
             ),
-            // routes: [
-            //   GoRoute(
-            //     path: Routes.homeDetailsNamedPage,
-            //     builder: (context, state) => const HomeDetailsScreen(),
-            //   ),
-            // ],
           ),
           GoRoute(
             path: Routes.profile.path,
@@ -80,13 +78,13 @@ class AppRoute {
             pageBuilder: (context, state) => const NoTransitionPage(
               child: ProfilePage(),
             ),
-
-            // routes: [
-            //   GoRoute(
-            //     path: Routes.profileDetailsNamedPage,
-            //     builder: (context, state) => const ProfileDetailsScreen(),
-            //   ),
-            // ],
+          ),
+          GoRoute(
+            path: Routes.reviews.path,
+            name: Routes.reviews.name,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: ReviewPage(),
+            ),
           ),
         ],
       ),

@@ -31,36 +31,26 @@ class _SignInFormState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leadingWidth: Dimens.header,
-        leading: Padding(
-          padding: EdgeInsets.only(left: Dimens.space24),
-          child: AppText(Messages.of(context)!.myPage,
-              style: Theme.of(context).textTheme.bodyLarge!),
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(Dimens.space24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppText(
-                Messages.of(context)!.recommendSignIn,
-                style: Theme.of(context).textTheme.labelLarge!,
-                align: TextAlign.center,
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(Dimens.space24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppText(
+              Messages.of(context)!.recommendSignIn,
+              style: Theme.of(context).textTheme.labelLarge!,
+              align: TextAlign.center,
+            ),
+            AppSpacerV(value: Dimens.space24),
+            AppButton(
+              title: Messages.of(context)!.startWithKakao,
+              onPressed: _signInWithKakao,
+              image: SvgPicture.asset(
+                Images.kakaoLogo,
               ),
-              AppSpacerV(value: Dimens.space24),
-              AppButton(
-                title: Messages.of(context)!.startWithKakao,
-                onPressed: _signInWithKakao,
-                image: SvgPicture.asset(
-                  Images.kakaoLogo,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

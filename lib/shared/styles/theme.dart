@@ -22,6 +22,20 @@ ThemeData themeLight(BuildContext context) => ThemeData(
         showSelectedLabels: false,
         showUnselectedLabels: false,
       ),
+      tabBarTheme: TabBarTheme(
+          indicatorColor: Palette.white,
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w500,
+                fontSize: Dimens.bodySmall,
+                color: Palette.text,
+              ),
+          unselectedLabelStyle:
+              Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: Dimens.labelLarge,
+                    color: Palette.subText,
+                  )),
       textTheme: TextTheme(
         bodyLarge: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
@@ -55,6 +69,7 @@ ThemeData themeLight(BuildContext context) => ThemeData(
               color: Palette.subText,
             ),
       ),
+      dividerColor: Palette.dividerBackground,
       appBarTheme: const AppBarTheme().copyWith(
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
         color: Palette.background,
@@ -156,6 +171,21 @@ ThemeData themeDark(BuildContext context) => ThemeData(
               color: Palette.subTextDark,
             ),
       ),
+      tabBarTheme: TabBarTheme(
+          indicatorColor: Palette.white,
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w500,
+                fontSize: Dimens.bodySmall,
+                color: Palette.text,
+              ),
+          unselectedLabelStyle:
+              Theme.of(context).textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: Dimens.labelLarge,
+                    color: Palette.subText,
+                  )),
+      dividerColor: Palette.dividerBackgroundDark,
       appBarTheme: const AppBarTheme().copyWith(
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
         color: Palette.background,
