@@ -58,6 +58,8 @@ class Dimens {
   static double buttonH = 52.w;
   static double imageW = 46.w;
 
+  static double bigImageW = 180.w;
+
   static const double cornerRadius = 16;
   static const double cornerRadiusBottomSheet = 30;
 

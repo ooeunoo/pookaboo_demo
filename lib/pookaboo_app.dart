@@ -13,7 +13,6 @@ import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/localization/l10n.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class PookabooApp extends StatelessWidget {
   const PookabooApp({super.key});
@@ -26,7 +25,6 @@ class PookabooApp extends StatelessWidget {
       ),
     );
 
-    log.d(const String.fromEnvironment('ENV'));
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<SettingsCubit>()..getActiveTheme()),

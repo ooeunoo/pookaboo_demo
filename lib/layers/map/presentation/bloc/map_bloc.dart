@@ -66,7 +66,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       emit(SearchingToiletState());
       // 현재 화면의 왼쪽 하단과 오른쪽 상단 좌표
       LatLngBounds bounds = await _mapController.getBounds();
-      log.d('bounds: ${bounds.toJson()}');
       GetNearByToiletsParams params = GetNearByToiletsParams(
           bounds: bounds, filterOfPassword: false, filterOfVisible: true);
 
@@ -136,6 +135,4 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       log.e(e);
     }
   }
-
- 
 }

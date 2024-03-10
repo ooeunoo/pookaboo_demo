@@ -53,6 +53,7 @@ class _MapPageState extends State<MapPage> {
       isDismissible: true,
       isExpand: true,
       isSafeArea: true,
+      isModal: true,
       bottomSheetBorderRadius: const BorderRadiusDirectional.only(
           topEnd: Radius.circular(20), topStart: Radius.circular(20)),
       draggableScrollableController: DraggableScrollableController(),
@@ -68,7 +69,7 @@ class _MapPageState extends State<MapPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: Dimens.space20),
+              padding: EdgeInsets.symmetric(vertical: Dimens.space36),
               child: SingleChildScrollView(
                 controller: scrollController,
                 child: Column(

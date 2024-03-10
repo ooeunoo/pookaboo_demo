@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/information.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/review.dart';
+import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 
 class ToiletBottomSeetTabBarView extends StatefulWidget {
   const ToiletBottomSeetTabBarView({super.key});
@@ -10,52 +14,87 @@ class ToiletBottomSeetTabBarView extends StatefulWidget {
       _ToiletBottomSeetTabBarViewState();
 }
 
-class _ToiletBottomSeetTabBarViewState extends State<ToiletBottomSeetTabBarView>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  late List<Map<String, dynamic>> tabs;
-
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    tabs = [
-      {"title": '정보'},
-      {"title": '평점'},
-    ];
-    super.initState();
-  }
+class _ToiletBottomSeetTabBarViewState
+    extends State<ToiletBottomSeetTabBarView> {
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Column(
-            children: [
-              // Add TabBar below ToiletBottomSheetProperty
-              TabBar(
-                controller: _tabController,
-                tabs: tabs
-                    .map((tab) => Tab(text: tab["title"] as String))
-                    .toList(),
-              ),
-              // TabBarView for displaying content corresponding to each tab
-              SizedBox(
-                height: MediaQuery.of(context).size.height *
-                    0.5, // Adjust height as needed
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    // Content for Tab 1
-                    ToiletBottomSheetInformation(),
-                    // Content for Tab 2
-                    ToiletBottomSheetReview()
-                  ],
+    return Column(
+      // Wrap the Center and Row in a Column
+      children: [
+        ///////////////////////////
+        /// TabBar
+        ///////////////////////////
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Center(
+            // Center the row horizontally
+            child: Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.center, // Center align the tabs
+              children: [
+                _buildTabItem(0, '정보'),
+                AppSpacerH(
+                  value: Dimens.space12,
                 ),
-              ),
-            ],
-          );
-        },
+                _buildTabItem(1, '평점'),
+              ],
+            ),
+          ),
+        ),
+        AppSpacerV(value: Dimens.space20),
+
+        ///////////////////////////
+        /// TabBar View
+        ///////////////////////////
+        IndexedStack(
+          index: _selectedIndex,
+          children: const [
+            ToiletBottomSheetInformation(),
+            ToiletBottomSheetReview(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTabItem(int index, String title) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      child: Container(
+        width: 120, // Adjust the width as needed
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: _selectedIndex == index
+                  ? Colors.white
+                  : Colors.transparent, // Change color for selected tab
+              width: 2.0, // Border width
+            ),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Center(
+          child: Text(
+            title,
+            style: _selectedIndex == index
+                ? Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: Dimens.bodySmall,
+                      color: Palette.text,
+                    )
+                : Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: Dimens.labelLarge,
+                      color: Palette.subText,
+                    ),
+          ),
+        ),
       ),
     );
   }
