@@ -6,8 +6,12 @@ class Images {
 
   // SVG
   static String kakaoLogo = 'assets/svg/kakao_logo.svg';
-  static String key = 'assets/svg/key.svg';
+  static String closeKey = 'assets/svg/close_key.svg';
   static String gender = 'assets/svg/gender.svg';
   static String alarm = 'assets/svg/alarm.svg';
   static String currentPosition = 'assets/svg/current_position.svg';
+  static String star = 'assets/svg/star.svg';
+  static String cafe = 'assets/svg/cafe.svg';
+  static String openKey = 'assets/svg/open_key.svg';
+  static String lock = 'assets/svg/lock.svg';
 }

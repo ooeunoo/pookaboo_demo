@@ -81,6 +81,10 @@ class Palette {
   static const Color card = Color(0xff191A1F);
   static const Color cardDark = Color(0xff191A1F);
 
+  // drag handle bar
+  static const Color dragHandleBar = Color(0xff848B9A);
+  static const Color dragHandleBarDark = Color(0xff848B9A);
+
   // text
   static const Color text = Color(0xffF2F3F5);
   static const Color textDark = Color(0xffF2F3F5);
@@ -110,6 +114,10 @@ class Palette {
   static const Color iconDark = Color(0xffF2F3F5);
   static const Color iconSub = Color(0xff7d7c7f);
   static const Color iconSubDark = Color(0xff7d7c7f);
+
+  // svg icon
+  static const Color svgIcon = Color(0xff9EA5B3);
+  static const Color svgIconDark = Color(0xff9EA5B3);
 
   // divider
   static const Color divider = Color(0xff101114);

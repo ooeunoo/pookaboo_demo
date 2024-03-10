@@ -10,7 +10,8 @@ ThemeData themeLight(BuildContext context) => ThemeData(
       primaryColor: Palette.pinkLatte,
       disabledColor: Palette.shadowDark,
       hintColor: Palette.subText,
-      cardColor: Palette.card,
+      // cardColor: Palette.card,
+
       scaffoldBackgroundColor: Palette.background,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Palette.background,

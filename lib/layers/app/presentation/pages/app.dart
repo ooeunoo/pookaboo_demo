@@ -5,6 +5,7 @@ import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/widgets/navigation_bar_item_widget.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class AppPage extends StatelessWidget {
@@ -38,21 +39,27 @@ class AppPage extends StatelessWidget {
       ),
     ];
 
-    return BottomNavigationBar(
-      onTap: (value) {
-        if (value != state.index) {
-          context.read<NavigationCubit>().changeBottomNavigation(value);
-          context.go(tabs[value].initialLocation);
-        }
-      },
-      elevation: 0,
-      items: tabs
-          .map((item) => BottomNavigationBarItem(
-                icon: item.icon,
-                label: item.label,
-              ))
-          .toList(),
-      currentIndex: state.index,
-    );
+    return Container(
+        decoration: const BoxDecoration(
+            color: Palette.subDividerBackground,
+            border: Border(
+                top: BorderSide(
+                    color: Palette.subDividerBackground, width: 1.0))),
+        child: BottomNavigationBar(
+          onTap: (value) {
+            if (value != state.index) {
+              context.read<NavigationCubit>().changeBottomNavigation(value);
+              context.go(tabs[value].initialLocation);
+            }
+          },
+          elevation: 0,
+          items: tabs
+              .map((item) => BottomNavigationBarItem(
+                    icon: item.icon,
+                    label: item.label,
+                  ))
+              .toList(),
+          currentIndex: state.index,
+        ));
   }
 }

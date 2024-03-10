@@ -5,11 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/button.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/header.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/location.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/property.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/rating.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
@@ -19,7 +14,6 @@ import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_chip.dart';
 import 'package:pookaboo/shared/widgets/app_drag_handle_bar.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 
 // 최초 중심
 LatLng initialCenter = LatLng(37.584690, 127.046502);
@@ -49,7 +43,9 @@ class _MapPageState extends State<MapPage> {
     showFlexibleBottomSheet(
       context: context,
       anchors: [0.3, 1],
+      // minHeight: 0.3,
       initHeight: 0.3,
+      // maxHeight: 1,
       isDismissible: true,
       isExpand: true,
       isSafeArea: true,
@@ -58,37 +54,54 @@ class _MapPageState extends State<MapPage> {
       draggableScrollableController: DraggableScrollableController(),
       builder: (BuildContext context, ScrollController scrollController,
           double bottomSheetOffset) {
-        return Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
+        log.d('bottomSheetOffset: $bottomSheetOffset');
+        return SingleChildScrollView(
+          controller: scrollController,
+          child: Column(
+            children: [
+              Padding(
                 padding: EdgeInsets.all(Dimens.space12),
                 child: const AppDragHandleBar(),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: Dimens.space20),
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: Column(
-                  children: [
-                    ToiletBottomSheet(offset: bottomSheetOffset),
-                  ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.all(Dimens.space20),
-                child: const ToiletBottomSheetButton(),
-              ),
-            )
-          ],
+              // const Expanded(
+              ToiletBottomSheet(offset: bottomSheetOffset),
+            ],
+          ),
         );
       },
     );
+
+    // showModalBottomSheet(
+    //   context: context,
+    //   isScrollControlled: true,
+    //   // useRootNavigator: true, // 바텀탭 사라짐
+    //   isDismissible: true,
+    //   shape: const RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+    //   builder: (context) => DraggableScrollableSheet(
+    //     expand: false,
+    //     initialChildSize: 0.25,
+    //     minChildSize: 0.25,
+    //     maxChildSize: 0.9,
+    //     snapSizes: const [0.25, 0.9],
+    //     snap: true,
+    //     builder: (context, scrollController) {
+    //       return SingleChildScrollView(
+    //         controller: scrollController,
+    //         child: Column(
+    //           children: [
+    //             Padding(
+    //               padding: EdgeInsets.all(Dimens.space12),
+    //               child: const AppDragHandleBar(),
+    //             ),
+    //             // const Expanded(
+    //             const ToiletBottomSheet(),
+    //           ],
+    //         ),
+    //       );
+    //     },
+    //   ),
+    // );
   }
 
   @override
@@ -175,8 +188,8 @@ class _MapPageState extends State<MapPage> {
                     context.read<MapBloc>().add(MoveToMyPositionEvent());
                   },
                   child: Container(
-                    width: Dimens.space40,
-                    height: Dimens.space40,
+                    width: 40,
+                    height: 40,
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
