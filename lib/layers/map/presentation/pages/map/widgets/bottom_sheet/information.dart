@@ -76,24 +76,27 @@ class _ToiletBottomSheetInformationState
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: Dimens.bigImageW,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: imgList.length,
-            itemBuilder: (context, index) {
-              return Container(
-                width: Dimens.bigImageW,
-                margin: const EdgeInsets.only(left: 10.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(Dimens.space12),
-                  child: Image.network(
-                    imgList[index],
-                    fit: BoxFit.cover,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+          child: SizedBox(
+            height: Dimens.bigImageW,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: imgList.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: Dimens.bigImageW,
+                  margin: const EdgeInsets.only(right: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(Dimens.space12),
+                    child: Image.network(
+                      imgList[index],
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
         const AppSpacerV(),
@@ -113,14 +116,17 @@ class _ToiletBottomSheetInformationState
           },
           itemBuilder: (context, index) {
             final item = menu[index];
-            return ListTile(
-              title: AppText(
-                item['title'],
-                style: Theme.of(context).textTheme.bodyLarge!,
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+              child: ListTile(
+                leading: AppText(
+                  item['title'],
+                  style: Theme.of(context).textTheme.bodyLarge!,
+                ),
+                onTap: () {
+                  // Handle onTap action
+                },
               ),
-              onTap: () {
-                // Handle onTap action
-              },
             );
           },
         ),

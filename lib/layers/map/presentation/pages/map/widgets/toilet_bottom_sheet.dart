@@ -24,25 +24,53 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
   Widget build(BuildContext context) {
     isExtend = widget.offset > 0.4;
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const ToiletBottomSheetHeader(),
-          const AppSpacerV(),
-          const ToiletBottomSheetLocation(),
-          const AppSpacerV(),
-          // isExtend일 경우, ...
-          if (isExtend) ...[
-            const ToiletBottomSheetRating(),
-            const AppSpacerV(),
-            const ToiletBottomSheetProperty(),
-            const AppSpacerV(),
-            const ToiletBottomSeetTabBarView()
-          ],
-        ],
-      ),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ToiletBottomSheetHeader(),
+              const AppSpacerV(),
+              const ToiletBottomSheetLocation(),
+              const AppSpacerV(),
+              // isExtend일 경우, ...
+              if (isExtend) ...[
+                const ToiletBottomSheetRating(),
+                const AppSpacerV(),
+                const ToiletBottomSheetProperty(),
+                const AppSpacerV(),
+              ]
+            ],
+          ),
+        ),
+        // Divider Padding 때문에 분리함
+        if (isExtend) ...[
+          const ToiletBottomSeetTabBarView(),
+        ]
+      ],
     );
+
+    // return Container(
+    //   padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+    //   child: Column(
+    //     crossAxisAlignment: CrossAxisAlignment.start,
+    //     children: [
+    //       const ToiletBottomSheetHeader(),
+    //       const AppSpacerV(),
+    //       const ToiletBottomSheetLocation(),
+    //       const AppSpacerV(),
+    //       // isExtend일 경우, ...
+    //       if (isExtend) ...[
+    //         const ToiletBottomSheetRating(),
+    //         const AppSpacerV(),
+    //         const ToiletBottomSheetProperty(),
+    //         const AppSpacerV(),
+    //         const ToiletBottomSeetTabBarView()
+    //       ],
+    //     ],
+    //   ),
+    // );
   }
 }
