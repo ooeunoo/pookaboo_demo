@@ -47,7 +47,10 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
         ),
         // Divider Padding 때문에 분리함
         if (isExtend) ...[
-          const ToiletBottomSeetTabBarView(),
+          Padding(
+            padding: EdgeInsets.only(bottom: Dimens.space20),
+            child: const ToiletBottomSeetTabBarView(),
+          ),
         ]
       ],
     );

@@ -21,18 +21,15 @@ class _ToiletBottomSeetTabBarViewState
   @override
   Widget build(BuildContext context) {
     return Column(
-      // Wrap the Center and Row in a Column
       children: [
-        ///////////////////////////
-        /// TabBar
-        ///////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+        ////// TabBar
+        /////////////////////////////////////////////////////////////////////////////////
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Center(
-            // Center the row horizontally
             child: Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, // Center align the tabs
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildTabItem(0, '정보'),
                 AppSpacerH(
@@ -45,9 +42,9 @@ class _ToiletBottomSeetTabBarViewState
         ),
         AppSpacerV(value: Dimens.space20),
 
-        ///////////////////////////
-        /// TabBar View
-        ///////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+        ////// TabBar View
+        /////////////////////////////////////////////////////////////////////////////////
         IndexedStack(
           index: _selectedIndex,
           children: const [
@@ -59,6 +56,9 @@ class _ToiletBottomSeetTabBarViewState
     );
   }
 
+  /////////////////////////////////////////////////////////////////////////////////
+  ////// Tab Item
+  /////////////////////////////////////////////////////////////////////////////////
   Widget _buildTabItem(int index, String title) {
     return InkWell(
       onTap: () {

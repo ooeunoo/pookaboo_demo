@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/widgets/app_divider.dart';
+import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
 
@@ -29,46 +30,16 @@ class _ToiletBottomSheetInformationState
   void initState() {
     super.initState();
     menu = [
-      {
-        "section": "1",
-        "title": "Toilet Review",
-      },
-      {
-        "section": "1",
-        "title": "Edit My Info",
-      },
-      {
-        "section": "1",
-        "title": "Logout",
-      },
-      {
-        "section": "2",
-        "title": "Withdraw Membership",
-      },
-      {
-        "section": "2",
-        "title": "Withdraw Membership",
-      },
-      {
-        "section": "2",
-        "title": "Withdraw Membership",
-      },
-      {
-        "section": "2",
-        "title": "Withdraw Membership",
-      },
-      {
-        "section": "2",
-        "title": "Withdraw Membership",
-      },
-      {
-        "section": "2",
-        "title": "Withdraw Membership",
-      },
-      {
-        "section": "2",
-        "title": "Withdraw Membership",
-      },
+      {"section": "equipment", "emoji": "💦", "title": "소변기", "value": "1"},
+      {"section": "equipment", "emoji": "🚽", "title": "좌변기", "value": "2"},
+      {"section": "equipment", "emoji": "🚰", "title": "음수대", "value": "2"},
+      {"section": "convenience", "emoji": "🪞", "title": "파우더룸"},
+      {"section": "convenience", "emoji": "👶", "title": "기저귀 교환대"},
+      {"section": "convenience", "emoji": "🎛️", "title": "편의 자판기"},
+      {"section": "convenience", "emoji": "🚨", "title": "비상벨"},
+      {"section": "convenience", "emoji": "💨", "title": "핸드 드라이"},
+      {"section": "amenity", "emoji": "🧻", "title": "핸드 타올"},
+      {"section": "amenity", "emoji": "🧼", "title": "비누"},
     ];
   }
 
@@ -76,6 +47,9 @@ class _ToiletBottomSheetInformationState
   Widget build(BuildContext context) {
     return Column(
       children: [
+        /////////////////////////////////////////////////////////////////////////////////
+        ////// Image Swipe
+        /////////////////////////////////////////////////////////////////////////////////
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
           child: SizedBox(
@@ -100,37 +74,127 @@ class _ToiletBottomSheetInformationState
           ),
         ),
         const AppSpacerV(),
+        /////////////////////////////////////////////////////////////////////////////////
+        ////// Info List
+        /////////////////////////////////////////////////////////////////////////////////
         ListView.separated(
-          shrinkWrap:
-              true, // Ensure the ListView takes only the necessary space
-          physics:
-              const NeverScrollableScrollPhysics(), // Prevent the ListView from scrolling
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: menu.length,
           separatorBuilder: (context, index) {
             if (index < menu.length - 1 &&
                 menu[index]["section"] != menu[index + 1]["section"]) {
-              return const AppDivider();
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const AppDivider(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Dimens.space20, vertical: Dimens.space30),
+                    child: AppText("편의시설",
+                        style: Theme.of(context).textTheme.bodyMedium!),
+                  )
+                ],
+              );
             } else {
               return const SizedBox();
             }
           },
           itemBuilder: (context, index) {
             final item = menu[index];
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-              child: ListTile(
-                leading: AppText(
-                  item['title'],
-                  style: Theme.of(context).textTheme.bodyLarge!,
-                ),
-                onTap: () {
-                  // Handle onTap action
-                },
-              ),
-            );
+            switch (item["section"]) {
+              case "equipment":
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimens.space20, vertical: Dimens.space12),
+                  child:
+                      _equipment(item["emoji"], item["title"], item["value"]),
+                );
+              case "convenience":
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimens.space20, vertical: Dimens.space12),
+                  child: _convenience(item["emoji"], item["title"]),
+                );
+              case "amenity":
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimens.space20, vertical: Dimens.space12),
+                  child: _amenity(item["emoji"], item["title"]),
+                );
+              default:
+                return const SizedBox();
+            }
           },
-        ),
+        )
       ],
     );
+  }
+
+  Widget _equipment(String emoji, String title, String count) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      Row(
+        children: [
+          Container(
+            width: Dimens.space40,
+            height: Dimens.space40,
+            decoration: BoxDecoration(
+              color: const Color(0xff31363F),
+              borderRadius: BorderRadius.circular(Dimens.space60),
+            ),
+            child: Center(
+                child: AppText(emoji,
+                    style: Theme.of(context).textTheme.bodySmall!)),
+          ),
+          const AppSpacerH(),
+          AppText(title, style: Theme.of(context).textTheme.bodySmall!),
+          const AppSpacerH(),
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff31363F),
+              borderRadius: BorderRadius.circular(Dimens.space4),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(Dimens.space2),
+              child: Center(
+                  child: AppText("장애인",
+                      style: Theme.of(context).textTheme.labelMedium!)),
+            ),
+          ),
+          AppSpacerH(value: Dimens.space4),
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff31363F),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(Dimens.space2),
+              child: Center(
+                  child: AppText("어린이",
+                      style: Theme.of(context).textTheme.labelMedium!)),
+            ),
+          ),
+        ],
+      ),
+      AppText('$count 개', style: Theme.of(context).textTheme.labelLarge!)
+    ]);
+  }
+
+  Widget _convenience(String emoji, String title) {
+    return Row(children: [
+      AppText(emoji, style: Theme.of(context).textTheme.bodySmall!),
+      const AppSpacerH(),
+      AppText(title, style: Theme.of(context).textTheme.bodySmall!),
+      const AppSpacerH(),
+    ]);
+  }
+
+  Widget _amenity(String emoji, String title) {
+    return Row(children: [
+      AppText(emoji, style: Theme.of(context).textTheme.bodySmall!),
+      const AppSpacerH(),
+      AppText(title, style: Theme.of(context).textTheme.bodySmall!),
+      const AppSpacerH(),
+    ]);
   }
 }
