@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'toilet.freezed.dart';
@@ -8,13 +10,14 @@ class Toilet with _$Toilet {
   factory Toilet({
     required int id,
     required String name,
-    required String type,
+    required int type,
     required bool visible,
     required bool gender,
     required bool password,
     @Default("") String password_tip,
-    @Default(0) double rating,
-    @Default(0) double reviews,
+    // @Default(0) double rating,
+    @Default(0) int reviews,
+    required Map<String, dynamic> ratings,
     required String location_type,
     required String address,
     required String road_address,
@@ -28,6 +31,19 @@ class Toilet with _$Toilet {
   }) = _Toilet;
 
   factory Toilet.fromJson(Map<String, dynamic> json) => _$ToiletFromJson(json);
+
+  static double getRating(Toilet toilet) {
+    var ratings = toilet.ratings;
+    int cleanliness = ratings['cleanliness'];
+    int management = ratings['management'];
+    int convenience = ratings['convenience'];
+    int safety = ratings['safety'];
+
+    double averageRating =
+        (cleanliness + management + convenience + safety) / 4;
+
+    return double.parse(averageRating.toStringAsFixed(1));
+  }
 }
 
 @freezed
@@ -66,13 +82,13 @@ class Equipment with _$Equipment {
 @freezed
 class Time with _$Time {
   factory Time({
-    required String mon,
-    required String tue,
-    required String wed,
-    required String thu,
-    required String fri,
-    required String sat,
-    required String sun,
+    required Map<String, dynamic> mon,
+    required Map<String, dynamic> tue,
+    required Map<String, dynamic> wed,
+    required Map<String, dynamic> thu,
+    required Map<String, dynamic> fri,
+    required Map<String, dynamic> sat,
+    required Map<String, dynamic> sun,
   }) = _Time;
 
   factory Time.fromJson(Map<String, dynamic> json) => _$TimeFromJson(json);

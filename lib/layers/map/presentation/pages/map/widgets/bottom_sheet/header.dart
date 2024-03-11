@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
 
 class ToiletBottomSheetHeader extends StatelessWidget {
-  const ToiletBottomSheetHeader({super.key});
+  final Toilet toilet;
+
+  const ToiletBottomSheetHeader(
+    this.toilet, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppText("파크하비오 상가", style: Theme.of(context).textTheme.bodyLarge!)
+        AppText(toilet.name, style: Theme.of(context).textTheme.bodyLarge!)
       ],
     );
   }

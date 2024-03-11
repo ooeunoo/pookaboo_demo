@@ -14,4 +14,8 @@ class Images {
   static String cafe = 'assets/svg/cafe.svg';
   static String openKey = 'assets/svg/open_key.svg';
   static String lock = 'assets/svg/lock.svg';
+  static String building = 'assets/svg/building.svg';
+  static String arrowTop = 'assets/svg/arrow_top.svg';
+  static String arrowRight = 'assets/svg/arrow_right.svg';
+  static String arrowBottom = 'assets/svg/arrow_bottom.svg';
 }

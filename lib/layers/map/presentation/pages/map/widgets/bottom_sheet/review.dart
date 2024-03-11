@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/app_divider.dart';
@@ -7,7 +8,9 @@ import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
 
 class ToiletBottomSheetReview extends StatefulWidget {
-  const ToiletBottomSheetReview({super.key});
+  final Toilet toilet;
+
+  const ToiletBottomSheetReview(this.toilet, {super.key});
 
   @override
   State<ToiletBottomSheetReview> createState() =>
@@ -163,13 +166,24 @@ class _ToiletBottomSheetReviewState extends State<ToiletBottomSheetReview> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildRatings(rating),
+            AppSpacerV(
+              value: Dimens.space20,
+            ),
             AppText(comment, style: Theme.of(context).textTheme.bodyMedium!),
+            AppSpacerV(
+              value: Dimens.space12,
+            ),
             Row(
               children: [
                 AppText("$user﹒$date",
                     style: Theme.of(context).textTheme.labelMedium!),
               ],
-            )
+            ),
+            AppSpacerV(
+              value: Dimens.space12,
+            ),
+            AppDivider(
+                color: Palette.subDividerBackground, height: Dimens.space1),
           ],
         ));
   }

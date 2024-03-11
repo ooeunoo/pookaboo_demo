@@ -74,7 +74,8 @@ class _MapPageState extends State<MapPage> {
                 controller: scrollController,
                 child: Column(
                   children: [
-                    ToiletBottomSheet(offset: bottomSheetOffset),
+                    ToiletBottomSheet(
+                        offset: bottomSheetOffset, toilet: toilet),
                   ],
                 ),
               ),

@@ -1,12 +1,19 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:pookaboo/layers/map/data/models/toilet.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_divider.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
 
 class ToiletBottomSheetInformation extends StatefulWidget {
-  const ToiletBottomSheetInformation({
+  final Toilet toilet;
+
+  const ToiletBottomSheetInformation(
+    this.toilet, {
     super.key,
   });
 
@@ -25,22 +32,61 @@ class _ToiletBottomSheetInformationState
     'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
-  late List<Map<String, dynamic>> menu;
+
+  late List<Map<String, dynamic>> menu = [];
+
   @override
   void initState() {
     super.initState();
-    menu = [
-      {"section": "equipment", "emoji": "💦", "title": "소변기", "value": "1"},
-      {"section": "equipment", "emoji": "🚽", "title": "좌변기", "value": "2"},
-      {"section": "equipment", "emoji": "🚰", "title": "음수대", "value": "2"},
-      {"section": "convenience", "emoji": "🪞", "title": "파우더룸"},
-      {"section": "convenience", "emoji": "👶", "title": "기저귀 교환대"},
-      {"section": "convenience", "emoji": "🎛️", "title": "편의 자판기"},
-      {"section": "convenience", "emoji": "🚨", "title": "비상벨"},
-      {"section": "convenience", "emoji": "💨", "title": "핸드 드라이"},
-      {"section": "amenity", "emoji": "🧻", "title": "핸드 타올"},
-      {"section": "amenity", "emoji": "🧼", "title": "비누"},
-    ];
+
+    // equipment
+    for (var equipment in EquipmentKey.values) {
+      List<String> keys = equipment.keys;
+      String emoji = equipment.emoji;
+      String name = equipment.name;
+      int count = 0;
+
+      for (var key in keys) {
+        String equipmentsJsonString = widget.toilet.equipment?.toJson()[key];
+
+        var equipmentsJson = jsonDecode(equipmentsJsonString) as List<dynamic>;
+        List<int> equipments =
+            equipmentsJson.map((item) => item as int).toList();
+        if (equipments.isNotEmpty) {
+          count += equipments[0];
+        }
+      }
+
+      menu.add({
+        'section': 'equipment',
+        "emoji": emoji,
+        "title": name,
+        "value": count.toString()
+      });
+    }
+
+    // convenience
+    for (var convenience in ConvenienceKey.values) {
+      String key = convenience.key;
+      String emoji = convenience.emoji;
+      String name = convenience.name;
+      bool hasConvenience = widget.toilet.convenience?.toJson()[key];
+      if (hasConvenience) {
+        menu.add({'section': 'convenience', "emoji": emoji, "title": name});
+      }
+    }
+
+    // amenity
+    for (var amenity in AmenityKey.values) {
+      String key = amenity.key;
+      String emoji = amenity.emoji;
+      String name = amenity.name;
+      bool hasAmenity = widget.toilet.convenience?.toJson()[key];
+
+      if (hasAmenity) {
+        menu.add({'section': 'amenity', "emoji": emoji, "title": name});
+      }
+    }
   }
 
   @override
@@ -107,20 +153,19 @@ class _ToiletBottomSheetInformationState
                 return Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimens.space20, vertical: Dimens.space12),
-                  child:
-                      _equipment(item["emoji"], item["title"], item["value"]),
+                  child: equipment(item["emoji"], item["title"], item["value"]),
                 );
               case "convenience":
                 return Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimens.space20, vertical: Dimens.space12),
-                  child: _convenience(item["emoji"], item["title"]),
+                  child: convenience(item["emoji"], item["title"]),
                 );
               case "amenity":
                 return Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimens.space20, vertical: Dimens.space12),
-                  child: _amenity(item["emoji"], item["title"]),
+                  child: amenity(item["emoji"], item["title"]),
                 );
               default:
                 return const SizedBox();
@@ -131,7 +176,7 @@ class _ToiletBottomSheetInformationState
     );
   }
 
-  Widget _equipment(String emoji, String title, String count) {
+  Widget equipment(String emoji, String title, String count) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Row(
         children: [
@@ -180,7 +225,7 @@ class _ToiletBottomSheetInformationState
     ]);
   }
 
-  Widget _convenience(String emoji, String title) {
+  Widget convenience(String emoji, String title) {
     return Row(children: [
       AppText(emoji, style: Theme.of(context).textTheme.bodySmall!),
       const AppSpacerH(),
@@ -189,7 +234,7 @@ class _ToiletBottomSheetInformationState
     ]);
   }
 
-  Widget _amenity(String emoji, String title) {
+  Widget amenity(String emoji, String title) {
     return Row(children: [
       AppText(emoji, style: Theme.of(context).textTheme.bodySmall!),
       const AppSpacerH(),

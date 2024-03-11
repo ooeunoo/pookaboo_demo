@@ -22,13 +22,14 @@ Toilet _$ToiletFromJson(Map<String, dynamic> json) {
 mixin _$Toilet {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
+  int get type => throw _privateConstructorUsedError;
   bool get visible => throw _privateConstructorUsedError;
   bool get gender => throw _privateConstructorUsedError;
   bool get password => throw _privateConstructorUsedError;
-  String get password_tip => throw _privateConstructorUsedError;
-  double get rating => throw _privateConstructorUsedError;
-  double get reviews => throw _privateConstructorUsedError;
+  String get password_tip =>
+      throw _privateConstructorUsedError; // @Default(0) double rating,
+  int get reviews => throw _privateConstructorUsedError;
+  Map<String, dynamic> get ratings => throw _privateConstructorUsedError;
   String get location_type => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get road_address => throw _privateConstructorUsedError;
@@ -53,13 +54,13 @@ abstract class $ToiletCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String type,
+      int type,
       bool visible,
       bool gender,
       bool password,
       String password_tip,
-      double rating,
-      double reviews,
+      int reviews,
+      Map<String, dynamic> ratings,
       String location_type,
       String address,
       String road_address,
@@ -96,8 +97,8 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
     Object? gender = null,
     Object? password = null,
     Object? password_tip = null,
-    Object? rating = null,
     Object? reviews = null,
+    Object? ratings = null,
     Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
@@ -121,7 +122,7 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       visible: null == visible
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
@@ -138,14 +139,14 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.password_tip
           : password_tip // ignore: cast_nullable_to_non_nullable
               as String,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as double,
       reviews: null == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      ratings: null == ratings
+          ? _value.ratings
+          : ratings // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       location_type: null == location_type
           ? _value.location_type
           : location_type // ignore: cast_nullable_to_non_nullable
@@ -236,13 +237,13 @@ abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String type,
+      int type,
       bool visible,
       bool gender,
       bool password,
       String password_tip,
-      double rating,
-      double reviews,
+      int reviews,
+      Map<String, dynamic> ratings,
       String location_type,
       String address,
       String road_address,
@@ -280,8 +281,8 @@ class __$$ToiletImplCopyWithImpl<$Res>
     Object? gender = null,
     Object? password = null,
     Object? password_tip = null,
-    Object? rating = null,
     Object? reviews = null,
+    Object? ratings = null,
     Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
@@ -305,7 +306,7 @@ class __$$ToiletImplCopyWithImpl<$Res>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       visible: null == visible
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
@@ -322,14 +323,14 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.password_tip
           : password_tip // ignore: cast_nullable_to_non_nullable
               as String,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as double,
       reviews: null == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
+      ratings: null == ratings
+          ? _value._ratings
+          : ratings // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
       location_type: null == location_type
           ? _value.location_type
           : location_type // ignore: cast_nullable_to_non_nullable
@@ -385,8 +386,8 @@ class _$ToiletImpl implements _Toilet {
       required this.gender,
       required this.password,
       this.password_tip = "",
-      this.rating = 0,
       this.reviews = 0,
+      required final Map<String, dynamic> ratings,
       required this.location_type,
       required this.address,
       required this.road_address,
@@ -396,7 +397,8 @@ class _$ToiletImpl implements _Toilet {
       required this.lng,
       this.convenience,
       this.equipment,
-      this.time});
+      this.time})
+      : _ratings = ratings;
 
   factory _$ToiletImpl.fromJson(Map<String, dynamic> json) =>
       _$$ToiletImplFromJson(json);
@@ -406,7 +408,7 @@ class _$ToiletImpl implements _Toilet {
   @override
   final String name;
   @override
-  final String type;
+  final int type;
   @override
   final bool visible;
   @override
@@ -416,12 +418,18 @@ class _$ToiletImpl implements _Toilet {
   @override
   @JsonKey()
   final String password_tip;
+// @Default(0) double rating,
   @override
   @JsonKey()
-  final double rating;
+  final int reviews;
+  final Map<String, dynamic> _ratings;
   @override
-  @JsonKey()
-  final double reviews;
+  Map<String, dynamic> get ratings {
+    if (_ratings is EqualUnmodifiableMapView) return _ratings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_ratings);
+  }
+
   @override
   final String location_type;
   @override
@@ -445,7 +453,7 @@ class _$ToiletImpl implements _Toilet {
 
   @override
   String toString() {
-    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, rating: $rating, reviews: $reviews, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, time: $time)';
+    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, reviews: $reviews, ratings: $ratings, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, time: $time)';
   }
 
   @override
@@ -462,8 +470,8 @@ class _$ToiletImpl implements _Toilet {
                 other.password == password) &&
             (identical(other.password_tip, password_tip) ||
                 other.password_tip == password_tip) &&
-            (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.reviews, reviews) || other.reviews == reviews) &&
+            const DeepCollectionEquality().equals(other._ratings, _ratings) &&
             (identical(other.location_type, location_type) ||
                 other.location_type == location_type) &&
             (identical(other.address, address) || other.address == address) &&
@@ -492,8 +500,8 @@ class _$ToiletImpl implements _Toilet {
         gender,
         password,
         password_tip,
-        rating,
         reviews,
+        const DeepCollectionEquality().hash(_ratings),
         location_type,
         address,
         road_address,
@@ -524,13 +532,13 @@ abstract class _Toilet implements Toilet {
   factory _Toilet(
       {required final int id,
       required final String name,
-      required final String type,
+      required final int type,
       required final bool visible,
       required final bool gender,
       required final bool password,
       final String password_tip,
-      final double rating,
-      final double reviews,
+      final int reviews,
+      required final Map<String, dynamic> ratings,
       required final String location_type,
       required final String address,
       required final String road_address,
@@ -549,7 +557,7 @@ abstract class _Toilet implements Toilet {
   @override
   String get name;
   @override
-  String get type;
+  int get type;
   @override
   bool get visible;
   @override
@@ -558,10 +566,10 @@ abstract class _Toilet implements Toilet {
   bool get password;
   @override
   String get password_tip;
+  @override // @Default(0) double rating,
+  int get reviews;
   @override
-  double get rating;
-  @override
-  double get reviews;
+  Map<String, dynamic> get ratings;
   @override
   String get location_type;
   @override
@@ -1142,13 +1150,13 @@ Time _$TimeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Time {
-  String get mon => throw _privateConstructorUsedError;
-  String get tue => throw _privateConstructorUsedError;
-  String get wed => throw _privateConstructorUsedError;
-  String get thu => throw _privateConstructorUsedError;
-  String get fri => throw _privateConstructorUsedError;
-  String get sat => throw _privateConstructorUsedError;
-  String get sun => throw _privateConstructorUsedError;
+  Map<String, dynamic> get mon => throw _privateConstructorUsedError;
+  Map<String, dynamic> get tue => throw _privateConstructorUsedError;
+  Map<String, dynamic> get wed => throw _privateConstructorUsedError;
+  Map<String, dynamic> get thu => throw _privateConstructorUsedError;
+  Map<String, dynamic> get fri => throw _privateConstructorUsedError;
+  Map<String, dynamic> get sat => throw _privateConstructorUsedError;
+  Map<String, dynamic> get sun => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1161,13 +1169,13 @@ abstract class $TimeCopyWith<$Res> {
       _$TimeCopyWithImpl<$Res, Time>;
   @useResult
   $Res call(
-      {String mon,
-      String tue,
-      String wed,
-      String thu,
-      String fri,
-      String sat,
-      String sun});
+      {Map<String, dynamic> mon,
+      Map<String, dynamic> tue,
+      Map<String, dynamic> wed,
+      Map<String, dynamic> thu,
+      Map<String, dynamic> fri,
+      Map<String, dynamic> sat,
+      Map<String, dynamic> sun});
 }
 
 /// @nodoc
@@ -1195,31 +1203,31 @@ class _$TimeCopyWithImpl<$Res, $Val extends Time>
       mon: null == mon
           ? _value.mon
           : mon // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       tue: null == tue
           ? _value.tue
           : tue // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       wed: null == wed
           ? _value.wed
           : wed // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       thu: null == thu
           ? _value.thu
           : thu // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       fri: null == fri
           ? _value.fri
           : fri // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       sat: null == sat
           ? _value.sat
           : sat // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       sun: null == sun
           ? _value.sun
           : sun // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
     ) as $Val);
   }
 }
@@ -1232,13 +1240,13 @@ abstract class _$$TimeImplCopyWith<$Res> implements $TimeCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String mon,
-      String tue,
-      String wed,
-      String thu,
-      String fri,
-      String sat,
-      String sun});
+      {Map<String, dynamic> mon,
+      Map<String, dynamic> tue,
+      Map<String, dynamic> wed,
+      Map<String, dynamic> thu,
+      Map<String, dynamic> fri,
+      Map<String, dynamic> sat,
+      Map<String, dynamic> sun});
 }
 
 /// @nodoc
@@ -1261,33 +1269,33 @@ class __$$TimeImplCopyWithImpl<$Res>
   }) {
     return _then(_$TimeImpl(
       mon: null == mon
-          ? _value.mon
+          ? _value._mon
           : mon // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       tue: null == tue
-          ? _value.tue
+          ? _value._tue
           : tue // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       wed: null == wed
-          ? _value.wed
+          ? _value._wed
           : wed // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       thu: null == thu
-          ? _value.thu
+          ? _value._thu
           : thu // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       fri: null == fri
-          ? _value.fri
+          ? _value._fri
           : fri // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       sat: null == sat
-          ? _value.sat
+          ? _value._sat
           : sat // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
       sun: null == sun
-          ? _value.sun
+          ? _value._sun
           : sun // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -1296,31 +1304,79 @@ class __$$TimeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TimeImpl implements _Time {
   _$TimeImpl(
-      {required this.mon,
-      required this.tue,
-      required this.wed,
-      required this.thu,
-      required this.fri,
-      required this.sat,
-      required this.sun});
+      {required final Map<String, dynamic> mon,
+      required final Map<String, dynamic> tue,
+      required final Map<String, dynamic> wed,
+      required final Map<String, dynamic> thu,
+      required final Map<String, dynamic> fri,
+      required final Map<String, dynamic> sat,
+      required final Map<String, dynamic> sun})
+      : _mon = mon,
+        _tue = tue,
+        _wed = wed,
+        _thu = thu,
+        _fri = fri,
+        _sat = sat,
+        _sun = sun;
 
   factory _$TimeImpl.fromJson(Map<String, dynamic> json) =>
       _$$TimeImplFromJson(json);
 
+  final Map<String, dynamic> _mon;
   @override
-  final String mon;
+  Map<String, dynamic> get mon {
+    if (_mon is EqualUnmodifiableMapView) return _mon;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_mon);
+  }
+
+  final Map<String, dynamic> _tue;
   @override
-  final String tue;
+  Map<String, dynamic> get tue {
+    if (_tue is EqualUnmodifiableMapView) return _tue;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_tue);
+  }
+
+  final Map<String, dynamic> _wed;
   @override
-  final String wed;
+  Map<String, dynamic> get wed {
+    if (_wed is EqualUnmodifiableMapView) return _wed;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_wed);
+  }
+
+  final Map<String, dynamic> _thu;
   @override
-  final String thu;
+  Map<String, dynamic> get thu {
+    if (_thu is EqualUnmodifiableMapView) return _thu;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_thu);
+  }
+
+  final Map<String, dynamic> _fri;
   @override
-  final String fri;
+  Map<String, dynamic> get fri {
+    if (_fri is EqualUnmodifiableMapView) return _fri;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_fri);
+  }
+
+  final Map<String, dynamic> _sat;
   @override
-  final String sat;
+  Map<String, dynamic> get sat {
+    if (_sat is EqualUnmodifiableMapView) return _sat;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_sat);
+  }
+
+  final Map<String, dynamic> _sun;
   @override
-  final String sun;
+  Map<String, dynamic> get sun {
+    if (_sun is EqualUnmodifiableMapView) return _sun;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_sun);
+  }
 
   @override
   String toString() {
@@ -1332,19 +1388,26 @@ class _$TimeImpl implements _Time {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TimeImpl &&
-            (identical(other.mon, mon) || other.mon == mon) &&
-            (identical(other.tue, tue) || other.tue == tue) &&
-            (identical(other.wed, wed) || other.wed == wed) &&
-            (identical(other.thu, thu) || other.thu == thu) &&
-            (identical(other.fri, fri) || other.fri == fri) &&
-            (identical(other.sat, sat) || other.sat == sat) &&
-            (identical(other.sun, sun) || other.sun == sun));
+            const DeepCollectionEquality().equals(other._mon, _mon) &&
+            const DeepCollectionEquality().equals(other._tue, _tue) &&
+            const DeepCollectionEquality().equals(other._wed, _wed) &&
+            const DeepCollectionEquality().equals(other._thu, _thu) &&
+            const DeepCollectionEquality().equals(other._fri, _fri) &&
+            const DeepCollectionEquality().equals(other._sat, _sat) &&
+            const DeepCollectionEquality().equals(other._sun, _sun));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, mon, tue, wed, thu, fri, sat, sun);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_mon),
+      const DeepCollectionEquality().hash(_tue),
+      const DeepCollectionEquality().hash(_wed),
+      const DeepCollectionEquality().hash(_thu),
+      const DeepCollectionEquality().hash(_fri),
+      const DeepCollectionEquality().hash(_sat),
+      const DeepCollectionEquality().hash(_sun));
 
   @JsonKey(ignore: true)
   @override
@@ -1362,30 +1425,30 @@ class _$TimeImpl implements _Time {
 
 abstract class _Time implements Time {
   factory _Time(
-      {required final String mon,
-      required final String tue,
-      required final String wed,
-      required final String thu,
-      required final String fri,
-      required final String sat,
-      required final String sun}) = _$TimeImpl;
+      {required final Map<String, dynamic> mon,
+      required final Map<String, dynamic> tue,
+      required final Map<String, dynamic> wed,
+      required final Map<String, dynamic> thu,
+      required final Map<String, dynamic> fri,
+      required final Map<String, dynamic> sat,
+      required final Map<String, dynamic> sun}) = _$TimeImpl;
 
   factory _Time.fromJson(Map<String, dynamic> json) = _$TimeImpl.fromJson;
 
   @override
-  String get mon;
+  Map<String, dynamic> get mon;
   @override
-  String get tue;
+  Map<String, dynamic> get tue;
   @override
-  String get wed;
+  Map<String, dynamic> get wed;
   @override
-  String get thu;
+  Map<String, dynamic> get thu;
   @override
-  String get fri;
+  Map<String, dynamic> get fri;
   @override
-  String get sat;
+  Map<String, dynamic> get sat;
   @override
-  String get sun;
+  Map<String, dynamic> get sun;
   @override
   @JsonKey(ignore: true)
   _$$TimeImplCopyWith<_$TimeImpl> get copyWith =>

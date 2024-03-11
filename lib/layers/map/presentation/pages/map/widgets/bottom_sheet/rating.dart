@@ -1,18 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
 
-class ToiletBottomSheetRating extends StatelessWidget {
-  const ToiletBottomSheetRating({super.key});
+class ToiletBottomSheetRating extends StatefulWidget {
+  final Toilet toilet;
+
+  const ToiletBottomSheetRating(this.toilet, {super.key});
+
+  @override
+  State<ToiletBottomSheetRating> createState() =>
+      _ToiletBottomSheetRatingState();
+}
+
+class _ToiletBottomSheetRatingState extends State<ToiletBottomSheetRating> {
+  late String rating;
+  late String totalReviews;
+
+  @override
+  void initState() {
+    super.initState();
+    rating = Toilet.getRating(widget.toilet).toString();
+    totalReviews = widget.toilet.reviews.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(children: [
       SvgPicture.asset(Images.star),
       const AppSpacerH(),
-      AppText("3.0(2)", style: Theme.of(context).textTheme.labelMedium!),
+      AppText("$rating ($totalReviews)",
+          style: Theme.of(context).textTheme.labelMedium!),
+      const AppSpacerH(),
+      SvgPicture.asset(
+        Images.arrowRight,
+        colorFilter: const ColorFilter.mode(
+          Palette.svgIcon,
+          BlendMode.srcIn,
+        ),
+      ),
     ]);
   }
 }

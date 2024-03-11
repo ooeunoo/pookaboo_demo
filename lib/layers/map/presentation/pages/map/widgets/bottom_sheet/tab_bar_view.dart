@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/information.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/review.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -7,7 +8,9 @@ import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 
 class ToiletBottomSeetTabBarView extends StatefulWidget {
-  const ToiletBottomSeetTabBarView({super.key});
+  final Toilet toilet;
+
+  const ToiletBottomSeetTabBarView(this.toilet, {super.key});
 
   @override
   _ToiletBottomSeetTabBarViewState createState() =>
@@ -17,9 +20,12 @@ class ToiletBottomSeetTabBarView extends StatefulWidget {
 class _ToiletBottomSeetTabBarViewState
     extends State<ToiletBottomSeetTabBarView> {
   int _selectedIndex = 0;
+  Toilet? toilet;
 
   @override
   Widget build(BuildContext context) {
+    toilet = widget.toilet;
+
     return Column(
       children: [
         /////////////////////////////////////////////////////////////////////////////////
@@ -47,9 +53,9 @@ class _ToiletBottomSeetTabBarViewState
         /////////////////////////////////////////////////////////////////////////////////
         IndexedStack(
           index: _selectedIndex,
-          children: const [
-            ToiletBottomSheetInformation(),
-            ToiletBottomSheetReview(),
+          children: [
+            ToiletBottomSheetInformation(toilet!),
+            ToiletBottomSheetReview(toilet!),
           ],
         ),
       ],

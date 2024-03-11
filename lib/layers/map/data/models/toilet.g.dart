@@ -9,13 +9,13 @@ part of 'toilet.dart';
 _$ToiletImpl _$$ToiletImplFromJson(Map<String, dynamic> json) => _$ToiletImpl(
       id: json['id'] as int,
       name: json['name'] as String,
-      type: json['type'] as String,
+      type: json['type'] as int,
       visible: json['visible'] as bool,
       gender: json['gender'] as bool,
       password: json['password'] as bool,
       password_tip: json['password_tip'] as String? ?? "",
-      rating: (json['rating'] as num?)?.toDouble() ?? 0,
-      reviews: (json['reviews'] as num?)?.toDouble() ?? 0,
+      reviews: json['reviews'] as int? ?? 0,
+      ratings: json['ratings'] as Map<String, dynamic>,
       location_type: json['location_type'] as String,
       address: json['address'] as String,
       road_address: json['road_address'] as String,
@@ -43,8 +43,8 @@ Map<String, dynamic> _$$ToiletImplToJson(_$ToiletImpl instance) =>
       'gender': instance.gender,
       'password': instance.password,
       'password_tip': instance.password_tip,
-      'rating': instance.rating,
       'reviews': instance.reviews,
+      'ratings': instance.ratings,
       'location_type': instance.location_type,
       'address': instance.address,
       'road_address': instance.road_address,
@@ -104,13 +104,13 @@ Map<String, dynamic> _$$EquipmentImplToJson(_$EquipmentImpl instance) =>
     };
 
 _$TimeImpl _$$TimeImplFromJson(Map<String, dynamic> json) => _$TimeImpl(
-      mon: json['mon'] as String,
-      tue: json['tue'] as String,
-      wed: json['wed'] as String,
-      thu: json['thu'] as String,
-      fri: json['fri'] as String,
-      sat: json['sat'] as String,
-      sun: json['sun'] as String,
+      mon: json['mon'] as Map<String, dynamic>,
+      tue: json['tue'] as Map<String, dynamic>,
+      wed: json['wed'] as Map<String, dynamic>,
+      thu: json['thu'] as Map<String, dynamic>,
+      fri: json['fri'] as Map<String, dynamic>,
+      sat: json['sat'] as Map<String, dynamic>,
+      sun: json['sun'] as Map<String, dynamic>,
     );
 
 Map<String, dynamic> _$$TimeImplToJson(_$TimeImpl instance) =>
