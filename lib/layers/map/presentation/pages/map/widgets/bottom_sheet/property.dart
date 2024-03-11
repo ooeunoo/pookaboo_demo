@@ -120,12 +120,12 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
           if (isCurrentOpen) ...[
             Row(
               children: [
-                AppText("운영 중",
+                AppText("운영중",
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
                         .copyWith(color: Palette.highlightSubText)),
-                AppText("﹒ $openTimeFormat ~ $closeTimeFormat",
+                AppText(" ﹒ $openTimeFormat ~ $closeTimeFormat",
                     style: Theme.of(context).textTheme.labelMedium!),
               ],
             )
