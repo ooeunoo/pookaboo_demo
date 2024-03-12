@@ -5,16 +5,16 @@ import 'dart:math';
 import 'package:pookaboo/layers/map/data/models/coord.dart';
 
 class CoordConv {
-  late double m_dx;
-  late double m_dy;
-  late double m_dz;
-  late double m_omega;
-  late double m_phi;
-  late double m_kappa;
-  late double m_ds;
-  late int m_imode;
-  late double x;
-  late double y;
+  late double m_dx = 0;
+  late double m_dy = 0;
+  late double m_dz = 0;
+  late double m_omega = 0;
+  late double m_phi = 0;
+  late double m_kappa = 0;
+  late double m_ds = 0;
+  late int m_imode = 0;
+  late double x = 0;
+  late double y = 0;
 
   static double A = atan(1) / 45;
   static const double BASE_TM_X = 127;
@@ -34,6 +34,7 @@ class CoordConv {
   static const int COORD_UTM = 6;
   static const int COORD_WGS84 = 7;
   static const int COORD_BESSEL = 8;
+
   static Map<int, Map<String, dynamic>> COORD_BASE = {
     0: {
       'name': 'TM',
@@ -126,7 +127,6 @@ class CoordConv {
     } else if (fromType == COORD_WCONGNAMUL) {
       convertWCONG2WGS();
       convertWGS2BESSEL();
-      print('From: $x, $y');
     }
   }
 
@@ -145,6 +145,7 @@ class CoordConv {
       convertBESSEL2CONG();
     } else if (toType == COORD_WGS84) {
       convertBESSEL2WGS();
+      print('To Finished: $x $y');
     } else if (toType == COORD_BESSEL) {
     } else if (toType == COORD_WTM) {
       convertBESSEL2WGS();
@@ -302,11 +303,12 @@ class CoordConv {
 
   List<double> WGP2GP(double a, double b, double d, double e, double h) {
     var rtn = WGP2WCTR(a, b, d);
-    if (m_imode == 1) {
-      rtn = TransMolod(rtn[0], rtn[1], rtn[2]);
-    } else {
-      rtn = TransBursa(rtn[0], rtn[1], rtn[2]);
-    }
+    // if (m_imode == 1) {
+    //   rtn = TransMolod(rtn[0], rtn[1], rtn[2]);
+    // } else {
+    // }
+    rtn = TransBursa(rtn[0], rtn[1], rtn[2]);
+
     return CTR2GP(rtn[0], rtn[1], rtn[2], e, h);
   }
 
@@ -331,14 +333,14 @@ class CoordConv {
     var l = a * c;
     c *= b;
     m = 1 / m;
-    m = e * (m - 1) / m;
+    m = (e * (m - 1)) / m;
     var o = (pow(e, 2) - pow(m, 2)) / pow(e, 2);
     o = e / sqrt(1 - o * pow(sin(l), 2));
 
     return [
       (o + d) * cos(l) * cos(c),
       (o + d) * cos(l) * sin(c),
-      ((pow(m, 2) / pow(e, 2) * o) + d) * sin(l),
+      ((pow(m, 2) / pow(e, 2)) * o + d) * sin(l),
     ];
   }
 
@@ -688,8 +690,18 @@ class CoordConv {
   }
 }
 
-Document coordconv(double x, double y, int fromType, int toType) {
+Document coordconvWGS84ToWCONGNAMUL(
+  double x,
+  double y,
+) {
   CoordConv vCoordConv = CoordConv();
+  return vCoordConv.getTransCoord(x, y, 7, 3);
+}
 
-  return vCoordConv.getTransCoord(x, y, fromType, toType);
+Document coordconvWCONGNAMULToWGS84(
+  double x,
+  double y,
+) {
+  CoordConv vCoordConv = CoordConv();
+  return vCoordConv.getTransCoord(x, y, 3, 7);
 }

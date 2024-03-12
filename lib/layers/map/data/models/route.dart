@@ -5,6 +5,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
+import 'package:pookaboo/layers/map/data/models/coord.dart';
+
 part 'route.freezed.dart';
 part 'route.g.dart';
 
@@ -22,6 +24,17 @@ class GetRouteParams with _$GetRouteParams {
 
   factory GetRouteParams.fromJson(Map<String, dynamic> json) =>
       _$GetRouteParamsFromJson(json);
+}
+
+@freezed
+class GetRouteFormatResponse with _$GetRouteFormatResponse {
+  const factory GetRouteFormatResponse({
+    required int time,
+    required List<Document> points,
+  }) = _GetRouteFormatResponse;
+
+  factory GetRouteFormatResponse.fromJson(Map<String, dynamic> json) =>
+      _$GetRouteFormatResponseFromJson(json);
 }
 
 @freezed

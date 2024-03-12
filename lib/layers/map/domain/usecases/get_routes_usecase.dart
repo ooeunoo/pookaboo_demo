@@ -10,13 +10,13 @@ import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/usecase/usecase.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
-class GetRoutesUseCase extends UseCase<GetRouteResponse, GetRouteParams> {
+class GetRoutesUseCase extends UseCase<GetRouteFormatResponse, GetRouteParams> {
   final MapRepository _repo;
 
   GetRoutesUseCase(this._repo);
 
   @override
-  Future<Either<Failure, GetRouteResponse>> call(GetRouteParams params) {
+  Future<Either<Failure, GetRouteFormatResponse>> call(GetRouteParams params) {
     log.d('usecase');
     return _repo.getRoutes(params);
   }

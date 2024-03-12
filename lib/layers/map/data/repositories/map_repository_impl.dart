@@ -39,14 +39,8 @@ class MapRepositoryImpl implements MapRepository {
     return response;
   }
 
-  // @override
-  // Future<LatLng> convertCood(ConvertCoordParams params) async {
-  //   final response = await kakaoRemoteDatasource.convertCoord(params);
-  //   return response;
-  // }
-
   @override
-  Future<Either<Failure, GetRouteResponse>> getRoutes(
+  Future<Either<Failure, GetRouteFormatResponse>> getRoutes(
       GetRouteParams params) async {
     final response = await kakaoRemoteDatasource.getRoutes(params);
     log.d(response);

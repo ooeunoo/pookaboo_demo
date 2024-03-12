@@ -15,7 +15,6 @@ abstract class MapRepository {
 
   Future<Either<Failure, bool>> createReviewImpl(CreateReviewParams params);
 
-  // Future<LatLng> convertCood(ConvertCoordParams params);
-
-  Future<Either<Failure, GetRouteResponse>> getRoutes(GetRouteParams params);
+  Future<Either<Failure, GetRouteFormatResponse>> getRoutes(
+      GetRouteParams params);
 }

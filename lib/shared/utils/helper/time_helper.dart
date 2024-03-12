@@ -70,3 +70,7 @@ String formatTime(String time) {
   // Format the time string
   return '$suffix $hours:${minutes.toString().padLeft(2, '0')}시';
 }
+
+int convertSecondsToMinutes(int seconds) {
+  return (seconds / 60).floor();
+}

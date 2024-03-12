@@ -276,6 +276,174 @@ abstract class _GetRouteParams implements GetRouteParams {
       throw _privateConstructorUsedError;
 }
 
+GetRouteFormatResponse _$GetRouteFormatResponseFromJson(
+    Map<String, dynamic> json) {
+  return _GetRouteFormatResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$GetRouteFormatResponse {
+  int get time => throw _privateConstructorUsedError;
+  List<Document> get points => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GetRouteFormatResponseCopyWith<GetRouteFormatResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GetRouteFormatResponseCopyWith<$Res> {
+  factory $GetRouteFormatResponseCopyWith(GetRouteFormatResponse value,
+          $Res Function(GetRouteFormatResponse) then) =
+      _$GetRouteFormatResponseCopyWithImpl<$Res, GetRouteFormatResponse>;
+  @useResult
+  $Res call({int time, List<Document> points});
+}
+
+/// @nodoc
+class _$GetRouteFormatResponseCopyWithImpl<$Res,
+        $Val extends GetRouteFormatResponse>
+    implements $GetRouteFormatResponseCopyWith<$Res> {
+  _$GetRouteFormatResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? time = null,
+    Object? points = null,
+  }) {
+    return _then(_value.copyWith(
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<Document>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$GetRouteFormatResponseImplCopyWith<$Res>
+    implements $GetRouteFormatResponseCopyWith<$Res> {
+  factory _$$GetRouteFormatResponseImplCopyWith(
+          _$GetRouteFormatResponseImpl value,
+          $Res Function(_$GetRouteFormatResponseImpl) then) =
+      __$$GetRouteFormatResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int time, List<Document> points});
+}
+
+/// @nodoc
+class __$$GetRouteFormatResponseImplCopyWithImpl<$Res>
+    extends _$GetRouteFormatResponseCopyWithImpl<$Res,
+        _$GetRouteFormatResponseImpl>
+    implements _$$GetRouteFormatResponseImplCopyWith<$Res> {
+  __$$GetRouteFormatResponseImplCopyWithImpl(
+      _$GetRouteFormatResponseImpl _value,
+      $Res Function(_$GetRouteFormatResponseImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? time = null,
+    Object? points = null,
+  }) {
+    return _then(_$GetRouteFormatResponseImpl(
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as int,
+      points: null == points
+          ? _value._points
+          : points // ignore: cast_nullable_to_non_nullable
+              as List<Document>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$GetRouteFormatResponseImpl implements _GetRouteFormatResponse {
+  const _$GetRouteFormatResponseImpl(
+      {required this.time, required final List<Document> points})
+      : _points = points;
+
+  factory _$GetRouteFormatResponseImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GetRouteFormatResponseImplFromJson(json);
+
+  @override
+  final int time;
+  final List<Document> _points;
+  @override
+  List<Document> get points {
+    if (_points is EqualUnmodifiableListView) return _points;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_points);
+  }
+
+  @override
+  String toString() {
+    return 'GetRouteFormatResponse(time: $time, points: $points)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetRouteFormatResponseImpl &&
+            (identical(other.time, time) || other.time == time) &&
+            const DeepCollectionEquality().equals(other._points, _points));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, time, const DeepCollectionEquality().hash(_points));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetRouteFormatResponseImplCopyWith<_$GetRouteFormatResponseImpl>
+      get copyWith => __$$GetRouteFormatResponseImplCopyWithImpl<
+          _$GetRouteFormatResponseImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$GetRouteFormatResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _GetRouteFormatResponse implements GetRouteFormatResponse {
+  const factory _GetRouteFormatResponse(
+      {required final int time,
+      required final List<Document> points}) = _$GetRouteFormatResponseImpl;
+
+  factory _GetRouteFormatResponse.fromJson(Map<String, dynamic> json) =
+      _$GetRouteFormatResponseImpl.fromJson;
+
+  @override
+  int get time;
+  @override
+  List<Document> get points;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetRouteFormatResponseImplCopyWith<_$GetRouteFormatResponseImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 GetRouteResponse _$GetRouteResponseFromJson(Map<String, dynamic> json) {
   return _GetRouteResponse.fromJson(json);
 }

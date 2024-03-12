@@ -166,28 +166,27 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Toilet toilet = event.toilet;
     try {
       final Position position = await _geolocatorService.getPosition();
-      // Document mp = coordconv(position.longitude, position.latitude, 7, 3);
+      Document mp = coordconvWGS84ToWCONGNAMUL(
+        position.longitude,
+        position.latitude,
+      );
+      Document tp = coordconvWGS84ToWCONGNAMUL(toilet.lng, toilet.lat);
 
-      // Document tp = coordconv(toilet.lng, toilet.lat, 7, 3);
-      Document rp = coordconv(510283, 1134847, 3, 7);
+      GetRouteParams params = GetRouteParams(
+          sName: '나의 위치',
+          sX: mp.x,
+          sY: mp.y,
+          eName: toilet.name,
+          eX: tp.x,
+          eY: tp.y,
+          ids: '11277825,434235');
 
-      log.d('${rp.x}, ${rp.y}');
-
-      // GetRouteParams params = GetRouteParams(
-      //     sName: '나의 위치',
-      //     sX: mp.x,
-      //     sY: mp.y,
-      //     eName: toilet.name,
-      //     eX: tp.x,
-      //     eY: tp.y,
-      //     ids: '11277825,434235');
-
-      // final response = await _getRoutesUseCase.call(params);
-      // response.fold((l) {
-      //   log.d(l);
-      // }, (r) {
-      //   log.e(r);
-      // });
+      final response = await _getRoutesUseCase.call(params);
+      response.fold((l) {
+        log.e(l);
+      }, (r) {
+        log.d(r);
+      });
 
       // // // 리뷰
       // CreateReviewParams params = CreateReviewParams(

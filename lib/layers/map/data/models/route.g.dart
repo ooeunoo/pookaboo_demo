@@ -29,6 +29,22 @@ Map<String, dynamic> _$$GetRouteParamsImplToJson(
       'ids': instance.ids,
     };
 
+_$GetRouteFormatResponseImpl _$$GetRouteFormatResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$GetRouteFormatResponseImpl(
+      time: json['time'] as int,
+      points: (json['points'] as List<dynamic>)
+          .map((e) => Document.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$GetRouteFormatResponseImplToJson(
+        _$GetRouteFormatResponseImpl instance) =>
+    <String, dynamic>{
+      'time': instance.time,
+      'points': instance.points,
+    };
+
 _$GetRouteResponseImpl _$$GetRouteResponseImplFromJson(
         Map<String, dynamic> json) =>
     _$GetRouteResponseImpl(

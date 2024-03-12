@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
@@ -7,52 +9,27 @@ import 'package:pookaboo/shared/constant/api.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/env.dart';
 import 'package:pookaboo/shared/error/failure.dart';
+import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
+import 'package:pookaboo/shared/utils/helper/time_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 abstract class KakaoRemoteDatasource {
-  // Future<LatLng> convertCoord(ConvertCoordParams params);
-  Future<Either<Failure, GetRouteResponse>> getRoutes(GetRouteParams params);
+  Future<Either<Failure, GetRouteFormatResponse>> getRoutes(
+      GetRouteParams params);
 }
 
 class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
-  // late Dio _dioKakao;
   late Dio _dioMap;
 
   KakaoRemoteDatasourceImpl() {
-    // _dioKakao = Dio(BaseOptions(baseUrl: Api.get.kakaoApiBaseUrl, headers: {
-    //   'Content-Type': 'application/json',
-    //   'Accept': 'application/json',
-    //   'Authorirzation': 'KakaoAk ${Env.get.kakaoJavascriptApiKey}'
-    // }));
-
     _dioMap = Dio(BaseOptions(baseUrl: Api.get.kakaoMAPApiBaseUrl, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     }));
   }
 
-  // @override
-  // Future<LatLng> convertCoord(ConvertCoordParams params) async {
-  //   Map<String, dynamic> query = {
-  //     'x': params.x,
-  //     'y': params.y,
-  //     'input_coord': params.inputCoord,
-  //     'output_coord': params.outputCoord
-  //   };
-
-  //   final response =
-  //       await _dioKakao.get(Api.get.transCoordEndpoint, queryParameters: query);
-
-  //   ConvertCoordResponse data = ConvertCoordResponse.fromJson(response.data);
-  //   Document document = data.documents[0];
-
-  //   LatLng loc = LatLng(document.y, document.x);
-
-  //   return loc;
-  // }
-
   @override
-  Future<Either<Failure, GetRouteResponse>> getRoutes(
+  Future<Either<Failure, GetRouteFormatResponse>> getRoutes(
       GetRouteParams params) async {
     try {
       final query = <String, dynamic>{
@@ -67,12 +44,38 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
 
       final response =
           await _dioMap.get(Api.get.routeWalkEndpoint, queryParameters: query);
-      GetRouteResponse data = GetRouteResponse.fromJson(response.data);
-      return Right(data);
+      final data = GetRouteResponse.fromJson(response.data);
+
+      Direction direction = data.directions[0];
+      Section section = direction.sections[0];
+      List<GuideList> guideList = section.guideList;
+      int time = convertSecondsToMinutes(section.time);
+      List<Document> points = parseCoordinatePoint(guideList);
+
+      GetRouteFormatResponse formatResponse =
+          GetRouteFormatResponse(time: time, points: points);
+
+      return Right(formatResponse);
     } catch (e) {
       log.e('e: $e');
       return Left(ServerFailure(e.toString()));
     }
+  }
+
+  List<Document> parseCoordinatePoint(List<GuideList> guideList) {
+    List<Document> linkPoints = [];
+    for (var guide in guideList) {
+      if (guide.guideCode != GuideCode.END) {
+        List<Document> points = guide.link!.points.split('|').map((point) {
+          List<String> coordinates = point.split(',');
+          double x = double.parse(coordinates[0]);
+          double y = double.parse(coordinates[1]);
+          return Document(x: x, y: y);
+        }).toList();
+        linkPoints.addAll(points);
+      }
+    }
+    return linkPoints;
   }
 }
 
