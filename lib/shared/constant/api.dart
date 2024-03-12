@@ -8,5 +8,11 @@ class Api {
   String kakaoApiBaseUrl = "https://dapi.kakao.com/v2/";
   // endpoint
   String transCoordEndpoint = 'local/geo/transcoord.json';
-  String routeWalkEndpoint = 'route/walkset.json';
+
+  /////////////////////////////////////
+  // KAKAO MAP
+  /////////////////////////////////////
+  String kakaoMAPApiBaseUrl = "https://map.kakao.com";
+  // endpoint
+  String routeWalkEndpoint = '/route/walkset.json';
 }

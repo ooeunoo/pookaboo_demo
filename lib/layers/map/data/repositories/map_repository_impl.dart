@@ -3,11 +3,13 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/map/data/datasources/kakao_remote_datasource.dart';
 import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasource.dart';
 import 'package:pookaboo/layers/map/data/models/coord.dart';
+import 'package:pookaboo/layers/map/data/models/route.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:pookaboo/shared/error/failure.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class MapRepositoryImpl implements MapRepository {
   final ToiletRemoteDatasource toiletRemoteDatasource;
@@ -37,9 +39,17 @@ class MapRepositoryImpl implements MapRepository {
     return response;
   }
 
+  // @override
+  // Future<LatLng> convertCood(ConvertCoordParams params) async {
+  //   final response = await kakaoRemoteDatasource.convertCoord(params);
+  //   return response;
+  // }
+
   @override
-  Future<LatLng> convertCood(ConvertCoordParams params) async {
-    final response = await kakaoRemoteDatasource.convertCoord(params);
+  Future<Either<Failure, GetRouteResponse>> getRoutes(
+      GetRouteParams params) async {
+    final response = await kakaoRemoteDatasource.getRoutes(params);
+    log.d(response);
     return response;
   }
 }

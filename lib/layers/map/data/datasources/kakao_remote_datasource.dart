@@ -7,67 +7,73 @@ import 'package:pookaboo/shared/constant/api.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/env.dart';
 import 'package:pookaboo/shared/error/failure.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 
 abstract class KakaoRemoteDatasource {
-  Future<LatLng> convertCoord(ConvertCoordParams params);
-  // Future<LatLng> getRoutes(GetRouteParams params);
+  // Future<LatLng> convertCoord(ConvertCoordParams params);
+  Future<Either<Failure, GetRouteResponse>> getRoutes(GetRouteParams params);
 }
 
 class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
-  late Dio _dio;
+  // late Dio _dioKakao;
+  late Dio _dioMap;
 
   KakaoRemoteDatasourceImpl() {
-    _dio = Dio(BaseOptions(baseUrl: Api.get.kakaoApiBaseUrl, headers: {
+    // _dioKakao = Dio(BaseOptions(baseUrl: Api.get.kakaoApiBaseUrl, headers: {
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json',
+    //   'Authorirzation': 'KakaoAk ${Env.get.kakaoJavascriptApiKey}'
+    // }));
+
+    _dioMap = Dio(BaseOptions(baseUrl: Api.get.kakaoMAPApiBaseUrl, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'KakaoAk ${Env.get.kakaoJavascriptApiKey}'
     }));
   }
 
-  @override
-  Future<LatLng> convertCoord(ConvertCoordParams params) async {
-    Map<String, dynamic> query = {
-      'x': params.x,
-      'y': params.y,
-      'input_coord': params.inputCoord,
-      'output_coord': params.outputCoord
-    };
-
-    final response =
-        await _dio.get(Api.get.transCoordEndpoint, queryParameters: query);
-
-    ConvertCoordResponse data = ConvertCoordResponse.fromJson(response.data);
-    Document document = data.documents[0];
-
-    LatLng loc = LatLng(document.y, document.x);
-
-    return loc;
-  }
-
   // @override
-  // Future<LatLng> getRoutes(GetRouteParams params) async {
+  // Future<LatLng> convertCoord(ConvertCoordParams params) async {
   //   Map<String, dynamic> query = {
-  //     'sName': params.sName,
-  //     'sX': params.sX,
-  //     'sY': params.sY,
-  //     'eName': params.eName,
-  //     'eX': params.eX,
-  //     'eY': params.eY
+  //     'x': params.x,
+  //     'y': params.y,
+  //     'input_coord': params.inputCoord,
+  //     'output_coord': params.outputCoord
   //   };
 
   //   final response =
-  //       await _dio.get(Api.get.routeWalkEndpoint, queryParameters: query);
+  //       await _dioKakao.get(Api.get.transCoordEndpoint, queryParameters: query);
 
-  //   GetRouteResponse data = response.data;
+  //   ConvertCoordResponse data = ConvertCoordResponse.fromJson(response.data);
+  //   Document document = data.documents[0];
 
-  //   Direction direction = data.directions[0];
-  //   Section section = direction.sections[0];
+  //   LatLng loc = LatLng(document.y, document.x);
 
-  //   List<GuideList> guideList = section.guideList;
-  //   int time = section.time;
-
-  //   // return loc;
+  //   return loc;
   // }
+
+  @override
+  Future<Either<Failure, GetRouteResponse>> getRoutes(
+      GetRouteParams params) async {
+    try {
+      final query = <String, dynamic>{
+        'sName': params.sName,
+        'sX': params.sX,
+        'sY': params.sY,
+        'eName': params.eName,
+        'eX': params.eX,
+        'eY': params.eY,
+        "ids": params.ids
+      };
+
+      final response =
+          await _dioMap.get(Api.get.routeWalkEndpoint, queryParameters: query);
+      GetRouteResponse data = GetRouteResponse.fromJson(response.data);
+      return Right(data);
+    } catch (e) {
+      log.e('e: $e');
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
 
 

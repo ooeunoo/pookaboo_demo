@@ -8,7 +8,7 @@ import 'package:pookaboo/layers/map/data/datasources/kakao_remote_datasource.dar
 import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasource.dart';
 import 'package:pookaboo/layers/map/data/repositories/map_repository_impl.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
-import 'package:pookaboo/layers/map/domain/usecases/convert_coord_usecase.dart';
+import 'package:pookaboo/layers/map/domain/usecases/get_routes_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/create_review_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
@@ -82,8 +82,7 @@ void _useCase() {
   sl.registerLazySingleton<CreateReviewUseCase>(
       () => CreateReviewUseCase(sl()));
 
-  sl.registerLazySingleton<ConvertCoordUseCase>(
-      () => ConvertCoordUseCase(sl()));
+  sl.registerLazySingleton<GetRoutesUseCase>(() => GetRoutesUseCase(sl()));
 }
 
 void _bloc() {

@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/layers/map/data/models/coord.dart';
+import 'package:pookaboo/layers/map/data/models/route.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:pookaboo/layers/map/domain/usecases/convert_coord_usecase.dart';
+import 'package:pookaboo/layers/map/domain/usecases/get_routes_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/create_review_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
@@ -35,7 +40,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   final GetNearByToiletsUseCase _getNearByToiletsUseCase;
   final GetToiletByIdUseCase _getToiletByIdUseCase;
   final CreateReviewUseCase _createReviewUseCase;
-  final ConvertCoordUseCase _convertCoordUseCase;
+  final GetRoutesUseCase _getRoutesUseCase;
 
   /////////////////////////////////
   /// Event Mapping
@@ -46,7 +51,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       this._getNearByToiletsUseCase,
       this._getToiletByIdUseCase,
       this._createReviewUseCase,
-      this._convertCoordUseCase)
+      this._getRoutesUseCase)
       : super(InitialState()) {
     on<MapCreateEvent>(_onMapCreateEvent);
     on<GetNearByToiletsEvent>(_onGetNearByToiletsEvent);
@@ -158,21 +163,29 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       StartDirectionsEvent event, Emitter<MapState> emit) async {
     emit(SearchingToiletDirectionState());
 
+    Toilet toilet = event.toilet;
     try {
-      // await _kakaoNaviService.findWay();
-      // 현재 나의 위치
-      // final Position position = await _geolocatorService.getPosition();
-      // LatLng mpLatLng = LatLng(position.latitude, position.longitude);
-      // log.d(mpLatLng);
-      final result = coordconv(127.04656659602398, 37.584999, 7, 3);
-      log.d('result: $result');
-      // LatLng mp = await _convertCoordUseCase.call(mpLatLng);
+      final Position position = await _geolocatorService.getPosition();
+      Document mp = coordconv(position.longitude, position.latitude, 7, 3);
+      Document tp = coordconv(toilet.lng, toilet.lat, 7, 3);
+      log.d('$mp $tp');
+      GetRouteParams params = GetRouteParams(
+          sName: '나의 위치',
+          sX: mp.x,
+          sY: mp.y,
+          eName: toilet.name,
+          eX: tp.x,
+          eY: tp.y,
+          ids: '11277825,434235');
 
-      // // 화장실 위치
-      // LatLng tpLatLng = LatLng(event.toilet.lat, event.toilet.lng);
-      // LatLng tp = await _convertCoordUseCase.call(tpLatLng);
+      final response = await _getRoutesUseCase.call(params);
+      response.fold((l) {
+        log.e(l);
+      }, (r) {
+        log.d(r);
+      });
 
-      // // 리뷰
+      // // // 리뷰
       // CreateReviewParams params = CreateReviewParams(
       //     toiletId: event.toilet.id,
       //     userId: event.userId,

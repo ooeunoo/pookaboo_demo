@@ -2,6 +2,8 @@
 
 import 'dart:math';
 
+import 'package:pookaboo/layers/map/data/models/coord.dart';
+
 class CoordConv {
   late double m_dx;
   late double m_dy;
@@ -80,16 +82,17 @@ class CoordConv {
     },
   };
 
-  List<double> getTransCoord(double x, double y, int fromType, int toType) {
-    if (fromType == toType) return [x, y];
+  Document getTransCoord(double x, double y, int fromType, int toType) {
+    if (fromType == toType) return Document(x: x, y: y);
     init(x, y);
 
-    if (fromType < 0 || fromType >= COORD_BASE.length) return [x, y];
+    if (fromType < 0 || fromType >= COORD_BASE.length)
+      return Document(x: x, y: y);
 
-    if (toType < 0 || toType >= COORD_BASE.length) return [x, y];
+    if (toType < 0 || toType >= COORD_BASE.length) return Document(x: x, y: y);
 
     convertCoord(fromType, toType);
-    return [this.x, this.y];
+    return Document(x: this.x, y: this.y);
   }
 
   void convertCoord(int fromType, int toType) {
@@ -675,7 +678,7 @@ class CoordConv {
   }
 }
 
-List<double> coordconv(double x, double y, int fromType, int toType) {
+Document coordconv(double x, double y, int fromType, int toType) {
   CoordConv vCoordConv = CoordConv();
 
   return vCoordConv.getTransCoord(x, y, fromType, toType);

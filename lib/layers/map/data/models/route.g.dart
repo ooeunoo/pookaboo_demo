@@ -9,12 +9,12 @@ part of 'route.dart';
 _$GetRouteParamsImpl _$$GetRouteParamsImplFromJson(Map<String, dynamic> json) =>
     _$GetRouteParamsImpl(
       sName: json['sName'] as String,
-      sX: json['sX'] as int,
-      sY: json['sY'] as int,
+      sX: (json['sX'] as num).toDouble(),
+      sY: (json['sY'] as num).toDouble(),
       eName: json['eName'] as String,
-      eX: json['eX'] as int,
-      eY: json['eY'] as int,
-      ids: json['ids'] as int,
+      eX: (json['eX'] as num).toDouble(),
+      eY: (json['eY'] as num).toDouble(),
+      ids: json['ids'] as String,
     );
 
 Map<String, dynamic> _$$GetRouteParamsImplToJson(

@@ -21,12 +21,12 @@ GetRouteParams _$GetRouteParamsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$GetRouteParams {
   String get sName => throw _privateConstructorUsedError;
-  int get sX => throw _privateConstructorUsedError;
-  int get sY => throw _privateConstructorUsedError;
+  double get sX => throw _privateConstructorUsedError;
+  double get sY => throw _privateConstructorUsedError;
   String get eName => throw _privateConstructorUsedError;
-  int get eX => throw _privateConstructorUsedError;
-  int get eY => throw _privateConstructorUsedError;
-  int get ids => throw _privateConstructorUsedError;
+  double get eX => throw _privateConstructorUsedError;
+  double get eY => throw _privateConstructorUsedError;
+  String get ids => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +41,13 @@ abstract class $GetRouteParamsCopyWith<$Res> {
       _$GetRouteParamsCopyWithImpl<$Res, GetRouteParams>;
   @useResult
   $Res call(
-      {String sName, int sX, int sY, String eName, int eX, int eY, int ids});
+      {String sName,
+      double sX,
+      double sY,
+      String eName,
+      double eX,
+      double eY,
+      String ids});
 }
 
 /// @nodoc
@@ -73,11 +79,11 @@ class _$GetRouteParamsCopyWithImpl<$Res, $Val extends GetRouteParams>
       sX: null == sX
           ? _value.sX
           : sX // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sY: null == sY
           ? _value.sY
           : sY // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       eName: null == eName
           ? _value.eName
           : eName // ignore: cast_nullable_to_non_nullable
@@ -85,15 +91,15 @@ class _$GetRouteParamsCopyWithImpl<$Res, $Val extends GetRouteParams>
       eX: null == eX
           ? _value.eX
           : eX // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       eY: null == eY
           ? _value.eY
           : eY // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       ids: null == ids
           ? _value.ids
           : ids // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ) as $Val);
   }
 }
@@ -107,7 +113,13 @@ abstract class _$$GetRouteParamsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String sName, int sX, int sY, String eName, int eX, int eY, int ids});
+      {String sName,
+      double sX,
+      double sY,
+      String eName,
+      double eX,
+      double eY,
+      String ids});
 }
 
 /// @nodoc
@@ -137,11 +149,11 @@ class __$$GetRouteParamsImplCopyWithImpl<$Res>
       sX: null == sX
           ? _value.sX
           : sX // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       sY: null == sY
           ? _value.sY
           : sY // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       eName: null == eName
           ? _value.eName
           : eName // ignore: cast_nullable_to_non_nullable
@@ -149,15 +161,15 @@ class __$$GetRouteParamsImplCopyWithImpl<$Res>
       eX: null == eX
           ? _value.eX
           : eX // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       eY: null == eY
           ? _value.eY
           : eY // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       ids: null == ids
           ? _value.ids
           : ids // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -180,17 +192,17 @@ class _$GetRouteParamsImpl implements _GetRouteParams {
   @override
   final String sName;
   @override
-  final int sX;
+  final double sX;
   @override
-  final int sY;
+  final double sY;
   @override
   final String eName;
   @override
-  final int eX;
+  final double eX;
   @override
-  final int eY;
+  final double eY;
   @override
-  final int ids;
+  final String ids;
 
   @override
   String toString() {
@@ -234,12 +246,12 @@ class _$GetRouteParamsImpl implements _GetRouteParams {
 abstract class _GetRouteParams implements GetRouteParams {
   const factory _GetRouteParams(
       {required final String sName,
-      required final int sX,
-      required final int sY,
+      required final double sX,
+      required final double sY,
       required final String eName,
-      required final int eX,
-      required final int eY,
-      required final int ids}) = _$GetRouteParamsImpl;
+      required final double eX,
+      required final double eY,
+      required final String ids}) = _$GetRouteParamsImpl;
 
   factory _GetRouteParams.fromJson(Map<String, dynamic> json) =
       _$GetRouteParamsImpl.fromJson;
@@ -247,17 +259,17 @@ abstract class _GetRouteParams implements GetRouteParams {
   @override
   String get sName;
   @override
-  int get sX;
+  double get sX;
   @override
-  int get sY;
+  double get sY;
   @override
   String get eName;
   @override
-  int get eX;
+  double get eX;
   @override
-  int get eY;
+  double get eY;
   @override
-  int get ids;
+  String get ids;
   @override
   @JsonKey(ignore: true)
   _$$GetRouteParamsImplCopyWith<_$GetRouteParamsImpl> get copyWith =>

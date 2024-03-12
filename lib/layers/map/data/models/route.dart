@@ -12,12 +12,12 @@ part 'route.g.dart';
 class GetRouteParams with _$GetRouteParams {
   const factory GetRouteParams({
     required String sName,
-    required int sX,
-    required int sY,
+    required double sX,
+    required double sY,
     required String eName,
-    required int eX,
-    required int eY,
-    required int ids,
+    required double eX,
+    required double eY,
+    required String ids,
   }) = _GetRouteParams;
 
   factory GetRouteParams.fromJson(Map<String, dynamic> json) =>
