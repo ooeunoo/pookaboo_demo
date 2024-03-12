@@ -57,25 +57,13 @@ class SelecteToiletMarkerEvent extends MapEvent {
 ////////////////////////////////
 class StartDirectionsEvent extends MapEvent {
   final Toilet toilet;
-  final String userId;
-  final int cleanliness;
-  final int safety;
-  final int convenience;
-  final int management;
-  final String comment;
 
-  StartDirectionsEvent(
-      {required this.toilet,
-      required this.userId,
-      required this.cleanliness,
-      required this.safety,
-      required this.convenience,
-      required this.management,
-      required this.comment});
+  StartDirectionsEvent({
+    required this.toilet,
+  });
 
   @override
-  List<Object> get props =>
-      [toilet, userId, cleanliness, safety, convenience, management, comment];
+  List<Object> get props => [toilet];
 }
 
 /////////////////////////////////

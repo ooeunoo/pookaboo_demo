@@ -165,11 +165,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     Toilet toilet = event.toilet;
     try {
+      log.d('onStartDirectionEvent 발생');
       final Position position = await _geolocatorService.getPosition();
+
       Document mp = coordconvWGS84ToWCONGNAMUL(
         position.longitude,
         position.latitude,
       );
+
       Document tp = coordconvWGS84ToWCONGNAMUL(toilet.lng, toilet.lat);
 
       GetRouteParams params = GetRouteParams(
@@ -185,7 +188,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       response.fold((l) {
         log.e(l);
       }, (r) {
-        log.d(r);
+        log.d(r.toString());
+
+        emit(LoadedToiletDirectionState(routes: r));
       });
 
       // // // 리뷰

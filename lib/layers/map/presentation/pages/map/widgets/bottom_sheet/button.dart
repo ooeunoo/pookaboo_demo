@@ -31,7 +31,6 @@ class _ToiletBottomSheetButtonState extends State<ToiletBottomSheetButton> {
     if (authState is AuthenticatedState) {
       userId =
           authState.user.id; // Assuming user id is accessible via 'id' property
-      log.d(userId);
       setState(() {}); // Trigger a rebuild to reflect the updated user ID
     }
   }
@@ -39,22 +38,11 @@ class _ToiletBottomSheetButtonState extends State<ToiletBottomSheetButton> {
   @override
   Widget build(BuildContext context) {
     return AppButton(
-      title: '길찾기',
-      onPressed: userId != null
-          ? () {
-              context.read<MapBloc>().add(
-                    StartDirectionsEvent(
-                      toilet: widget.toilet,
-                      userId: userId!,
-                      convenience: 2,
-                      management: 2,
-                      safety: 2,
-                      cleanliness: 2,
-                      comment: '가자 좋아',
-                    ),
-                  );
-            }
-          : () {},
-    );
+        title: '길찾기',
+        onPressed: () {
+          context
+              .read<MapBloc>()
+              .add(StartDirectionsEvent(toilet: widget.toilet));
+        });
   }
 }

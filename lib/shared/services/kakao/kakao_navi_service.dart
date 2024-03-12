@@ -11,10 +11,7 @@ class KakaoNaviService {
   }
 
   Future<void> findWay() async {
-    log.d('result');
-
     bool result = await NaviApi.instance.isKakaoNaviInstalled();
-    log.d('result: $result');
     if (await NaviApi.instance.isKakaoNaviInstalled()) {
       // 카카오내비 앱으로 길 안내하기, WGS84 좌표계 사용
       await NaviApi.instance.navigate(

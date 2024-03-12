@@ -75,8 +75,12 @@ class SearchingToiletDirectionState extends MapState {
 /// Loaded Toilet Direction
 ////////////////////////////////
 class LoadedToiletDirectionState extends MapState {
+  final GetRouteFormatResponse routes;
+
+  LoadedToiletDirectionState({required this.routes});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [routes];
 }
 
 /////////////////////////////////

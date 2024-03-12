@@ -12,7 +12,9 @@ import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/rating.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
 import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
+import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -32,7 +34,11 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  bool isOpenedBottomSheet = false;
+
   Set<Marker> markers = {};
+  Set<Polyline> polylines = {};
+
   double currentSnapSize = 0.25; // 스냅 인덱스를 저장할 변수
 
   @override
@@ -45,7 +51,16 @@ class _MapPageState extends State<MapPage> {
     super.dispose();
   }
 
-  void _showBottomSheet(BuildContext context, Toilet toilet) {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('here');
+  }
+
+  void _showBottomSheet(BuildContext context, Toilet toilet) async {
+    setState(() {
+      isOpenedBottomSheet = true;
+    });
     showFlexibleBottomSheet(
       context: context,
       anchors: [0.3, 1],
@@ -90,7 +105,12 @@ class _MapPageState extends State<MapPage> {
           ],
         );
       },
-    );
+    ).whenComplete(() {
+      print('complete');
+      setState(() {
+        isOpenedBottomSheet = false;
+      }); // This worked me;
+    });
   }
 
   @override
@@ -108,18 +128,30 @@ class _MapPageState extends State<MapPage> {
                 if (state is MapCreatedState) {
                   context.read<MapBloc>().add(MoveToMyPositionEvent());
                 } else if (state is MovedMapState) {
-                  log.d('지도 움직임');
                   context.read<MapBloc>().add(GetNearByToiletsEvent());
                 } else if (state is LoadedToiletMarkersState) {
                   markers = state.markers;
                 } else if (state is LoadedSelectedToiletState) {
                   _showBottomSheet(context, state.toilet);
+                } else if (state is LoadedToiletDirectionState) {
+                  polylines.add(
+                    Polyline(
+                        polylineId: 'polyline_1',
+                        points: state.routes.points.map((route) {
+                          return LatLng(route.y, route.x);
+                        }).toList(),
+                        strokeColor: const Color(0xff0078FF),
+                        strokeWidth: 10,
+                        strokeStyle: StrokeStyle.solid),
+                  );
+
+                  setState(() {});
                 }
               },
               child: KakaoMap(
                   center: initialCenter,
                   onMapTap: (LatLng loc) {
-                    // context.read<MapBloc>().add(GetNearByToiletsEvent());
+                    context.read<MapBloc>().add(GetNearByToiletsEvent());
                   },
                   onMapCreated: ((controller) async {
                     context
@@ -130,6 +162,7 @@ class _MapPageState extends State<MapPage> {
                     context.read<MapBloc>().add(SelecteToiletMarkerEvent(
                         toiletId: int.parse(markerId)));
                   },
+                  polylines: polylines.toList(),
                   markers: markers.toList()),
             ),
             ////////////////////////////////////

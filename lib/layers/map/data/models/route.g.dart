@@ -156,7 +156,7 @@ _$GuideListImpl _$$GuideListImplFromJson(Map<String, dynamic> json) =>
           ? null
           : Link.fromJson(json['link'] as Map<String, dynamic>),
       y: json['y'] as int,
-      guideCode: $enumDecode(_$GuideCodeEnumMap, json['guideCode']),
+      guideCode: json['guideCode'] as String,
       seq: json['seq'] as int,
       roadView: json['roadView'] == null
           ? null
@@ -175,7 +175,7 @@ Map<String, dynamic> _$$GuideListImplToJson(_$GuideListImpl instance) =>
       'x': instance.x,
       'link': instance.link,
       'y': instance.y,
-      'guideCode': _$GuideCodeEnumMap[instance.guideCode]!,
+      'guideCode': instance.guideCode,
       'seq': instance.seq,
       'roadView': instance.roadView,
       'poi': instance.poi,
@@ -186,16 +186,6 @@ const _$RotationCodeEnumMap = {
   RotationCode.STRAIGHT: 'STRAIGHT',
   RotationCode.TURN_LEFT: 'TURN_LEFT',
   RotationCode.TURN_RIGHT: 'TURN_RIGHT',
-};
-
-const _$GuideCodeEnumMap = {
-  GuideCode.END: 'END',
-  GuideCode.ENTER_CROSSWALK: 'ENTER_CROSSWALK',
-  GuideCode.ENTER_DOUBLE_CROSSWALK: 'ENTER_DOUBLE_CROSSWALK',
-  GuideCode.EXIT_CROSSWALK: 'EXIT_CROSSWALK',
-  GuideCode.NONE: 'NONE',
-  GuideCode.START: 'START',
-  GuideCode.TURN_CROSSROAD: 'TURN_CROSSROAD',
 };
 
 _$LinkImpl _$$LinkImplFromJson(Map<String, dynamic> json) => _$LinkImpl(

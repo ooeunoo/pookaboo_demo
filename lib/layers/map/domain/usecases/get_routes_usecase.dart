@@ -17,7 +17,6 @@ class GetRoutesUseCase extends UseCase<GetRouteFormatResponse, GetRouteParams> {
 
   @override
   Future<Either<Failure, GetRouteFormatResponse>> call(GetRouteParams params) {
-    log.d('usecase');
     return _repo.getRoutes(params);
   }
 }

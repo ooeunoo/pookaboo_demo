@@ -121,7 +121,7 @@ class GuideList with _$GuideList {
     required int x,
     Link? link,
     required int y,
-    required GuideCode guideCode,
+    required String guideCode,
     required int seq,
     RoadView? roadView,
     Poi? poi,
@@ -132,25 +132,59 @@ class GuideList with _$GuideList {
       _$GuideListFromJson(json);
 }
 
-enum GuideCode {
-  END,
-  ENTER_CROSSWALK,
-  ENTER_DOUBLE_CROSSWALK,
-  EXIT_CROSSWALK,
-  NONE,
-  START,
-  TURN_CROSSROAD
-}
+// enum GuideCode {
+//   NONE,
 
-final guideCodeValues = EnumValues({
-  "END": GuideCode.END,
-  "ENTER_CROSSWALK": GuideCode.ENTER_CROSSWALK,
-  "ENTER_DOUBLE_CROSSWALK": GuideCode.ENTER_DOUBLE_CROSSWALK,
-  "EXIT_CROSSWALK": GuideCode.EXIT_CROSSWALK,
-  "NONE": GuideCode.NONE,
-  "START": GuideCode.START,
-  "TURN_CROSSROAD": GuideCode.TURN_CROSSROAD
-});
+//   START,
+//   END,
+
+//   ENTER_CROSSWALK,
+//   EXIT_CROSSWALK,
+
+//   ENTER_DOUBLE_CROSSWALK,
+//   EXIT_DOUBLE_CROOSWALK,
+
+//   ENTER_PEDESTRIAN_OVERPASS,
+//   EXIT_PEDESTRIAN_OVERPASS,
+
+//   ENTER_PEDESTRIAN_BRIDGE,
+//   EXIT_PEDESTRIAN_BRIDGE,
+
+//   ENTER_UNDERGROUND,
+//   EXIT_UNDERGROUND,
+
+//   ENTER_SUBWAY,
+//   EXIT_SUBWAY,
+
+//   ENTER_STAIR,
+//   EXIT_STAIR,
+
+//   ENTER_SUBWAY_ELEVATOR,
+//   EXIT_SUBWAY
+
+//   TURN_CROSSROAD
+// }
+
+// final guideCodeValues = EnumValues({
+//   "NONE": GuideCode.NONE,
+//   "START": GuideCode.START,
+//   "END": GuideCode.END,
+//   "ENTER_CROSSWALK": GuideCode.ENTER_CROSSWALK,
+//   "EXIT_CROSSWALK": GuideCode.EXIT_CROSSWALK,
+//   "ENTER_DOUBLE_CROSSWALK": GuideCode.ENTER_DOUBLE_CROSSWALK,
+//   'EXIT_DOUBLE_CROOSWALK': GuideCode.EXIT_DOUBLE_CROOSWALK,
+//   'ENTER_PEDESTRIAN_OVERPASS': GuideCode.ENTER_PEDESTRIAN_OVERPASS,
+//   'EXIT_PEDESTRIAN_OVERPASS': GuideCode.EXIT_PEDESTRIAN_OVERPASS,
+//   'ENTER_PEDESTRIAN_BRIDGE': GuideCode.ENTER_PEDESTRIAN_BRIDGE,
+//   'EXIT_PEDESTRIAN_BRIDGE': GuideCode.EXIT_PEDESTRIAN_BRIDGE,
+//   'ENTER_UNDERGROUND': GuideCode.ENTER_UNDERGROUND,
+//   'EXIT_UNDERGROUND': GuideCode.EXIT_UNDERGROUND,
+//   "ENTER_SUBWAY": GuideCode.ENTER_SUBWAY,
+//   'EXIT_SUBWAY': GuideCode.EXIT_SUBWAY,
+//   'ENTER_STAIR': GuideCode.ENTER_STAIR,
+//   'EXIT_STAIR': GuideCode.EXIT_STAIR,
+//   "TURN_CROSSROAD": GuideCode.TURN_CROSSROAD
+// });
 
 @freezed
 class Link with _$Link {

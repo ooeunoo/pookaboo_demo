@@ -1664,7 +1664,7 @@ mixin _$GuideList {
   int get x => throw _privateConstructorUsedError;
   Link? get link => throw _privateConstructorUsedError;
   int get y => throw _privateConstructorUsedError;
-  GuideCode get guideCode => throw _privateConstructorUsedError;
+  String get guideCode => throw _privateConstructorUsedError;
   int get seq => throw _privateConstructorUsedError;
   RoadView? get roadView => throw _privateConstructorUsedError;
   Poi? get poi => throw _privateConstructorUsedError;
@@ -1688,7 +1688,7 @@ abstract class $GuideListCopyWith<$Res> {
       int x,
       Link? link,
       int y,
-      GuideCode guideCode,
+      String guideCode,
       int seq,
       RoadView? roadView,
       Poi? poi,
@@ -1752,7 +1752,7 @@ class _$GuideListCopyWithImpl<$Res, $Val extends GuideList>
       guideCode: null == guideCode
           ? _value.guideCode
           : guideCode // ignore: cast_nullable_to_non_nullable
-              as GuideCode,
+              as String,
       seq: null == seq
           ? _value.seq
           : seq // ignore: cast_nullable_to_non_nullable
@@ -1824,7 +1824,7 @@ abstract class _$$GuideListImplCopyWith<$Res>
       int x,
       Link? link,
       int y,
-      GuideCode guideCode,
+      String guideCode,
       int seq,
       RoadView? roadView,
       Poi? poi,
@@ -1889,7 +1889,7 @@ class __$$GuideListImplCopyWithImpl<$Res>
       guideCode: null == guideCode
           ? _value.guideCode
           : guideCode // ignore: cast_nullable_to_non_nullable
-              as GuideCode,
+              as String,
       seq: null == seq
           ? _value.seq
           : seq // ignore: cast_nullable_to_non_nullable
@@ -1942,7 +1942,7 @@ class _$GuideListImpl implements _GuideList {
   @override
   final int y;
   @override
-  final GuideCode guideCode;
+  final String guideCode;
   @override
   final int seq;
   @override
@@ -2007,7 +2007,7 @@ abstract class _GuideList implements GuideList {
       required final int x,
       final Link? link,
       required final int y,
-      required final GuideCode guideCode,
+      required final String guideCode,
       required final int seq,
       final RoadView? roadView,
       final Poi? poi,
@@ -2029,7 +2029,7 @@ abstract class _GuideList implements GuideList {
   @override
   int get y;
   @override
-  GuideCode get guideCode;
+  String get guideCode;
   @override
   int get seq;
   @override

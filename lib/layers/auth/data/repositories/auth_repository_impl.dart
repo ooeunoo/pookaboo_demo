@@ -56,7 +56,6 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Stream<User?> getCurrentUser() {
     return _supabaseService.client.auth.onAuthStateChange.map((event) {
-      log.d(event.session?.user.toJson());
       return event.session?.user;
     });
   }

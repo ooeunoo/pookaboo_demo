@@ -44,10 +44,14 @@ class AppPage extends StatelessWidget {
                 top: BorderSide(
                     color: Palette.subDividerBackground, width: 1.0))),
         child: BottomNavigationBar(
-          onTap: (value) {
+          onTap: (value) async {
             if (value != state.index) {
               context.read<NavigationCubit>().changeBottomNavigation(value);
               context.go(tabs[value].initialLocation);
+              // 흠.. 바텀시트가 열려있을때 닫고 다른 페이지로 이동하기 위한 코드. 동작 이해 아직 안됨.
+              if (context.canPop()) {
+                context.pop();
+              }
             }
           },
           elevation: 0,

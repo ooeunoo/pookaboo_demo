@@ -145,7 +145,6 @@ class CoordConv {
       convertBESSEL2CONG();
     } else if (toType == COORD_WGS84) {
       convertBESSEL2WGS();
-      print('To Finished: $x $y');
     } else if (toType == COORD_BESSEL) {
     } else if (toType == COORD_WTM) {
       convertBESSEL2WGS();

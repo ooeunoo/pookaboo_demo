@@ -44,11 +44,13 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
 
       final response =
           await _dioMap.get(Api.get.routeWalkEndpoint, queryParameters: query);
+
       final data = GetRouteResponse.fromJson(response.data);
 
       Direction direction = data.directions[0];
       Section section = direction.sections[0];
       List<GuideList> guideList = section.guideList;
+
       int time = convertSecondsToMinutes(section.time);
       List<Document> points = parseCoordinatePoint(guideList);
 
@@ -57,7 +59,8 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
 
       return Right(formatResponse);
     } catch (e) {
-      log.e('e: $e');
+      log.d(e);
+      // log.e('e: $e');
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -65,12 +68,13 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
   List<Document> parseCoordinatePoint(List<GuideList> guideList) {
     List<Document> linkPoints = [];
     for (var guide in guideList) {
-      if (guide.guideCode != GuideCode.END) {
+      // log.d(guide.toJson());
+      if (guide.guideCode != 'END') {
         List<Document> points = guide.link!.points.split('|').map((point) {
           List<String> coordinates = point.split(',');
           double x = double.parse(coordinates[0]);
           double y = double.parse(coordinates[1]);
-          return Document(x: x, y: y);
+          return coordconvWCONGNAMULToWGS84(x, y);
         }).toList();
         linkPoints.addAll(points);
       }
@@ -78,6 +82,7 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
     return linkPoints;
   }
 }
+
 
 
 //  if (isSuccess && hasDirections) {

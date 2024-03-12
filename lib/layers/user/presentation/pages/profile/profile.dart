@@ -21,6 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
+    print('hjere');
     super.initState();
     menu = [
       {

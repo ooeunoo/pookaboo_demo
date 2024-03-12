@@ -43,7 +43,6 @@ class MapRepositoryImpl implements MapRepository {
   Future<Either<Failure, GetRouteFormatResponse>> getRoutes(
       GetRouteParams params) async {
     final response = await kakaoRemoteDatasource.getRoutes(params);
-    log.d(response);
     return response;
   }
 }

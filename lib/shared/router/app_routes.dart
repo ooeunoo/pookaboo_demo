@@ -40,6 +40,7 @@ class AppRoute {
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
+  static final _bottomNavigatorKey = GlobalKey<NavigatorState>();
 
   AppRoute.setStream(BuildContext ctx) {
     context = ctx;
@@ -47,7 +48,6 @@ class AppRoute {
 
   static final GoRouter router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-
     routes: [
       GoRoute(
         path: AppRoutes.splash.path,

@@ -33,7 +33,6 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
   @override
   void initState() {
     super.initState();
-    log.d(widget.toilet.id);
     toiletType = widget.toilet.type;
     isGenderSeperate = widget.toilet.gender;
     hasPassword = widget.toilet.password;
