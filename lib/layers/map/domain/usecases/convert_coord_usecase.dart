@@ -4,15 +4,17 @@ import 'package:pookaboo/layers/map/data/models/coord.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.dart';
+import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:pookaboo/shared/error/failure.dart';
+import 'package:pookaboo/shared/usecase/usecase.dart';
 
-abstract class MapRepository {
-  Future<Either<Failure, List<Toilet>>> getNearByToiletsImpl(
-      GetNearByToiletsParams params);
+class ConvertCoordUseCase extends NoFailureUseCase<LatLng, ConvertCoordParams> {
+  final MapRepository _repo;
 
-  Future<Either<Failure, Toilet>> getToiletByIdImpl(int id);
+  ConvertCoordUseCase(this._repo);
 
-  Future<Either<Failure, bool>> createReviewImpl(CreateReviewParams params);
-
-  Future<LatLng> convertCood(ConvertCoordParams params);
+  @override
+  Future<LatLng> call(ConvertCoordParams params) {
+    return _repo.convertCood(params);
+  }
 }

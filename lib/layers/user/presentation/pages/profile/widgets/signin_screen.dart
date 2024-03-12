@@ -26,7 +26,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInFormState extends State<SignInScreen> {
   void _signInWithKakao() {
-    context.read<AuthBloc>().add(const AuthEvent.signInWithKakaoEvent());
+    context.read<AuthBloc>().add(SignInWithKakaoEvent());
   }
 
   @override

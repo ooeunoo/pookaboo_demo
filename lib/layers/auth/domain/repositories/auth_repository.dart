@@ -1,3 +1,4 @@
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class AuthRepository {
@@ -10,6 +11,7 @@ abstract class AuthRepository {
       {required String email, required String password});
   Future<void> signOut();
   Stream<User?> getCurrentUser();
+  Future<User?> updateUser({String? nickname, String? phone, Gender? gender});
   User? getSignedInUser();
   String getAccessToken();
 }

@@ -6,7 +6,6 @@ import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/pages/app.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pookaboo/layers/auth/presentation/pages/login/login.dart';
 import 'package:pookaboo/layers/user/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/splash/presentation/pages/splash.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/map.dart';
@@ -14,7 +13,7 @@ import 'package:pookaboo/layers/user/presentation/pages/review/review.dart';
 import 'package:pookaboo/shared/router/router_refresh_stream.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
-enum Routes {
+enum AppRoutes {
   splash("/splash"),
 
   // map page
@@ -31,7 +30,7 @@ enum Routes {
   register("/auth/register"),
   ;
 
-  const Routes(this.path);
+  const AppRoutes(this.path);
 
   final String path;
 }
@@ -51,8 +50,8 @@ class AppRoute {
 
     routes: [
       GoRoute(
-        path: Routes.splash.path,
-        name: Routes.splash.name,
+        path: AppRoutes.splash.path,
+        name: AppRoutes.splash.name,
         builder: (_, __) => const SplashPage(),
       ),
       ShellRoute(
@@ -66,22 +65,22 @@ class AppRoute {
         },
         routes: [
           GoRoute(
-            path: Routes.map.path,
-            name: Routes.map.name,
+            path: AppRoutes.map.path,
+            name: AppRoutes.map.name,
             pageBuilder: (context, state) => const NoTransitionPage(
               child: MapPage(),
             ),
           ),
           GoRoute(
-            path: Routes.profile.path,
-            name: Routes.profile.name,
+            path: AppRoutes.profile.path,
+            name: AppRoutes.profile.name,
             pageBuilder: (context, state) => const NoTransitionPage(
               child: ProfilePage(),
             ),
           ),
           GoRoute(
-            path: Routes.reviews.path,
-            name: Routes.reviews.name,
+            path: AppRoutes.reviews.path,
+            name: AppRoutes.reviews.name,
             pageBuilder: (context, state) => const NoTransitionPage(
               child: ReviewPage(),
             ),
@@ -89,12 +88,12 @@ class AppRoute {
         ],
       ),
       // GoRoute(
-      //   path: Routes.root.path,
-      //   name: Routes.root.name,
-      //   redirect: (_, __) => Routes.dashboard.path,
+      //   path: AppRoutes.root.path,
+      //   name: AppRoutes.root.name,
+      //   redirect: (_, __) => AppRoutes.dashboard.path,
       // ),
     ],
-    initialLocation: Routes.splash.path,
+    initialLocation: AppRoutes.splash.path,
     routerNeglect: true,
     // debugLogDiagnostics: kDebugMode,
     refreshListenable: RouterRefreshStream(context.read<AuthBloc>().stream),
@@ -102,7 +101,7 @@ class AppRoute {
       // String currentPath = state.matchedLocation;
 
       // // 프로필 페이지로 이동한 경우, 로그인이 되어있지않다면 로그인 페이지로 이동
-      // if (currentPath == Routes.profile.path) {
+      // if (currentPath == AppRoutes.profile.path) {
       //   final authState = context.read<AuthBloc>().state;
       //   final bool isUserAuthenticated = authState.maybeWhen(
       //     authUserUnauthenticated: () => false,
@@ -112,11 +111,11 @@ class AppRoute {
 
       //   // 사용자가 로그인되어 있지 않은 경우 로그인 페이지로 리디렉션합니다.
       //   if (!isUserAuthenticated) {
-      //     return Routes.login.path;
+      //     return AppRoutes.login.path;
       //   }
       // }
 
-      // if (currentPath == Routes.login.path) {}
+      // if (currentPath == AppRoutes.login.path) {}
 
       return null;
       // ///  Check if not login
@@ -124,7 +123,7 @@ class AppRoute {
       // ///  but if not we must direct user to login page
       // if (!((MainBoxMixin.mainBox?.get(MainBoxKeys.isLogin.name) as bool?) ??
       //     false)) {
-      //   return isLoginPage ? null : Routes.login.path;
+      //   return isLoginPage ? null : AppRoutes.login.path;
       // }
 
       // /// Check if already login and in login page
@@ -133,7 +132,7 @@ class AppRoute {
       // if (isLoginPage &&
       //     ((MainBoxMixin.mainBox?.get(MainBoxKeys.isLogin.name) as bool?) ??
       //         false)) {
-      //   return Routes.root.path;
+      //   return AppRoutes.root.path;
       // }
 
       /// No direct

@@ -1,14 +1,20 @@
 import 'package:dartz/dartz.dart';
-import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasources.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/layers/map/data/datasources/kakao_remote_datasource.dart';
+import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasource.dart';
+import 'package:pookaboo/layers/map/data/models/coord.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
+import 'package:pookaboo/layers/map/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 
 class MapRepositoryImpl implements MapRepository {
   final ToiletRemoteDatasource toiletRemoteDatasource;
+  final KakaoRemoteDatasource kakaoRemoteDatasource;
 
-  const MapRepositoryImpl(this.toiletRemoteDatasource);
+  const MapRepositoryImpl(
+      this.toiletRemoteDatasource, this.kakaoRemoteDatasource);
 
   @override
   Future<Either<Failure, List<Toilet>>> getNearByToiletsImpl(
@@ -21,6 +27,19 @@ class MapRepositoryImpl implements MapRepository {
   @override
   Future<Either<Failure, Toilet>> getToiletByIdImpl(int id) async {
     final response = await toiletRemoteDatasource.getToiletByIdDatasource(id);
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, bool>> createReviewImpl(
+      CreateReviewParams params) async {
+    final response = await toiletRemoteDatasource.createReview(params);
+    return response;
+  }
+
+  @override
+  Future<LatLng> convertCood(ConvertCoordParams params) async {
+    final response = await kakaoRemoteDatasource.convertCoord(params);
     return response;
   }
 }

@@ -52,7 +52,7 @@ class LoadedToiletMarkersState extends MapState {
 }
 
 /////////////////////////////////
-/// Loaded Selected Toilet 
+/// Loaded Selected Toilet
 ////////////////////////////////
 class LoadedSelectedToiletState extends MapState {
   final Toilet toilet;
@@ -61,6 +61,22 @@ class LoadedSelectedToiletState extends MapState {
 
   @override
   List<Object> get props => [toilet];
+}
+
+/////////////////////////////////
+/// Searching Toilet Direction
+////////////////////////////////
+class SearchingToiletDirectionState extends MapState {
+  @override
+  List<Object> get props => [];
+}
+
+/////////////////////////////////
+/// Loaded Toilet Direction
+////////////////////////////////
+class LoadedToiletDirectionState extends MapState {
+  @override
+  List<Object> get props => [];
 }
 
 /////////////////////////////////

@@ -4,9 +4,12 @@ import 'package:pookaboo/layers/auth/data/repositories/auth_repository_impl.dart
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasources.dart';
+import 'package:pookaboo/layers/map/data/datasources/kakao_remote_datasource.dart';
+import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasource.dart';
 import 'package:pookaboo/layers/map/data/repositories/map_repository_impl.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
+import 'package:pookaboo/layers/map/domain/usecases/convert_coord_usecase.dart';
+import 'package:pookaboo/layers/map/domain/usecases/create_review_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
@@ -14,6 +17,8 @@ import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
+import 'package:pookaboo/shared/services/kakao/kakao_navi_service.dart';
+import 'package:pookaboo/shared/services/storage/storage_service.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
 
 GetIt sl = GetIt.instance;
@@ -54,12 +59,15 @@ void _repositories() {
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(sl()),
   );
-  sl.registerLazySingleton<MapRepository>(() => MapRepositoryImpl(sl()));
+  sl.registerLazySingleton<MapRepository>(() => MapRepositoryImpl(sl(), sl()));
 }
 
 void _dataSources() {
   sl.registerLazySingleton<ToiletRemoteDatasource>(
       () => ToiletRemoteDatasourceImpl(sl()));
+
+  sl.registerLazySingleton<KakaoRemoteDatasource>(
+      () => KakaoRemoteDatasourceImpl());
 }
 
 void _useCase() {
@@ -70,11 +78,17 @@ void _useCase() {
 
   sl.registerLazySingleton<GetToiletByIdUseCase>(
       () => GetToiletByIdUseCase(sl()));
+
+  sl.registerLazySingleton<CreateReviewUseCase>(
+      () => CreateReviewUseCase(sl()));
+
+  sl.registerLazySingleton<ConvertCoordUseCase>(
+      () => ConvertCoordUseCase(sl()));
 }
 
 void _bloc() {
   sl.registerFactory(() => AuthBloc(sl()));
-  sl.registerFactory(() => MapBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl(), sl()));
 }
 
 void _cubit() {
@@ -88,9 +102,17 @@ void _service() async {
   sl.registerSingleton<SupabaseService>(SupabaseService());
 
   // Kakao Map
+  await KakaoNaviService.init();
+  sl.registerSingleton<KakaoNaviService>(KakaoNaviService());
+
+  // Kakao Map
   await KakaoMapService.init();
   sl.registerSingleton<KakaoMapService>(KakaoMapService());
 
   // Geolocator
   sl.registerSingleton<GeolocatorService>(GeolocatorService());
+
+  // Local Storage
+  await StorageService.init();
+  sl.registerSingleton<StorageService>(StorageService());
 }

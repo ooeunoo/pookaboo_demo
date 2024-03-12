@@ -1,4 +1,7 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/information.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/review.dart';
@@ -26,40 +29,47 @@ class _ToiletBottomSeetTabBarViewState
   Widget build(BuildContext context) {
     toilet = widget.toilet;
 
-    return Column(
-      children: [
-        /////////////////////////////////////////////////////////////////////////////////
-        ////// TabBar
-        /////////////////////////////////////////////////////////////////////////////////
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildTabItem(0, '정보'),
-                AppSpacerH(
-                  value: Dimens.space12,
-                ),
-                _buildTabItem(1, '평점'),
-              ],
+    return BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, AuthState state) {
+      return Column(
+        children: [
+          /////////////////////////////////////////////////////////////////////////////////
+          ////// TabBar
+          /////////////////////////////////////////////////////////////////////////////////
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildTabItem(0, '정보'),
+                  AppSpacerH(
+                    value: Dimens.space12,
+                  ),
+                  _buildTabItem(1, '평점'),
+                ],
+              ),
             ),
           ),
-        ),
-        AppSpacerV(value: Dimens.space20),
+          AppSpacerV(value: Dimens.space20),
 
-        /////////////////////////////////////////////////////////////////////////////////
-        ////// TabBar View
-        /////////////////////////////////////////////////////////////////////////////////
-        IndexedStack(
-          index: _selectedIndex,
-          children: [
-            ToiletBottomSheetInformation(toilet!),
-            ToiletBottomSheetReview(toilet!),
-          ],
-        ),
-      ],
-    );
+          /////////////////////////////////////////////////////////////////////////////////
+          ////// TabBar View
+          /////////////////////////////////////////////////////////////////////////////////
+
+          IndexedStack(
+            index: _selectedIndex,
+            children: [
+              ToiletBottomSheetInformation(toilet!),
+              ToiletBottomSheetReview(toilet!),
+            ],
+          ).blurred(
+            blur: 4,
+            blurColor: Palette.bottomSheetBackground,
+          ),
+        ],
+      );
+    });
   }
 
   /////////////////////////////////////////////////////////////////////////////////

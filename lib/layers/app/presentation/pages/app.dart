@@ -26,12 +26,12 @@ class AppPage extends StatelessWidget {
   Widget _buildBottomNavigation(BuildContext context, NavigationState state) {
     final tabs = [
       NavigationBarItemWidget(
-        initialLocation: Routes.map.path,
+        initialLocation: AppRoutes.map.path,
         icon: const Icon(Icons.search),
         label: 'Home',
       ),
       NavigationBarItemWidget(
-        initialLocation: Routes.profile.path,
+        initialLocation: AppRoutes.profile.path,
         icon: const Icon(Icons.person),
         label: 'Profile',
       ),

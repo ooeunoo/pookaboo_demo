@@ -3,15 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
+import 'package:pookaboo/layers/map/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.dart';
 import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:pookaboo/layers/map/domain/usecases/convert_coord_usecase.dart';
+import 'package:pookaboo/layers/map/domain/usecases/create_review_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
 import 'package:pookaboo/mocks/toilets.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
+import 'package:pookaboo/shared/services/kakao/kakao_navi_service.dart';
+import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 part 'map_state.dart';
@@ -22,23 +27,33 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /// Service
   ////////////////////////////////
   final GeolocatorService _geolocatorService;
+  final KakaoNaviService _kakaoNaviService;
 
   /////////////////////////////////
   /// UseCase
   ////////////////////////////////
   final GetNearByToiletsUseCase _getNearByToiletsUseCase;
   final GetToiletByIdUseCase _getToiletByIdUseCase;
+  final CreateReviewUseCase _createReviewUseCase;
+  final ConvertCoordUseCase _convertCoordUseCase;
 
   /////////////////////////////////
   /// Event Mapping
   ////////////////////////////////
-  MapBloc(this._geolocatorService, this._getNearByToiletsUseCase,
-      this._getToiletByIdUseCase)
+  MapBloc(
+      this._geolocatorService,
+      this._kakaoNaviService,
+      this._getNearByToiletsUseCase,
+      this._getToiletByIdUseCase,
+      this._createReviewUseCase,
+      this._convertCoordUseCase)
       : super(InitialState()) {
     on<MapCreateEvent>(_onMapCreateEvent);
     on<GetNearByToiletsEvent>(_onGetNearByToiletsEvent);
     on<MoveToMyPositionEvent>(_onMoveToMyPositionEvent);
     on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
+    on<StartDirectionsEvent>(_onStartDirectionEvent);
+    on<EndDirectionsEvent>(_onEndDirectionEvent);
   }
 
   /////////////////////////////////
@@ -135,4 +150,56 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       log.e(e);
     }
   }
+
+  /////////////////////////////////
+  /// [StartDirectionEvent] Event Handler
+  ////////////////////////////////
+  Future<void> _onStartDirectionEvent(
+      StartDirectionsEvent event, Emitter<MapState> emit) async {
+    emit(SearchingToiletDirectionState());
+
+    try {
+      // await _kakaoNaviService.findWay();
+      // 현재 나의 위치
+      // final Position position = await _geolocatorService.getPosition();
+      // LatLng mpLatLng = LatLng(position.latitude, position.longitude);
+      // log.d(mpLatLng);
+      final result = coordconv(127.04656659602398, 37.584999, 7, 3);
+      log.d('result: $result');
+      // LatLng mp = await _convertCoordUseCase.call(mpLatLng);
+
+      // // 화장실 위치
+      // LatLng tpLatLng = LatLng(event.toilet.lat, event.toilet.lng);
+      // LatLng tp = await _convertCoordUseCase.call(tpLatLng);
+
+      // // 리뷰
+      // CreateReviewParams params = CreateReviewParams(
+      //     toiletId: event.toilet.id,
+      //     userId: event.userId,
+      //     cleanliness: event.cleanliness,
+      //     safety: event.safety,
+      //     convenience: event.convenience,
+      //     management: event.management,
+      //     comment: event.comment);
+
+      // final response = await _createReviewUseCase.call(params);
+      // response.fold((l) {
+      //   // error
+      //   //  if (l is ServerFailure) {
+      //   //   emit(_Failure(l.message ?? ""));
+      //   // }
+      //   log.e(l);
+      // }, (r) {
+      //   emit(LoadedToiletDirectionState());
+      // });
+    } catch (e) {
+      log.e(e);
+    }
+  }
+
+  /////////////////////////////////
+  /// [EndDirectionEvent] Event Handler
+  ////////////////////////////////
+  Future<void> _onEndDirectionEvent(
+      EndDirectionsEvent event, Emitter<MapState> emit) async {}
 }

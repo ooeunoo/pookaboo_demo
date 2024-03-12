@@ -96,27 +96,24 @@ class _ToiletBottomSheetInformationState
         /////////////////////////////////////////////////////////////////////////////////
         ////// Image Swipe
         /////////////////////////////////////////////////////////////////////////////////
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-          child: SizedBox(
-            height: Dimens.bigImageW,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: imgList.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  width: Dimens.bigImageW,
-                  margin: const EdgeInsets.only(right: 10.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(Dimens.space12),
-                    child: Image.network(
-                      imgList[index],
-                      fit: BoxFit.cover,
-                    ),
+        SizedBox(
+          height: Dimens.bigImageW,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: imgList.length,
+            itemBuilder: (context, index) {
+              return Container(
+                width: Dimens.bigImageW,
+                margin: const EdgeInsets.only(right: 10.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(Dimens.space12),
+                  child: Image.network(
+                    imgList[index],
+                    fit: BoxFit.cover,
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
         const AppSpacerV(),

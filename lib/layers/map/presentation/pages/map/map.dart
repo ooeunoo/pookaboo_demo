@@ -84,7 +84,7 @@ class _MapPageState extends State<MapPage> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: EdgeInsets.all(Dimens.space20),
-                child: const ToiletBottomSheetButton(),
+                child: ToiletBottomSheetButton(toilet: toilet),
               ),
             )
           ],
@@ -108,6 +108,7 @@ class _MapPageState extends State<MapPage> {
                 if (state is MapCreatedState) {
                   context.read<MapBloc>().add(MoveToMyPositionEvent());
                 } else if (state is MovedMapState) {
+                  log.d('지도 움직임');
                   context.read<MapBloc>().add(GetNearByToiletsEvent());
                 } else if (state is LoadedToiletMarkersState) {
                   markers = state.markers;
@@ -118,7 +119,7 @@ class _MapPageState extends State<MapPage> {
               child: KakaoMap(
                   center: initialCenter,
                   onMapTap: (LatLng loc) {
-                    context.read<MapBloc>().add(GetNearByToiletsEvent());
+                    // context.read<MapBloc>().add(GetNearByToiletsEvent());
                   },
                   onMapCreated: ((controller) async {
                     context

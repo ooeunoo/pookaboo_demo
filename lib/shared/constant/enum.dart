@@ -83,3 +83,18 @@ enum AmenityKey {
   final String name;
   final String emoji;
 }
+
+enum Gender {
+  male(),
+  female(),
+}
+
+enum Coord {
+  wgs84('WGS84'),
+  wcongnamul('WCONGNAMUL'),
+  ;
+
+  const Coord(this.key);
+
+  final String key;
+}

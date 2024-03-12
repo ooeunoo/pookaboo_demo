@@ -93,3 +93,17 @@ class Time with _$Time {
 
   factory Time.fromJson(Map<String, dynamic> json) => _$TimeFromJson(json);
 }
+
+// @freezed
+// class Review with _$Review {
+//   factory Review({
+//     required Map<String, dynamic> user,
+//     required double cleanliness,
+//     required double safety,
+//     required double convenience,
+//     required double management,
+//     required String comment,
+//   }) = _Review;
+
+//   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+// }

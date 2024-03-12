@@ -1,6 +1,8 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -40,9 +42,23 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<User?> updateUser(
+      {String? nickname, String? phone, Gender? gender}) async {
+    UserResponse response = await _supabaseService.client.auth.updateUser(
+      UserAttributes(phone: phone, data: {
+        nickname: nickname,
+        gender: gender,
+      }),
+    );
+    return response.user;
+  }
+
+  @override
   Stream<User?> getCurrentUser() {
-    return _supabaseService.client.auth.onAuthStateChange
-        .map((event) => event.session?.user);
+    return _supabaseService.client.auth.onAuthStateChange.map((event) {
+      log.d(event.session?.user.toJson());
+      return event.session?.user;
+    });
   }
 
   @override

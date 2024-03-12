@@ -73,5 +73,11 @@
 		<!-- GeoLocator for GPS -->
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>This app needs access to location when open.</string>
+
+		<!-- Kakao Navi -->
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>kakaonavi-sdk</string>
+		</array>
 	</dict>
 </plist>

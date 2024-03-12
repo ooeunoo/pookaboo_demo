@@ -29,8 +29,7 @@ class PookabooApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => sl<SettingsCubit>()..getActiveTheme()),
         BlocProvider(
-            create: (_) =>
-                sl<AuthBloc>()..add(const AuthEvent.initialCheckRequested())),
+            create: (_) => sl<AuthBloc>()..add(InitialCheckRequestedEvent())),
         BlocProvider(create: (_) => sl<MapBloc>())
       ],
       child: OKToast(

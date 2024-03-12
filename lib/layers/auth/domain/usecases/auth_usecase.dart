@@ -1,5 +1,6 @@
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthUseCase {
@@ -33,6 +34,13 @@ class AuthUseCase {
 
   Future<void> signOut() async {
     await authRepository.signOut();
+  }
+
+  Future<User?> updateUser(
+      {String? nickname, String? phone, Gender? gender}) async {
+    await authRepository.updateUser(
+        nickname: nickname, phone: phone, gender: gender);
+    return null;
   }
 
   Stream<User?> getCurrentUser() {

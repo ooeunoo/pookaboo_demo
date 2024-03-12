@@ -54,7 +54,24 @@ dependencies:
 
   # image swipe
   carousel_slider: ^4.2.1
+  
+  # blur
+  blur: ^3.1.0
 
+  # dio
+  dio: ^5.4.1
+
+  # kakao sdk
+  kakao_flutter_sdk: ^1.9.0
+  kakao_flutter_sdk_navi: ^1.9.0 # 카카오내비 API 패키지
+
+
+  # platform
+  platform: ^3.1.4
+  crypto: ^3.0.3
+  encrypt: ^5.0.3
+
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
