@@ -86,8 +86,9 @@ class CoordConv {
     if (fromType == toType) return Document(x: x, y: y);
     init(x, y);
 
-    if (fromType < 0 || fromType >= COORD_BASE.length)
+    if (fromType < 0 || fromType >= COORD_BASE.length) {
       return Document(x: x, y: y);
+    }
 
     if (toType < 0 || toType >= COORD_BASE.length) return Document(x: x, y: y);
 
@@ -125,6 +126,7 @@ class CoordConv {
     } else if (fromType == COORD_WCONGNAMUL) {
       convertWCONG2WGS();
       convertWGS2BESSEL();
+      print('From: $x, $y');
     }
   }
 
@@ -294,6 +296,7 @@ class CoordConv {
   void convertWCONG2WGS() {
     x /= 2.5;
     y /= 2.5;
+
     TM2GP(6378137, 0.0033528106647474805, 500000, 200000, 1, 38, 127);
   }
 
@@ -527,7 +530,7 @@ class CoordConv {
     var o = l * w;
     var D = m * w;
     u = 1 / u;
-    var B = d * (u - 1) / u;
+    var B = (d * (u - 1)) / u;
     var z = (pow(d, 2) - pow(B, 2)) / pow(d, 2);
     u = (pow(d, 2) - pow(B, 2)) / pow(B, 2);
     B = (d - B) / (d + B);
@@ -545,16 +548,25 @@ class CoordConv {
         2;
     var I =
         15 * d * (pow(B, 2) - pow(B, 3) + 3 * (pow(B, 4) - pow(B, 5)) / 4) / 16;
-    var J = 35 * d * (pow(B, 3) - pow(B, 4) + 11 * pow(B, 5) / 16) / 48;
+    var J = 35 * d * (pow(B, 3) - pow(B, 4) + (11 * pow(B, 5) / 16)) / 48;
     var L = 315 * d * (pow(B, 4) - pow(B, 5)) / 512;
-    o -= w * h;
+    o = G * o -
+        E * sin(2 * o) +
+        I * sin(4 * o) -
+        J * sin(6 * o) +
+        L * sin(8 * o);
+    o *= c;
     o = a + o - h;
     var M = o / c;
     var H = d * (1 - z) / pow(sqrt(1 - z * pow(sin(o), 2)), 3);
     o = M / H;
     for (var i = 1; i <= 5; ++i) {
-      B = d * (1 - z) / pow(sqrt(1 - z * pow(sin(o), 2)), 3);
-      H = d * (1 - z) / pow(sqrt(1 - z * pow(sin(o), 2)), 3);
+      B = G * o -
+          E * sin(2 * o) +
+          I * sin(4 * o) -
+          J * sin(6 * o) +
+          L * sin(8 * o);
+      H = (d * (1 - z)) / pow(sqrt(1 - z * pow(sin(o), 2)), 3);
       o += (M - B) / H;
     }
     H = d * (1 - z) / pow(sqrt(1 - z * pow(sin(o), 2)), 3);
@@ -563,28 +575,26 @@ class CoordConv {
     z = cos(o);
     E = B / z;
     u *= pow(z, 2);
-    A = A - o;
+    A = b - A;
     B = E / (2 * H * G * pow(c, 2));
-    I = E *
-        (5 + 3 * pow(E, 2) + u - 4 * pow(u, 2) - 9 * pow(E, 2) * u) /
+    I = (E * (5 + 3 * pow(E, 2) + u - 4 * pow(u, 2) - 9 * pow(E, 2) * u)) /
         (24 * H * pow(G, 3) * pow(c, 4));
-    J = E *
-        (61 +
-            90 * pow(E, 2) +
-            46 * u +
-            45 * pow(E, 4) -
-            252 * pow(E, 2) * u -
-            3 * pow(u, 2) +
-            100 * pow(u, 3) -
-            66 * pow(E, 2) * pow(u, 2) -
-            90 * pow(E, 4) * u +
-            88 * pow(u, 4) +
-            225 * pow(E, 4) * pow(u, 2) +
-            84 * pow(E, 2) * pow(u, 3) -
-            192 * pow(E, 2) * pow(u, 4)) /
+    J = (E *
+            (61 +
+                90 * pow(E, 2) +
+                46 * u +
+                45 * pow(E, 4) -
+                252 * pow(E, 2) * u -
+                3 * pow(u, 2) +
+                100 * pow(u, 3) -
+                66 * pow(E, 2) * pow(u, 2) -
+                90 * pow(E, 4) * u +
+                88 * pow(u, 4) +
+                225 * pow(E, 4) * pow(u, 2) +
+                84 * pow(E, 2) * pow(u, 3) -
+                192 * pow(E, 2) * pow(u, 4))) /
         (720 * H * pow(G, 5) * pow(c, 6));
-    H = E *
-        (1385 + 3633 * pow(E, 2) + 4095 * pow(E, 4) + 1575 * pow(E, 6)) /
+    H = (E * (1385 + 3633 * pow(E, 2) + 4095 * pow(E, 4) + 1575 * pow(E, 6))) /
         (40320 * H * pow(G, 7) * pow(c, 8));
     o = o - pow(A, 2) * B + pow(A, 4) * I - pow(A, 6) * J + pow(A, 8) * H;
     B = 1 / (G * z * c);
@@ -602,8 +612,8 @@ class CoordConv {
     z = (61 + 662 * pow(E, 2) + 1320 * pow(E, 4) + 720 * pow(E, 6)) /
         (5040 * pow(G, 7) * z * pow(c, 7));
     A = A * B - pow(A, 3) * H + pow(A, 5) * u - pow(A, 7) * z;
-    A = D + A;
-    x = A / w;
+    D += A;
+    x = D / w;
     y = o / w;
   }
 
