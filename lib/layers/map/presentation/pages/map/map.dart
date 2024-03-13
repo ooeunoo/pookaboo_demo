@@ -3,26 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/button.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/header.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/location.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/property.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/rating.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/bottom_sheet_main.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
-import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
-import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_chip.dart';
-import 'package:pookaboo/shared/widgets/app_drag_handle_bar.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 
 // 최초 중심
 LatLng initialCenter = LatLng(37.584690, 127.046502);
@@ -36,8 +28,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   late KakaoMapController _controller;
-  Set<Marker> _markers = {};
-  Set<Polyline> _polylines = {};
+
   bool isOpenedBottomSheet = false;
 
   @override
@@ -122,21 +113,19 @@ class _MapPageState extends State<MapPage> {
                   context.read<MapBloc>().add(GetNearByToiletsEvent());
                 } else if (state is LoadedToiletMarkersState) {
                   // 화장실 마커 데이터 불러오기를 완료했다면 -> 지도에 마커 그리기
-                  _markers = state.markers;
                   await _clear();
-                  await _drawCluster(_markers);
+                  await _drawCluster(state.markers);
                 } else if (state is LoadedSelectedToiletState) {
                   // 화장실 마커를 선택했다면 -> 바텀 시트 열기
                   _showBottomSheet(context, state.toilet);
                 } else if (state is LoadedToiletNavigationState) {
-                  _polylines = state.polylines;
                   await _clear();
-                  await _drawPolyline(_polylines);
+                  await _drawPolyline(state.polylines);
                   // 바텀시트 닫기
                   Navigator.pop(context);
                 } else if (state is ZoomToClusterState) {
                   await _clear();
-                  await _drawCluster(_markers);
+                  await _drawCluster(state.markers);
                 }
               },
 
@@ -207,36 +196,22 @@ class _MapPageState extends State<MapPage> {
                 left: Dimens.space20,
                 top: Dimens.statusbarHeight(context) + Dimens.space8,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppChip(
-                      text: Messages.of(context)!.toiletFilterTime,
-                      icon: SvgPicture.asset(
-                        Images.alarm,
-                      ),
-                      isSelected: false,
-                      onChanged: (isSelected) {
-                        // 필터 선택 이벤트 발생
-                      },
-                    ),
-                    AppSpacerH(value: Dimens.space8),
-                    AppChip(
-                      text: Messages.of(context)!.toiletFilterGender,
-                      icon: SvgPicture.asset(Images.gender),
-                      isSelected: false,
-                      onChanged: (isSelected) {},
-                    ),
-                    AppSpacerH(value: Dimens.space8),
-                    AppChip(
-                      text: Messages.of(context)!.toiletFilterPassword,
-                      icon: SvgPicture.asset(Images.closeKey),
-                      isSelected: false,
-                      onChanged: (isSelected) {
-                        // 필터 선택 이벤트 발생
-                      },
-                    ),
-                  ],
-                ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: ToiletFilter.values.map((filter) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: Dimens.space4),
+                        child: AppChip(
+                          text: filter.text,
+                          icon: filter.icon,
+                          isSelected: false, // [filter.index],
+                          onTap: () {
+                            context
+                                .read<MapBloc>()
+                                .add(ClickToiletFilterEvent(filter: filter));
+                          },
+                        ),
+                      );
+                    }).toList()),
               ),
             },
 

@@ -38,7 +38,7 @@ class _ToiletBottomSheetRatingState extends State<ToiletBottomSheetRating> {
       SvgPicture.asset(
         Images.arrowRight,
         colorFilter: const ColorFilter.mode(
-          Palette.svgIcon,
+          Palette.coolGrey05,
           BlendMode.srcIn,
         ),
       ),

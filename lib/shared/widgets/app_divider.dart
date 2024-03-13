@@ -11,7 +11,6 @@ class AppDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: color ?? Palette.dividerBackground,
-        height: height ?? Dimens.space16);
+        color: color ?? Palette.coolGrey13, height: height ?? Dimens.space16);
   }
 }

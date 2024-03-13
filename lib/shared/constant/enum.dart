@@ -1,17 +1,21 @@
+import 'package:pookaboo/shared/constant/images.dart';
+
 enum ToiletType {
   building,
   cafe;
 }
 
 enum ToiletFilter {
-  time("time"),
-  gender("gender"),
-  password("password"),
+  time("time", '현재운영', Images.alarm),
+  gender("gender", '남녀분리', Images.gender),
+  password("password", '개방', Images.closeKey),
   ;
 
-  const ToiletFilter(this.key);
+  const ToiletFilter(this.key, this.text, this.icon);
 
   final String key;
+  final String text;
+  final String icon;
 }
 
 enum Week {

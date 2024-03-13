@@ -65,7 +65,7 @@ class _ToiletBottomSeetTabBarViewState
             ],
           ).blurred(
             blur: 4,
-            blurColor: Palette.bottomSheetBackground,
+            blurColor: Palette.coolGrey11,
           ),
         ],
       );
@@ -102,12 +102,12 @@ class _ToiletBottomSeetTabBarViewState
                 ? Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w500,
                       fontSize: Dimens.bodySmall,
-                      color: Palette.text,
+                      color: Palette.coolGrey01,
                     )
                 : Theme.of(context).textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.w500,
                       fontSize: Dimens.labelLarge,
-                      color: Palette.subText,
+                      color: Palette.coolGrey05,
                     ),
           ),
         ),

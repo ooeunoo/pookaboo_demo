@@ -11,7 +11,7 @@ class AppDragHandleBar extends StatelessWidget {
       width: Dimens.space36,
       height: Dimens.space4,
       decoration: BoxDecoration(
-        color: Palette.dragHandleBar,
+        color: Palette.coolGrey06,
         borderRadius: BorderRadius.circular(Dimens.space4),
       ),
     );

@@ -182,8 +182,7 @@ class _ToiletBottomSheetReviewState extends State<ToiletBottomSheetReview> {
             AppSpacerV(
               value: Dimens.space12,
             ),
-            AppDivider(
-                color: Palette.subDividerBackground, height: Dimens.space1),
+            AppDivider(color: Palette.coolGrey08, height: Dimens.space1),
           ],
         ));
   }
@@ -195,7 +194,7 @@ class _ToiletBottomSheetReviewState extends State<ToiletBottomSheetReview> {
         AppText("$label ", style: Theme.of(context).textTheme.labelLarge!),
         AppText(rating,
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: Palette.scoreHighlightText,
+                  color: Palette.lemon03,
                 )),
         if (divider) ...[
           const AppSpacerH(),

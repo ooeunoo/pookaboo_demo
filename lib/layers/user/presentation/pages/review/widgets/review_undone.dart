@@ -47,7 +47,7 @@ class _ReviewUndoneState extends State<ReviewUndone> {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
             child: AppDivider(
-              color: Palette.subDividerBackground,
+              color: Palette.coolGrey08,
               height: Dimens.space1,
             ),
           ); // 홀수 인덱스에 Divider를 추가합니다.

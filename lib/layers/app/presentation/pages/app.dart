@@ -39,10 +39,9 @@ class AppPage extends StatelessWidget {
 
     return Container(
         decoration: const BoxDecoration(
-            color: Palette.subDividerBackground,
-            border: Border(
-                top: BorderSide(
-                    color: Palette.subDividerBackground, width: 1.0))),
+            color: Palette.coolGrey08,
+            border:
+                Border(top: BorderSide(color: Palette.coolGrey08, width: 1.0))),
         child: BottomNavigationBar(
           onTap: (value) async {
             if (value != state.index) {

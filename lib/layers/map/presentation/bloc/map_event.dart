@@ -39,6 +39,18 @@ class MoveToMyPositionEvent extends MapEvent {
 }
 
 /////////////////////////////////
+/// 화장실 조회 필터 선택
+////////////////////////////////
+class ClickToiletFilterEvent extends MapEvent {
+  final ToiletFilter filter;
+
+  ClickToiletFilterEvent({required this.filter});
+
+  @override
+  List<Object> get props => [filter];
+}
+
+/////////////////////////////////
 /// Move to Cluster
 /// 클러스터 위치로 이동
 ////////////////////////////////
@@ -51,9 +63,6 @@ class ClickToClusterEvent extends MapEvent {
   @override
   List<Object> get props => [loc, zoomLevel];
 }
-
-
-
 
 /////////////////////////////////
 /// Selected Toilet Marker

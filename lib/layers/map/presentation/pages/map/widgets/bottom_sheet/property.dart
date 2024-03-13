@@ -67,7 +67,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
             SvgPicture.asset(
               Images.building,
               colorFilter: const ColorFilter.mode(
-                Palette.svgIcon,
+                Palette.coolGrey05,
                 BlendMode.srcIn,
               ),
             ),
@@ -78,7 +78,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
             SvgPicture.asset(
               Images.cafe,
               colorFilter: const ColorFilter.mode(
-                Palette.svgIcon,
+                Palette.coolGrey05,
                 BlendMode.srcIn,
               ),
             ),
@@ -111,7 +111,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
           SvgPicture.asset(
             Images.alarm,
             colorFilter: const ColorFilter.mode(
-              Palette.svgIcon,
+              Palette.coolGrey05,
               BlendMode.srcIn,
             ),
           ),
@@ -123,7 +123,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(color: Palette.highlightSubText)),
+                        .copyWith(color: Palette.skyblue01)),
                 AppText(" ﹒ $openTimeFormat ~ $closeTimeFormat",
                     style: Theme.of(context).textTheme.labelMedium!),
               ],
@@ -133,7 +133,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
-                    .copyWith(color: Palette.highlightText)),
+                    .copyWith(color: Palette.red01)),
           ],
           const AppSpacerH(),
           GestureDetector(
@@ -146,7 +146,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
             child: SvgPicture.asset(
               isExpandTimeSchedule ? Images.arrowTop : Images.arrowBottom,
               colorFilter: const ColorFilter.mode(
-                Palette.svgIcon,
+                Palette.coolGrey05,
                 BlendMode.srcIn,
               ),
             ),
@@ -196,7 +196,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
       SvgPicture.asset(
         Images.gender,
         colorFilter: const ColorFilter.mode(
-          Palette.svgIcon,
+          Palette.coolGrey05,
           BlendMode.srcIn,
         ),
       ),
@@ -213,7 +213,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
           SvgPicture.asset(
             Images.openKey,
             colorFilter: const ColorFilter.mode(
-              Palette.svgIcon,
+              Palette.coolGrey05,
               BlendMode.srcIn,
             ),
           ),

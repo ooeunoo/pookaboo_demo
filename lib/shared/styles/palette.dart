@@ -54,74 +54,33 @@ import 'package:flutter/material.dart';
 class Palette {
   Palette._();
 
-  // primart
+  // design template
+  static const Color coolGrey01 = Color(0xffF2F3F5);
+  static const Color coolGrey02 = Color(0xffDDE0E5);
+  static const Color coolGrey03 = Color(0xffD3D7DF);
+  static const Color coolGrey04 = Color(0xffB6BDC8);
+  static const Color coolGrey05 = Color(0xff9EA5B3);
+  static const Color coolGrey06 = Color(0xff848B9A);
+  static const Color coolGrey07 = Color(0xff727988);
+  static const Color coolGrey08 = Color(0xff5A606C);
+  static const Color coolGrey09 = Color(0xff454A54);
+  static const Color coolGrey10 = Color(0xff31363F);
+  static const Color coolGrey11 = Color(0xff202328);
+  static const Color coolGrey12 = Color(0xff191A1F);
+  static const Color coolGrey13 = Color(0xff101114);
+  static const Color lemon01 = Color(0xffFFFB7A);
+  static const Color lemon02 = Color(0xffF5F175);
+  static const Color lemon03 = Color(0xffE0DD6B);
+  static const Color skyblue01 = Color(0xff3D98FF);
+  static const Color red01 = Color(0xffFF4D4D);
+
+  // primary
   static const Color primary = Color(0xffE18925);
   static const Color primaryLight = Color(0xffF7B553);
-
-  // background
-  static const Color background = Color(0xff191A1F);
-  static const Color backgroundDark = Color(0xff191A1F);
-
-  // bottom sheet background
-  static const Color bottomSheetBackground = Color(0xff202328);
-  static const Color bottomSheetBackgroundDark = Color(0xff202328);
-
-  // divider background
-  static const Color dividerBackground = Color(0xff101114);
-  static const Color dividerBackgroundDark = Color(0xff101114);
-
-  static const Color subDividerBackground = Color(0xff5A606C);
-  static const Color subDividerBackgroundDark = Color(0xff5A606C);
-
-  // dialog background
-  static const Color dialog = Color(0xff31363F);
-  static const Color dialogDark = Color(0xff31363F);
-
-  // card
-  static const Color card = Color(0xff191A1F);
-  static const Color cardDark = Color(0xff191A1F);
-
-  // drag handle bar
-  static const Color dragHandleBar = Color(0xff848B9A);
-  static const Color dragHandleBarDark = Color(0xff848B9A);
-
-  // text
-  static const Color text = Color(0xffF2F3F5);
-  static const Color textDark = Color(0xffF2F3F5);
-  static const Color subText = Color(0xff9EA5B3);
-  static const Color subTextDark = Color(0xff9EA5B3);
-  static const Color buttonText = Color(0xff191A1F);
-  static const Color buttonTextDark = Color(0xff191A1F);
-
-  static const Color highlightText = Color(0xffFF4D4D);
-  static const Color highlightTextDark = Color(0xffFF4D4D);
-  static const Color highlightSubText = Color(0xff3D98FF);
-  static const Color highlightSubTextDark = Color(0xff3D98FF);
-
-  static const Color scoreHighlightText = Color(0xffE0DD6B);
-  static const Color scoreHighlightTextDark = Color(0xffE0DD6B);
-
-  // button
-  static const Color button = Color(0xffFFFB7A);
-  static const Color buttonDark = Color(0xffFFFB7A);
 
   // shadow
   static const Color shadow = Color(0xff8c8fa1);
   static const Color shadowDark = Color(0xff7f849c);
-
-  // icon
-  static const Color icon = Color(0xffF2F3F5);
-  static const Color iconDark = Color(0xffF2F3F5);
-  static const Color iconSub = Color(0xff7d7c7f);
-  static const Color iconSubDark = Color(0xff7d7c7f);
-
-  // svg icon
-  static const Color svgIcon = Color(0xff9EA5B3);
-  static const Color svgIconDark = Color(0xff9EA5B3);
-
-  // divider
-  static const Color divider = Color(0xff101114);
-  static const Color dividerDark = Color(0xff101114);
 
   // other
   static const Color white = Color(0xffFFFFFF);

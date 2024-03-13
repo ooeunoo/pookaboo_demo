@@ -102,7 +102,7 @@ class _TextFState extends State<AppTextInput> {
                 inputFormatters: widget.inputFormatter,
                 textAlignVertical: TextAlignVertical.center,
                 style: Theme.of(context).textTheme.bodyMedium,
-                cursorColor: Palette.text,
+                cursorColor: Palette.coolGrey01,
                 decoration: InputDecoration(
                   prefixText: widget.prefixText,
                   alignLabelWithHint: true,

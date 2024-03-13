@@ -18,6 +18,7 @@ import 'package:pookaboo/layers/map/domain/usecases/create_review_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
 import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
 import 'package:pookaboo/mocks/toilets.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_navi_service.dart';
@@ -60,12 +61,18 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
     on<StartNavigationEvent>(_onStartNavigationEvent);
     on<StopNavigationEvent>(_onStopNavigationEvent);
+    on<ClickToiletFilterEvent>(_onClickToiletFilterEvent);
   }
 
   /////////////////////////////////
   /// Property
   ////////////////////////////////
   late KakaoMapController _mapController;
+  // late final List<bool> _filters = [false, false, false];
+  // List<bool> get filters => _filters;
+
+  late Set<Marker> _markers = {};
+  late Set<Polyline> _polylines = {};
 
   /////////////////////////////////
   /// [MapCreateEvent] Event Handler
@@ -96,7 +103,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       await response.fold((l) {
         log.e(l);
       }, (r) async {
-        Set<Marker> markers = r.map<Marker>((toilet) {
+        _markers = r.map<Marker>((toilet) {
           return Marker(
             markerId: toilet.id.toString(),
             latLng: LatLng(
@@ -106,11 +113,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           );
         }).toSet();
 
-        emit(LoadedToiletMarkersState(markers: markers));
+        emit(LoadedToiletMarkersState(markers: _markers));
       });
     } catch (e) {
       log.e(e);
-      // emit(ErrorState(message: ''));
     }
   }
 
@@ -144,6 +150,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       if (zoomLevel > 1) {
         await _mapController.setLevel(zoomLevel - 1);
       }
+      emit(ZoomToClusterState(markers: _markers));
     } catch (e) {
       // 사용자 위치 접근 허용을 요청하는 알람
       log.e(e);
@@ -207,7 +214,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       await response.fold((l) {
         log.e(l);
       }, (r) async {
-        Set<Polyline> polylines = {
+        _polylines = {
           Polyline(
               polylineId: 'polyline',
               points: r.points.map((route) {
@@ -218,7 +225,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               strokeStyle: StrokeStyle.solid)
         };
 
-        emit(LoadedToiletNavigationState(polylines: polylines));
+        emit(LoadedToiletNavigationState(polylines: _polylines));
       });
     } catch (e) {
       log.e(e);
@@ -235,5 +242,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     // LatLng myPosition = LatLng(position.latitude, position.longitude);
     // _mapController.panTo(myPosition);
     // emit(MovedMyPositionState(loc: myPosition));
+  }
+
+  Future<void> _onClickToiletFilterEvent(
+      ClickToiletFilterEvent event, Emitter<MapState> emit) async {
+    // _filters[event.filter.index] = true;
   }
 }

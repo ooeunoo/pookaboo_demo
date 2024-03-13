@@ -48,7 +48,7 @@ class SearchingToiletState extends MapState {
 ////////////////////////////////
 class LoadedToiletMarkersState extends MapState {
   final Set<Marker> markers;
-
+  @override
   LoadedToiletMarkersState({required this.markers});
 
   @override
@@ -91,8 +91,11 @@ class LoadedToiletNavigationState extends MapState {
 /// Zoom To Cluster
 ////////////////////////////////
 class ZoomToClusterState extends MapState {
+  Set<Marker> markers;
+
+  ZoomToClusterState({required this.markers});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [markers];
 }
 
 /////////////////////////////////

@@ -52,7 +52,7 @@ class _ReviewDoneState extends State<ReviewDone> {
         AppText("$label ", style: Theme.of(context).textTheme.labelLarge!),
         AppText("$rating",
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: Palette.scoreHighlightText,
+                  color: Palette.lemon03,
                 )),
         if (divider) ...[
           const AppSpacerH(),
@@ -90,7 +90,7 @@ class _ReviewDoneState extends State<ReviewDone> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
                   child: AppDivider(
-                    color: Palette.subDividerBackground,
+                    color: Palette.coolGrey08,
                     height: Dimens.space1,
                   ),
                 ); // 홀수 인덱스에 Divider를 추가합니다.
@@ -159,7 +159,7 @@ class _ReviewDoneState extends State<ReviewDone> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                      color: Palette.highlightText,
+                                      color: Palette.red01,
                                       fontWeight: FontWeight.w600)),
                         )
                       ],

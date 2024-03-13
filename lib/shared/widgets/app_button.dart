@@ -38,12 +38,12 @@ class AppButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: Dimens.space8),
       height: Dimens.buttonH,
       decoration: BoxDecorations(context).button.copyWith(
-            color: color ?? Palette.button,
+            color: color ?? Palette.lemon01,
           ),
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(
-          backgroundColor: color ?? Palette.button,
+          backgroundColor: color ?? Palette.lemon01,
           padding: EdgeInsets.symmetric(horizontal: Dimens.space24),
           shape: const BeveledRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -70,7 +70,7 @@ class AppButton extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
-                  .copyWith(color: Palette.buttonText),
+                  .copyWith(color: Palette.coolGrey12),
               align: TextAlign.center,
             ),
           ],
