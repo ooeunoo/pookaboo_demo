@@ -55,10 +55,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       : super(InitialState()) {
     on<MapCreateEvent>(_onMapCreateEvent);
     on<GetNearByToiletsEvent>(_onGetNearByToiletsEvent);
+    on<MoveToClusterEvent>(_onMoveToClusterEvent);
     on<MoveToMyPositionEvent>(_onMoveToMyPositionEvent);
     on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
-    on<StartDirectionsEvent>(_onStartDirectionEvent);
-    on<EndDirectionsEvent>(_onEndDirectionEvent);
+    on<StartNavigationEvent>(_onStartNavigationEvent);
+    on<StopNavigationEvent>(_onStopNavigationEvent);
   }
 
   /////////////////////////////////
@@ -84,6 +85,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ) async {
     try {
       emit(SearchingToiletState());
+
       // 현재 화면의 왼쪽 하단과 오른쪽 상단 좌표
       LatLngBounds bounds = await _mapController.getBounds();
       GetNearByToiletsParams params = GetNearByToiletsParams(
@@ -125,7 +127,25 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       final Position position = await _geolocatorService.getPosition();
       LatLng myPosition = LatLng(position.latitude, position.longitude);
       _mapController.panTo(myPosition);
-      emit(MovedMapState());
+      emit(MovedMyPositionState(loc: myPosition));
+    } catch (e) {
+      // 사용자 위치 접근 허용을 요청하는 알람
+      log.e(e);
+      // emit(ErrorState(message: ''));
+    }
+  }
+
+  /////////////////////////////////
+  /// [MoveToMyPositionEvent] Event Handler
+  ////////////////////////////////
+  Future<void> _onMoveToClusterEvent(
+      MoveToClusterEvent event, Emitter<MapState> emit) async {
+    try {
+      LatLng loc = event.loc;
+      LatLng position = LatLng(loc.latitude, loc.longitude);
+      _mapController.panTo(position);
+      _mapController.setLevel(3);
+      // emit(MovedMyPositionState());
     } catch (e) {
       // 사용자 위치 접근 허용을 요청하는 알람
       log.e(e);
@@ -159,9 +179,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /////////////////////////////////
   /// [StartDirectionEvent] Event Handler
   ////////////////////////////////
-  Future<void> _onStartDirectionEvent(
-      StartDirectionsEvent event, Emitter<MapState> emit) async {
+  Future<void> _onStartNavigationEvent(
+      StartNavigationEvent event, Emitter<MapState> emit) async {
     emit(SearchingToiletDirectionState());
+    // 마커 제거
 
     Toilet toilet = event.toilet;
     try {
@@ -221,6 +242,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /////////////////////////////////
   /// [EndDirectionEvent] Event Handler
   ////////////////////////////////
-  Future<void> _onEndDirectionEvent(
-      EndDirectionsEvent event, Emitter<MapState> emit) async {}
+  Future<void> _onStopNavigationEvent(
+      StopNavigationEvent event, Emitter<MapState> emit) async {
+    final Position position = await _geolocatorService.getPosition();
+    LatLng myPosition = LatLng(position.latitude, position.longitude);
+    _mapController.panTo(myPosition);
+    emit(MovedMyPositionState(loc: myPosition));
+  }
 }

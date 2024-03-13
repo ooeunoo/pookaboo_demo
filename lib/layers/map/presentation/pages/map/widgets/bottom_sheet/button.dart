@@ -42,7 +42,7 @@ class _ToiletBottomSheetButtonState extends State<ToiletBottomSheetButton> {
         onPressed: () {
           context
               .read<MapBloc>()
-              .add(StartDirectionsEvent(toilet: widget.toilet));
+              .add(StartNavigationEvent(toilet: widget.toilet));
         });
   }
 }

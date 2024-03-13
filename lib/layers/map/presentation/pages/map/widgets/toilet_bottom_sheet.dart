@@ -1,66 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
+import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/bottom_sheet_main.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/button.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/header.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/location.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/property.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/rating.dart';
-import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/tab_bar_view.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
-import 'package:blur/blur.dart';
+import 'package:pookaboo/shared/widgets/app_drag_handle_bar.dart';
 
 class ToiletBottomSheet extends StatefulWidget {
-  final double offset;
+  final ScrollController controller;
   final Toilet toilet;
+  final double offset;
 
   const ToiletBottomSheet(
-      {super.key, required this.offset, required this.toilet});
+      {super.key,
+      required this.offset,
+      required this.toilet,
+      required this.controller});
 
   @override
-  _ToiletBottomSheetState createState() => _ToiletBottomSheetState();
+  State<ToiletBottomSheet> createState() => _ToiletBottomSheetState();
 }
 
 class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
-  bool isExtend = false;
-  Toilet? toilet;
-
   @override
   Widget build(BuildContext context) {
-    isExtend = widget.offset > 0.4;
-    toilet = widget.toilet;
-
-    return Column(
+    return Stack(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ToiletBottomSheetHeader(toilet!),
-              const AppSpacerV(),
-              ToiletBottomSheetLocation(toilet!),
-              const AppSpacerV(),
-              // isExtend일 경우, ...
-              if (isExtend) ...[_expandItems()]
-            ],
+        Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.all(Dimens.space12),
+            child: const AppDragHandleBar(),
           ),
         ),
-        // Divider Padding 때문에 분리함
-        if (isExtend) ...[ToiletBottomSeetTabBarView(toilet!)]
-      ],
-    );
-  }
-
-  Widget _expandItems() {
-    return Column(
-      children: [
-        ToiletBottomSheetRating(toilet!),
-        const AppSpacerV(),
-        ToiletBottomSheetProperty(toilet!),
-        const AppSpacerV(),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: Dimens.space36),
+          child: SingleChildScrollView(
+            controller: widget.controller,
+            child: Column(
+              children: [
+                BottomSheetMain(offset: widget.offset, toilet: widget.toilet),
+              ],
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: EdgeInsets.all(Dimens.space20),
+            child: ToiletBottomSheetButton(toilet: widget.toilet),
+          ),
+        )
       ],
     );
   }

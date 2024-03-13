@@ -10,6 +10,7 @@ import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/location.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/property.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/rating.dart';
+import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/bottom_sheet_main.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/extension/context.dart';
@@ -34,12 +35,12 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  late KakaoMapController _controller;
   bool isOpenedBottomSheet = false;
 
+  Clusterer? clusterer;
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
-
-  double currentSnapSize = 0.25; // 스냅 인덱스를 저장할 변수
 
   @override
   void initState() {
@@ -49,12 +50,6 @@ class _MapPageState extends State<MapPage> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    print('here');
   }
 
   void _showBottomSheet(BuildContext context, Toilet toilet) async {
@@ -73,43 +68,17 @@ class _MapPageState extends State<MapPage> {
           topEnd: Radius.circular(20), topStart: Radius.circular(20)),
       draggableScrollableController: DraggableScrollableController(),
       builder: (BuildContext context, ScrollController scrollController,
-          double bottomSheetOffset) {
-        return Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: EdgeInsets.all(Dimens.space12),
-                child: const AppDragHandleBar(),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: Dimens.space36),
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: Column(
-                  children: [
-                    ToiletBottomSheet(
-                        offset: bottomSheetOffset, toilet: toilet),
-                  ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.all(Dimens.space20),
-                child: ToiletBottomSheetButton(toilet: toilet),
-              ),
-            )
-          ],
+          double offset) {
+        return ToiletBottomSheet(
+          offset: offset,
+          toilet: toilet,
+          controller: scrollController,
         );
       },
     ).whenComplete(() {
-      print('complete');
       setState(() {
         isOpenedBottomSheet = false;
-      }); // This worked me;
+      });
     });
   }
 
@@ -120,20 +89,27 @@ class _MapPageState extends State<MapPage> {
         return Stack(
           children: [
             ////////////////////////////////////
-            ///  KAKAO MAP
+            ///  BLOCK LISTENER
             ///////////////////////////////////
             BlocListener<MapBloc, MapState>(
-              listener: (context, state) {
-                // 초기화 상태라면 내 위치로 이동하기
+              listener: (context, state) async {
                 if (state is MapCreatedState) {
+                  // 초기화 상태라면 -> 내 위치로 이동하기
                   context.read<MapBloc>().add(MoveToMyPositionEvent());
-                } else if (state is MovedMapState) {
+                } else if (state is MovedMyPositionState) {
+                  Marker(markerId: '내 위치', latLng: state.loc);
+                  // 지도가 이동한 상태라면 -> 주변 화장실 불러오기
                   context.read<MapBloc>().add(GetNearByToiletsEvent());
                 } else if (state is LoadedToiletMarkersState) {
+                  await _controller.clear();
+                  // 화장실 마커 데이터 불러오기를 완료했다면 -> 지도에 마커 그리기
                   markers = state.markers;
                 } else if (state is LoadedSelectedToiletState) {
+                  // 화장실 마커를 선택했다면 -> 바텀 시트 열기
                   _showBottomSheet(context, state.toilet);
                 } else if (state is LoadedToiletDirectionState) {
+                  await _controller.clearMarker();
+                  // 길찾기 데이터를 불러오기를 완료했다면 -> 바텀시트 제거/ 지도에 폴리라인 그리기 /
                   polylines.add(
                     Polyline(
                         polylineId: 'polyline_1',
@@ -145,89 +121,138 @@ class _MapPageState extends State<MapPage> {
                         strokeStyle: StrokeStyle.solid),
                   );
 
-                  setState(() {});
+                  // 바텀시트 닫기
+                  Navigator.pop(context);
                 }
               },
+
+              ////////////////////////////////////
+              ///  KAKAO MAP
+              ///////////////////////////////////
               child: KakaoMap(
-                  center: initialCenter,
-                  onMapTap: (LatLng loc) {
-                    context.read<MapBloc>().add(GetNearByToiletsEvent());
-                  },
-                  onMapCreated: ((controller) async {
-                    context
-                        .read<MapBloc>()
-                        .add(MapCreateEvent(controller: controller));
-                  }),
-                  onMarkerTap: (markerId, _, __) {
-                    context.read<MapBloc>().add(SelecteToiletMarkerEvent(
-                        toiletId: int.parse(markerId)));
-                  },
-                  polylines: polylines.toList(),
-                  markers: markers.toList()),
+                maxLevel: 5,
+                center: initialCenter,
+                onMapTap: (LatLng loc) {
+                  // context.read<MapBloc>().add(GetNearByToiletsEvent());
+                },
+                onMapCreated: ((controller) async {
+                  _controller = controller;
+                  context
+                      .read<MapBloc>()
+                      .add(MapCreateEvent(controller: controller));
+                }),
+                onMarkerTap: (markerId, _, __) {
+                  context.read<MapBloc>().add(
+                      SelecteToiletMarkerEvent(toiletId: int.parse(markerId)));
+                },
+                markers: markers.toList(),
+                polylines: polylines.toList(),
+              ),
             ),
+
+            ////////////////////////////////////
+            ///  BACK BUTTON (STOP DIRECTION)
+            ///////////////////////////////////
+            if (state is LoadedToiletDirectionState) ...{
+              Positioned(
+                  left: Dimens.space20,
+                  top: Dimens.statusbarHeight(context) + Dimens.space8,
+                  child: GestureDetector(
+                    onTap: () {
+                      print('tap');
+                      context.read<MapBloc>().add(StopNavigationEvent());
+                    },
+                    child: Container(
+                      width: Dimens.space40,
+                      height: Dimens.space40,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            width: 1, color: const Color(0xFFD3D7DF)),
+                        // gap: const EdgeInsets.all(10),
+                        color: Palette.white,
+                      ),
+                      child: SvgPicture.asset(
+                        Images.arrowLeft,
+                        width: 24, // SVG 이미지의 너비 조정 가능
+                        height: 24, // SVG 이미지의 높이 조정 가능
+                      ),
+                    ),
+                  )),
+            },
+
             ////////////////////////////////////
             ///  FILTER CHIP
             ///////////////////////////////////
-            Positioned(
-              left: Dimens.space20,
-              top: Dimens.statusbarHeight(context) + Dimens.space8,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppChip(
-                    text: Messages.of(context)!.toiletFilterTime,
-                    icon: SvgPicture.asset(
-                      Images.alarm,
+            if (state is! LoadedToiletDirectionState) ...{
+              Positioned(
+                left: Dimens.space20,
+                top: Dimens.statusbarHeight(context) + Dimens.space8,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppChip(
+                      text: Messages.of(context)!.toiletFilterTime,
+                      icon: SvgPicture.asset(
+                        Images.alarm,
+                      ),
+                      isSelected: false,
+                      onChanged: (isSelected) {
+                        // 필터 선택 이벤트 발생
+                      },
                     ),
-                    isSelected: false,
-                    onChanged: (isSelected) {
-                      // 필터 선택 이벤트 발생
-                    },
-                  ),
-                  AppSpacerH(value: Dimens.space8),
-                  AppChip(
-                    text: Messages.of(context)!.toiletFilterGender,
-                    icon: SvgPicture.asset(Images.gender),
-                    isSelected: false,
-                    onChanged: (isSelected) {},
-                  ),
-                  AppSpacerH(value: Dimens.space8),
-                  AppChip(
-                    text: Messages.of(context)!.toiletFilterPassword,
-                    icon: SvgPicture.asset(Images.closeKey),
-                    isSelected: false,
-                    onChanged: (isSelected) {
-                      // 필터 선택 이벤트 발생
-                    },
-                  ),
-                ],
+                    AppSpacerH(value: Dimens.space8),
+                    AppChip(
+                      text: Messages.of(context)!.toiletFilterGender,
+                      icon: SvgPicture.asset(Images.gender),
+                      isSelected: false,
+                      onChanged: (isSelected) {},
+                    ),
+                    AppSpacerH(value: Dimens.space8),
+                    AppChip(
+                      text: Messages.of(context)!.toiletFilterPassword,
+                      icon: SvgPicture.asset(Images.closeKey),
+                      isSelected: false,
+                      onChanged: (isSelected) {
+                        // 필터 선택 이벤트 발생
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-                right: Dimens.space20,
-                bottom: Dimens.bottomBarHeight(context) + Dimens.space24,
-                child: GestureDetector(
-                  onTap: () {
-                    context.read<MapBloc>().add(MoveToMyPositionEvent());
-                  },
-                  child: Container(
-                    width: Dimens.space40,
-                    height: Dimens.space40,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border:
-                          Border.all(width: 1, color: const Color(0xFFD3D7DF)),
-                      // gap: const EdgeInsets.all(10),
-                      color: Palette.white,
+            },
+
+            ////////////////////////////////////
+            ///  MY POISITION BUTTON
+            ///////////////////////////////////
+            if (state is! LoadedToiletDirectionState) ...{
+              Positioned(
+                  right: Dimens.space20,
+                  bottom: Dimens.bottomBarHeight(context) + Dimens.space24,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.read<MapBloc>().add(MoveToMyPositionEvent());
+                    },
+                    child: Container(
+                      width: Dimens.space40,
+                      height: Dimens.space40,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            width: 1, color: const Color(0xFFD3D7DF)),
+                        // gap: const EdgeInsets.all(10),
+                        color: Palette.white,
+                      ),
+                      child: SvgPicture.asset(
+                        Images.currentPosition,
+                        width: 24, // SVG 이미지의 너비 조정 가능
+                        height: 24, // SVG 이미지의 높이 조정 가능
+                      ),
                     ),
-                    child: SvgPicture.asset(
-                      Images.currentPosition,
-                      width: 24, // SVG 이미지의 너비 조정 가능
-                      height: 24, // SVG 이미지의 높이 조정 가능
-                    ),
-                  ),
-                )),
+                  )),
+            }
           ],
         );
       },

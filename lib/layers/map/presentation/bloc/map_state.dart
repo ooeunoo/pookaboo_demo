@@ -26,9 +26,13 @@ class MapCreatedState extends MapState {
 /////////////////////////////////
 /// Moved Map
 ////////////////////////////////
-class MovedMapState extends MapState {
+class MovedMyPositionState extends MapState {
+  final LatLng loc;
+
+  MovedMyPositionState({required this.loc});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [loc];
 }
 
 /////////////////////////////////

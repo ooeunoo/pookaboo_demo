@@ -39,6 +39,19 @@ class MoveToMyPositionEvent extends MapEvent {
 }
 
 /////////////////////////////////
+/// Move to Cluster
+/// 클러스터 위치로 이동
+////////////////////////////////
+class MoveToClusterEvent extends MapEvent {
+  final LatLng loc;
+
+  MoveToClusterEvent({required this.loc});
+
+  @override
+  List<Object> get props => [loc];
+}
+
+/////////////////////////////////
 /// Selected Toilet Marker
 /// 특정 화장실 선택
 ////////////////////////////////
@@ -52,13 +65,13 @@ class SelecteToiletMarkerEvent extends MapEvent {
 }
 
 /////////////////////////////////
-/// Start Direction
+/// Start Navigation
 /// 화장실 길찾기 시작
 ////////////////////////////////
-class StartDirectionsEvent extends MapEvent {
+class StartNavigationEvent extends MapEvent {
   final Toilet toilet;
 
-  StartDirectionsEvent({
+  StartNavigationEvent({
     required this.toilet,
   });
 
@@ -67,10 +80,10 @@ class StartDirectionsEvent extends MapEvent {
 }
 
 /////////////////////////////////
-/// End Direction
+/// Stop Navigation
 /// 화장실 길찾기 종료
 ////////////////////////////////
-class EndDirectionsEvent extends MapEvent {
+class StopNavigationEvent extends MapEvent {
   @override
   List<Object> get props => [];
 }

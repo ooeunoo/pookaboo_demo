@@ -18,4 +18,5 @@ class Images {
   static String arrowTop = 'assets/svg/arrow_top.svg';
   static String arrowRight = 'assets/svg/arrow_right.svg';
   static String arrowBottom = 'assets/svg/arrow_bottom.svg';
+  static String arrowLeft = 'assets/svg/arrow_left.svg';
 }
