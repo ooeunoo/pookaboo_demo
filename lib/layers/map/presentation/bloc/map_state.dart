@@ -70,7 +70,7 @@ class LoadedSelectedToiletState extends MapState {
 /////////////////////////////////
 /// Searching Toilet Direction
 ////////////////////////////////
-class SearchingToiletDirectionState extends MapState {
+class SearchingToiletNavigationState extends MapState {
   @override
   List<Object> get props => [];
 }
@@ -78,13 +78,29 @@ class SearchingToiletDirectionState extends MapState {
 /////////////////////////////////
 /// Loaded Toilet Direction
 ////////////////////////////////
-class LoadedToiletDirectionState extends MapState {
-  final GetRouteFormatResponse routes;
+class LoadedToiletNavigationState extends MapState {
+  final Set<Polyline> polylines;
 
-  LoadedToiletDirectionState({required this.routes});
+  LoadedToiletNavigationState({required this.polylines});
 
   @override
-  List<Object> get props => [routes];
+  List<Object> get props => [polylines];
+}
+
+/////////////////////////////////
+/// Zoom To Cluster
+////////////////////////////////
+class ZoomToClusterState extends MapState {
+  @override
+  List<Object> get props => [];
+}
+
+/////////////////////////////////
+/// Stopped Toilet NavigationState
+////////////////////////////////
+class StoppedToiletNavigationState extends MapState {
+  @override
+  List<Object> get props => [];
 }
 
 /////////////////////////////////

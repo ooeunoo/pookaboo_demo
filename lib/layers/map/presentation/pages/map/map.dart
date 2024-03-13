@@ -36,11 +36,9 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   late KakaoMapController _controller;
+  Set<Marker> _markers = {};
+  Set<Polyline> _polylines = {};
   bool isOpenedBottomSheet = false;
-
-  Clusterer? clusterer;
-  Set<Marker> markers = {};
-  Set<Polyline> polylines = {};
 
   @override
   void initState() {
@@ -82,6 +80,28 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+  Future<void> _clear() async {
+    await _controller.clearMarker();
+    await _controller.clearMarkerClusterer();
+    await _controller.clearPolyline();
+  }
+
+  Future<void> _drawCluster(Set<Marker> markers) async {
+    Clusterer clusterer = Clusterer(
+      averageCenter: true,
+      disableClickZoom: false,
+      markers: markers.toList(),
+      gridSize: 30,
+      minLevel: 3,
+    );
+
+    await _controller.addMarkerClusterer(clusterer: clusterer);
+  }
+
+  Future<void> _drawPolyline(Set<Polyline> polylines) async {
+    await _controller.addPolyline(polylines: polylines.toList());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapBloc, MapState>(
@@ -96,33 +116,27 @@ class _MapPageState extends State<MapPage> {
                 if (state is MapCreatedState) {
                   // 초기화 상태라면 -> 내 위치로 이동하기
                   context.read<MapBloc>().add(MoveToMyPositionEvent());
-                } else if (state is MovedMyPositionState) {
-                  Marker(markerId: '내 위치', latLng: state.loc);
+                } else if (state is MovedMyPositionState ||
+                    state is StoppedToiletNavigationState) {
                   // 지도가 이동한 상태라면 -> 주변 화장실 불러오기
                   context.read<MapBloc>().add(GetNearByToiletsEvent());
                 } else if (state is LoadedToiletMarkersState) {
-                  await _controller.clear();
                   // 화장실 마커 데이터 불러오기를 완료했다면 -> 지도에 마커 그리기
-                  markers = state.markers;
+                  _markers = state.markers;
+                  await _clear();
+                  await _drawCluster(_markers);
                 } else if (state is LoadedSelectedToiletState) {
                   // 화장실 마커를 선택했다면 -> 바텀 시트 열기
                   _showBottomSheet(context, state.toilet);
-                } else if (state is LoadedToiletDirectionState) {
-                  await _controller.clearMarker();
-                  // 길찾기 데이터를 불러오기를 완료했다면 -> 바텀시트 제거/ 지도에 폴리라인 그리기 /
-                  polylines.add(
-                    Polyline(
-                        polylineId: 'polyline_1',
-                        points: state.routes.points.map((route) {
-                          return LatLng(route.y, route.x);
-                        }).toList(),
-                        strokeColor: const Color(0xff0078FF),
-                        strokeWidth: 10,
-                        strokeStyle: StrokeStyle.solid),
-                  );
-
+                } else if (state is LoadedToiletNavigationState) {
+                  _polylines = state.polylines;
+                  await _clear();
+                  await _drawPolyline(_polylines);
                   // 바텀시트 닫기
                   Navigator.pop(context);
+                } else if (state is ZoomToClusterState) {
+                  await _clear();
+                  await _drawCluster(_markers);
                 }
               },
 
@@ -130,6 +144,7 @@ class _MapPageState extends State<MapPage> {
               ///  KAKAO MAP
               ///////////////////////////////////
               child: KakaoMap(
+                currentLevel: 4,
                 maxLevel: 5,
                 center: initialCenter,
                 onMapTap: (LatLng loc) {
@@ -141,25 +156,27 @@ class _MapPageState extends State<MapPage> {
                       .read<MapBloc>()
                       .add(MapCreateEvent(controller: controller));
                 }),
-                onMarkerTap: (markerId, _, __) {
+                onMarkerTap: (String markerId, _, __) {
                   context.read<MapBloc>().add(
                       SelecteToiletMarkerEvent(toiletId: int.parse(markerId)));
                 },
-                markers: markers.toList(),
-                polylines: polylines.toList(),
+                onMarkerClustererTap: (LatLng loc, int zoomLevel) {
+                  context
+                      .read<MapBloc>()
+                      .add(ClickToClusterEvent(loc: loc, zoomLevel: zoomLevel));
+                },
               ),
             ),
 
             ////////////////////////////////////
             ///  BACK BUTTON (STOP DIRECTION)
             ///////////////////////////////////
-            if (state is LoadedToiletDirectionState) ...{
+            if (state is LoadedToiletNavigationState) ...{
               Positioned(
                   left: Dimens.space20,
                   top: Dimens.statusbarHeight(context) + Dimens.space8,
                   child: GestureDetector(
                     onTap: () {
-                      print('tap');
                       context.read<MapBloc>().add(StopNavigationEvent());
                     },
                     child: Container(
@@ -185,7 +202,7 @@ class _MapPageState extends State<MapPage> {
             ////////////////////////////////////
             ///  FILTER CHIP
             ///////////////////////////////////
-            if (state is! LoadedToiletDirectionState) ...{
+            if (state is! LoadedToiletNavigationState) ...{
               Positioned(
                 left: Dimens.space20,
                 top: Dimens.statusbarHeight(context) + Dimens.space8,
@@ -226,7 +243,7 @@ class _MapPageState extends State<MapPage> {
             ////////////////////////////////////
             ///  MY POISITION BUTTON
             ///////////////////////////////////
-            if (state is! LoadedToiletDirectionState) ...{
+            if (state is! LoadedToiletNavigationState) ...{
               Positioned(
                   right: Dimens.space20,
                   bottom: Dimens.bottomBarHeight(context) + Dimens.space24,

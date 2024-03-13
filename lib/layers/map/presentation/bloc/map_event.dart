@@ -42,14 +42,18 @@ class MoveToMyPositionEvent extends MapEvent {
 /// Move to Cluster
 /// 클러스터 위치로 이동
 ////////////////////////////////
-class MoveToClusterEvent extends MapEvent {
+class ClickToClusterEvent extends MapEvent {
   final LatLng loc;
+  final int zoomLevel;
 
-  MoveToClusterEvent({required this.loc});
+  ClickToClusterEvent({required this.loc, required this.zoomLevel});
 
   @override
-  List<Object> get props => [loc];
+  List<Object> get props => [loc, zoomLevel];
 }
+
+
+
 
 /////////////////////////////////
 /// Selected Toilet Marker

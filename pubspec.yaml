@@ -42,6 +42,9 @@ dependencies:
 
   # kakao
   kakao_map_plugin: ^0.2.5
+    # path: ../kakao_map_plugin/
+
+
 
   # google
   google_sign_in: ^6.2.1
