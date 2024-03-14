@@ -15,7 +15,6 @@ class Toilet with _$Toilet {
     required bool gender,
     required bool password,
     @Default("") String password_tip,
-    // @Default(0) double rating,
     @Default(0) int reviews,
     required Map<String, dynamic> ratings,
     required String location_type,

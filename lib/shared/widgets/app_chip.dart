@@ -27,7 +27,6 @@ class _AppChipState extends State<AppChip> {
 
   @override
   Widget build(BuildContext context) {
-    print('inbuild, ${widget.isSelected}');
     isSelected = widget.isSelected;
     return GestureDetector(
       onTap: widget.onTap,
