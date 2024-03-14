@@ -24,18 +24,22 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsDatasource(
       GetNearByToiletsParams params) async {
     try {
+  
       final List<Map<String, dynamic>> data =
           await _supabaseService.client.rpc('get_nearby_toilets', params: {
         'min_lat': params.bounds.sw.latitude,
         'min_long': params.bounds.sw.longitude,
         'max_lat': params.bounds.ne.latitude,
         'max_long': params.bounds.ne.longitude,
-        'visible_filter': params.filterOfVisible,
-        'password_filter': params.filterOfPassword,
+        'gender_filter': params.genderFilter,
+        'password_filter': !params.passwordFilter,
+        'time_filter': params.timeFilter,
       });
 
       final List<Toilet> toilets =
           data.map((json) => Toilet.fromJson(json)).toList();
+
+      log.d(toilets);
 
       return Right(toilets);
     } catch (e) {

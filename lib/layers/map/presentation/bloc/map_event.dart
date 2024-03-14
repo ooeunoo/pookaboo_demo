@@ -41,10 +41,10 @@ class MoveToMyPositionEvent extends MapEvent {
 /////////////////////////////////
 /// 화장실 조회 필터 선택
 ////////////////////////////////
-class ClickToiletFilterEvent extends MapEvent {
+class UpdateToiletFilterEvent extends MapEvent {
   final ToiletFilter filter;
 
-  ClickToiletFilterEvent({required this.filter});
+  UpdateToiletFilterEvent({required this.filter});
 
   @override
   List<Object> get props => [filter];

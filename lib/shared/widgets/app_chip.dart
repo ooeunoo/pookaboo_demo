@@ -23,29 +23,24 @@ class AppChip extends StatefulWidget {
 }
 
 class _AppChipState extends State<AppChip> {
-  late bool _isSelected;
-
-  @override
-  void initState() {
-    super.initState();
-    _isSelected = widget.isSelected;
-    print(_isSelected);
-  }
+  late bool isSelected;
 
   @override
   Widget build(BuildContext context) {
+    print('inbuild, ${widget.isSelected}');
+    isSelected = widget.isSelected;
     return GestureDetector(
       onTap: widget.onTap,
       child: Chip(
         labelPadding: EdgeInsets.zero,
         backgroundColor:
-            _isSelected ? Palette.coolGrey08 : Palette.coolGrey01, // 배경색 투명 설정
+            isSelected ? Palette.coolGrey08 : Palette.coolGrey01, // 배경색 투명 설정
         padding: EdgeInsets.zero, // 기존 패딩 제거
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40),
           side: BorderSide(
             width: 1, // 테두리 두께
-            color: _isSelected
+            color: widget.isSelected
                 ? Palette.coolGrey08
                 : Palette.coolGrey02, // 선택 여부에 따른 테두리 색상 변경
           ),
@@ -57,12 +52,12 @@ class _AppChipState extends State<AppChip> {
             children: [
               SvgPicture.asset(widget.icon,
                   colorFilter: ColorFilter.mode(
-                      _isSelected ? Palette.white : Palette.coolGrey08,
+                      widget.isSelected ? Palette.white : Palette.coolGrey08,
                       BlendMode.srcIn)),
               AppSpacerH(value: Dimens.space4),
               Text(widget.text,
                   textAlign: TextAlign.center,
-                  style: _isSelected
+                  style: widget.isSelected
                       ? Theme.of(context)
                           .textTheme
                           .labelMedium!

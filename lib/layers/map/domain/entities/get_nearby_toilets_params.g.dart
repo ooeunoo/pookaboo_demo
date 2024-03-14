@@ -10,14 +10,16 @@ _$GetNearByToiletsParamsImpl _$$GetNearByToiletsParamsImplFromJson(
         Map<String, dynamic> json) =>
     _$GetNearByToiletsParamsImpl(
       bounds: LatLngBounds.fromJson(json['bounds'] as Map<String, dynamic>),
-      filterOfVisible: json['filterOfVisible'] as bool? ?? true,
-      filterOfPassword: json['filterOfPassword'] as bool? ?? false,
+      passwordFilter: json['passwordFilter'] as bool? ?? true,
+      timeFilter: json['timeFilter'] as bool? ?? false,
+      genderFilter: json['genderFilter'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$GetNearByToiletsParamsImplToJson(
         _$GetNearByToiletsParamsImpl instance) =>
     <String, dynamic>{
       'bounds': instance.bounds,
-      'filterOfVisible': instance.filterOfVisible,
-      'filterOfPassword': instance.filterOfPassword,
+      'passwordFilter': instance.passwordFilter,
+      'timeFilter': instance.timeFilter,
+      'genderFilter': instance.genderFilter,
     };

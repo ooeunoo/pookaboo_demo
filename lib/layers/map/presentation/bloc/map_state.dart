@@ -91,11 +91,23 @@ class LoadedToiletNavigationState extends MapState {
 /// Zoom To Cluster
 ////////////////////////////////
 class ZoomToClusterState extends MapState {
-  Set<Marker> markers;
+  final Set<Marker> markers;
 
   ZoomToClusterState({required this.markers});
   @override
   List<Object> get props => [markers];
+}
+
+/////////////////////////////////
+/// Zoom To Cluster
+////////////////////////////////
+class UpdatedFilterState extends MapState {
+  final List<ToiletFilter> filters;
+
+  UpdatedFilterState({required this.filters});
+
+  @override
+  List<Object> get props => [filters];
 }
 
 /////////////////////////////////

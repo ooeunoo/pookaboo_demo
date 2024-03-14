@@ -22,6 +22,7 @@ import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_navi_service.dart';
+import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
@@ -61,16 +62,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
     on<StartNavigationEvent>(_onStartNavigationEvent);
     on<StopNavigationEvent>(_onStopNavigationEvent);
-    on<ClickToiletFilterEvent>(_onClickToiletFilterEvent);
+    on<UpdateToiletFilterEvent>(_onUpdateToiletFilterEvent);
   }
 
   /////////////////////////////////
   /// Property
   ////////////////////////////////
-  late KakaoMapController _mapController;
-  // late final List<bool> _filters = [false, false, false];
-  // List<bool> get filters => _filters;
 
+  late KakaoMapController _mapController;
+  late final List<ToiletFilter> _filters = [];
   late Set<Marker> _markers = {};
   late Set<Polyline> _polylines = {};
 
@@ -91,13 +91,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     try {
-      emit(SearchingToiletState());
-
-      // 현재 화면의 왼쪽 하단과 오른쪽 상단 좌표
       LatLngBounds bounds = await _mapController.getBounds();
       GetNearByToiletsParams params = GetNearByToiletsParams(
-          bounds: bounds, filterOfPassword: false, filterOfVisible: true);
+          bounds: bounds,
+          passwordFilter: _hasFillter(ToiletFilter.password),
+          timeFilter: _hasFillter(ToiletFilter.time),
+          genderFilter: _hasFillter(ToiletFilter.gender));
 
+      print('in');
       final response = await _getNearByToiletsUseCase.call(params);
 
       await response.fold((l) {
@@ -244,8 +245,18 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     // emit(MovedMyPositionState(loc: myPosition));
   }
 
-  Future<void> _onClickToiletFilterEvent(
-      ClickToiletFilterEvent event, Emitter<MapState> emit) async {
-    // _filters[event.filter.index] = true;
+  Future<void> _onUpdateToiletFilterEvent(
+      UpdateToiletFilterEvent event, Emitter<MapState> emit) async {
+    ToiletFilter selectFilter = event.filter;
+    if (_filters.contains(selectFilter)) {
+      _filters.remove(selectFilter);
+    } else {
+      _filters.add(selectFilter);
+    }
+    emit(UpdatedFilterState(filters: _filters));
+  }
+
+  bool _hasFillter(ToiletFilter filter) {
+    return _filters.contains(filter);
   }
 }

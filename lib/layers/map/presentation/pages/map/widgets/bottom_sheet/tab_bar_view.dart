@@ -64,7 +64,7 @@ class _ToiletBottomSeetTabBarViewState
               ToiletBottomSheetReview(toilet!),
             ],
           ).blurred(
-            blur: 4,
+            blur: 3,
             blurColor: Palette.coolGrey11,
           ),
         ],
