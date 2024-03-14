@@ -98,7 +98,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           timeFilter: _hasFillter(ToiletFilter.time),
           genderFilter: _hasFillter(ToiletFilter.gender));
 
-      print('in');
       final response = await _getNearByToiletsUseCase.call(params);
 
       await response.fold((l) {
@@ -167,6 +166,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     try {
       final int toiletId = event.toiletId;
       final response = await _getToiletByIdUseCase.call(toiletId);
+
+      log.d(response.toString());
 
       response.fold((l) {
         // error

@@ -94,9 +94,9 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
     String currentTime = cur['time'];
 
     // 화장실 오늘 요일 오픈, 마감 시간
-    Map<String, dynamic> todayTimes = time.toJson()[today];
-    String openTime = todayTimes['open'];
-    String closeTime = todayTimes['close'];
+    OperateTime operateTodayTime = time.toJson()[today];
+    String? openTime = operateTodayTime.open;
+    String? closeTime = operateTodayTime.close;
 
     // 시간이 유효한지 확인
     String openTimeFormat = formatTime(openTime);
@@ -169,17 +169,18 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
     for (var day in Week.values) {
       String key = day.key;
 
-      Map<String, dynamic> currentDayTime = time.toJson()[key];
-      String openTime = currentDayTime['open'];
-      String closeTime = currentDayTime['close'];
+      // 화장실 오늘 요일 오픈, 마감 시간
+      OperateTime operateTodayTime = time.toJson()[key];
+      String? openTime = operateTodayTime.open;
+      String? closeTime = operateTodayTime.close;
 
-      String formattedTime =
+      String timeFormat =
           '${day.ko} ﹒ ${formatTime(openTime)} ~ ${formatTime(closeTime)}';
 
       timeTextWidgets.add(
         Padding(
           padding: EdgeInsets.symmetric(vertical: Dimens.space2),
-          child: AppText(formattedTime,
+          child: AppText(timeFormat,
               style: Theme.of(context).textTheme.labelMedium!),
         ),
       );

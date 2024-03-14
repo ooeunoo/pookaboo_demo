@@ -16,7 +16,6 @@ class Toilet with _$Toilet {
     required bool password,
     @Default("") String password_tip,
     @Default(0) int reviews,
-    required Map<String, dynamic> ratings,
     required String location_type,
     required String address,
     required String road_address,
@@ -26,22 +25,24 @@ class Toilet with _$Toilet {
     required double lng,
     Convenience? convenience,
     Equipment? equipment,
+    Rating? rating,
     Time? time,
   }) = _Toilet;
 
   factory Toilet.fromJson(Map<String, dynamic> json) => _$ToiletFromJson(json);
 
   static double getRating(Toilet toilet) {
-    var ratings = toilet.ratings;
-    int cleanliness = ratings['cleanliness'];
-    int management = ratings['management'];
-    int convenience = ratings['convenience'];
-    int safety = ratings['safety'];
+    // var ratings = toilet.ratings;
+    // int cleanliness = ratings['cleanliness'];
+    // int management = ratings['management'];
+    // int convenience = ratings['convenience'];
+    // int safety = ratings['safety'];
 
-    double averageRating =
-        (cleanliness + management + convenience + safety) / 4;
+    // double averageRating =
+    //     (cleanliness + management + convenience + safety) / 4;
 
-    return double.parse(averageRating.toStringAsFixed(1));
+    // return double.parse(averageRating.toStringAsFixed(1));
+    return 0;
   }
 }
 
@@ -79,18 +80,53 @@ class Equipment with _$Equipment {
 }
 
 @freezed
+class Rating with _$Rating {
+  factory Rating({
+    required double cleanliness,
+    required double safety,
+    required double convenience,
+    required double management,
+  }) = _Rating;
+
+  factory Rating.fromJson(Map<String, dynamic> json) => _$RatingFromJson(json);
+
+  static double getAverageRating(Rating rating) {
+    double cleanliness = rating.cleanliness;
+    double management = rating.management;
+    double convenience = rating.convenience;
+    double safety = rating.safety;
+
+    double averageRating =
+        (cleanliness + management + convenience + safety) / 4;
+
+    return double.parse(averageRating.toStringAsFixed(1));
+  }
+}
+
+@freezed
 class Time with _$Time {
   factory Time({
-    required Map<String, dynamic> mon,
-    required Map<String, dynamic> tue,
-    required Map<String, dynamic> wed,
-    required Map<String, dynamic> thu,
-    required Map<String, dynamic> fri,
-    required Map<String, dynamic> sat,
-    required Map<String, dynamic> sun,
+    required OperateTime mon,
+    required OperateTime tue,
+    required OperateTime wed,
+    required OperateTime thu,
+    required OperateTime fri,
+    required OperateTime sat,
+    required OperateTime sun,
   }) = _Time;
 
   factory Time.fromJson(Map<String, dynamic> json) => _$TimeFromJson(json);
+}
+
+@freezed
+class OperateTime with _$OperateTime {
+  factory OperateTime({
+    required String? open,
+    required String? close,
+  }) = _OperateTime;
+
+  factory OperateTime.fromJson(Map<String, dynamic> json) =>
+      _$OperateTimeFromJson(json);
 }
 
 // @freezed

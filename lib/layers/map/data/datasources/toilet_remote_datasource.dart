@@ -32,14 +32,11 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
         'max_long': params.bounds.ne.longitude,
         'gender_filter': params.genderFilter,
         'password_filter': params.passwordFilter,
-        // 'time_filter': params.timeFilter,
+        'time_filter': params.timeFilter,
       });
 
       final List<Toilet> toilets =
           data.map((json) => Toilet.fromJson(json)).toList();
-
-      log.d(toilets);
-
       return Right(toilets);
     } catch (e) {
       log.e(e);
@@ -51,9 +48,7 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, Toilet>> getToiletByIdDatasource(int id) async {
     try {
       final List<Map<String, dynamic>> data =
-          await _supabaseService.client.rpc('get_toilet', params: {
-        't_id': id,
-      });
+          await _supabaseService.client.rpc('get_toilet', params: {'t_id': id});
 
       final List<Toilet> toilet = data
           .map((json) => Toilet.fromJson(json['json_build_object']))

@@ -9,13 +9,13 @@ Map<String, String> getCurrentDayAndTime() {
   String day = DateFormat('E').format(now).toLowerCase().toString();
 
   // Get the current time in hh:mm format
-  String time = DateFormat('HH:mm').format(now).toString();
+  String time = DateFormat('HH:mm:ss').format(now).toString();
 
   // Return the day and time in a Map
   return {'day': day, 'time': time};
 }
 
-bool isCurrentlyOpen(String currentTime, String openTime, String closeTime) {
+bool isCurrentlyOpen(String currentTime, String? openTime, String? closeTime) {
   try {
     if (isValidTimeFormat(openTime) && isValidTimeFormat(closeTime)) {
       // Get the current time
@@ -39,21 +39,21 @@ bool isCurrentlyOpen(String currentTime, String openTime, String closeTime) {
   }
 }
 
-bool isValidTimeFormat(String time) {
-  if (time == "") return false;
+bool isValidTimeFormat(String? time) {
+  if (time == null || time == "") return false;
 
-  // Define a regular expression to match HH:mm format
-  RegExp regex = RegExp(r'^([01]\d|2[0-3]):([0-5]\d)$');
+  // Define a regular expression to match HH:mm:ss format
+  RegExp regex = RegExp(r'^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$');
 
   // Check if the time matches the regular expression
   return regex.hasMatch(time);
 }
 
-String formatTime(String time) {
+String formatTime(String? time) {
   if (!isValidTimeFormat(time)) return '-';
 
   // Split the time into hours and minutes
-  List<String> parts = time.split(':');
+  List<String> parts = time!.split(':');
   int hours = int.parse(parts[0]);
   int minutes = int.parse(parts[1]);
 

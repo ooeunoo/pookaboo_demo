@@ -23,7 +23,7 @@ class _ToiletBottomSheetRatingState extends State<ToiletBottomSheetRating> {
   @override
   void initState() {
     super.initState();
-    rating = Toilet.getRating(widget.toilet).toString();
+    rating = Rating.getAverageRating(widget.toilet.rating!).toString();
     totalReviews = widget.toilet.reviews.toString();
   }
 

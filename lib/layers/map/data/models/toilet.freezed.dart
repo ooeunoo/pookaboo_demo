@@ -26,10 +26,8 @@ mixin _$Toilet {
   bool get visible => throw _privateConstructorUsedError;
   bool get gender => throw _privateConstructorUsedError;
   bool get password => throw _privateConstructorUsedError;
-  String get password_tip =>
-      throw _privateConstructorUsedError; // @Default(0) double rating,
+  String get password_tip => throw _privateConstructorUsedError;
   int get reviews => throw _privateConstructorUsedError;
-  Map<String, dynamic> get ratings => throw _privateConstructorUsedError;
   String get location_type => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get road_address => throw _privateConstructorUsedError;
@@ -39,6 +37,7 @@ mixin _$Toilet {
   double get lng => throw _privateConstructorUsedError;
   Convenience? get convenience => throw _privateConstructorUsedError;
   Equipment? get equipment => throw _privateConstructorUsedError;
+  Rating? get rating => throw _privateConstructorUsedError;
   Time? get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -60,7 +59,6 @@ abstract class $ToiletCopyWith<$Res> {
       bool password,
       String password_tip,
       int reviews,
-      Map<String, dynamic> ratings,
       String location_type,
       String address,
       String road_address,
@@ -70,10 +68,12 @@ abstract class $ToiletCopyWith<$Res> {
       double lng,
       Convenience? convenience,
       Equipment? equipment,
+      Rating? rating,
       Time? time});
 
   $ConvenienceCopyWith<$Res>? get convenience;
   $EquipmentCopyWith<$Res>? get equipment;
+  $RatingCopyWith<$Res>? get rating;
   $TimeCopyWith<$Res>? get time;
 }
 
@@ -98,7 +98,6 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
     Object? password = null,
     Object? password_tip = null,
     Object? reviews = null,
-    Object? ratings = null,
     Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
@@ -108,6 +107,7 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
     Object? lng = null,
     Object? convenience = freezed,
     Object? equipment = freezed,
+    Object? rating = freezed,
     Object? time = freezed,
   }) {
     return _then(_value.copyWith(
@@ -143,10 +143,6 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as int,
-      ratings: null == ratings
-          ? _value.ratings
-          : ratings // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
       location_type: null == location_type
           ? _value.location_type
           : location_type // ignore: cast_nullable_to_non_nullable
@@ -183,6 +179,10 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
               as Equipment?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as Rating?,
       time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -216,6 +216,18 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
 
   @override
   @pragma('vm:prefer-inline')
+  $RatingCopyWith<$Res>? get rating {
+    if (_value.rating == null) {
+      return null;
+    }
+
+    return $RatingCopyWith<$Res>(_value.rating!, (value) {
+      return _then(_value.copyWith(rating: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $TimeCopyWith<$Res>? get time {
     if (_value.time == null) {
       return null;
@@ -243,7 +255,6 @@ abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
       bool password,
       String password_tip,
       int reviews,
-      Map<String, dynamic> ratings,
       String location_type,
       String address,
       String road_address,
@@ -253,12 +264,15 @@ abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
       double lng,
       Convenience? convenience,
       Equipment? equipment,
+      Rating? rating,
       Time? time});
 
   @override
   $ConvenienceCopyWith<$Res>? get convenience;
   @override
   $EquipmentCopyWith<$Res>? get equipment;
+  @override
+  $RatingCopyWith<$Res>? get rating;
   @override
   $TimeCopyWith<$Res>? get time;
 }
@@ -282,7 +296,6 @@ class __$$ToiletImplCopyWithImpl<$Res>
     Object? password = null,
     Object? password_tip = null,
     Object? reviews = null,
-    Object? ratings = null,
     Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
@@ -292,6 +305,7 @@ class __$$ToiletImplCopyWithImpl<$Res>
     Object? lng = null,
     Object? convenience = freezed,
     Object? equipment = freezed,
+    Object? rating = freezed,
     Object? time = freezed,
   }) {
     return _then(_$ToiletImpl(
@@ -327,10 +341,6 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as int,
-      ratings: null == ratings
-          ? _value._ratings
-          : ratings // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
       location_type: null == location_type
           ? _value.location_type
           : location_type // ignore: cast_nullable_to_non_nullable
@@ -367,6 +377,10 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.equipment
           : equipment // ignore: cast_nullable_to_non_nullable
               as Equipment?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as Rating?,
       time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
@@ -387,7 +401,6 @@ class _$ToiletImpl implements _Toilet {
       required this.password,
       this.password_tip = "",
       this.reviews = 0,
-      required final Map<String, dynamic> ratings,
       required this.location_type,
       required this.address,
       required this.road_address,
@@ -397,8 +410,8 @@ class _$ToiletImpl implements _Toilet {
       required this.lng,
       this.convenience,
       this.equipment,
-      this.time})
-      : _ratings = ratings;
+      this.rating,
+      this.time});
 
   factory _$ToiletImpl.fromJson(Map<String, dynamic> json) =>
       _$$ToiletImplFromJson(json);
@@ -418,18 +431,9 @@ class _$ToiletImpl implements _Toilet {
   @override
   @JsonKey()
   final String password_tip;
-// @Default(0) double rating,
   @override
   @JsonKey()
   final int reviews;
-  final Map<String, dynamic> _ratings;
-  @override
-  Map<String, dynamic> get ratings {
-    if (_ratings is EqualUnmodifiableMapView) return _ratings;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_ratings);
-  }
-
   @override
   final String location_type;
   @override
@@ -449,11 +453,13 @@ class _$ToiletImpl implements _Toilet {
   @override
   final Equipment? equipment;
   @override
+  final Rating? rating;
+  @override
   final Time? time;
 
   @override
   String toString() {
-    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, reviews: $reviews, ratings: $ratings, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, time: $time)';
+    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, reviews: $reviews, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, rating: $rating, time: $time)';
   }
 
   @override
@@ -471,7 +477,6 @@ class _$ToiletImpl implements _Toilet {
             (identical(other.password_tip, password_tip) ||
                 other.password_tip == password_tip) &&
             (identical(other.reviews, reviews) || other.reviews == reviews) &&
-            const DeepCollectionEquality().equals(other._ratings, _ratings) &&
             (identical(other.location_type, location_type) ||
                 other.location_type == location_type) &&
             (identical(other.address, address) || other.address == address) &&
@@ -486,6 +491,7 @@ class _$ToiletImpl implements _Toilet {
                 other.convenience == convenience) &&
             (identical(other.equipment, equipment) ||
                 other.equipment == equipment) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.time, time) || other.time == time));
   }
 
@@ -501,7 +507,6 @@ class _$ToiletImpl implements _Toilet {
         password,
         password_tip,
         reviews,
-        const DeepCollectionEquality().hash(_ratings),
         location_type,
         address,
         road_address,
@@ -511,6 +516,7 @@ class _$ToiletImpl implements _Toilet {
         lng,
         convenience,
         equipment,
+        rating,
         time
       ]);
 
@@ -538,7 +544,6 @@ abstract class _Toilet implements Toilet {
       required final bool password,
       final String password_tip,
       final int reviews,
-      required final Map<String, dynamic> ratings,
       required final String location_type,
       required final String address,
       required final String road_address,
@@ -548,6 +553,7 @@ abstract class _Toilet implements Toilet {
       required final double lng,
       final Convenience? convenience,
       final Equipment? equipment,
+      final Rating? rating,
       final Time? time}) = _$ToiletImpl;
 
   factory _Toilet.fromJson(Map<String, dynamic> json) = _$ToiletImpl.fromJson;
@@ -566,10 +572,8 @@ abstract class _Toilet implements Toilet {
   bool get password;
   @override
   String get password_tip;
-  @override // @Default(0) double rating,
-  int get reviews;
   @override
-  Map<String, dynamic> get ratings;
+  int get reviews;
   @override
   String get location_type;
   @override
@@ -588,6 +592,8 @@ abstract class _Toilet implements Toilet {
   Convenience? get convenience;
   @override
   Equipment? get equipment;
+  @override
+  Rating? get rating;
   @override
   Time? get time;
   @override
@@ -1144,19 +1150,219 @@ abstract class _Equipment implements Equipment {
       throw _privateConstructorUsedError;
 }
 
+Rating _$RatingFromJson(Map<String, dynamic> json) {
+  return _Rating.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Rating {
+  double get cleanliness => throw _privateConstructorUsedError;
+  double get safety => throw _privateConstructorUsedError;
+  double get convenience => throw _privateConstructorUsedError;
+  double get management => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RatingCopyWith<Rating> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RatingCopyWith<$Res> {
+  factory $RatingCopyWith(Rating value, $Res Function(Rating) then) =
+      _$RatingCopyWithImpl<$Res, Rating>;
+  @useResult
+  $Res call(
+      {double cleanliness,
+      double safety,
+      double convenience,
+      double management});
+}
+
+/// @nodoc
+class _$RatingCopyWithImpl<$Res, $Val extends Rating>
+    implements $RatingCopyWith<$Res> {
+  _$RatingCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cleanliness = null,
+    Object? safety = null,
+    Object? convenience = null,
+    Object? management = null,
+  }) {
+    return _then(_value.copyWith(
+      cleanliness: null == cleanliness
+          ? _value.cleanliness
+          : cleanliness // ignore: cast_nullable_to_non_nullable
+              as double,
+      safety: null == safety
+          ? _value.safety
+          : safety // ignore: cast_nullable_to_non_nullable
+              as double,
+      convenience: null == convenience
+          ? _value.convenience
+          : convenience // ignore: cast_nullable_to_non_nullable
+              as double,
+      management: null == management
+          ? _value.management
+          : management // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$RatingImplCopyWith<$Res> implements $RatingCopyWith<$Res> {
+  factory _$$RatingImplCopyWith(
+          _$RatingImpl value, $Res Function(_$RatingImpl) then) =
+      __$$RatingImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double cleanliness,
+      double safety,
+      double convenience,
+      double management});
+}
+
+/// @nodoc
+class __$$RatingImplCopyWithImpl<$Res>
+    extends _$RatingCopyWithImpl<$Res, _$RatingImpl>
+    implements _$$RatingImplCopyWith<$Res> {
+  __$$RatingImplCopyWithImpl(
+      _$RatingImpl _value, $Res Function(_$RatingImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cleanliness = null,
+    Object? safety = null,
+    Object? convenience = null,
+    Object? management = null,
+  }) {
+    return _then(_$RatingImpl(
+      cleanliness: null == cleanliness
+          ? _value.cleanliness
+          : cleanliness // ignore: cast_nullable_to_non_nullable
+              as double,
+      safety: null == safety
+          ? _value.safety
+          : safety // ignore: cast_nullable_to_non_nullable
+              as double,
+      convenience: null == convenience
+          ? _value.convenience
+          : convenience // ignore: cast_nullable_to_non_nullable
+              as double,
+      management: null == management
+          ? _value.management
+          : management // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$RatingImpl implements _Rating {
+  _$RatingImpl(
+      {required this.cleanliness,
+      required this.safety,
+      required this.convenience,
+      required this.management});
+
+  factory _$RatingImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RatingImplFromJson(json);
+
+  @override
+  final double cleanliness;
+  @override
+  final double safety;
+  @override
+  final double convenience;
+  @override
+  final double management;
+
+  @override
+  String toString() {
+    return 'Rating(cleanliness: $cleanliness, safety: $safety, convenience: $convenience, management: $management)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RatingImpl &&
+            (identical(other.cleanliness, cleanliness) ||
+                other.cleanliness == cleanliness) &&
+            (identical(other.safety, safety) || other.safety == safety) &&
+            (identical(other.convenience, convenience) ||
+                other.convenience == convenience) &&
+            (identical(other.management, management) ||
+                other.management == management));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, cleanliness, safety, convenience, management);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RatingImplCopyWith<_$RatingImpl> get copyWith =>
+      __$$RatingImplCopyWithImpl<_$RatingImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$RatingImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Rating implements Rating {
+  factory _Rating(
+      {required final double cleanliness,
+      required final double safety,
+      required final double convenience,
+      required final double management}) = _$RatingImpl;
+
+  factory _Rating.fromJson(Map<String, dynamic> json) = _$RatingImpl.fromJson;
+
+  @override
+  double get cleanliness;
+  @override
+  double get safety;
+  @override
+  double get convenience;
+  @override
+  double get management;
+  @override
+  @JsonKey(ignore: true)
+  _$$RatingImplCopyWith<_$RatingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Time _$TimeFromJson(Map<String, dynamic> json) {
   return _Time.fromJson(json);
 }
 
 /// @nodoc
 mixin _$Time {
-  Map<String, dynamic> get mon => throw _privateConstructorUsedError;
-  Map<String, dynamic> get tue => throw _privateConstructorUsedError;
-  Map<String, dynamic> get wed => throw _privateConstructorUsedError;
-  Map<String, dynamic> get thu => throw _privateConstructorUsedError;
-  Map<String, dynamic> get fri => throw _privateConstructorUsedError;
-  Map<String, dynamic> get sat => throw _privateConstructorUsedError;
-  Map<String, dynamic> get sun => throw _privateConstructorUsedError;
+  OperateTime get mon => throw _privateConstructorUsedError;
+  OperateTime get tue => throw _privateConstructorUsedError;
+  OperateTime get wed => throw _privateConstructorUsedError;
+  OperateTime get thu => throw _privateConstructorUsedError;
+  OperateTime get fri => throw _privateConstructorUsedError;
+  OperateTime get sat => throw _privateConstructorUsedError;
+  OperateTime get sun => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1169,13 +1375,21 @@ abstract class $TimeCopyWith<$Res> {
       _$TimeCopyWithImpl<$Res, Time>;
   @useResult
   $Res call(
-      {Map<String, dynamic> mon,
-      Map<String, dynamic> tue,
-      Map<String, dynamic> wed,
-      Map<String, dynamic> thu,
-      Map<String, dynamic> fri,
-      Map<String, dynamic> sat,
-      Map<String, dynamic> sun});
+      {OperateTime mon,
+      OperateTime tue,
+      OperateTime wed,
+      OperateTime thu,
+      OperateTime fri,
+      OperateTime sat,
+      OperateTime sun});
+
+  $OperateTimeCopyWith<$Res> get mon;
+  $OperateTimeCopyWith<$Res> get tue;
+  $OperateTimeCopyWith<$Res> get wed;
+  $OperateTimeCopyWith<$Res> get thu;
+  $OperateTimeCopyWith<$Res> get fri;
+  $OperateTimeCopyWith<$Res> get sat;
+  $OperateTimeCopyWith<$Res> get sun;
 }
 
 /// @nodoc
@@ -1203,32 +1417,88 @@ class _$TimeCopyWithImpl<$Res, $Val extends Time>
       mon: null == mon
           ? _value.mon
           : mon // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       tue: null == tue
           ? _value.tue
           : tue // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       wed: null == wed
           ? _value.wed
           : wed // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       thu: null == thu
           ? _value.thu
           : thu // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       fri: null == fri
           ? _value.fri
           : fri // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       sat: null == sat
           ? _value.sat
           : sat // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       sun: null == sun
           ? _value.sun
           : sun // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperateTimeCopyWith<$Res> get mon {
+    return $OperateTimeCopyWith<$Res>(_value.mon, (value) {
+      return _then(_value.copyWith(mon: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperateTimeCopyWith<$Res> get tue {
+    return $OperateTimeCopyWith<$Res>(_value.tue, (value) {
+      return _then(_value.copyWith(tue: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperateTimeCopyWith<$Res> get wed {
+    return $OperateTimeCopyWith<$Res>(_value.wed, (value) {
+      return _then(_value.copyWith(wed: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperateTimeCopyWith<$Res> get thu {
+    return $OperateTimeCopyWith<$Res>(_value.thu, (value) {
+      return _then(_value.copyWith(thu: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperateTimeCopyWith<$Res> get fri {
+    return $OperateTimeCopyWith<$Res>(_value.fri, (value) {
+      return _then(_value.copyWith(fri: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperateTimeCopyWith<$Res> get sat {
+    return $OperateTimeCopyWith<$Res>(_value.sat, (value) {
+      return _then(_value.copyWith(sat: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OperateTimeCopyWith<$Res> get sun {
+    return $OperateTimeCopyWith<$Res>(_value.sun, (value) {
+      return _then(_value.copyWith(sun: value) as $Val);
+    });
   }
 }
 
@@ -1240,13 +1510,28 @@ abstract class _$$TimeImplCopyWith<$Res> implements $TimeCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {Map<String, dynamic> mon,
-      Map<String, dynamic> tue,
-      Map<String, dynamic> wed,
-      Map<String, dynamic> thu,
-      Map<String, dynamic> fri,
-      Map<String, dynamic> sat,
-      Map<String, dynamic> sun});
+      {OperateTime mon,
+      OperateTime tue,
+      OperateTime wed,
+      OperateTime thu,
+      OperateTime fri,
+      OperateTime sat,
+      OperateTime sun});
+
+  @override
+  $OperateTimeCopyWith<$Res> get mon;
+  @override
+  $OperateTimeCopyWith<$Res> get tue;
+  @override
+  $OperateTimeCopyWith<$Res> get wed;
+  @override
+  $OperateTimeCopyWith<$Res> get thu;
+  @override
+  $OperateTimeCopyWith<$Res> get fri;
+  @override
+  $OperateTimeCopyWith<$Res> get sat;
+  @override
+  $OperateTimeCopyWith<$Res> get sun;
 }
 
 /// @nodoc
@@ -1269,33 +1554,33 @@ class __$$TimeImplCopyWithImpl<$Res>
   }) {
     return _then(_$TimeImpl(
       mon: null == mon
-          ? _value._mon
+          ? _value.mon
           : mon // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       tue: null == tue
-          ? _value._tue
+          ? _value.tue
           : tue // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       wed: null == wed
-          ? _value._wed
+          ? _value.wed
           : wed // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       thu: null == thu
-          ? _value._thu
+          ? _value.thu
           : thu // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       fri: null == fri
-          ? _value._fri
+          ? _value.fri
           : fri // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       sat: null == sat
-          ? _value._sat
+          ? _value.sat
           : sat // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
       sun: null == sun
-          ? _value._sun
+          ? _value.sun
           : sun // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as OperateTime,
     ));
   }
 }
@@ -1304,79 +1589,31 @@ class __$$TimeImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TimeImpl implements _Time {
   _$TimeImpl(
-      {required final Map<String, dynamic> mon,
-      required final Map<String, dynamic> tue,
-      required final Map<String, dynamic> wed,
-      required final Map<String, dynamic> thu,
-      required final Map<String, dynamic> fri,
-      required final Map<String, dynamic> sat,
-      required final Map<String, dynamic> sun})
-      : _mon = mon,
-        _tue = tue,
-        _wed = wed,
-        _thu = thu,
-        _fri = fri,
-        _sat = sat,
-        _sun = sun;
+      {required this.mon,
+      required this.tue,
+      required this.wed,
+      required this.thu,
+      required this.fri,
+      required this.sat,
+      required this.sun});
 
   factory _$TimeImpl.fromJson(Map<String, dynamic> json) =>
       _$$TimeImplFromJson(json);
 
-  final Map<String, dynamic> _mon;
   @override
-  Map<String, dynamic> get mon {
-    if (_mon is EqualUnmodifiableMapView) return _mon;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_mon);
-  }
-
-  final Map<String, dynamic> _tue;
+  final OperateTime mon;
   @override
-  Map<String, dynamic> get tue {
-    if (_tue is EqualUnmodifiableMapView) return _tue;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_tue);
-  }
-
-  final Map<String, dynamic> _wed;
+  final OperateTime tue;
   @override
-  Map<String, dynamic> get wed {
-    if (_wed is EqualUnmodifiableMapView) return _wed;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_wed);
-  }
-
-  final Map<String, dynamic> _thu;
+  final OperateTime wed;
   @override
-  Map<String, dynamic> get thu {
-    if (_thu is EqualUnmodifiableMapView) return _thu;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_thu);
-  }
-
-  final Map<String, dynamic> _fri;
+  final OperateTime thu;
   @override
-  Map<String, dynamic> get fri {
-    if (_fri is EqualUnmodifiableMapView) return _fri;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_fri);
-  }
-
-  final Map<String, dynamic> _sat;
+  final OperateTime fri;
   @override
-  Map<String, dynamic> get sat {
-    if (_sat is EqualUnmodifiableMapView) return _sat;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_sat);
-  }
-
-  final Map<String, dynamic> _sun;
+  final OperateTime sat;
   @override
-  Map<String, dynamic> get sun {
-    if (_sun is EqualUnmodifiableMapView) return _sun;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_sun);
-  }
+  final OperateTime sun;
 
   @override
   String toString() {
@@ -1388,26 +1625,19 @@ class _$TimeImpl implements _Time {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TimeImpl &&
-            const DeepCollectionEquality().equals(other._mon, _mon) &&
-            const DeepCollectionEquality().equals(other._tue, _tue) &&
-            const DeepCollectionEquality().equals(other._wed, _wed) &&
-            const DeepCollectionEquality().equals(other._thu, _thu) &&
-            const DeepCollectionEquality().equals(other._fri, _fri) &&
-            const DeepCollectionEquality().equals(other._sat, _sat) &&
-            const DeepCollectionEquality().equals(other._sun, _sun));
+            (identical(other.mon, mon) || other.mon == mon) &&
+            (identical(other.tue, tue) || other.tue == tue) &&
+            (identical(other.wed, wed) || other.wed == wed) &&
+            (identical(other.thu, thu) || other.thu == thu) &&
+            (identical(other.fri, fri) || other.fri == fri) &&
+            (identical(other.sat, sat) || other.sat == sat) &&
+            (identical(other.sun, sun) || other.sun == sun));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_mon),
-      const DeepCollectionEquality().hash(_tue),
-      const DeepCollectionEquality().hash(_wed),
-      const DeepCollectionEquality().hash(_thu),
-      const DeepCollectionEquality().hash(_fri),
-      const DeepCollectionEquality().hash(_sat),
-      const DeepCollectionEquality().hash(_sun));
+  int get hashCode =>
+      Object.hash(runtimeType, mon, tue, wed, thu, fri, sat, sun);
 
   @JsonKey(ignore: true)
   @override
@@ -1425,32 +1655,186 @@ class _$TimeImpl implements _Time {
 
 abstract class _Time implements Time {
   factory _Time(
-      {required final Map<String, dynamic> mon,
-      required final Map<String, dynamic> tue,
-      required final Map<String, dynamic> wed,
-      required final Map<String, dynamic> thu,
-      required final Map<String, dynamic> fri,
-      required final Map<String, dynamic> sat,
-      required final Map<String, dynamic> sun}) = _$TimeImpl;
+      {required final OperateTime mon,
+      required final OperateTime tue,
+      required final OperateTime wed,
+      required final OperateTime thu,
+      required final OperateTime fri,
+      required final OperateTime sat,
+      required final OperateTime sun}) = _$TimeImpl;
 
   factory _Time.fromJson(Map<String, dynamic> json) = _$TimeImpl.fromJson;
 
   @override
-  Map<String, dynamic> get mon;
+  OperateTime get mon;
   @override
-  Map<String, dynamic> get tue;
+  OperateTime get tue;
   @override
-  Map<String, dynamic> get wed;
+  OperateTime get wed;
   @override
-  Map<String, dynamic> get thu;
+  OperateTime get thu;
   @override
-  Map<String, dynamic> get fri;
+  OperateTime get fri;
   @override
-  Map<String, dynamic> get sat;
+  OperateTime get sat;
   @override
-  Map<String, dynamic> get sun;
+  OperateTime get sun;
   @override
   @JsonKey(ignore: true)
   _$$TimeImplCopyWith<_$TimeImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OperateTime _$OperateTimeFromJson(Map<String, dynamic> json) {
+  return _OperateTime.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OperateTime {
+  String? get open => throw _privateConstructorUsedError;
+  String? get close => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OperateTimeCopyWith<OperateTime> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OperateTimeCopyWith<$Res> {
+  factory $OperateTimeCopyWith(
+          OperateTime value, $Res Function(OperateTime) then) =
+      _$OperateTimeCopyWithImpl<$Res, OperateTime>;
+  @useResult
+  $Res call({String? open, String? close});
+}
+
+/// @nodoc
+class _$OperateTimeCopyWithImpl<$Res, $Val extends OperateTime>
+    implements $OperateTimeCopyWith<$Res> {
+  _$OperateTimeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? open = freezed,
+    Object? close = freezed,
+  }) {
+    return _then(_value.copyWith(
+      open: freezed == open
+          ? _value.open
+          : open // ignore: cast_nullable_to_non_nullable
+              as String?,
+      close: freezed == close
+          ? _value.close
+          : close // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OperateTimeImplCopyWith<$Res>
+    implements $OperateTimeCopyWith<$Res> {
+  factory _$$OperateTimeImplCopyWith(
+          _$OperateTimeImpl value, $Res Function(_$OperateTimeImpl) then) =
+      __$$OperateTimeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String? open, String? close});
+}
+
+/// @nodoc
+class __$$OperateTimeImplCopyWithImpl<$Res>
+    extends _$OperateTimeCopyWithImpl<$Res, _$OperateTimeImpl>
+    implements _$$OperateTimeImplCopyWith<$Res> {
+  __$$OperateTimeImplCopyWithImpl(
+      _$OperateTimeImpl _value, $Res Function(_$OperateTimeImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? open = freezed,
+    Object? close = freezed,
+  }) {
+    return _then(_$OperateTimeImpl(
+      open: freezed == open
+          ? _value.open
+          : open // ignore: cast_nullable_to_non_nullable
+              as String?,
+      close: freezed == close
+          ? _value.close
+          : close // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OperateTimeImpl implements _OperateTime {
+  _$OperateTimeImpl({required this.open, required this.close});
+
+  factory _$OperateTimeImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OperateTimeImplFromJson(json);
+
+  @override
+  final String? open;
+  @override
+  final String? close;
+
+  @override
+  String toString() {
+    return 'OperateTime(open: $open, close: $close)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OperateTimeImpl &&
+            (identical(other.open, open) || other.open == open) &&
+            (identical(other.close, close) || other.close == close));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, open, close);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OperateTimeImplCopyWith<_$OperateTimeImpl> get copyWith =>
+      __$$OperateTimeImplCopyWithImpl<_$OperateTimeImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OperateTimeImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OperateTime implements OperateTime {
+  factory _OperateTime(
+      {required final String? open,
+      required final String? close}) = _$OperateTimeImpl;
+
+  factory _OperateTime.fromJson(Map<String, dynamic> json) =
+      _$OperateTimeImpl.fromJson;
+
+  @override
+  String? get open;
+  @override
+  String? get close;
+  @override
+  @JsonKey(ignore: true)
+  _$$OperateTimeImplCopyWith<_$OperateTimeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
