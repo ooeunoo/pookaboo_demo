@@ -5,8 +5,13 @@ import 'package:pookaboo/shared/widgets/app_text.dart';
 
 class ToiletBottomSheetLocation extends StatefulWidget {
   final Toilet toilet;
+  final int? time;
 
-  const ToiletBottomSheetLocation(this.toilet, {super.key});
+  const ToiletBottomSheetLocation({
+    super.key,
+    required this.toilet,
+    this.time,
+  });
 
   @override
   State<ToiletBottomSheetLocation> createState() =>
@@ -37,10 +42,13 @@ class _ToiletBottomSheetLocationState extends State<ToiletBottomSheetLocation> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText("도보 1분", style: Theme.of(context).textTheme.bodySmall!),
-            const AppSpacerH(),
-            AppText("|", style: Theme.of(context).textTheme.labelLarge!),
-            const AppSpacerH(),
+            if (widget.time != null) ...{
+              AppText("도보 ${widget.time}분",
+                  style: Theme.of(context).textTheme.bodySmall!),
+              const AppSpacerH(),
+              AppText("|", style: Theme.of(context).textTheme.labelLarge!),
+              const AppSpacerH(),
+            },
             AppText(locationTip, style: Theme.of(context).textTheme.labelLarge!)
           ],
         )

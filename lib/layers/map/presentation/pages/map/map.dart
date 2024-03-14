@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
+import 'package:pookaboo/layers/map/presentation/pages/map/widgets/toilet_navigation_dialog.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -64,6 +66,17 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
+  void _showNavigationModal(BuildContext context, Toilet toilet) async {
+    showDialog(
+      context: context,
+      useRootNavigator: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content: ToiletNavigationModal(toilet: toilet, time: 0));
+      },
+    ).whenComplete(() => _updateVisibleOfBottomNavigation(true));
+  }
+
   Future<void> _clear() async {
     await _controller.clearMarker();
     await _controller.clearMarkerClusterer();
@@ -86,6 +99,10 @@ class _MapPageState extends State<MapPage> {
     await _controller.addPolyline(polylines: polylines.toList());
   }
 
+  void _updateVisibleOfBottomNavigation(bool state) {
+    context.read<NavigationCubit>().updateVisible(state);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MapBloc, MapState>(
@@ -95,20 +112,21 @@ class _MapPageState extends State<MapPage> {
           context.read<MapBloc>().add(MoveToMyPositionEvent());
         } else if (state is MovedMyPositionState ||
             state is StoppedToiletNavigationState) {
-          // 지도가 이동한 상태라면 -> 주변 화장실 불러오기
+          _updateVisibleOfBottomNavigation(true);
           context.read<MapBloc>().add(GetNearByToiletsEvent());
         } else if (state is LoadedToiletMarkersState) {
           // 화장실 마커 데이터 불러오기를 완료했다면 -> 지도에 마커 그리기
           await _clear();
           await _drawCluster(state.markers);
         } else if (state is LoadedSelectedToiletState) {
-          // 화장실 마커를 선택했다면 -> 바텀 시트 열기
           _showBottomSheet(context, state.toilet);
         } else if (state is LoadedToiletNavigationState) {
           await _clear();
           await _drawPolyline(state.polylines);
-          // 바텀시트 닫기
           context.pop();
+          _updateVisibleOfBottomNavigation(false);
+          // _showNavigationModal(context, state.toilet);
+          // 바텀시트 닫기
         } else if (state is ZoomToClusterState) {
           await _clear();
           await _drawCluster(state.markers);
@@ -231,6 +249,31 @@ class _MapPageState extends State<MapPage> {
                         height: 24, // SVG 이미지의 높이 조정 가능
                       ),
                     ),
+                  )),
+            },
+
+            ////////////////////////////////////
+            ///  Navigation
+            ///////////////////////////////////
+            if (state is LoadedToiletNavigationState) ...{
+              Positioned(
+                  bottom: Dimens.bottomBarHeight(context) + Dimens.space60,
+                  left: 0, // 이 위치를 조절하여 원하는 위치에 배치할 수 있습니다.
+                  right: 0,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Palette.coolGrey12,
+                          borderRadius: BorderRadius.circular(Dimens.space16),
+                          border: Border.all(
+                            color: Palette.coolGrey13,
+                            width: Dimens.space1,
+                          ),
+                        ),
+                        height: Dimens.space155,
+                        child: ToiletNavigationModal(
+                            toilet: state.toilet, time: state.time)),
                   )),
             }
           ],

@@ -79,12 +79,15 @@ class SearchingToiletNavigationState extends MapState {
 /// Loaded Toilet Direction
 ////////////////////////////////
 class LoadedToiletNavigationState extends MapState {
+  final Toilet toilet;
   final Set<Polyline> polylines;
+  final int time;
 
-  LoadedToiletNavigationState({required this.polylines});
+  LoadedToiletNavigationState(
+      {required this.toilet, required this.polylines, required this.time});
 
   @override
-  List<Object> get props => [polylines];
+  List<Object> get props => [toilet, polylines, time];
 }
 
 /////////////////////////////////

@@ -16,8 +16,11 @@ class BottomSheetMain extends StatefulWidget {
   final double offset;
   final Toilet toilet;
 
-  const BottomSheetMain(
-      {super.key, required this.offset, required this.toilet});
+  const BottomSheetMain({
+    super.key,
+    required this.offset,
+    required this.toilet,
+  });
 
   @override
   _BottomSheetMainState createState() => _BottomSheetMainState();
@@ -25,12 +28,10 @@ class BottomSheetMain extends StatefulWidget {
 
 class _BottomSheetMainState extends State<BottomSheetMain> {
   bool isExtend = false;
-  Toilet? toilet;
 
   @override
   Widget build(BuildContext context) {
     isExtend = widget.offset > 0.4;
-    toilet = widget.toilet;
 
     return Column(
       children: [
@@ -39,27 +40,29 @@ class _BottomSheetMainState extends State<BottomSheetMain> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ToiletBottomSheetHeader(toilet!),
+              ToiletBottomSheetHeader(widget.toilet),
               const AppSpacerV(),
-              ToiletBottomSheetLocation(toilet!),
+              ToiletBottomSheetLocation(
+                toilet: widget.toilet,
+              ),
               const AppSpacerV(),
               // isExtend일 경우, ...
-              if (isExtend) ...[_expandItems()]
+              if (isExtend) ...[_expandItems(widget.toilet)]
             ],
           ),
         ),
         // Divider Padding 때문에 분리함
-        if (isExtend) ...[ToiletBottomSeetTabBarView(toilet!)]
+        if (isExtend) ...[ToiletBottomSeetTabBarView(widget.toilet)]
       ],
     );
   }
 
-  Widget _expandItems() {
+  Widget _expandItems(Toilet toilet) {
     return Column(
       children: [
-        ToiletBottomSheetRating(toilet!),
+        ToiletBottomSheetRating(toilet),
         const AppSpacerV(),
-        ToiletBottomSheetProperty(toilet!),
+        ToiletBottomSheetProperty(toilet),
         const AppSpacerV(),
       ],
     );

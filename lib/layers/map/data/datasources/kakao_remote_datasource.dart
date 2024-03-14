@@ -68,7 +68,6 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
   List<Document> parseCoordinatePoint(List<GuideList> guideList) {
     List<Document> linkPoints = [];
     for (var guide in guideList) {
-      // log.d(guide.toJson());
       if (guide.guideCode != 'END') {
         List<Document> points = guide.link!.points.split('|').map((point) {
           List<String> coordinates = point.split(',');

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NavigationState {
   String get path => throw _privateConstructorUsedError;
   int get index => throw _privateConstructorUsedError;
+  bool get visible => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NavigationStateCopyWith<NavigationState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $NavigationStateCopyWith<$Res> {
           NavigationState value, $Res Function(NavigationState) then) =
       _$NavigationStateCopyWithImpl<$Res, NavigationState>;
   @useResult
-  $Res call({String path, int index});
+  $Res call({String path, int index, bool visible});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
   $Res call({
     Object? path = null,
     Object? index = null,
+    Object? visible = null,
   }) {
     return _then(_value.copyWith(
       path: null == path
@@ -58,6 +60,10 @@ class _$NavigationStateCopyWithImpl<$Res, $Val extends NavigationState>
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
+      visible: null == visible
+          ? _value.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$NavigationStateImplCopyWith<$Res>
       __$$NavigationStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String path, int index});
+  $Res call({String path, int index, bool visible});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$NavigationStateImplCopyWithImpl<$Res>
   $Res call({
     Object? path = null,
     Object? index = null,
+    Object? visible = null,
   }) {
     return _then(_$NavigationStateImpl(
       path: null == path
@@ -96,6 +103,10 @@ class __$$NavigationStateImplCopyWithImpl<$Res>
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
+      visible: null == visible
+          ? _value.visible
+          : visible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -103,16 +114,19 @@ class __$$NavigationStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NavigationStateImpl implements _NavigationState {
-  const _$NavigationStateImpl({required this.path, required this.index});
+  const _$NavigationStateImpl(
+      {required this.path, required this.index, required this.visible});
 
   @override
   final String path;
   @override
   final int index;
+  @override
+  final bool visible;
 
   @override
   String toString() {
-    return 'NavigationState(path: $path, index: $index)';
+    return 'NavigationState(path: $path, index: $index, visible: $visible)';
   }
 
   @override
@@ -121,11 +135,12 @@ class _$NavigationStateImpl implements _NavigationState {
         (other.runtimeType == runtimeType &&
             other is _$NavigationStateImpl &&
             (identical(other.path, path) || other.path == path) &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.visible, visible) || other.visible == visible));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, path, index);
+  int get hashCode => Object.hash(runtimeType, path, index, visible);
 
   @JsonKey(ignore: true)
   @override
@@ -138,12 +153,15 @@ class _$NavigationStateImpl implements _NavigationState {
 abstract class _NavigationState implements NavigationState {
   const factory _NavigationState(
       {required final String path,
-      required final int index}) = _$NavigationStateImpl;
+      required final int index,
+      required final bool visible}) = _$NavigationStateImpl;
 
   @override
   String get path;
   @override
   int get index;
+  @override
+  bool get visible;
   @override
   @JsonKey(ignore: true)
   _$$NavigationStateImplCopyWith<_$NavigationStateImpl> get copyWith =>

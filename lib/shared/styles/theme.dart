@@ -87,7 +87,7 @@ ThemeData themeLight(BuildContext context) => ThemeData(
         elevation: Dimens.zero,
       ),
       dialogTheme: const DialogTheme().copyWith(
-        backgroundColor: Palette.coolGrey10,
+        backgroundColor: Palette.coolGrey12,
         surfaceTintColor: Colors.transparent,
         elevation: Dimens.zero,
       ),

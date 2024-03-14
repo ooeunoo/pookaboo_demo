@@ -38,7 +38,10 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
             controller: widget.controller,
             child: Column(
               children: [
-                BottomSheetMain(offset: widget.offset, toilet: widget.toilet),
+                BottomSheetMain(
+                  offset: widget.offset,
+                  toilet: widget.toilet,
+                ),
               ],
             ),
           ),

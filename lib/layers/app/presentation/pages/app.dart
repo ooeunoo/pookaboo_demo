@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/widgets/navigation_bar_item_widget.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
+import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 
 class AppPage extends StatelessWidget {
@@ -37,30 +38,34 @@ class AppPage extends StatelessWidget {
       ),
     ];
 
-    return Container(
-        decoration: const BoxDecoration(
-            color: Palette.coolGrey08,
-            border:
-                Border(top: BorderSide(color: Palette.coolGrey08, width: 1.0))),
-        child: BottomNavigationBar(
-          onTap: (value) async {
-            if (value != state.index) {
-              context.read<NavigationCubit>().changeBottomNavigation(value);
-              context.go(tabs[value].initialLocation);
-              // 흠.. 바텀시트가 열려있을때 닫고 다른 페이지로 이동하기 위한 코드. 동작 이해 아직 안됨.
-              if (context.canPop()) {
-                context.pop();
+    return Visibility(
+        visible: state.visible,
+        child: Container(
+          // height: Dimens.,
+          decoration: const BoxDecoration(
+              color: Palette.coolGrey08,
+              border: Border(
+                  top: BorderSide(color: Palette.coolGrey08, width: 1.0))),
+          child: BottomNavigationBar(
+            onTap: (value) async {
+              if (value != state.index) {
+                context.read<NavigationCubit>().changeBottomNavigation(value);
+                context.go(tabs[value].initialLocation);
+                // 흠.. 바텀시트가 열려있을때 닫고 다른 페이지로 이동하기 위한 코드. 동작 이해 아직 안됨.
+                if (context.canPop()) {
+                  context.pop();
+                }
               }
-            }
-          },
-          elevation: 0,
-          items: tabs
-              .map((item) => BottomNavigationBarItem(
-                    icon: item.icon,
-                    label: item.label,
-                  ))
-              .toList(),
-          currentIndex: state.index,
+            },
+            elevation: 0,
+            items: tabs
+                .map((item) => BottomNavigationBarItem(
+                      icon: item.icon,
+                      label: item.label,
+                    ))
+                .toList(),
+            currentIndex: state.index,
+          ),
         ));
   }
 }

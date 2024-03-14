@@ -167,8 +167,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       final int toiletId = event.toiletId;
       final response = await _getToiletByIdUseCase.call(toiletId);
 
-      log.d(response.toString());
-
       response.fold((l) {
         // error
         //  if (l is ServerFailure) {
@@ -227,7 +225,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               strokeStyle: StrokeStyle.solid)
         };
 
-        emit(LoadedToiletNavigationState(polylines: _polylines));
+        emit(LoadedToiletNavigationState(
+            toilet: toilet, polylines: _polylines, time: r.time));
       });
     } catch (e) {
       log.e(e);
