@@ -23,14 +23,13 @@ class ToiletBottomSeetTabBarView extends StatefulWidget {
 class _ToiletBottomSeetTabBarViewState
     extends State<ToiletBottomSeetTabBarView> {
   int _selectedIndex = 0;
-  Toilet? toilet;
 
   @override
   Widget build(BuildContext context) {
-    toilet = widget.toilet;
-
     return BlocBuilder<AuthBloc, AuthState>(
         builder: (context, AuthState state) {
+      bool shouldBlur = state is! AuthenticatedState;
+
       return Column(
         children: [
           /////////////////////////////////////////////////////////////////////////////////
@@ -60,12 +59,14 @@ class _ToiletBottomSeetTabBarViewState
           IndexedStack(
             index: _selectedIndex,
             children: [
-              ToiletBottomSheetInformation(toilet!),
-              ToiletBottomSheetReview(toilet!),
+              shouldBlur
+                  ? _blurredContainer(
+                      ToiletBottomSheetInformation(widget.toilet))
+                  : ToiletBottomSheetInformation(widget.toilet),
+              shouldBlur
+                  ? _blurredContainer(ToiletBottomSheetReview(widget.toilet))
+                  : ToiletBottomSheetReview(widget.toilet),
             ],
-          ).blurred(
-            blur: 3,
-            blurColor: Palette.coolGrey11,
           ),
         ],
       );
@@ -112,6 +113,13 @@ class _ToiletBottomSeetTabBarViewState
           ),
         ),
       ),
+    );
+  }
+
+  Widget _blurredContainer(Widget child) {
+    return child.blurred(
+      blur: 3,
+      blurColor: Palette.coolGrey11,
     );
   }
 }

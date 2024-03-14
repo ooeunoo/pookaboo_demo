@@ -66,17 +66,6 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  void _showNavigationModal(BuildContext context, Toilet toilet) async {
-    showDialog(
-      context: context,
-      useRootNavigator: true,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            content: ToiletNavigationModal(toilet: toilet, time: 0));
-      },
-    ).whenComplete(() => _updateVisibleOfBottomNavigation(true));
-  }
-
   Future<void> _clear() async {
     await _controller.clearMarker();
     await _controller.clearMarkerClusterer();

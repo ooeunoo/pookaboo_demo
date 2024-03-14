@@ -35,13 +35,13 @@ class _ToiletBottomSheetRatingState extends State<ToiletBottomSheetRating> {
       AppText("$rating ($totalReviews)",
           style: Theme.of(context).textTheme.labelMedium!),
       const AppSpacerH(),
-      SvgPicture.asset(
-        Images.arrowRight,
-        colorFilter: const ColorFilter.mode(
-          Palette.coolGrey05,
-          BlendMode.srcIn,
-        ),
-      ),
+      // SvgPicture.asset(
+      //   Images.arrowRight,
+      //   colorFilter: const ColorFilter.mode(
+      //     Palette.coolGrey05,
+      //     BlendMode.srcIn,
+      //   ),
+      // ),
     ]);
   }
 }

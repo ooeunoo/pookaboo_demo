@@ -44,11 +44,21 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<User?> updateUser(
       {String? nickname, String? phone, Gender? gender}) async {
+    Map<String, dynamic> metadata = {}; // 사용자 데이터를 저장할 맵 생성
+
+    // 인자 값이 있으면 맵에 추가
+    if (nickname != null) {
+      metadata['nickname'] = nickname;
+    }
+    if (phone != null) {
+      metadata['phone'] = phone;
+    }
+    if (gender != null) {
+      metadata['gender'] = gender;
+    }
+
     UserResponse response = await _supabaseService.client.auth.updateUser(
-      UserAttributes(phone: phone, data: {
-        nickname: nickname,
-        gender: gender,
-      }),
+      UserAttributes(phone: phone, data: metadata),
     );
     return response.user;
   }

@@ -5,6 +5,7 @@ import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.da
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class ToiletRemoteDatasource {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsDatasource(
@@ -24,6 +25,14 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsDatasource(
       GetNearByToiletsParams params) async {
     try {
+      // final UserResponse res = await _supabaseService.client.auth.updateUser(
+      //   UserAttributes(
+      //     data: {'hello': 'world'},
+      //   ),
+      // );
+      // final User? updatedUser = res.user;
+      // log.d(updatedUser.toString());
+
       final List<Map<String, dynamic>> data =
           await _supabaseService.client.rpc('get_nearby_toilets', params: {
         'min_lat': params.bounds.sw.latitude,

@@ -52,6 +52,7 @@ class AppPage extends StatelessWidget {
                 context.read<NavigationCubit>().changeBottomNavigation(value);
                 context.go(tabs[value].initialLocation);
                 // 흠.. 바텀시트가 열려있을때 닫고 다른 페이지로 이동하기 위한 코드. 동작 이해 아직 안됨.
+                print('context.canPop(): ${context.canPop()}');
                 if (context.canPop()) {
                   context.pop();
                 }

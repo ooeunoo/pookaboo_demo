@@ -13,12 +13,12 @@ import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 import 'package:blur/blur.dart';
 
 class BottomSheetMain extends StatefulWidget {
-  final double offset;
+  final bool isExpand;
   final Toilet toilet;
 
   const BottomSheetMain({
     super.key,
-    required this.offset,
+    required this.isExpand,
     required this.toilet,
   });
 
@@ -27,12 +27,8 @@ class BottomSheetMain extends StatefulWidget {
 }
 
 class _BottomSheetMainState extends State<BottomSheetMain> {
-  bool isExtend = false;
-
   @override
   Widget build(BuildContext context) {
-    isExtend = widget.offset > 0.4;
-
     return Column(
       children: [
         Padding(
@@ -46,13 +42,13 @@ class _BottomSheetMainState extends State<BottomSheetMain> {
                 toilet: widget.toilet,
               ),
               const AppSpacerV(),
-              // isExtend일 경우, ...
-              if (isExtend) ...[_expandItems(widget.toilet)]
+              // isExpand일 경우, ...
+              if (widget.isExpand) ...[_expandItems(widget.toilet)]
             ],
           ),
         ),
         // Divider Padding 때문에 분리함
-        if (isExtend) ...[ToiletBottomSeetTabBarView(widget.toilet)]
+        if (widget.isExpand) ...[ToiletBottomSeetTabBarView(widget.toilet)]
       ],
     );
   }

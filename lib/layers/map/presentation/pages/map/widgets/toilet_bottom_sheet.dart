@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/bottom_sheet_main.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/button.dart';
+import 'package:pookaboo/layers/map/presentation/pages/map/widgets/bottom_sheet/sign_in_message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/widgets/app_drag_handle_bar.dart';
 
@@ -21,8 +24,12 @@ class ToiletBottomSheet extends StatefulWidget {
 }
 
 class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
+  bool isExpand = false;
+
   @override
   Widget build(BuildContext context) {
+    isExpand = widget.offset > 0.4;
+
     return Stack(
       children: [
         Align(
@@ -39,20 +46,25 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
             child: Column(
               children: [
                 BottomSheetMain(
-                  offset: widget.offset,
                   toilet: widget.toilet,
+                  isExpand: isExpand,
                 ),
               ],
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: EdgeInsets.all(Dimens.space20),
-            child: ToiletBottomSheetButton(toilet: widget.toilet),
-          ),
-        )
+        BlocBuilder<AuthBloc, AuthState>(builder: (context, AuthState state) {
+          bool isAuthenticated = state is AuthenticatedState;
+          return Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.all(Dimens.space20),
+              child: !isAuthenticated && isExpand
+                  ? const SignInMessage()
+                  : ToiletBottomSheetButton(toilet: widget.toilet),
+            ),
+          );
+        })
       ],
     );
   }

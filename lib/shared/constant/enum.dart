@@ -1,4 +1,23 @@
+import 'package:flutter/material.dart';
 import 'package:pookaboo/shared/constant/images.dart';
+
+enum BottomNavigation {
+  map('map', '/map', Icons.search),
+  profile('profile', '/profile', Icons.person),
+  ;
+
+  const BottomNavigation(this.label, this.path, this.icon);
+
+  final String label;
+  final String path;
+  final IconData icon;
+}
+
+enum Gender {
+  none,
+  male,
+  female,
+}
 
 enum ToiletType {
   building,
@@ -86,11 +105,6 @@ enum AmenityKey {
   final String key;
   final String name;
   final String emoji;
-}
-
-enum Gender {
-  male(),
-  female(),
 }
 
 enum Coord {
