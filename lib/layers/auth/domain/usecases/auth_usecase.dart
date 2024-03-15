@@ -8,16 +8,8 @@ class AuthUseCase {
 
   AuthUseCase(this.authRepository);
 
-  Future<void> signInWithKakao() async {
-    await authRepository.signInWithKakao();
-  }
-
-  Future<void> signInWithGoogle() async {
-    await authRepository.signInWithGoogle();
-  }
-
-  Future<void> signInWithApple() async {
-    await authRepository.signInWithApple();
+  Future<bool> signInWithKakao() async {
+    return authRepository.signInWithKakao();
   }
 
   Future<void> signInWithEmailAndPassword(

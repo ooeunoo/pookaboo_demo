@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart' as kakao;
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
+import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -12,16 +15,15 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._supabaseService);
 
   @override
-  Future<void> signInWithKakao() async {
-    _supabaseService.client.auth.signInWithOAuth(OAuthProvider.kakao,
-        redirectTo: 'io.supabase.flutterquickstart://login-callback/');
+  Future<bool> signInWithKakao() async {
+    final bool response =
+        await _supabaseService.client.auth.signInWithOAuth(OAuthProvider.kakao,
+            authScreenLaunchMode: LaunchMode.externalApplication,
+            // scopes: 'profile_nickname profile_image account_email gender',
+            redirectTo: kIsWeb ? null : Config.get.supabaseLoginRedirectTo);
+
+    return response;
   }
-
-  @override
-  Future<void> signInWithGoogle() async {}
-
-  @override
-  Future<void> signInWithApple() async {}
 
   @override
   Future<void> signInWithEmailAndPassword(

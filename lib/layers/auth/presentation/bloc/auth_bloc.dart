@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:pookaboo/shared/services/storage/local_storage.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> with AppLocalStorage {
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthUseCase _authUseCase;
 
   StreamSubscription<User?>? _userSubscription;
@@ -33,26 +31,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with AppLocalStorage {
     signedInUser != null
         ? emit(AuthenticatedState(user: signedInUser))
         : emit(UnAuthenticatedState());
+    emit(UnAuthenticatedState());
   }
 
   Future<void> _onSignInWithKakaoEvent(
       SignInWithKakaoEvent event, Emitter<AuthState> emit) async {
     emit(LoadInProgressState());
-    log.d('jherer');
-    addDataInStorage<bool>(StorageKeys.isLogin, true);
 
     try {
-      await _authUseCase.signInWithKakao();
+      bool response = await _authUseCase.signInWithKakao();
       User? user = _authUseCase.getSignedInUser();
-      log.d(user);
 
-      if (user != null) {
-        log.d('jherer');
+      if (response && user != null) {
         emit(AuthenticatedState(user: user));
-        log.d('jherer');
       }
     } catch (_) {
-      addDataInStorage<bool>(StorageKeys.isLogin, false);
       emit(UnAuthenticatedState());
     }
   }
@@ -68,7 +61,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with AppLocalStorage {
       LogoutEvent event, Emitter<AuthState> emit) async {
     try {
       await _authUseCase.signOut();
-      addDataInStorage<bool>(StorageKeys.isLogin, false);
       emit(UnAuthenticatedState());
     } catch (e) {}
   }

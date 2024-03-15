@@ -4,40 +4,48 @@ import 'package:pookaboo/shared/services/hive/main_box.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
-import 'package:pookaboo/shared/services/storage/local_storage.dart';
+import 'package:pookaboo/shared/services/storage/secure_storage.dart';
 
 part 'setting_state.dart';
 part 'setting_cubit.freezed.dart';
 
-class SettingsCubit extends Cubit<SettingState> with AppLocalStorage {
-  SettingsCubit() : super(SettingState(type: "ko"));
+class SettingsCubit extends Cubit<SettingState> {
+  final SecureStorage secureStorage;
 
-  void updateTheme(ActiveTheme activeTheme) {
-    addDataInStorage(StorageKeys.theme, activeTheme.name);
+  SettingsCubit(this.secureStorage) : super(SettingState(type: "ko"));
+
+  Future<void> updateTheme(ActiveTheme activeTheme) async {
+    await secureStorage.write(StorageKeys.theme, activeTheme.name);
+
+    final locale = await secureStorage.get(StorageKeys.locale);
     emit(
       SettingState(
         activeTheme: activeTheme,
-        type: getDataInStorage(StorageKeys.locale) ?? "ko",
+        type: locale ?? "ko",
       ),
     );
   }
 
-  void updateLanguage(String type) {
+  Future<void> updateLanguage(String type) async {
     /// Update locale code
-    addDataInStorage(StorageKeys.locale, type);
-    emit(SettingState(type: type, activeTheme: getActiveTheme()));
+    await secureStorage.write(StorageKeys.locale, type);
+
+    final ActiveTheme activeTheme = await getActiveTheme();
+    emit(SettingState(type: type, activeTheme: activeTheme));
   }
 
-  ActiveTheme getActiveTheme() {
+  Future<ActiveTheme> getActiveTheme() async {
+    final theme = await secureStorage.get(StorageKeys.theme);
+    final locale = await secureStorage.get(StorageKeys.locale);
+
     final activeTheme = ActiveTheme.values.singleWhere(
-      (element) =>
-          element.name ==
-          (getDataInStorage(StorageKeys.theme) ?? ActiveTheme.system.name),
+      (element) => element.name == (theme ?? ActiveTheme.system.name),
     );
+
     emit(
       SettingState(
         activeTheme: activeTheme,
-        type: getDataInStorage(StorageKeys.locale) ?? "ko",
+        type: locale ?? "ko",
       ),
     );
     return activeTheme;

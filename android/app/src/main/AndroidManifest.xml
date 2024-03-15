@@ -3,6 +3,14 @@
         android:label="pookaboo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!--                             -->
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -11,10 +19,6 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
-            <!-- Specifies an Android theme to apply to this Activity as soon as
-                 the Android process has started. This theme is visible to the user
-                 while the Flutter UI initializes. After that, this theme continues
-                 to determine the Window background behind the Flutter UI. -->
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme"
@@ -23,30 +27,43 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- For Supabase KaKao Login -->
+
+
+            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            <!-- 카카오톡 공유, 카카오톡 메시지 커스텀 URL 스킴 설정 -->
+            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with packageID, oauth -->
-                <data
-                    android:scheme="io.supabase.flutterquickstart"
-                    android:host="login-callback" />
+
+                <data android:host="kakaolink"
+                    android:scheme="kakao0bcb28dbbadf43d92ed1a962f38e8df3" />
             </intent-filter>
-
         </activity>
-        <!-- Don't delete the meta-data below.
-             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
-        <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
-    </application>
-    <!-- Required to query activities that can process text, see:
-         https://developer.android.com/training/package-visibility?hl=en and
-         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
-         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <activity
+            android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
+            android:exported="true">
+            <intent-filter android:label="flutter_web_auth">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="kakao0bcb28dbbadf43d92ed1a962f38e8df3"
+                    android:host="oauth" />
+            </intent-filter>
+        </activity>
+
+
+    </application>
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <!--                    Queries                     -->
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />
@@ -54,10 +71,10 @@
         </intent>
     </queries>
 
-    <!-- webview_flutter 에서 인터넷 접속을 위한 권한을 선언합니다 -->
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <!--                   Permission                   -->
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- geolocator 에서 사용자 위치 정보 접근을 위한 권한을 선언합니다  -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />

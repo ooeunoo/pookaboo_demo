@@ -4,4 +4,7 @@ class Config {
   static Config get = Config._();
 
   String appName = "Pookaboo";
+
+  String supabaseLoginRedirectTo =
+      'io.supabase.flutterquickstart://login-callback/';
 }

@@ -1,4 +1,5 @@
 import 'package:pookaboo/shared/constant/env.dart';
+import 'package:pookaboo/shared/services/storage/secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 ///[AndroidManifest.xml]
@@ -33,11 +34,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 *****************************/
 
 class SupabaseService {
-  static Future<void> init() async {
+  static Future<void> init(SecureStorage localStroage) async {
     await Supabase.initialize(
-      url: Env.get.supaBaseUrl,
-      anonKey: Env.get.supaBaseAnonKey,
-    );
+        url: Env.get.supaBaseUrl,
+        anonKey: Env.get.supaBaseAnonKey,
+        authOptions: FlutterAuthClientOptions(localStorage: localStroage));
     // /// Initialize Firebase
     // await Firebase.initializeApp(
     //   options: DefaultFirebaseOptions.currentPlatform,

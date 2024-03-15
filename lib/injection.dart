@@ -17,46 +17,35 @@ import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
-import 'package:pookaboo/shared/services/kakao/kakao_navi_service.dart';
-import 'package:pookaboo/shared/services/storage/local_storage.dart';
+import 'package:pookaboo/shared/services/kakao/kakao_service.dart';
+import 'package:pookaboo/shared/services/storage/secure_storage.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
 
 GetIt sl = GetIt.instance;
 
-Future<void> configureDependencies({
-  bool isUnitTest = false,
-  bool isHiveEnable = true,
-  String prefixBox = '',
-}) async {
-  /// For unit testing only
-  if (isUnitTest) {
-    await sl.reset();
-  }
+Future<void> configureDependencies() async {
+  await _initAppLocalStorages();
 
-  _service();
-  _dataSources();
-  _repositories();
-  _useCase();
-  _cubit();
-  _bloc();
-  if (isHiveEnable) {
-    await _initAppLocalStorages();
-  }
+  await _service();
+  await _dataSources();
+  await _repositories();
+  await _useCase();
+  await _cubit();
+  await _bloc();
 }
 
 Future<void> _initAppLocalStorages() async {
-  await AppLocalStorage.init();
-  sl.registerSingleton<AppLocalStorage>(AppLocalStorage());
+  sl.registerSingleton<SecureStorage>(SecureStorage());
 }
 
-void _repositories() {
+Future<void> _repositories() async {
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(sl()),
   );
   sl.registerLazySingleton<MapRepository>(() => MapRepositoryImpl(sl(), sl()));
 }
 
-void _dataSources() {
+Future<void> _dataSources() async {
   sl.registerLazySingleton<ToiletRemoteDatasource>(
       () => ToiletRemoteDatasourceImpl(sl()));
 
@@ -64,7 +53,7 @@ void _dataSources() {
       () => KakaoRemoteDatasourceImpl());
 }
 
-void _useCase() {
+Future<void> _useCase() async {
   sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl()));
 
   sl.registerLazySingleton<GetNearByToiletsUseCase>(
@@ -79,24 +68,24 @@ void _useCase() {
   sl.registerLazySingleton<GetRoutesUseCase>(() => GetRoutesUseCase(sl()));
 }
 
-void _bloc() {
+Future<void> _bloc() async {
   sl.registerFactory(() => AuthBloc(sl()));
-  sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl()));
 }
 
-void _cubit() {
+Future<void> _cubit() async {
   sl.registerFactory(() => NavigationCubit());
-  sl.registerFactory(() => SettingsCubit());
+  sl.registerFactory(() => SettingsCubit(sl()));
 }
 
-void _service() async {
+Future<void> _service() async {
   // Supabase
-  await SupabaseService.init();
+  await SupabaseService.init(sl());
   sl.registerSingleton<SupabaseService>(SupabaseService());
 
-  // Kakao Map
-  await KakaoNaviService.init();
-  sl.registerSingleton<KakaoNaviService>(KakaoNaviService());
+  // Kakao
+  await KakaoService.init();
+  sl.registerSingleton<KakaoService>(KakaoService());
 
   // Kakao Map
   await KakaoMapService.init();

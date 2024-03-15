@@ -21,7 +21,6 @@ import 'package:pookaboo/mocks/toilets.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
-import 'package:pookaboo/shared/services/kakao/kakao_navi_service.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -34,7 +33,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /// Service
   ////////////////////////////////
   final GeolocatorService _geolocatorService;
-  final KakaoNaviService _kakaoNaviService;
 
   /////////////////////////////////
   /// UseCase
@@ -49,7 +47,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ////////////////////////////////
   MapBloc(
       this._geolocatorService,
-      this._kakaoNaviService,
       this._getNearByToiletsUseCase,
       this._getToiletByIdUseCase,
       this._createReviewUseCase,
