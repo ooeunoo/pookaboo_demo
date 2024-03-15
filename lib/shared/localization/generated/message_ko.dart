@@ -2,7 +2,7 @@ import 'message.dart';
 
 /// The translations for Korean (`ko`).
 class MessagesKo extends Messages {
-  MessagesKo([String locale = 'ko']) : super(locale);
+  MessagesKo([super.locale = 'ko']);
 
   @override
   String get startWithKakao => '카카오로 시작하기';
@@ -11,7 +11,7 @@ class MessagesKo extends Messages {
   String get myPage => '마이페이지';
 
   @override
-  String get recommendSignIn => '로그인 또는 회원가입 후 \n자세한 화장실 정보를 받아 보세요';
+  String get recommendLogIn => '로그인 또는 회원가입 후 \n자세한 화장실 정보를 받아 보세요';
 
   @override
   String get toiletFilterTime => '현재운영';

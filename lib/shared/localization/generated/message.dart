@@ -60,7 +60,8 @@ import 'message_ko.dart';
 /// be consistent with the languages listed in the Messages.supportedLocales
 /// property.
 abstract class Messages {
-  Messages(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  Messages(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -80,7 +81,8 @@ abstract class Messages {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -105,11 +107,11 @@ abstract class Messages {
   /// **'MyPage'**
   String get myPage;
 
-  /// No description provided for @recommendSignIn.
+  /// No description provided for @recommendLogIn.
   ///
   /// In en, this message translates to:
   /// **'After logging in or signing up, you can receive detailed bathroom information'**
-  String get recommendSignIn;
+  String get recommendLogIn;
 
   /// No description provided for @toiletFilterTime.
   ///
@@ -301,25 +303,25 @@ class _MessagesDelegate extends LocalizationsDelegate<Messages> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'ko'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'ko'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_MessagesDelegate old) => false;
 }
 
 Messages lookupMessages(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return MessagesEn();
-    case 'ko': return MessagesKo();
+    case 'en':
+      return MessagesEn();
+    case 'ko':
+      return MessagesKo();
   }
 
   throw FlutterError(
-    'Messages.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'Messages.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

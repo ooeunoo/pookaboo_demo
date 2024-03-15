@@ -4,16 +4,23 @@ import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/widgets/navigation_bar_item_widget.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
+import 'package:pookaboo/shared/services/storage/local_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 
-class AppPage extends StatelessWidget {
+class AppPage extends StatelessWidget with AppLocalStorage {
   final Widget screen;
 
   const AppPage({super.key, required this.screen});
 
   @override
   Widget build(BuildContext context) {
+    var isLogin = getDataInStorage(StorageKeys.isLogin);
+    // bool isUpdateUserMetadata =
+    //     getDataInStorage(StorageKeys.isUpdateUserMetadata);
+
+    print('isLogin: $isLogin');
+
     return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (context, state) {
         return Scaffold(

@@ -89,29 +89,41 @@ class _ToiletBottomSheetReviewState extends State<ToiletBottomSheetReview> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      ...ratings.map((rating) {
-        return _rating(
-          rating['emoji'] as String,
-          rating['title'] as String,
-          rating['subTitle'] as String,
-          rating['score'] as String,
-        );
-      }),
-      const AppDivider(),
-      Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Dimens.space20, vertical: Dimens.space24),
-        child: AppText("후기 3", style: Theme.of(context).textTheme.bodyLarge!),
-      ),
-      ...reviews.map((review) {
-        return _review(
-            review['rating'] as Map<String, String>,
-            review['comment'] as String,
-            review['user'] as String,
-            review['date'] as String);
-      })
-    ]);
+    return Padding(
+      padding: EdgeInsets.only(bottom: Dimens.space100),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        /////////////////////////////////////////////////////////////////////////////////
+        ////// Rating
+        /////////////////////////////////////////////////////////////////////////////////
+        ...ratings.map((rating) {
+          return _rating(
+            rating['emoji'] as String,
+            rating['title'] as String,
+            rating['subTitle'] as String,
+            rating['score'] as String,
+          );
+        }),
+        AppSpacerV(value: Dimens.space30),
+        const AppDivider(),
+        AppSpacerV(value: Dimens.space30),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+          child: AppText("후기 ${reviews.length}",
+              style: Theme.of(context).textTheme.bodyMedium!),
+        ),
+        AppSpacerV(value: Dimens.space30),
+        /////////////////////////////////////////////////////////////////////////////////
+        ////// Review
+        /////////////////////////////////////////////////////////////////////////////////
+        ...reviews.map((review) {
+          return _review(
+              review['rating'] as Map<String, String>,
+              review['comment'] as String,
+              review['user'] as String,
+              review['date'] as String);
+        })
+      ]),
+    );
   }
 
   Widget _rating(String emoji, String title, String subTitle, String score) {

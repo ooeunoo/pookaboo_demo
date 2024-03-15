@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:pookaboo/shared/services/storage/local_storage.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthState> with AppLocalStorage {
   final AuthUseCase _authUseCase;
 
   StreamSubscription<User?>? _userSubscription;
@@ -21,14 +23,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ChangedUserEvent>(_onChangedUserEvent);
     on<LogoutEvent>(_onLogoutEvent);
     on<UpdateUserEvent>(_onUpdatEvent);
-
-    // on<_AuthLogoutButtonPressed>(_onLogoutButtonPressed);
-    // on<_AuthOnCurrentUserChanged>(_onCurrentUserChanged);
-    // on<_SignInWithKakaoEvent>(_onSignInWithKakao);
-    // on<_SignInWithAppleEvent>(_onSignInWithApple);
-    // on<_SignUpWithEmailAndPassword>(_onSignUpWithEmailAndPassword);
-    // on<_SignInWithEmailAndPassword>(_onSignInWithEmailAndPassword);
-    // on<_UpdateUserEvent>(_onUpdateUser);
 
     _startUserSubscription();
   }
@@ -44,14 +38,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onSignInWithKakaoEvent(
       SignInWithKakaoEvent event, Emitter<AuthState> emit) async {
     emit(LoadInProgressState());
+    log.d('jherer');
+    addDataInStorage<bool>(StorageKeys.isLogin, true);
 
     try {
       await _authUseCase.signInWithKakao();
       User? user = _authUseCase.getSignedInUser();
+      log.d(user);
+
       if (user != null) {
+        log.d('jherer');
         emit(AuthenticatedState(user: user));
+        log.d('jherer');
       }
     } catch (_) {
+      addDataInStorage<bool>(StorageKeys.isLogin, false);
       emit(UnAuthenticatedState());
     }
   }
@@ -67,6 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       LogoutEvent event, Emitter<AuthState> emit) async {
     try {
       await _authUseCase.signOut();
+      addDataInStorage<bool>(StorageKeys.isLogin, false);
       emit(UnAuthenticatedState());
     } catch (e) {}
   }

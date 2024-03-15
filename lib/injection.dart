@@ -18,7 +18,7 @@ import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/services/hive/main_box.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
 import 'package:pookaboo/shared/services/kakao/kakao_navi_service.dart';
-import 'package:pookaboo/shared/services/storage/storage_service.dart';
+import 'package:pookaboo/shared/services/storage/local_storage.dart';
 import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
 
 GetIt sl = GetIt.instance;
@@ -40,19 +40,13 @@ Future<void> configureDependencies({
   _cubit();
   _bloc();
   if (isHiveEnable) {
-    await _initHiveBoxes(
-      isUnitTest: isUnitTest,
-      prefixBox: prefixBox,
-    );
+    await _initAppLocalStorages();
   }
 }
 
-Future<void> _initHiveBoxes({
-  bool isUnitTest = false,
-  String prefixBox = '',
-}) async {
-  await MainBoxMixin.initHive(prefixBox);
-  sl.registerSingleton<MainBoxMixin>(MainBoxMixin());
+Future<void> _initAppLocalStorages() async {
+  await AppLocalStorage.init();
+  sl.registerSingleton<AppLocalStorage>(AppLocalStorage());
 }
 
 void _repositories() {
@@ -110,8 +104,4 @@ void _service() async {
 
   // Geolocator
   sl.registerSingleton<GeolocatorService>(GeolocatorService());
-
-  // Local Storage
-  await StorageService.init();
-  sl.registerSingleton<StorageService>(StorageService());
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pookaboo/layers/user/presentation/pages/profile/widgets/signin_screen.dart';
+import 'package:pookaboo/layers/user/presentation/pages/profile/widgets/login_screen.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
     menu = [
       {
         "section": "1",
-        "title": "화장실 리뷰",
+        "title": "나의 리뷰",
         "onTap": () {
           context.pushNamed(AppRoutes.reviews.name);
         }
@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         body: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
           if (state is UnAuthenticatedState) {
-            return const SignInScreen();
+            return const LogInScreen();
           } else {
             return ListView.separated(
               itemCount: menu.length,

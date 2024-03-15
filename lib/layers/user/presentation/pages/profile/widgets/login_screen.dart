@@ -17,14 +17,14 @@ import 'package:pookaboo/shared/widgets/app_text.dart';
 import 'package:pookaboo/shared/widgets/app_text_input.dart';
 import 'package:pookaboo/shared/widgets/app_top_bar.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class LogInScreen extends StatefulWidget {
+  const LogInScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInFormState();
+  State<LogInScreen> createState() => _LogInFormState();
 }
 
-class _SignInFormState extends State<SignInScreen> {
+class _LogInFormState extends State<LogInScreen> {
   void _signInWithKakao() {
     context.read<AuthBloc>().add(SignInWithKakaoEvent());
   }
@@ -38,7 +38,7 @@ class _SignInFormState extends State<SignInScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppText(
-              Messages.of(context)!.recommendSignIn,
+              Messages.of(context)!.recommendLogIn,
               style: Theme.of(context).textTheme.labelLarge!,
               align: TextAlign.center,
             ),

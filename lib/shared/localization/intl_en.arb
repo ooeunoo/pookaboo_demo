@@ -2,7 +2,7 @@
   "@@locale": "en", 
   "startWithKakao": "Start With Kakao",
   "myPage": "MyPage",
-  "recommendSignIn": "After logging in or signing up, you can receive detailed bathroom information",
+  "recommendLogIn": "After logging in or signing up, you can receive detailed bathroom information",
   "toiletFilterTime": "time",
   "toiletFilterGender": "gender",
   "toiletFilterPassword": "password",

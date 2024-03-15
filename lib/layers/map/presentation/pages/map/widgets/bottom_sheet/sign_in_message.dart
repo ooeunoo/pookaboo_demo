@@ -12,8 +12,8 @@ import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/app_text.dart';
 
-class SignInMessage extends StatelessWidget {
-  const SignInMessage({super.key});
+class LogInMessage extends StatelessWidget {
+  const LogInMessage({super.key});
 
   @override
   Widget build(BuildContext context) {

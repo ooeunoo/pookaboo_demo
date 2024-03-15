@@ -2,7 +2,7 @@
   "@@locale": "ko", 
   "startWithKakao": "카카오로 시작하기",
   "myPage": "마이페이지",
-  "recommendSignIn": "로그인 또는 회원가입 후 \n자세한 화장실 정보를 받아 보세요",
+  "recommendLogIn": "로그인 또는 회원가입 후 \n자세한 화장실 정보를 받아 보세요",
   "toiletFilterTime": "현재운영",
   "toiletFilterGender": "남녀분리",
   "toiletFilterPassword": "개방",

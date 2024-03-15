@@ -2,7 +2,7 @@ import 'message.dart';
 
 /// The translations for English (`en`).
 class MessagesEn extends Messages {
-  MessagesEn([String locale = 'en']) : super(locale);
+  MessagesEn([super.locale = 'en']);
 
   @override
   String get startWithKakao => 'Start With Kakao';
@@ -11,7 +11,8 @@ class MessagesEn extends Messages {
   String get myPage => 'MyPage';
 
   @override
-  String get recommendSignIn => 'After logging in or signing up, you can receive detailed bathroom information';
+  String get recommendLogIn =>
+      'After logging in or signing up, you can receive detailed bathroom information';
 
   @override
   String get toiletFilterTime => 'time';

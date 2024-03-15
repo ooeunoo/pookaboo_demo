@@ -60,7 +60,7 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
             child: Padding(
               padding: EdgeInsets.all(Dimens.space20),
               child: !isAuthenticated && isExpand
-                  ? const SignInMessage()
+                  ? const LogInMessage()
                   : ToiletBottomSheetButton(toilet: widget.toilet),
             ),
           );

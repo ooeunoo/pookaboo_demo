@@ -22,9 +22,7 @@ class _ReviewPageState extends State<ReviewPage> {
     super.initState();
 
     tabs = [
-      {
-        "title": "작성 가능한 리뷰",
-      },
+      {"title": "최근에 다녀간 화장실"},
       {"title": "내 리뷰"}
     ];
   }
