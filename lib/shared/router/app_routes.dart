@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/injection.dart';
-import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
+import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/pages/app.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/user/presentation/pages/profile/profile.dart';
@@ -58,8 +58,7 @@ class AppRoute {
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
           return BlocProvider(
-            create: (context) =>
-                sl<NavigationCubit>()..changeBottomNavigation(0),
+            create: (context) => sl<AppCubit>()..changeBottomNavigation(0),
             child: AppPage(screen: child),
           );
         },

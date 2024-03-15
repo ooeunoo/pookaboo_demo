@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
+import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/layers/auth/data/repositories/auth_repository_impl.dart';
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
@@ -69,12 +69,12 @@ Future<void> _useCase() async {
 }
 
 Future<void> _bloc() async {
-  sl.registerFactory(() => AuthBloc(sl()));
+  sl.registerFactory(() => AuthBloc(sl(), sl()));
   sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl()));
 }
 
 Future<void> _cubit() async {
-  sl.registerFactory(() => NavigationCubit());
+  sl.registerFactory(() => AppCubit());
   sl.registerFactory(() => SettingsCubit(sl()));
 }
 

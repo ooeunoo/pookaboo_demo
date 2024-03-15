@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
+import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/layers/map/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
@@ -89,7 +89,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _updateVisibleOfBottomNavigation(bool state) {
-    context.read<NavigationCubit>().updateVisible(state);
+    context.read<AppCubit>().updateBottomNavigationVisible(state);
   }
 
   @override

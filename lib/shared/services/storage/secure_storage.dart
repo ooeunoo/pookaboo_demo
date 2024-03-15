@@ -12,13 +12,24 @@ enum ActiveTheme {
   const ActiveTheme(this.mode);
 }
 
+enum LoginState {
+  loggedIn,
+  notLoggedIn,
+}
+
+enum UpdateUserMetadataState {
+  updated,
+  notUpdated;
+}
+
 enum StorageKeys {
   token,
   language,
   theme,
   locale,
   isLogin,
-  isUpdateUserMetadata
+  isUpdateUserMetadata,
+  ;
 }
 
 class SecureStorage extends LocalStorage {
@@ -51,21 +62,21 @@ class SecureStorage extends LocalStorage {
     return storage.delete(key: supabasePersistSessionKey);
   }
 
-  Future<void> write<T>(StorageKeys key, String value) async {
-    await storage.write(key: key.name, value: value);
+  Future<void> write<T>(StorageKeys key, dynamic value) async {
+    await storage.write(key: key.name, value: value.toString());
   }
 
   Future<void> delete(StorageKeys key) async {
     await storage.delete(key: key.name);
   }
 
-  Future<T> get<T>(StorageKeys key) async {
-    return storage.read(key: key.name) as T;
+  Future<String?> get(StorageKeys key) async {
+    return storage.read(key: key.name);
   }
 
-  // Future<void> logoutInStorage() async {
-  //   /// Clear the box
-  //   removeDataInStorage(StorageKeys.isLogin);
-  //   removeDataInStorage(StorageKeys.token);
-  // }
+  Future<bool> needToUpdatedInitialUserData() async {
+    String? isLogin = await get(StorageKeys.isLogin);
+    String? isUpdateUserMetadata = await get(StorageKeys.isUpdateUserMetadata);
+    return isLogin == LoginState.loggedIn.name && isUpdateUserMetadata == null;
+  }
 }

@@ -114,7 +114,7 @@ class UpdatedFilterState extends MapState {
 }
 
 /////////////////////////////////
-/// Stopped Toilet NavigationState
+/// Stopped Toilet AppState
 ////////////////////////////////
 class StoppedToiletNavigationState extends MapState {
   @override

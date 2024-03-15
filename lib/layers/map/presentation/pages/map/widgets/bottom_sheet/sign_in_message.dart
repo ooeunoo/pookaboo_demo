@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pookaboo/layers/app/presentation/cubit/navigation_cubit.dart';
+import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
@@ -17,12 +17,11 @@ class LogInMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavigationCubit, NavigationState>(
-        builder: (context, state) {
+    return BlocBuilder<AppCubit, AppState>(builder: (context, state) {
       return GestureDetector(
         onTap: () {
           context
-              .read<NavigationCubit>()
+              .read<AppCubit>()
               .changeBottomNavigation(BottomNavigation.profile.index);
           context.go(BottomNavigation.profile.path);
           if (context.canPop()) {

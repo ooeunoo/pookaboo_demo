@@ -5,17 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
+import 'package:pookaboo/shared/services/storage/secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final SecureStorage _secureStorage;
   final AuthUseCase _authUseCase;
 
   StreamSubscription<User?>? _userSubscription;
 
-  AuthBloc(this._authUseCase) : super(InitialState()) {
+  AuthBloc(this._secureStorage, this._authUseCase) : super(InitialState()) {
     on<InitialCheckRequestedEvent>(_onInitialCheckedRequestEvent);
     on<SignInWithKakaoEvent>(_onSignInWithKakaoEvent);
     on<ChangedUserEvent>(_onChangedUserEvent);
@@ -29,9 +31,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       InitialCheckRequestedEvent event, Emitter<AuthState> emit) async {
     User? signedInUser = _authUseCase.getSignedInUser();
     signedInUser != null
-        ? emit(AuthenticatedState(user: signedInUser))
-        : emit(UnAuthenticatedState());
-    emit(UnAuthenticatedState());
+        ? await _triggerBeforeAuthenticatedState(emit, signedInUser)
+        : await _triggerBeforeUnAuthenticatedState(emit);
   }
 
   Future<void> _onSignInWithKakaoEvent(
@@ -43,25 +44,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       User? user = _authUseCase.getSignedInUser();
 
       if (response && user != null) {
-        emit(AuthenticatedState(user: user));
+        await _triggerBeforeAuthenticatedState(emit, user);
       }
     } catch (_) {
-      emit(UnAuthenticatedState());
+      await _triggerBeforeUnAuthenticatedState(emit);
     }
   }
 
   Future<void> _onChangedUserEvent(
       ChangedUserEvent event, Emitter<AuthState> emit) async {
     event.user != null
-        ? emit(AuthenticatedState(user: event.user!))
-        : emit(UnAuthenticatedState());
+        ? await _triggerBeforeAuthenticatedState(emit, event.user!)
+        : await _triggerBeforeUnAuthenticatedState(emit);
   }
 
   Future<void> _onLogoutEvent(
       LogoutEvent event, Emitter<AuthState> emit) async {
     try {
       await _authUseCase.signOut();
-      emit(UnAuthenticatedState());
+      await _triggerBeforeUnAuthenticatedState(emit);
     } catch (e) {}
   }
 
@@ -76,5 +77,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> close() {
     _userSubscription?.cancel();
     return super.close();
+  }
+
+  Future<void> _triggerBeforeAuthenticatedState(
+      Emitter<AuthState> emit, User user) async {
+    await _secureStorage
+        .write(StorageKeys.isLogin, LoginState.loggedIn.name)
+        .whenComplete(() => emit(AuthenticatedState(user: user)));
+  }
+
+  Future<void> _triggerBeforeUnAuthenticatedState(
+      Emitter<AuthState> emit) async {
+    await _secureStorage
+        .write(StorageKeys.isLogin, LoginState.notLoggedIn.name)
+        .whenComplete(() => emit(UnAuthenticatedState()));
   }
 }
