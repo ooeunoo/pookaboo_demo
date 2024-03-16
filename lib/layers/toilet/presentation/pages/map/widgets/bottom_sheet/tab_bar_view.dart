@@ -1,8 +1,10 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_sheet/information.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_sheet/review.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -55,7 +57,6 @@ class _ToiletBottomSeetTabBarViewState
           /////////////////////////////////////////////////////////////////////////////////
           ////// TabBar View
           /////////////////////////////////////////////////////////////////////////////////
-
           IndexedStack(
             index: _selectedIndex,
             children: [
@@ -63,9 +64,14 @@ class _ToiletBottomSeetTabBarViewState
                   ? _blurredContainer(
                       ToiletBottomSheetInformation(widget.toilet))
                   : ToiletBottomSheetInformation(widget.toilet),
-              shouldBlur
-                  ? _blurredContainer(ToiletBottomSheetReview(widget.toilet))
-                  : ToiletBottomSheetReview(widget.toilet),
+              BlocProvider(
+                create: (context) => sl<ReviewBloc>()
+                  ..add(GetToiletReviewsByToiletIdEvent(
+                      toiletId: widget.toilet.id.toString())),
+                child: shouldBlur
+                    ? _blurredContainer(ToiletBottomSheetReview(widget.toilet))
+                    : ToiletBottomSheetReview(widget.toilet),
+              ),
             ],
           ),
         ],

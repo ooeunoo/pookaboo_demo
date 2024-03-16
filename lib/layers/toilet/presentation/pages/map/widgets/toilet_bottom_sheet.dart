@@ -6,6 +6,7 @@ import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_she
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_sheet/button.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_sheet/sign_in_message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_drag_handle_bar.dart';
 
 class ToiletBottomSheet extends StatefulWidget {

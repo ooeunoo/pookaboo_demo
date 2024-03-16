@@ -21,8 +21,8 @@ class Toilet with _$Toilet {
     required String road_address,
     required String location_tip,
     required String city,
-    required double lat,
-    required double lng,
+    required double? lat,
+    required double? lng,
     Convenience? convenience,
     Equipment? equipment,
     Rating? rating,
@@ -30,20 +30,6 @@ class Toilet with _$Toilet {
   }) = _Toilet;
 
   factory Toilet.fromJson(Map<String, dynamic> json) => _$ToiletFromJson(json);
-
-  static double getRating(Toilet toilet) {
-    // var ratings = toilet.ratings;
-    // int cleanliness = ratings['cleanliness'];
-    // int management = ratings['management'];
-    // int convenience = ratings['convenience'];
-    // int safety = ratings['safety'];
-
-    // double averageRating =
-    //     (cleanliness + management + convenience + safety) / 4;
-
-    // return double.parse(averageRating.toStringAsFixed(1));
-    return 0;
-  }
 }
 
 @freezed

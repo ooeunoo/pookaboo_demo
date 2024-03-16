@@ -1,25 +1,16 @@
-import 'dart:convert';
-
-import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/toilet/data/models/coord.dart';
 import 'package:pookaboo/layers/toilet/data/models/route.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
-import 'package:pookaboo/layers/toilet/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/get_nearby_toilets_params.dart';
-import 'package:pookaboo/layers/toilet/domain/repositories/map_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/toilet/domain/usecases/review_usecase.dart';
 import 'package:pookaboo/layers/toilet/domain/usecases/map_usecase.dart';
-import 'package:pookaboo/mocks/toilets.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
-import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
@@ -95,15 +86,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       final response = await _getNearByToiletsUseCase.call(params);
 
-      await response.fold((l) {
+      response.fold((l) {
         log.e(l);
       }, (r) async {
         _markers = r.map<Marker>((toilet) {
           return Marker(
             markerId: toilet.id.toString(),
             latLng: LatLng(
-              toilet.lat,
-              toilet.lng,
+              toilet.lat!,
+              toilet.lng!,
             ),
           );
         }).toSet();
@@ -193,7 +184,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         position.latitude,
       );
 
-      Document tp = coordconvWGS84ToWCONGNAMUL(toilet.lng, toilet.lat);
+      Document tp = coordconvWGS84ToWCONGNAMUL(toilet.lng!, toilet.lat!);
 
       GetRouteParams params = GetRouteParams(
           sName: '나의 위치',

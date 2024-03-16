@@ -58,15 +58,16 @@ enum Week {
 }
 
 enum RatingScoreType {
-  cleanliness('cleanliness', '청결도', '🧹'),
-  convenience('convenience', '편의성', '🎛️'),
-  management('management', '관리도', '🫧'),
-  safety('safety', '안전성', '🚨');
+  cleanliness('cleanliness', '청결도', '변기, 세면대 주변이 깨끗해요.', '🧹'),
+  convenience('convenience', '편의성', '시설, 어메니티 등 사용하기 편리해요.', '🎛️'),
+  management('management', '관리도', '항상 깔끔하게 정리되어있어요.', '🫧'),
+  safety('safety', '안전성', '밤 늦게 사용해도 안전해요.', '🚨');
 
-  const RatingScoreType(this.key, this.name, this.emoji);
+  const RatingScoreType(this.key, this.name, this.description, this.emoji);
 
   final String key;
   final String name;
+  final String description;
   final String emoji;
 }
 

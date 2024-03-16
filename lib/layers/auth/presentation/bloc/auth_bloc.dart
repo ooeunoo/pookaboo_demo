@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/auth/data/models/app_user.dart';
 import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
-import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'auth_event.dart';
@@ -17,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SecureStorage _secureStorage;
   final AuthUseCase _authUseCase;
 
-  StreamSubscription<AppUser?>? _userSubscription;
+  StreamSubscription<User?>? _userSubscription;
 
   AuthBloc(this._secureStorage, this._authUseCase) : super(InitialState()) {
     on<InitialCheckRequestedEvent>(_onInitialCheckedRequestEvent);
@@ -31,9 +31,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onInitialCheckedRequestEvent(
       InitialCheckRequestedEvent event, Emitter<AuthState> emit) async {
-    AppUser? signedInUser = _authUseCase.getSignedInUser();
-    signedInUser != null
-        ? await _triggerBeforeAuthenticatedState(emit, signedInUser)
+    AppUser? appUser = await _authUseCase.getSignedInUser();
+    appUser != null
+        ? await _triggerBeforeAuthenticatedState(emit, appUser)
         : await _triggerBeforeUnAuthenticatedState(emit);
   }
 
@@ -43,10 +43,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       bool response = await _authUseCase.signInWithKakao();
-      AppUser? user = _authUseCase.getSignedInUser();
-
-      if (response && user != null) {
-        await _triggerBeforeAuthenticatedState(emit, user);
+      AppUser? appUser = await _authUseCase.getSignedInUser();
+      if (response && appUser != null) {
+        await _triggerBeforeAuthenticatedState(emit, appUser);
       }
     } catch (_) {
       await _triggerBeforeUnAuthenticatedState(emit);
@@ -55,9 +54,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onChangedUserEvent(
       ChangedUserEvent event, Emitter<AuthState> emit) async {
-    event.user != null
-        ? await _triggerBeforeAuthenticatedState(emit, event.user!)
-        : await _triggerBeforeUnAuthenticatedState(emit);
+    if (event.user != null) {
+      AppUser? appUser = await _authUseCase.getSignedInUser();
+      await _triggerBeforeAuthenticatedState(emit, appUser!);
+    } else {
+      await _triggerBeforeUnAuthenticatedState(emit);
+    }
   }
 
   Future<void> _onLogoutEvent(

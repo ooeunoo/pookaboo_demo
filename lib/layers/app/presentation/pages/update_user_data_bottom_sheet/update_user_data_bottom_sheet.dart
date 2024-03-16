@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
-import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_button.dart';
 import 'package:pookaboo/shared/widgets/app_dropdown.dart';
 import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
@@ -66,13 +64,18 @@ class _UpdateUserDataBottomSheetState extends State<UpdateUserDataBottomSheet> {
   }
 
   Future<void> _updateUserMetadata() async {
-    UpdateUserParams params = UpdateUserParams(
-      nickname: _nickname!,
-      age: _age!.toString(),
-      gender: _gender,
-    );
-    context.read<AuthBloc>().add(UpdateUserEvent(params: params));
-    context.pop();
+    final authState = context.read<AuthBloc>().state;
+    if (authState is AuthenticatedState) {
+      UpdateUserParams params = UpdateUserParams(
+        user_id: authState.user.id,
+        nickname: _nickname!,
+        age: _age!.toString(),
+        gender: _gender,
+      );
+
+      context.read<AuthBloc>().add(UpdateUserEvent(params: params));
+      context.pop();
+    }
   }
 
   @override

@@ -20,6 +20,7 @@ UpdateUserParams _$UpdateUserParamsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UpdateUserParams {
+  String get user_id => throw _privateConstructorUsedError;
   String? get nickname => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   Gender? get gender => throw _privateConstructorUsedError;
@@ -37,7 +38,12 @@ abstract class $UpdateUserParamsCopyWith<$Res> {
           UpdateUserParams value, $Res Function(UpdateUserParams) then) =
       _$UpdateUserParamsCopyWithImpl<$Res, UpdateUserParams>;
   @useResult
-  $Res call({String? nickname, String? phone, Gender? gender, String? age});
+  $Res call(
+      {String user_id,
+      String? nickname,
+      String? phone,
+      Gender? gender,
+      String? age});
 }
 
 /// @nodoc
@@ -53,12 +59,17 @@ class _$UpdateUserParamsCopyWithImpl<$Res, $Val extends UpdateUserParams>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? user_id = null,
     Object? nickname = freezed,
     Object? phone = freezed,
     Object? gender = freezed,
     Object? age = freezed,
   }) {
     return _then(_value.copyWith(
+      user_id: null == user_id
+          ? _value.user_id
+          : user_id // ignore: cast_nullable_to_non_nullable
+              as String,
       nickname: freezed == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -87,7 +98,12 @@ abstract class _$$UpdateUserParamsImplCopyWith<$Res>
       __$$UpdateUserParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? nickname, String? phone, Gender? gender, String? age});
+  $Res call(
+      {String user_id,
+      String? nickname,
+      String? phone,
+      Gender? gender,
+      String? age});
 }
 
 /// @nodoc
@@ -101,12 +117,17 @@ class __$$UpdateUserParamsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? user_id = null,
     Object? nickname = freezed,
     Object? phone = freezed,
     Object? gender = freezed,
     Object? age = freezed,
   }) {
     return _then(_$UpdateUserParamsImpl(
+      user_id: null == user_id
+          ? _value.user_id
+          : user_id // ignore: cast_nullable_to_non_nullable
+              as String,
       nickname: freezed == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -131,7 +152,8 @@ class __$$UpdateUserParamsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UpdateUserParamsImpl implements _UpdateUserParams {
   _$UpdateUserParamsImpl(
-      {this.nickname = null,
+      {required this.user_id,
+      this.nickname = null,
       this.phone = null,
       this.gender = null,
       this.age = null});
@@ -139,6 +161,8 @@ class _$UpdateUserParamsImpl implements _UpdateUserParams {
   factory _$UpdateUserParamsImpl.fromJson(Map<String, dynamic> json) =>
       _$$UpdateUserParamsImplFromJson(json);
 
+  @override
+  final String user_id;
   @override
   @JsonKey()
   final String? nickname;
@@ -154,7 +178,7 @@ class _$UpdateUserParamsImpl implements _UpdateUserParams {
 
   @override
   String toString() {
-    return 'UpdateUserParams(nickname: $nickname, phone: $phone, gender: $gender, age: $age)';
+    return 'UpdateUserParams(user_id: $user_id, nickname: $nickname, phone: $phone, gender: $gender, age: $age)';
   }
 
   @override
@@ -162,6 +186,7 @@ class _$UpdateUserParamsImpl implements _UpdateUserParams {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateUserParamsImpl &&
+            (identical(other.user_id, user_id) || other.user_id == user_id) &&
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
             (identical(other.phone, phone) || other.phone == phone) &&
@@ -171,7 +196,8 @@ class _$UpdateUserParamsImpl implements _UpdateUserParams {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, nickname, phone, gender, age);
+  int get hashCode =>
+      Object.hash(runtimeType, user_id, nickname, phone, gender, age);
 
   @JsonKey(ignore: true)
   @override
@@ -190,7 +216,8 @@ class _$UpdateUserParamsImpl implements _UpdateUserParams {
 
 abstract class _UpdateUserParams implements UpdateUserParams {
   factory _UpdateUserParams(
-      {final String? nickname,
+      {required final String user_id,
+      final String? nickname,
       final String? phone,
       final Gender? gender,
       final String? age}) = _$UpdateUserParamsImpl;
@@ -198,6 +225,8 @@ abstract class _UpdateUserParams implements UpdateUserParams {
   factory _UpdateUserParams.fromJson(Map<String, dynamic> json) =
       _$UpdateUserParamsImpl.fromJson;
 
+  @override
+  String get user_id;
   @override
   String? get nickname;
   @override

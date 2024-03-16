@@ -7,6 +7,7 @@ part 'update_user_params.g.dart';
 @freezed
 class UpdateUserParams with _$UpdateUserParams {
   factory UpdateUserParams({
+    required String user_id,
     @Default(null) String? nickname,
     @Default(null) String? phone,
     @Default(null) Gender? gender,

@@ -16,11 +16,23 @@ class CreateToiletReviewEvent extends ReviewEvent {
 /////////////////////////////////
 /// Get Reviews By Toilet Id
 ////////////////////////////////
-class GetToiletReviewsEvent extends ReviewEvent {
+class GetToiletReviewsByToiletIdEvent extends ReviewEvent {
   final String toiletId;
 
-  GetToiletReviewsEvent({required this.toiletId});
+  GetToiletReviewsByToiletIdEvent({required this.toiletId});
 
   @override
   List<Object?> get props => [toiletId];
+}
+
+/////////////////////////////////
+/// Get Reviews By User Id
+////////////////////////////////
+class GetToiletReviewsByUserIdEvent extends ReviewEvent {
+  final String userId;
+
+  GetToiletReviewsByUserIdEvent({required this.userId});
+
+  @override
+  List<Object?> get props => [userId];
 }

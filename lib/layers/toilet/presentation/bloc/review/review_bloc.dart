@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/toilet/data/models/coord.dart';
+import 'package:pookaboo/layers/toilet/data/models/review.dart';
 import 'package:pookaboo/layers/toilet/data/models/route.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/create_review_params.dart';
@@ -31,13 +32,20 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
   /// UseCase
   ////////////////////////////////
   final CreateToiletReviewUseCase _createToiletReviewUseCase;
+  final GetToiletReviewsByToiletIdUseCase _getToiletReviewsByToiletIdUseCase;
+  final GetToiletReviewsByUserIdUseCase _getToiletReviewsByUserIdUseCase;
 
   /////////////////////////////////
   /// Event Mapping
   ////////////////////////////////
-  ReviewBloc(this._createToiletReviewUseCase) : super(InitialState()) {
+  ReviewBloc(
+      this._createToiletReviewUseCase,
+      this._getToiletReviewsByToiletIdUseCase,
+      this._getToiletReviewsByUserIdUseCase)
+      : super(InitialState()) {
     on<CreateToiletReviewEvent>(_onCreateToiletReviewEvent);
-    on<GetToiletReviewsEvent>(_onGetToiletReviewsEvent);
+    on<GetToiletReviewsByUserIdEvent>(_onGetToiletReviewsByUserIdEvent);
+    on<GetToiletReviewsByToiletIdEvent>(_onGetToiletReviewsByToiletIdEvent);
   }
 
   /////////////////////////////////
@@ -48,11 +56,37 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
   /// [CreateToiletReviewEvent] Event Handler
   ////////////////////////////////
   Future<void> _onCreateToiletReviewEvent(
-      CreateToiletReviewEvent event, Emitter<ReviewState> emit) async {}
+      CreateToiletReviewEvent event, Emitter<ReviewState> emit) async {
+    try {} catch (e) {}
+  }
 
   /////////////////////////////////
-  /// [GetToiletReviewsEvent] Event Handler
+  /// [GetToiletReviewsByToiletIdEvent] Event Handler
   ////////////////////////////////
-  Future<void> _onGetToiletReviewsEvent(
-      GetToiletReviewsEvent event, Emitter<ReviewState> emit) async {}
+  Future<void> _onGetToiletReviewsByToiletIdEvent(
+      GetToiletReviewsByToiletIdEvent event, Emitter<ReviewState> emit) async {
+    try {
+      final response = await _getToiletReviewsByToiletIdUseCase(event.toiletId);
+      response.fold((l) {
+        log.e(l);
+      }, (r) {
+        emit(LoadedToiletReviewsByToiletIdState(reviews: r));
+      });
+    } catch (e) {}
+  }
+
+  /////////////////////////////////
+  /// [GetToiletReviewsByUserIdEvent] Event Handler
+  ////////////////////////////////
+  Future<void> _onGetToiletReviewsByUserIdEvent(
+      GetToiletReviewsByUserIdEvent event, Emitter<ReviewState> emit) async {
+    try {
+      final response = await _getToiletReviewsByUserIdUseCase(event.userId);
+      response.fold((l) {
+        log.e(l);
+      }, (r) {
+        emit(LoadedToiletReviewsByUserIdState(reviews: r));
+      });
+    } catch (e) {}
+  }
 }

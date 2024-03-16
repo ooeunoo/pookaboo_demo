@@ -30,16 +30,15 @@ class AuthUseCase {
     await authRepository.signOut();
   }
 
-  Future<User?> updateUser(UpdateUserParams params) async {
-    await authRepository.updateUser(params);
-    return null;
+  Future<bool?> updateUser(UpdateUserParams params) async {
+    return authRepository.updateUser(params);
   }
 
-  Stream<AppUser?> getCurrentUser() {
+  Stream<User?> getCurrentUser() {
     return authRepository.getCurrentUser();
   }
 
-  AppUser? getSignedInUser() {
+  Future<AppUser?> getSignedInUser() async {
     return authRepository.getSignedInUser();
   }
 

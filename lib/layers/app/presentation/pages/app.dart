@@ -1,4 +1,3 @@
-import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +9,6 @@ import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class AppPage extends StatefulWidget {
   final Widget screen;

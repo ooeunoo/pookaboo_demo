@@ -11,13 +11,16 @@ part 'review.g.dart';
 @freezed
 class Review with _$Review {
   factory Review({
-    required AppUser user,
-    required Toilet toilet,
+    required int id,
+    required AppUser? user,
+    required Toilet? toilet,
     required double cleanliness,
     required double safety,
     required double management,
     required double convenience,
     required String comment,
+    required DateTime modified_at,
+    required DateTime created_at,
   }) = _Review;
 
   factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);

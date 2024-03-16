@@ -20,8 +20,8 @@ _$ToiletImpl _$$ToiletImplFromJson(Map<String, dynamic> json) => _$ToiletImpl(
       road_address: json['road_address'] as String,
       location_tip: json['location_tip'] as String,
       city: json['city'] as String,
-      lat: (json['lat'] as num).toDouble(),
-      lng: (json['lng'] as num).toDouble(),
+      lat: (json['lat'] as num?)?.toDouble(),
+      lng: (json['lng'] as num?)?.toDouble(),
       convenience: json['convenience'] == null
           ? null
           : Convenience.fromJson(json['convenience'] as Map<String, dynamic>),

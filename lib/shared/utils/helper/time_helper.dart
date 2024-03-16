@@ -74,3 +74,8 @@ String formatTime(String? time) {
 int convertSecondsToMinutes(int seconds) {
   return (seconds / 60).floor();
 }
+
+String parseAndFormatDateTime(DateTime dateTime) {
+  String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+  return formattedDate;
+}

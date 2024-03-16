@@ -73,6 +73,9 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
     }
   }
 
+  ///////////////////////////////////////////////
+  /// VISITATION
+  ///////////////////////////////////////////////
   @override
   Future<Either<Failure, bool>> createToiletVisitationDatasource(
       CreateVisitationParams params) async {
@@ -86,28 +89,11 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
     }
   }
 
+  ///////////////////////////////////////////////
+  /// REVIEW
+  ///////////////////////////////////////////////
   @override
   Future<Either<Failure, bool>> createToiletReviewDatasource(
-      CreateReviewParams params) async {
-    try {
-      await _supabaseService.client.from('toilet_review').insert({
-        'toilet_id': params.toiletId,
-        'user_id': params.userId,
-        'safety': params.safety,
-        'cleanliness': params.cleanliness,
-        'convenience': params.convenience,
-        'management': params.management,
-        "comment": params.comment
-      });
-      return const Right(true);
-    } catch (e) {
-      log.e(e);
-      return Left(ServerFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, bool>> getToiletReviewDatasource(
       CreateReviewParams params) async {
     try {
       await _supabaseService.client.from('toilet_review').insert({
@@ -130,15 +116,17 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, List<Review>>> getToiletReviewsByToiletIdDatasource(
       String toiletId) async {
     try {
-      final response = await _supabaseService.client
+      final List<Map<String, dynamic>> data = await _supabaseService.client
           .from('toilet_review')
-          .select('*, toilet_id!inner(*), user_id!inner(*)')
+          .select('*, user(*)')
           .eq('toilet_id', toiletId);
 
-      log.d(response.toString());
+      final List<Review> reviews =
+          data.map((json) => Review.fromJson(json)).toList();
 
-      return const Right([]);
+      return Right(reviews);
     } catch (e) {
+      log.e(e);
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -147,13 +135,13 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, List<Review>>> getToiletReviewsByUserIdDatasource(
       String userId) async {
     try {
-      final response = await _supabaseService.client
+      final List<Map<String, dynamic>> data = await _supabaseService.client
           .from('toilet_review')
-          .select('*, toilet_id!inner(*), user_id!inner(*)')
+          .select('*, toilet(*)')
           .eq('user_id', userId);
-      log.d(response.toString());
-
-      return const Right([]);
+      final List<Review> reviews =
+          data.map((json) => Review.fromJson(json)).toList();
+      return Right(reviews);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

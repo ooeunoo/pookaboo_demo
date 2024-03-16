@@ -48,7 +48,7 @@ class _ToiletBottomSheetInformationState
     int? gender = 1;
     if (authBloc.state is AuthenticatedState) {
       final user = (authBloc.state as AuthenticatedState).user;
-      gender = user.userMetadata!['gender'] == Gender.male.name ? 1 : 2;
+      gender = user.gender == Gender.male ? 1 : 2;
     }
 
     // equipment
@@ -67,7 +67,6 @@ class _ToiletBottomSheetInformationState
         bool seperate = widget.toilet.gender;
 
         if (equipments.isNotEmpty) {
-          log.d(equipments);
           count += equipments[seperate ? gender : 0];
         }
       }

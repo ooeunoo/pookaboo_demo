@@ -10,8 +10,8 @@ abstract class AuthRepository {
   Future<void> signUpWithEmailAndPassword(
       {required String email, required String password});
   Future<void> signOut();
-  Stream<AppUser?> getCurrentUser();
-  Future<AppUser?> updateUser(UpdateUserParams params);
-  AppUser? getSignedInUser();
+  Stream<User?> getCurrentUser();
+  Future<bool?> updateUser(UpdateUserParams params);
+  Future<AppUser?> getSignedInUser();
   String getAccessToken();
 }

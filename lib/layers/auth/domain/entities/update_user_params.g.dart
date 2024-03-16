@@ -9,6 +9,7 @@ part of 'update_user_params.dart';
 _$UpdateUserParamsImpl _$$UpdateUserParamsImplFromJson(
         Map<String, dynamic> json) =>
     _$UpdateUserParamsImpl(
+      user_id: json['user_id'] as String,
       nickname: json['nickname'] as String? ?? null,
       phone: json['phone'] as String? ?? null,
       gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']) ?? null,
@@ -18,6 +19,7 @@ _$UpdateUserParamsImpl _$$UpdateUserParamsImplFromJson(
 Map<String, dynamic> _$$UpdateUserParamsImplToJson(
         _$UpdateUserParamsImpl instance) =>
     <String, dynamic>{
+      'user_id': instance.user_id,
       'nickname': instance.nickname,
       'phone': instance.phone,
       'gender': _$GenderEnumMap[instance.gender],

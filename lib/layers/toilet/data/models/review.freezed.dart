@@ -20,13 +20,16 @@ Review _$ReviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Review {
-  AppUser get user => throw _privateConstructorUsedError;
-  Toilet get toilet => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  AppUser? get user => throw _privateConstructorUsedError;
+  Toilet? get toilet => throw _privateConstructorUsedError;
   double get cleanliness => throw _privateConstructorUsedError;
   double get safety => throw _privateConstructorUsedError;
   double get management => throw _privateConstructorUsedError;
   double get convenience => throw _privateConstructorUsedError;
   String get comment => throw _privateConstructorUsedError;
+  DateTime get modified_at => throw _privateConstructorUsedError;
+  DateTime get created_at => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,16 +42,19 @@ abstract class $ReviewCopyWith<$Res> {
       _$ReviewCopyWithImpl<$Res, Review>;
   @useResult
   $Res call(
-      {AppUser user,
-      Toilet toilet,
+      {int id,
+      AppUser? user,
+      Toilet? toilet,
       double cleanliness,
       double safety,
       double management,
       double convenience,
-      String comment});
+      String comment,
+      DateTime modified_at,
+      DateTime created_at});
 
-  $AppUserCopyWith<$Res> get user;
-  $ToiletCopyWith<$Res> get toilet;
+  $AppUserCopyWith<$Res>? get user;
+  $ToiletCopyWith<$Res>? get toilet;
 }
 
 /// @nodoc
@@ -64,23 +70,30 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
-    Object? toilet = null,
+    Object? id = null,
+    Object? user = freezed,
+    Object? toilet = freezed,
     Object? cleanliness = null,
     Object? safety = null,
     Object? management = null,
     Object? convenience = null,
     Object? comment = null,
+    Object? modified_at = null,
+    Object? created_at = null,
   }) {
     return _then(_value.copyWith(
-      user: null == user
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as AppUser,
-      toilet: null == toilet
+              as AppUser?,
+      toilet: freezed == toilet
           ? _value.toilet
           : toilet // ignore: cast_nullable_to_non_nullable
-              as Toilet,
+              as Toilet?,
       cleanliness: null == cleanliness
           ? _value.cleanliness
           : cleanliness // ignore: cast_nullable_to_non_nullable
@@ -101,21 +114,37 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String,
+      modified_at: null == modified_at
+          ? _value.modified_at
+          : modified_at // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      created_at: null == created_at
+          ? _value.created_at
+          : created_at // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AppUserCopyWith<$Res> get user {
-    return $AppUserCopyWith<$Res>(_value.user, (value) {
+  $AppUserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $AppUserCopyWith<$Res>(_value.user!, (value) {
       return _then(_value.copyWith(user: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ToiletCopyWith<$Res> get toilet {
-    return $ToiletCopyWith<$Res>(_value.toilet, (value) {
+  $ToiletCopyWith<$Res>? get toilet {
+    if (_value.toilet == null) {
+      return null;
+    }
+
+    return $ToiletCopyWith<$Res>(_value.toilet!, (value) {
       return _then(_value.copyWith(toilet: value) as $Val);
     });
   }
@@ -129,18 +158,21 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {AppUser user,
-      Toilet toilet,
+      {int id,
+      AppUser? user,
+      Toilet? toilet,
       double cleanliness,
       double safety,
       double management,
       double convenience,
-      String comment});
+      String comment,
+      DateTime modified_at,
+      DateTime created_at});
 
   @override
-  $AppUserCopyWith<$Res> get user;
+  $AppUserCopyWith<$Res>? get user;
   @override
-  $ToiletCopyWith<$Res> get toilet;
+  $ToiletCopyWith<$Res>? get toilet;
 }
 
 /// @nodoc
@@ -154,23 +186,30 @@ class __$$ReviewImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = null,
-    Object? toilet = null,
+    Object? id = null,
+    Object? user = freezed,
+    Object? toilet = freezed,
     Object? cleanliness = null,
     Object? safety = null,
     Object? management = null,
     Object? convenience = null,
     Object? comment = null,
+    Object? modified_at = null,
+    Object? created_at = null,
   }) {
     return _then(_$ReviewImpl(
-      user: null == user
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as AppUser,
-      toilet: null == toilet
+              as AppUser?,
+      toilet: freezed == toilet
           ? _value.toilet
           : toilet // ignore: cast_nullable_to_non_nullable
-              as Toilet,
+              as Toilet?,
       cleanliness: null == cleanliness
           ? _value.cleanliness
           : cleanliness // ignore: cast_nullable_to_non_nullable
@@ -191,6 +230,14 @@ class __$$ReviewImplCopyWithImpl<$Res>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String,
+      modified_at: null == modified_at
+          ? _value.modified_at
+          : modified_at // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      created_at: null == created_at
+          ? _value.created_at
+          : created_at // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -199,21 +246,26 @@ class __$$ReviewImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ReviewImpl implements _Review {
   _$ReviewImpl(
-      {required this.user,
+      {required this.id,
+      required this.user,
       required this.toilet,
       required this.cleanliness,
       required this.safety,
       required this.management,
       required this.convenience,
-      required this.comment});
+      required this.comment,
+      required this.modified_at,
+      required this.created_at});
 
   factory _$ReviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReviewImplFromJson(json);
 
   @override
-  final AppUser user;
+  final int id;
   @override
-  final Toilet toilet;
+  final AppUser? user;
+  @override
+  final Toilet? toilet;
   @override
   final double cleanliness;
   @override
@@ -224,10 +276,14 @@ class _$ReviewImpl implements _Review {
   final double convenience;
   @override
   final String comment;
+  @override
+  final DateTime modified_at;
+  @override
+  final DateTime created_at;
 
   @override
   String toString() {
-    return 'Review(user: $user, toilet: $toilet, cleanliness: $cleanliness, safety: $safety, management: $management, convenience: $convenience, comment: $comment)';
+    return 'Review(id: $id, user: $user, toilet: $toilet, cleanliness: $cleanliness, safety: $safety, management: $management, convenience: $convenience, comment: $comment, modified_at: $modified_at, created_at: $created_at)';
   }
 
   @override
@@ -235,6 +291,7 @@ class _$ReviewImpl implements _Review {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ReviewImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.toilet, toilet) || other.toilet == toilet) &&
             (identical(other.cleanliness, cleanliness) ||
@@ -244,13 +301,17 @@ class _$ReviewImpl implements _Review {
                 other.management == management) &&
             (identical(other.convenience, convenience) ||
                 other.convenience == convenience) &&
-            (identical(other.comment, comment) || other.comment == comment));
+            (identical(other.comment, comment) || other.comment == comment) &&
+            (identical(other.modified_at, modified_at) ||
+                other.modified_at == modified_at) &&
+            (identical(other.created_at, created_at) ||
+                other.created_at == created_at));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, user, toilet, cleanliness,
-      safety, management, convenience, comment);
+  int get hashCode => Object.hash(runtimeType, id, user, toilet, cleanliness,
+      safety, management, convenience, comment, modified_at, created_at);
 
   @JsonKey(ignore: true)
   @override
@@ -268,20 +329,25 @@ class _$ReviewImpl implements _Review {
 
 abstract class _Review implements Review {
   factory _Review(
-      {required final AppUser user,
-      required final Toilet toilet,
+      {required final int id,
+      required final AppUser? user,
+      required final Toilet? toilet,
       required final double cleanliness,
       required final double safety,
       required final double management,
       required final double convenience,
-      required final String comment}) = _$ReviewImpl;
+      required final String comment,
+      required final DateTime modified_at,
+      required final DateTime created_at}) = _$ReviewImpl;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
   @override
-  AppUser get user;
+  int get id;
   @override
-  Toilet get toilet;
+  AppUser? get user;
+  @override
+  Toilet? get toilet;
   @override
   double get cleanliness;
   @override
@@ -292,6 +358,10 @@ abstract class _Review implements Review {
   double get convenience;
   @override
   String get comment;
+  @override
+  DateTime get modified_at;
+  @override
+  DateTime get created_at;
   @override
   @JsonKey(ignore: true)
   _$$ReviewImplCopyWith<_$ReviewImpl> get copyWith =>

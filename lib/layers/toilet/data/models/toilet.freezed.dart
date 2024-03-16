@@ -33,8 +33,8 @@ mixin _$Toilet {
   String get road_address => throw _privateConstructorUsedError;
   String get location_tip => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
-  double get lat => throw _privateConstructorUsedError;
-  double get lng => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
+  double? get lng => throw _privateConstructorUsedError;
   Convenience? get convenience => throw _privateConstructorUsedError;
   Equipment? get equipment => throw _privateConstructorUsedError;
   Rating? get rating => throw _privateConstructorUsedError;
@@ -64,8 +64,8 @@ abstract class $ToiletCopyWith<$Res> {
       String road_address,
       String location_tip,
       String city,
-      double lat,
-      double lng,
+      double? lat,
+      double? lng,
       Convenience? convenience,
       Equipment? equipment,
       Rating? rating,
@@ -103,8 +103,8 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
     Object? road_address = null,
     Object? location_tip = null,
     Object? city = null,
-    Object? lat = null,
-    Object? lng = null,
+    Object? lat = freezed,
+    Object? lng = freezed,
     Object? convenience = freezed,
     Object? equipment = freezed,
     Object? rating = freezed,
@@ -163,14 +163,14 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      lat: null == lat
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
-              as double,
-      lng: null == lng
+              as double?,
+      lng: freezed == lng
           ? _value.lng
           : lng // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       convenience: freezed == convenience
           ? _value.convenience
           : convenience // ignore: cast_nullable_to_non_nullable
@@ -260,8 +260,8 @@ abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
       String road_address,
       String location_tip,
       String city,
-      double lat,
-      double lng,
+      double? lat,
+      double? lng,
       Convenience? convenience,
       Equipment? equipment,
       Rating? rating,
@@ -301,8 +301,8 @@ class __$$ToiletImplCopyWithImpl<$Res>
     Object? road_address = null,
     Object? location_tip = null,
     Object? city = null,
-    Object? lat = null,
-    Object? lng = null,
+    Object? lat = freezed,
+    Object? lng = freezed,
     Object? convenience = freezed,
     Object? equipment = freezed,
     Object? rating = freezed,
@@ -361,14 +361,14 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      lat: null == lat
+      lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
-              as double,
-      lng: null == lng
+              as double?,
+      lng: freezed == lng
           ? _value.lng
           : lng // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       convenience: freezed == convenience
           ? _value.convenience
           : convenience // ignore: cast_nullable_to_non_nullable
@@ -445,9 +445,9 @@ class _$ToiletImpl implements _Toilet {
   @override
   final String city;
   @override
-  final double lat;
+  final double? lat;
   @override
-  final double lng;
+  final double? lng;
   @override
   final Convenience? convenience;
   @override
@@ -549,8 +549,8 @@ abstract class _Toilet implements Toilet {
       required final String road_address,
       required final String location_tip,
       required final String city,
-      required final double lat,
-      required final double lng,
+      required final double? lat,
+      required final double? lng,
       final Convenience? convenience,
       final Equipment? equipment,
       final Rating? rating,
@@ -585,9 +585,9 @@ abstract class _Toilet implements Toilet {
   @override
   String get city;
   @override
-  double get lat;
+  double? get lat;
   @override
-  double get lng;
+  double? get lng;
   @override
   Convenience? get convenience;
   @override

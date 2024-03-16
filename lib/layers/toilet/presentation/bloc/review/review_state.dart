@@ -20,14 +20,29 @@ class SearchingToiletReviewState extends ReviewState {
 }
 
 /////////////////////////////////
-/// Loaded Toilet Markers
+/// Loaded Toilet Review By User Id
 ////////////////////////////////
-class LoadedToiletReviewsState extends ReviewState {
-  @override
-  LoadedToiletReviewsState();
+class LoadedToiletReviewsByUserIdState extends ReviewState {
+  final List<Review> reviews;
 
   @override
-  List<Object> get props => [];
+  LoadedToiletReviewsByUserIdState({required this.reviews});
+
+  @override
+  List<Object> get props => [reviews];
+}
+
+/////////////////////////////////
+/// Loaded Toilet Review By Toilet Id
+////////////////////////////////
+class LoadedToiletReviewsByToiletIdState extends ReviewState {
+  final List<Review> reviews;
+
+  @override
+  LoadedToiletReviewsByToiletIdState({required this.reviews});
+
+  @override
+  List<Object> get props => [reviews];
 }
 
 /////////////////////////////////
