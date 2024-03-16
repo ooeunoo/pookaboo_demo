@@ -1,3 +1,4 @@
+import 'package:pookaboo/layers/auth/data/models/app_user.dart';
 import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -34,11 +35,11 @@ class AuthUseCase {
     return null;
   }
 
-  Stream<User?> getCurrentUser() {
+  Stream<AppUser?> getCurrentUser() {
     return authRepository.getCurrentUser();
   }
 
-  User? getSignedInUser() {
+  AppUser? getSignedInUser() {
     return authRepository.getSignedInUser();
   }
 

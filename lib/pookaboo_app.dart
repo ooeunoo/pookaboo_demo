@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';

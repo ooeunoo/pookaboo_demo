@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:pookaboo/layers/map/data/models/toilet.dart';
+import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 Map<String, String> getCurrentDayAndTime() {

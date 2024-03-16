@@ -39,9 +39,7 @@ class SecureStorage extends LocalStorage {
   ));
 
   @override
-  Future<void> initialize() async {
-    await delete(StorageKeys.isUpdateUserMetadata);
-  }
+  Future<void> initialize() async {}
 
   @override
   Future<String?> accessToken() async {
@@ -79,9 +77,6 @@ class SecureStorage extends LocalStorage {
   Future<bool> requiredUpdatedInitialUserData() async {
     String? isLogin = await get(StorageKeys.isLogin);
     String? isUpdateUserMetadata = await get(StorageKeys.isUpdateUserMetadata);
-    log.d('isLogin: $isLogin');
-    log.d('isUpdateUserMetadata: $isUpdateUserMetadata');
-
     return isLogin == LoginState.loggedIn.name && isUpdateUserMetadata == null;
   }
 }

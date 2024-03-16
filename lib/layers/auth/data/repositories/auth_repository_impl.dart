@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart' as kakao;
+import 'package:pookaboo/layers/auth/data/models/app_user.dart';
 import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
 import 'package:pookaboo/shared/constant/config.dart';
@@ -45,7 +46,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<User?> updateUser(UpdateUserParams params) async {
+  Future<AppUser?> updateUser(UpdateUserParams params) async {
     Map<String, dynamic> metadata = {}; // 사용자 데이터를 저장할 맵 생성
 
     // 인자 값이 있으면 맵에 추가
@@ -66,19 +67,19 @@ class AuthRepositoryImpl implements AuthRepository {
     UserResponse response = await _supabaseService.client.auth.updateUser(
       UserAttributes(data: metadata),
     );
-    return response.user;
+    return response.user as AppUser?;
   }
 
   @override
-  Stream<User?> getCurrentUser() {
+  Stream<AppUser?> getCurrentUser() {
     return _supabaseService.client.auth.onAuthStateChange.map((event) {
-      return event.session?.user;
+      return event.session?.user as AppUser?;
     });
   }
 
   @override
-  User? getSignedInUser() {
-    return _supabaseService.client.auth.currentUser;
+  AppUser? getSignedInUser() {
+    return _supabaseService.client.auth.currentUser as AppUser?;
   }
 
   @override

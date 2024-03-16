@@ -57,13 +57,13 @@ enum Week {
   final String ko;
 }
 
-enum ScoreType {
+enum RatingScoreType {
   cleanliness('cleanliness', '청결도', '🧹'),
   convenience('convenience', '편의성', '🎛️'),
   management('management', '관리도', '🫧'),
   safety('safety', '안전성', '🚨');
 
-  const ScoreType(this.key, this.name, this.emoji);
+  const RatingScoreType(this.key, this.name, this.emoji);
 
   final String key;
   final String name;

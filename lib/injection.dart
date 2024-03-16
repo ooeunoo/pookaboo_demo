@@ -4,15 +4,17 @@ import 'package:pookaboo/layers/auth/data/repositories/auth_repository_impl.dart
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pookaboo/layers/map/data/datasources/kakao_remote_datasource.dart';
-import 'package:pookaboo/layers/map/data/datasources/toilet_remote_datasource.dart';
-import 'package:pookaboo/layers/map/data/repositories/map_repository_impl.dart';
-import 'package:pookaboo/layers/map/domain/repositories/map_repository.dart';
-import 'package:pookaboo/layers/map/domain/usecases/get_routes_usecase.dart';
-import 'package:pookaboo/layers/map/domain/usecases/create_review_usecase.dart';
-import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.dart';
-import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
-import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
+import 'package:pookaboo/layers/toilet/data/datasources/kakao_remote_datasource.dart';
+import 'package:pookaboo/layers/toilet/data/datasources/toilet_remote_datasource.dart';
+import 'package:pookaboo/layers/toilet/data/repositories/map_repository_impl.dart';
+import 'package:pookaboo/layers/toilet/data/repositories/review_repository_impl.dart';
+import 'package:pookaboo/layers/toilet/data/repositories/visitation_repository_impl.dart';
+import 'package:pookaboo/layers/toilet/domain/repositories/map_repository.dart';
+import 'package:pookaboo/layers/toilet/domain/repositories/review_repository.dart';
+import 'package:pookaboo/layers/toilet/domain/repositories/visitation_repository.dart';
+import 'package:pookaboo/layers/toilet/domain/usecases/review_usecase.dart';
+import 'package:pookaboo/layers/toilet/domain/usecases/map_usecase.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/service/hive/main_box.dart';
@@ -43,6 +45,9 @@ Future<void> _repositories() async {
     () => AuthRepositoryImpl(sl()),
   );
   sl.registerLazySingleton<MapRepository>(() => MapRepositoryImpl(sl(), sl()));
+  sl.registerLazySingleton<ReviewRepository>(() => ReviewRepositoryImpl(sl()));
+  sl.registerLazySingleton<VisitationRepository>(
+      () => VisitationRepositoryImpl(sl()));
 }
 
 Future<void> _dataSources() async {
@@ -62,8 +67,8 @@ Future<void> _useCase() async {
   sl.registerLazySingleton<GetToiletByIdUseCase>(
       () => GetToiletByIdUseCase(sl()));
 
-  sl.registerLazySingleton<CreateReviewUseCase>(
-      () => CreateReviewUseCase(sl()));
+  sl.registerLazySingleton<CreateToiletReviewUseCase>(
+      () => CreateToiletReviewUseCase(sl()));
 
   sl.registerLazySingleton<GetRoutesUseCase>(() => GetRoutesUseCase(sl()));
 }

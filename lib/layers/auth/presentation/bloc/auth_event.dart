@@ -26,7 +26,7 @@ class SignInWithKakaoEvent extends AuthEvent {
 ///
 ////////////////////////////////
 class ChangedUserEvent extends AuthEvent {
-  final User? user;
+  final AppUser? user;
 
   ChangedUserEvent({required this.user});
 

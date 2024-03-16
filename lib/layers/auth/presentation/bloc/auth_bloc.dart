@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pookaboo/layers/auth/data/models/app_user.dart';
 import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
@@ -16,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SecureStorage _secureStorage;
   final AuthUseCase _authUseCase;
 
-  StreamSubscription<User?>? _userSubscription;
+  StreamSubscription<AppUser?>? _userSubscription;
 
   AuthBloc(this._secureStorage, this._authUseCase) : super(InitialState()) {
     on<InitialCheckRequestedEvent>(_onInitialCheckedRequestEvent);
@@ -30,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onInitialCheckedRequestEvent(
       InitialCheckRequestedEvent event, Emitter<AuthState> emit) async {
-    User? signedInUser = _authUseCase.getSignedInUser();
+    AppUser? signedInUser = _authUseCase.getSignedInUser();
     signedInUser != null
         ? await _triggerBeforeAuthenticatedState(emit, signedInUser)
         : await _triggerBeforeUnAuthenticatedState(emit);
@@ -42,7 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       bool response = await _authUseCase.signInWithKakao();
-      User? user = _authUseCase.getSignedInUser();
+      AppUser? user = _authUseCase.getSignedInUser();
 
       if (response && user != null) {
         await _triggerBeforeAuthenticatedState(emit, user);
@@ -87,7 +88,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _triggerBeforeAuthenticatedState(
-      Emitter<AuthState> emit, User user) async {
+      Emitter<AuthState> emit, AppUser user) async {
     await _secureStorage
         .write(StorageKeys.isLogin, LoginState.loggedIn.name)
         .whenComplete(() => emit(AuthenticatedState(user: user)));

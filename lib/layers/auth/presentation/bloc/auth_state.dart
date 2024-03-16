@@ -34,7 +34,7 @@ class LoadInProgressState extends AuthState {
 /// AuthenticatedState
 ////////////////////////////////
 class AuthenticatedState extends AuthState {
-  final User user;
+  final AppUser user;
 
   AuthenticatedState({required this.user});
 
