@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class ToiletBottomSheetRating extends StatefulWidget {
   final Toilet toilet;

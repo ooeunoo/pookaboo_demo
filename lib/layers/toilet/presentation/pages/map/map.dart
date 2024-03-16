@@ -17,7 +17,7 @@ import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
-import 'package:pookaboo/shared/widgets/app_chip.dart';
+import 'package:pookaboo/shared/widgets/common/app_chip.dart';
 
 // 최초 중심
 LatLng initialCenter = LatLng(37.584690, 127.046502);
@@ -107,14 +107,12 @@ class _MapPageState extends State<MapPage> {
     return BlocConsumer<MapBloc, MapState>(
       listener: (context, state) async {
         if (state is MapCreatedState) {
-          // 초기화 상태라면 -> 내 위치로 이동하기
           context.read<MapBloc>().add(MoveToMyPositionEvent());
         } else if (state is MovedMyPositionState ||
             state is StoppedToiletNavigationState) {
           _updateVisibleOfBottomNavigation(true);
           context.read<MapBloc>().add(GetNearByToiletsEvent());
         } else if (state is LoadedToiletMarkersState) {
-          // 화장실 마커 데이터 불러오기를 완료했다면 -> 지도에 마커 그리기
           await _clear();
           await _drawCluster(state.markers);
         } else if (state is LoadedSelectedToiletState) {
@@ -124,8 +122,6 @@ class _MapPageState extends State<MapPage> {
           await _drawPolyline(state.polylines);
           context.pop();
           _updateVisibleOfBottomNavigation(false);
-          // _showNavigationModal(context, state.toilet);
-          // 바텀시트 닫기
         } else if (state is ZoomToClusterState) {
           await _clear();
           await _drawCluster(state.markers);
@@ -169,7 +165,7 @@ class _MapPageState extends State<MapPage> {
               Positioned(
                   left: Dimens.space20,
                   top: Dimens.statusbarHeight(context) + Dimens.space8,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
                       context.read<MapBloc>().add(StopNavigationEvent());
                     },
@@ -227,7 +223,7 @@ class _MapPageState extends State<MapPage> {
               Positioned(
                   right: Dimens.space20,
                   bottom: Dimens.bottomBarHeight(context) + Dimens.space24,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () {
                       context.read<MapBloc>().add(MoveToMyPositionEvent());
                     },

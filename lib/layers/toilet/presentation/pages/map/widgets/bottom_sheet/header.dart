@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class ToiletBottomSheetHeader extends StatelessWidget {
   final Toilet toilet;

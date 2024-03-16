@@ -5,7 +5,7 @@ import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:pookaboo/shared/widgets/app_button.dart';
+import 'package:pookaboo/shared/widgets/common/app_button.dart';
 
 class ToiletBottomSheetButton extends StatefulWidget {
   final Toilet toilet;

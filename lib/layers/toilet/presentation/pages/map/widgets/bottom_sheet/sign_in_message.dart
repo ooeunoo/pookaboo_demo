@@ -8,9 +8,9 @@ import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class LogInMessage extends StatelessWidget {
   const LogInMessage({super.key});
@@ -18,7 +18,7 @@ class LogInMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppState>(builder: (context, state) {
-      return GestureDetector(
+      return InkWell(
         onTap: () {
           context
               .read<AppCubit>()

@@ -9,7 +9,7 @@ import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_she
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_sheet/rating.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/bottom_sheet/tab_bar_view.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:blur/blur.dart';
 
 class BottomSheetMain extends StatefulWidget {

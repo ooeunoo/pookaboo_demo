@@ -39,7 +39,9 @@ class _AppPageState extends State<AppPage> {
         context: context,
         isScrollControlled: true,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimens.space20)),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimens.space20),
+                topRight: Radius.circular(Dimens.space20))),
         builder: (context) {
           return Padding(
               padding: MediaQuery.of(context).viewInsets,

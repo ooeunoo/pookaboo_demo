@@ -8,10 +8,11 @@ import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/time_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:pookaboo/shared/widgets/app_divider.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/app_rating_card.dart';
+import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class ToiletBottomSheetReview extends StatefulWidget {
   final Toilet toilet;
@@ -111,44 +112,11 @@ class _ToiletBottomSheetReviewState extends State<ToiletBottomSheetReview> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: Dimens.space40,
-                height: Dimens.space40,
-                decoration: BoxDecoration(
-                  color: const Color(0xff31363F),
-                  borderRadius: BorderRadius.circular(Dimens.space60),
-                ),
-                child: Center(
-                    child: AppText(emoji,
-                        style: Theme.of(context).textTheme.bodySmall!)),
-              ),
-              const AppSpacerH(),
-              SizedBox(
-                width: Dimens.fullWidth(context) * 0.5,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(title,
-                        style: Theme.of(context).textTheme.bodySmall!),
-                    AppSpacerV(value: Dimens.space2),
-                    AppText(subTitle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelMedium!),
-                  ],
-                ),
-              )
-            ],
-          ),
+          AppRatingCard(title: title, subTitle: subTitle, emoji: emoji),
           Row(
             children: [
               AppText('$score ⭐️',
                   style: Theme.of(context).textTheme.bodyMedium!),
-              // AppText('⭐️')
             ],
           )
         ],

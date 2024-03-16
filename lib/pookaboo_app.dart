@@ -38,14 +38,10 @@ class PookabooApp extends StatelessWidget {
       ],
       child: OKToast(
         child: ScreenUtilInit(
-          /// Set screen size to make responsive
-          /// Almost all device
-
           designSize: const Size(375, 812),
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, __) {
-            /// Pass context to appRoute
             AppRoute.setStream(context);
 
             return BlocBuilder<SettingsCubit, SettingState>(

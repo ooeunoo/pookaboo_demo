@@ -21,7 +21,7 @@ Visitation _$VisitationFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Visitation {
   int get id => throw _privateConstructorUsedError;
-  AppUser get user => throw _privateConstructorUsedError;
+  AppUser? get user => throw _privateConstructorUsedError;
   Toilet get toilet => throw _privateConstructorUsedError;
   DateTime get created_at => throw _privateConstructorUsedError;
 
@@ -37,9 +37,9 @@ abstract class $VisitationCopyWith<$Res> {
           Visitation value, $Res Function(Visitation) then) =
       _$VisitationCopyWithImpl<$Res, Visitation>;
   @useResult
-  $Res call({int id, AppUser user, Toilet toilet, DateTime created_at});
+  $Res call({int id, AppUser? user, Toilet toilet, DateTime created_at});
 
-  $AppUserCopyWith<$Res> get user;
+  $AppUserCopyWith<$Res>? get user;
   $ToiletCopyWith<$Res> get toilet;
 }
 
@@ -57,7 +57,7 @@ class _$VisitationCopyWithImpl<$Res, $Val extends Visitation>
   @override
   $Res call({
     Object? id = null,
-    Object? user = null,
+    Object? user = freezed,
     Object? toilet = null,
     Object? created_at = null,
   }) {
@@ -66,10 +66,10 @@ class _$VisitationCopyWithImpl<$Res, $Val extends Visitation>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      user: null == user
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as AppUser,
+              as AppUser?,
       toilet: null == toilet
           ? _value.toilet
           : toilet // ignore: cast_nullable_to_non_nullable
@@ -83,8 +83,12 @@ class _$VisitationCopyWithImpl<$Res, $Val extends Visitation>
 
   @override
   @pragma('vm:prefer-inline')
-  $AppUserCopyWith<$Res> get user {
-    return $AppUserCopyWith<$Res>(_value.user, (value) {
+  $AppUserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $AppUserCopyWith<$Res>(_value.user!, (value) {
       return _then(_value.copyWith(user: value) as $Val);
     });
   }
@@ -106,10 +110,10 @@ abstract class _$$VisitationImplCopyWith<$Res>
       __$$VisitationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, AppUser user, Toilet toilet, DateTime created_at});
+  $Res call({int id, AppUser? user, Toilet toilet, DateTime created_at});
 
   @override
-  $AppUserCopyWith<$Res> get user;
+  $AppUserCopyWith<$Res>? get user;
   @override
   $ToiletCopyWith<$Res> get toilet;
 }
@@ -126,7 +130,7 @@ class __$$VisitationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? user = null,
+    Object? user = freezed,
     Object? toilet = null,
     Object? created_at = null,
   }) {
@@ -135,10 +139,10 @@ class __$$VisitationImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      user: null == user
+      user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as AppUser,
+              as AppUser?,
       toilet: null == toilet
           ? _value.toilet
           : toilet // ignore: cast_nullable_to_non_nullable
@@ -166,7 +170,7 @@ class _$VisitationImpl implements _Visitation {
   @override
   final int id;
   @override
-  final AppUser user;
+  final AppUser? user;
   @override
   final Toilet toilet;
   @override
@@ -210,7 +214,7 @@ class _$VisitationImpl implements _Visitation {
 abstract class _Visitation implements Visitation {
   factory _Visitation(
       {required final int id,
-      required final AppUser user,
+      required final AppUser? user,
       required final Toilet toilet,
       required final DateTime created_at}) = _$VisitationImpl;
 
@@ -220,7 +224,7 @@ abstract class _Visitation implements Visitation {
   @override
   int get id;
   @override
-  AppUser get user;
+  AppUser? get user;
   @override
   Toilet get toilet;
   @override

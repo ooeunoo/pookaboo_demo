@@ -1,15 +1,30 @@
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
+import 'package:pookaboo/injection.dart';
+import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
+import 'package:pookaboo/layers/toilet/data/models/visitation.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/visitation/visitation_bloc.dart';
+import 'package:pookaboo/layers/user/presentation/pages/visitation/widgets/review_form.dart';
+import 'package:pookaboo/layers/user/presentation/pages/visitation/widgets/review_form_bottom_sheet/comment_form.dart';
+import 'package:pookaboo/layers/user/presentation/pages/visitation/widgets/review_form_bottom_sheet/header.dart';
+import 'package:pookaboo/layers/user/presentation/pages/visitation/widgets/review_form_bottom_sheet/main.dart';
+import 'package:pookaboo/layers/user/presentation/pages/visitation/widgets/review_form_bottom_sheet/rating_form.dart';
+import 'package:pookaboo/mocks/image.dart';
 import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/widgets/app_divider.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/utils/helper/time_helper.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
+import 'package:pookaboo/shared/widgets/common/app_button.dart';
+import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
+import 'package:pookaboo/shared/widgets/review_header.dart';
 
 class VisitationPage extends StatefulWidget {
   const VisitationPage({super.key});
@@ -19,29 +34,9 @@ class VisitationPage extends StatefulWidget {
 }
 
 class _VisitationPageState extends State<VisitationPage> {
-  List<Map<String, dynamic>> reviews = [
-    {
-      "id": 1,
-      "image":
-          "https://cdn.pixabay.com/photo/2014/02/13/11/56/wc-265278_1280.jpg",
-      "name": "송파 파크하이오",
-      "date": "2023.02.03"
-    },
-    {
-      "id": 2,
-      "image":
-          "https://cdn.pixabay.com/photo/2016/09/12/23/35/urinal-1666092_1280.jpg",
-      "name": "청량리 현대아파트",
-      "date": "2023.04.03"
-    },
-    {
-      "id": 3,
-      "image":
-          "https://cdn.pixabay.com/photo/2013/05/14/16/56/wc-111092_1280.jpg",
-      "name": "동대문 경찰서",
-      "date": "2023.03.03"
-    }
-  ];
+  final SecureStorage _secureStorage = sl<SecureStorage>();
+
+  late List<Visitation> _visitations = [];
 
   @override
   void initState() {
@@ -49,7 +44,50 @@ class _VisitationPageState extends State<VisitationPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _loadVisitations() async {
+    final userId = await _secureStorage.get(StorageKeys.loggedInUser);
+    if (userId != null) {
+      context
+          .read<VisitataionBloc>()
+          .add(GetToiletVisitationsByUserIdEvent(userId: userId));
+    }
+  }
+
+  void _showBottomSheet(BuildContext context, Visitation visitation) async {
+    showModalBottomSheet(
+        context: context,
+        useRootNavigator: true,
+        isScrollControlled: true,
+        isDismissible: true,
+        elevation: 10,
+        useSafeArea: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimens.space20),
+                topRight: Radius.circular(Dimens.space20))),
+        builder: (context) {
+          return SizedBox(
+            height: Dimens.fullHeight(context) * 0.9,
+            child: Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: ReviewForm(visitation: visitation),
+            ),
+          );
+        });
+  }
+
+  void _setVisitations(List<Visitation> visitations) {
+    _visitations = visitations;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _loadVisitations();
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -66,76 +104,53 @@ class _VisitationPageState extends State<VisitationPage> {
           style: Theme.of(context).textTheme.bodyLarge!,
         ),
       ),
-      body: BlocConsumer<ReviewBloc, ReviewState>(
-          listener: (context, state) {},
+      body: BlocBuilder<VisitataionBloc, VisitationState>(
           builder: (context, state) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: Dimens.space20),
-              child: ListView.builder(
-                itemCount: reviews.length * 2 - 1,
-                itemBuilder: (context, index) {
-                  if (index.isOdd) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-                      child: AppDivider(
-                        color: Palette.coolGrey08,
-                        height: Dimens.space1,
-                      ),
-                    ); // 홀수 인덱스에 Divider를 추가합니다.
-                  }
+        log.d(state);
+        if (state is LoadedToiletVisitationsByUserIdState) {
+          _setVisitations(state.visitations);
+        }
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: Dimens.space20),
+          child: ListView.builder(
+            itemCount: _visitations.isEmpty ? 0 : _visitations.length * 2 - 1,
+            itemBuilder: (context, index) {
+              if (index.isOdd) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+                  child: AppDivider(
+                    color: Palette.coolGrey08,
+                    height: Dimens.space1,
+                  ),
+                ); // 홀수 인덱스에 Divider를 추가합니다.
+              }
 
-                  final reviewIndex = index ~/ 2;
-                  final review = reviews[reviewIndex];
+              final visitationIndex = index ~/ 2;
+              final visitation = _visitations[visitationIndex];
 
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Dimens.space20, vertical: Dimens.space20),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(6.67),
-                              child: Image.network(
-                                review['image'],
-                                width: Dimens.imageW,
-                                height: Dimens.imageW,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            AppSpacerH(
-                              value: Dimens.space12,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  review['name'],
-                                  style: Theme.of(context).textTheme.bodySmall!,
-                                ),
-                                const AppSpacerV(),
-                                AppText(
-                                  "${review['date']} 방문",
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium!,
-                                ),
-                                const AppSpacerV(),
-                              ],
-                            ),
-                            AppSpacerH(
-                              value: Dimens.space12,
-                            ),
-                          ],
-                        ),
-                        //
-                      ],
-                    ),
-                  );
+              return InkWell(
+                key: Key(visitationIndex.toString()),
+                onTap: () {
+                  log.d('click');
+                  _showBottomSheet(context, visitation);
                 },
-              ),
-            );
-          }),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimens.space20, vertical: Dimens.space20),
+                  child: Column(
+                    children: [
+                      ReviewHeader(
+                          image: mockImage,
+                          name: visitation.toilet.name,
+                          date: visitation.created_at)
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      }),
     );
   }
 }

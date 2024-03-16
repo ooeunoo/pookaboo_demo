@@ -5,9 +5,9 @@ import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
-import 'package:pookaboo/shared/widgets/app_button.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_button.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});

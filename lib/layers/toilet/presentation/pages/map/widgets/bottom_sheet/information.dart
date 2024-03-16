@@ -9,10 +9,10 @@ import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:pookaboo/shared/widgets/app_divider.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class ToiletBottomSheetInformation extends StatefulWidget {
   final Toilet toilet;

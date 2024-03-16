@@ -9,7 +9,7 @@ part 'visitation.g.dart';
 class Visitation with _$Visitation {
   factory Visitation({
     required int id,
-    required AppUser user,
+    required AppUser? user,
     required Toilet toilet,
     required DateTime created_at,
   }) = _Visitation;

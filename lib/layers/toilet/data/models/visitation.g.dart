@@ -9,7 +9,9 @@ part of 'visitation.dart';
 _$VisitationImpl _$$VisitationImplFromJson(Map<String, dynamic> json) =>
     _$VisitationImpl(
       id: json['id'] as int,
-      user: AppUser.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'] == null
+          ? null
+          : AppUser.fromJson(json['user'] as Map<String, dynamic>),
       toilet: Toilet.fromJson(json['toilet'] as Map<String, dynamic>),
       created_at: DateTime.parse(json['created_at'] as String),
     );

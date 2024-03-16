@@ -4,7 +4,7 @@ import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
-import 'package:pookaboo/shared/widgets/app_parent.dart';
+import 'package:pookaboo/shared/widgets/common/app_parent.dart';
 
 /// © 2020 | All Right Reserved
 class SplashPage extends StatefulWidget {

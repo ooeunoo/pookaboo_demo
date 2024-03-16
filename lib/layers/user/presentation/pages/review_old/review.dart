@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/user/presentation/pages/review_old/widgets/review_done.dart';
 import 'package:pookaboo/layers/user/presentation/pages/review_old/widgets/review_undone.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class OldReviewPage extends StatefulWidget {
   const OldReviewPage({

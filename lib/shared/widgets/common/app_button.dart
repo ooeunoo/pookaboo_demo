@@ -4,8 +4,8 @@ import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 import 'package:intl/intl.dart';
 
 class AppButton extends StatelessWidget {

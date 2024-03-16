@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 
 class AppChip extends StatefulWidget {
   final String text;
@@ -28,7 +28,7 @@ class _AppChipState extends State<AppChip> {
   @override
   Widget build(BuildContext context) {
     isSelected = widget.isSelected;
-    return GestureDetector(
+    return InkWell(
       onTap: widget.onTap,
       child: Chip(
         labelPadding: EdgeInsets.zero,

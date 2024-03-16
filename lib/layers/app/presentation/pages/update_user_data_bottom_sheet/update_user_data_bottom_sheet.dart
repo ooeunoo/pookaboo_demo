@@ -5,11 +5,11 @@ import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:pookaboo/shared/widgets/app_button.dart';
-import 'package:pookaboo/shared/widgets/app_dropdown.dart';
-import 'package:pookaboo/shared/widgets/app_spacer_v.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
-import 'package:pookaboo/shared/widgets/app_text_input.dart';
+import 'package:pookaboo/shared/widgets/common/app_button.dart';
+import 'package:pookaboo/shared/widgets/common/app_dropdown.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_text_input.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 enum UpdateStep {

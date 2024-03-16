@@ -19,6 +19,7 @@ class Images {
   static const String arrowRight = 'assets/svg/arrow_right.svg';
   static const String arrowBottom = 'assets/svg/arrow_bottom.svg';
   static const String arrowLeft = 'assets/svg/arrow_left.svg';
+  static const String close = 'assets/svg/close.svg';
 
   //
   static const String noImage = 'assets/images/no_image.png';

@@ -39,7 +39,7 @@ class AppParent extends StatefulWidget {
 class _AppParentState extends State<AppParent> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         key: widget.scaffoldKey,

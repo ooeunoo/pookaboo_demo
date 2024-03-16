@@ -6,8 +6,8 @@ import 'package:pookaboo/layers/user/presentation/pages/profile/widgets/login_sc
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
-import 'package:pookaboo/shared/widgets/app_divider.dart';
-import 'package:pookaboo/shared/widgets/app_text.dart';
+import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

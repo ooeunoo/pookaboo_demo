@@ -27,3 +27,13 @@ class GetToiletVisitationsByUserIdEvent extends VisitationEvent {
   @override
   List<Object?> get props => [userId];
 }
+
+/////////////////////////////////
+/// Open ToiletReviewForm Event
+////////////////////////////////
+class OpenToiletReviewFormEvent extends VisitationEvent {
+  OpenToiletReviewFormEvent();
+
+  @override
+  List<Object?> get props => [];
+}

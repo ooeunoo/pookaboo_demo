@@ -62,14 +62,17 @@ Future<void> _dataSources() async {
 }
 
 Future<void> _useCase() async {
+  // auth
   sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl()));
 
+  // map
   sl.registerLazySingleton<GetNearByToiletsUseCase>(
       () => GetNearByToiletsUseCase(sl()));
   sl.registerLazySingleton<GetToiletByIdUseCase>(
       () => GetToiletByIdUseCase(sl()));
   sl.registerLazySingleton<GetRoutesUseCase>(() => GetRoutesUseCase(sl()));
 
+  // review
   sl.registerLazySingleton<CreateToiletReviewUseCase>(
       () => CreateToiletReviewUseCase(sl()));
   sl.registerLazySingleton<GetToiletReviewsByToiletIdUseCase>(
@@ -77,6 +80,7 @@ Future<void> _useCase() async {
   sl.registerLazySingleton<GetToiletReviewsByUserIdUseCase>(
       () => GetToiletReviewsByUserIdUseCase(sl()));
 
+  // visitation
   sl.registerLazySingleton<CreateToiletVisitationUseCase>(
       () => CreateToiletVisitationUseCase(sl()));
   sl.registerLazySingleton<GetToiletVisitationsByUserIdUseCase>(
