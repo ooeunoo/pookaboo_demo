@@ -3,7 +3,7 @@ import 'package:pookaboo/layers/map/data/models/toilet.dart';
 import 'package:pookaboo/layers/map/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/map/domain/entities/get_nearby_toilets_params.dart';
 import 'package:pookaboo/shared/error/failure.dart';
-import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
+import 'package:pookaboo/shared/service/supabase/supabase_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

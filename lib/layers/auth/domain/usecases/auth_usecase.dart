@@ -1,3 +1,4 @@
+import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
@@ -28,10 +29,8 @@ class AuthUseCase {
     await authRepository.signOut();
   }
 
-  Future<User?> updateUser(
-      {String? nickname, String? phone, Gender? gender}) async {
-    await authRepository.updateUser(
-        nickname: nickname, phone: phone, gender: gender);
+  Future<User?> updateUser(UpdateUserParams params) async {
+    await authRepository.updateUser(params);
     return null;
   }
 

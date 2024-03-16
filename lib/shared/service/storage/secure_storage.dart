@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 enum ActiveTheme {
@@ -18,8 +19,7 @@ enum LoginState {
 }
 
 enum UpdateUserMetadataState {
-  updated,
-  notUpdated;
+  done,
 }
 
 enum StorageKeys {
@@ -39,7 +39,9 @@ class SecureStorage extends LocalStorage {
   ));
 
   @override
-  Future<void> initialize() async {}
+  Future<void> initialize() async {
+    await delete(StorageKeys.isUpdateUserMetadata);
+  }
 
   @override
   Future<String?> accessToken() async {
@@ -74,9 +76,12 @@ class SecureStorage extends LocalStorage {
     return storage.read(key: key.name);
   }
 
-  Future<bool> needToUpdatedInitialUserData() async {
+  Future<bool> requiredUpdatedInitialUserData() async {
     String? isLogin = await get(StorageKeys.isLogin);
     String? isUpdateUserMetadata = await get(StorageKeys.isUpdateUserMetadata);
+    log.d('isLogin: $isLogin');
+    log.d('isUpdateUserMetadata: $isUpdateUserMetadata');
+
     return isLogin == LoginState.loggedIn.name && isUpdateUserMetadata == null;
   }
 }

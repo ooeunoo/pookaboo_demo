@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/pookaboo_app.dart';
-import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
-import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
+import 'package:pookaboo/shared/service/kakao/kakao_map_service.dart';
+import 'package:pookaboo/shared/service/supabase/supabase_service.dart';
 // import 'package:flutter_auth_app/utils/utils.dart';
 
 void main() {

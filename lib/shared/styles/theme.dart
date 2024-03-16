@@ -362,15 +362,13 @@ class BoxDecorations {
 
   BoxDecoration get button => BoxDecoration(
         color: Palette.primary,
-        borderRadius:
-            const BorderRadius.all(Radius.circular(Dimens.cornerRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(Dimens.space16)),
         boxShadow: [BoxShadows(context).button],
       );
 
   BoxDecoration get card => BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius:
-            const BorderRadius.all(Radius.circular(Dimens.cornerRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(Dimens.space16)),
         boxShadow: [BoxShadows(context).card],
       );
 }

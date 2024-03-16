@@ -20,7 +20,7 @@ import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dar
 import 'package:pookaboo/mocks/toilets.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/error/failure.dart';
-import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
+import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';

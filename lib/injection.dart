@@ -14,12 +14,12 @@ import 'package:pookaboo/layers/map/domain/usecases/get_nearby_toilets_usecase.d
 import 'package:pookaboo/layers/map/domain/usecases/get_toilet_by_id_usecase.dart';
 import 'package:pookaboo/layers/map/presentation/bloc/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
-import 'package:pookaboo/shared/services/geolocator/geolocator_service.dart';
-import 'package:pookaboo/shared/services/hive/main_box.dart';
-import 'package:pookaboo/shared/services/kakao/kakao_map_service.dart';
-import 'package:pookaboo/shared/services/kakao/kakao_service.dart';
-import 'package:pookaboo/shared/services/storage/secure_storage.dart';
-import 'package:pookaboo/shared/services/supabase/supabase_service.dart';
+import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
+import 'package:pookaboo/shared/service/hive/main_box.dart';
+import 'package:pookaboo/shared/service/kakao/kakao_map_service.dart';
+import 'package:pookaboo/shared/service/kakao/kakao_service.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
+import 'package:pookaboo/shared/service/supabase/supabase_service.dart';
 
 GetIt sl = GetIt.instance;
 

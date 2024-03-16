@@ -122,7 +122,7 @@ class _ToiletBottomSheetInformationState
               itemBuilder: (context, index) {
                 return _images.isEmpty
                     ? SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                        width: Dimens.fullWidth(context),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(Dimens.space12),
                           child: Image.asset(

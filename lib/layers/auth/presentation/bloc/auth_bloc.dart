@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/services/storage/secure_storage.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'auth_event.dart';
@@ -22,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignInWithKakaoEvent>(_onSignInWithKakaoEvent);
     on<ChangedUserEvent>(_onChangedUserEvent);
     on<LogoutEvent>(_onLogoutEvent);
-    on<UpdateUserEvent>(_onUpdatEvent);
+    on<UpdateUserEvent>(_onUpdateUserEvent);
 
     _startUserSubscription();
   }
@@ -66,8 +67,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {}
   }
 
-  Future<void> _onUpdatEvent(
-      UpdateUserEvent event, Emitter<AuthState> emit) async {}
+  Future<void> _onUpdateUserEvent(
+      UpdateUserEvent event, Emitter<AuthState> emit) async {
+    try {
+      await _authUseCase.updateUser(event.params).whenComplete(() =>
+          _secureStorage.write(
+              StorageKeys.isUpdateUserMetadata, UpdateUserMetadataState.done));
+    } catch (e) {}
+  }
 
   void _startUserSubscription() => _userSubscription = _authUseCase
       .getCurrentUser()

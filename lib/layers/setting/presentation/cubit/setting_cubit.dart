@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:pookaboo/shared/services/hive/main_box.dart';
+import 'package:pookaboo/shared/service/hive/main_box.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pookaboo/shared/services/hive/main_box.dart';
-import 'package:pookaboo/shared/services/storage/secure_storage.dart';
+import 'package:pookaboo/shared/service/hive/main_box.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 
 part 'setting_state.dart';
 part 'setting_cubit.freezed.dart';

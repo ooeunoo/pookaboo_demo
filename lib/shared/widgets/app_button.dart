@@ -17,6 +17,7 @@ class AppButton extends StatelessWidget {
   final double? fontSize;
   final Color? splashColor;
   final Widget? image; // 이미지 추가
+  final bool disable;
 
   const AppButton({
     super.key,
@@ -27,50 +28,45 @@ class AppButton extends StatelessWidget {
     this.titleColor,
     this.fontSize,
     this.splashColor,
-    this.image, // 이미지 추가
+    this.image,
+    this.disable = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints:
-          BoxConstraints(minWidth: width ?? context.widthInPercent(100)),
       margin: EdgeInsets.symmetric(vertical: Dimens.space8),
       height: Dimens.buttonH,
-      decoration: BoxDecorations(context).button.copyWith(
-            color: color ?? Palette.lemon01,
-          ),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(Dimens.space16)),
       child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          backgroundColor: color ?? Palette.lemon01,
-          padding: EdgeInsets.symmetric(horizontal: Dimens.space24),
-          shape: const BeveledRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(Dimens.cornerRadius),
-            ),
-          ),
-        ),
+        onPressed: disable ? null : onPressed,
+        style: ButtonStyle(
+            backgroundColor: color != null
+                ? MaterialStateProperty.all(color)
+                : (disable
+                    ? MaterialStateProperty.all(Palette.coolGrey09)
+                    : MaterialStateProperty.all(Palette.lemon01)),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimens.space16)))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (image != null) // 이미지가 있는 경우에만 표시
+            if (image != null)
               Padding(
-                padding:
-                    EdgeInsets.only(right: Dimens.space4), // 이미지와 텍스트 사이 간격 조정
+                padding: EdgeInsets.only(right: Dimens.space4),
                 child: SizedBox(
-                  width: Dimens.icon, // 이미지의 너비 지정
-                  height: Dimens.icon, // 이미지의 높이 지정
+                  width: Dimens.icon,
+                  height: Dimens.icon,
                   child: image!,
                 ),
               ),
             AppSpacerH(value: Dimens.space8),
             AppText(
               title,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Palette.coolGrey12),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: titleColor ??
+                      (disable ? Palette.coolGrey06 : Palette.coolGrey12)),
               align: TextAlign.center,
             ),
           ],

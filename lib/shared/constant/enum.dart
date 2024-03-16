@@ -14,9 +14,13 @@ enum BottomNavigation {
 }
 
 enum Gender {
-  none,
-  male,
-  female,
+  male('남성'),
+  female('여성'),
+  ;
+
+  const Gender(this.ko);
+
+  final String ko;
 }
 
 enum ToiletType {

@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
-import 'package:pookaboo/shared/styles/dimens.dart';
 
 part 'app_state.dart';
 part 'app_cubit.freezed.dart';

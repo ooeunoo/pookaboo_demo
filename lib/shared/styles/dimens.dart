@@ -73,6 +73,8 @@ class Dimens {
   static const double cornerRadius = 16;
   static const double cornerRadiusBottomSheet = 30;
 
+  static double fullHeight(context) => MediaQuery.of(context).size.height;
+  static double fullWidth(context) => MediaQuery.of(context).size.width;
   static double statusbarHeight(context) => MediaQuery.of(context).padding.top;
   static double bottomBarHeight(context) =>
       MediaQuery.of(context).padding.bottom;

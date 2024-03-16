@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
+import 'package:pookaboo/layers/app/presentation/pages/update_user_data_bottom_sheet/update_user_data_bottom_sheet.dart';
 import 'package:pookaboo/layers/app/presentation/widgets/navigation_bar_item_widget.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
-import 'package:pookaboo/shared/services/storage/secure_storage.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -22,38 +23,56 @@ class AppPage extends StatefulWidget {
 
 class _AppPageState extends State<AppPage> {
   final SecureStorage _secureStorage = sl<SecureStorage>();
-  late bool needToUpdateMetadata = false;
 
   @override
   void initState() {
     super.initState();
-
-    _loadState();
   }
 
-  void _loadState() async {
-    needToUpdateMetadata = await _secureStorage.needToUpdatedInitialUserData();
+  void _checkUserUpdate() async {
+    bool require = await _secureStorage.requiredUpdatedInitialUserData();
+    if (require) {
+      _showUpdateUserMetadataBottomSheet();
+    }
+  }
 
-    setState(() {});
+  void _showUpdateUserMetadataBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimens.space20)),
+        builder: (context) {
+          return Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: const Wrap(
+                children: <Widget>[
+                  UpdateUserDataBottomSheet(),
+                ],
+              ));
+        });
   }
 
   @override
   Widget build(BuildContext context) {
+    _checkUserUpdate();
+
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
               widget.screen,
             ],
           ),
-          bottomNavigationBar: _buildBottomNavigation(context, state),
+          bottomNavigationBar: buildBottomNavigation(context, state),
         );
       },
     );
   }
 
-  Widget _buildBottomNavigation(BuildContext context, AppState state) {
+  Widget buildBottomNavigation(BuildContext context, AppState state) {
     final tabs = [
       NavigationBarItemWidget(
         initialLocation: AppRoutes.map.path,
@@ -98,26 +117,7 @@ class _AppPageState extends State<AppPage> {
         ));
   }
 
-  Widget _buildBottomSheet(BuildContext context) {
-    void showBottomSheet() {
-      showFlexibleBottomSheet(
-        context: context,
-        anchors: [0.3, 1],
-        initHeight: 0.3,
-        isDismissible: true,
-        isExpand: true,
-        isSafeArea: true,
-        isModal: true,
-        bottomSheetBorderRadius: const BorderRadiusDirectional.only(
-            topEnd: Radius.circular(20), topStart: Radius.circular(20)),
-        draggableScrollableController: DraggableScrollableController(),
-        builder: (BuildContext context, ScrollController scrollController,
-            double offset) {
-          return Container();
-        },
-      );
-    }
-
+  Widget buildBottomSheet(BuildContext context) {
     return Container();
   }
 }

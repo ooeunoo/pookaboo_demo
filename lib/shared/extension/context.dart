@@ -56,7 +56,7 @@ extension ContextExtensions on BuildContext {
                   decoration: BoxDecoration(
                     color:
                         Theme.of(this).extension<PookabooColors>()?.background,
-                    borderRadius: BorderRadius.circular(Dimens.cornerRadius),
+                    borderRadius: BorderRadius.circular(Dimens.space16),
                   ),
                   margin: EdgeInsets.symmetric(horizontal: Dimens.space30),
                   padding: EdgeInsets.all(Dimens.space24),

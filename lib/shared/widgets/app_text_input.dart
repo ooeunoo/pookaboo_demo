@@ -15,7 +15,6 @@ class AppTextInput extends StatefulWidget {
     this.keyboardType,
     this.textInputAction,
     this.obscureText,
-    this.suffixIcon,
     this.controller,
     this.onTap,
     this.textAlign,
@@ -23,7 +22,9 @@ class AppTextInput extends StatefulWidget {
     this.inputFormatter,
     this.minLine,
     this.maxLine,
-    required this.prefixIcon,
+    this.suffixText,
+    this.suffixIcon,
+    this.prefixIcon,
     this.isHintVisible = true,
     this.prefixText,
     this.hintText,
@@ -48,7 +49,8 @@ class AppTextInput extends StatefulWidget {
   final bool? enable;
   final List<TextInputFormatter>? inputFormatter;
   final bool isHintVisible;
-  final Widget prefixIcon;
+  final String? suffixText;
+  final Widget? prefixIcon;
   final String? prefixText;
   final String? hintText;
   final Iterable<String>? autofillHints;
@@ -108,10 +110,28 @@ class _TextFState extends State<AppTextInput> {
                   alignLabelWithHint: true,
                   isDense: true,
                   hintText: widget.hintText,
-                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  hintStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
                         color: Theme.of(context).hintColor,
                       ),
-                  suffixIcon: widget.suffixIcon,
+                  suffix: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.suffixText != null)
+                        Text(
+                          widget.suffixText!,
+                          style: TextStyle(
+                            color: Theme.of(context).hintColor,
+                          ),
+                        ),
+                      if (widget.suffixIcon != null) widget.suffixIcon!,
+                    ],
+                  ),
+                  // suffixText: widget.suffixText,
+                  // suffixIcon: widget.suffixIcon,
+                  suffixIconConstraints: BoxConstraints(
+                    minHeight: Dimens.space24,
+                    maxHeight: Dimens.space24,
+                  ),
                   prefixIcon: Padding(
                     padding: EdgeInsets.symmetric(horizontal: Dimens.space12),
                     child: widget.prefixIcon,
@@ -126,15 +146,12 @@ class _TextFState extends State<AppTextInput> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     gapPadding: 0,
-                    borderRadius: BorderRadius.circular(Dimens.space4),
-                    borderSide: BorderSide(
-                      color:
-                          Theme.of(context).extension<PookabooColors>()!.card!,
-                    ),
+                    borderRadius: BorderRadius.circular(Dimens.space12),
+                    borderSide: const BorderSide(color: Palette.coolGrey09),
                   ),
                   disabledBorder: OutlineInputBorder(
                     gapPadding: 0,
-                    borderRadius: BorderRadius.circular(Dimens.space4),
+                    borderRadius: BorderRadius.circular(Dimens.space12),
                     borderSide: BorderSide(color: Theme.of(context).cardColor),
                   ),
                   errorStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -143,27 +160,30 @@ class _TextFState extends State<AppTextInput> {
                       ),
                   focusedErrorBorder: OutlineInputBorder(
                     gapPadding: 0,
-                    borderRadius: BorderRadius.circular(Dimens.space4),
-                    borderSide: BorderSide(
-                      color:
-                          Theme.of(context).extension<PookabooColors>()!.red!,
-                    ),
+                    borderRadius: BorderRadius.circular(Dimens.space12),
+                    borderSide: const BorderSide(color: Palette.coolGrey05),
+                    // borderSide: BorderSide(
+                    //   color:
+                    //       Theme.of(context).extension<PookabooColors>()!.red!,
+                    // ),
                   ),
                   errorBorder: OutlineInputBorder(
                     gapPadding: 0,
-                    borderRadius: BorderRadius.circular(Dimens.space4),
-                    borderSide: BorderSide(
-                      color:
-                          Theme.of(context).extension<PookabooColors>()!.red!,
-                    ),
+                    borderRadius: BorderRadius.circular(Dimens.space12),
+                    borderSide: const BorderSide(color: Palette.coolGrey05),
+                    // borderSide: BorderSide(
+                    //   color:
+                    //       Theme.of(context).extension<PookabooColors>()!.red!,
+                    // ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     gapPadding: 0,
-                    borderRadius: BorderRadius.circular(Dimens.space4),
-                    borderSide: BorderSide(
-                      color:
-                          Theme.of(context).extension<PookabooColors>()!.pink!,
-                    ),
+                    borderRadius: BorderRadius.circular(Dimens.space12),
+                    borderSide: const BorderSide(color: Palette.coolGrey05),
+                    // borderSide: BorderSide(
+                    //   color:
+                    //       Theme.of(context).extension<PookabooColors>()!.pink!,
+                    // ),
                   ),
                 ),
                 validator: widget.validator as String? Function(String?)?,
