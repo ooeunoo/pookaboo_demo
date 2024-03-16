@@ -5,6 +5,7 @@ import 'package:pookaboo/layers/toilet/data/datasources/toilet_remote_datasource
 import 'package:pookaboo/layers/toilet/data/models/coord.dart';
 import 'package:pookaboo/layers/toilet/data/models/route.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
+import 'package:pookaboo/layers/toilet/data/models/visitation.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/create_visitation_params.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/get_nearby_toilets_params.dart';
@@ -24,6 +25,14 @@ class VisitationRepositoryImpl implements VisitationRepository {
       CreateVisitationParams params) async {
     final response =
         await toiletRemoteDatasource.createToiletVisitationDatasource(params);
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, List<Visitation>>> getToiletVisitationsByUserIdImpl(
+      String userId) async {
+    final response = await toiletRemoteDatasource
+        .getToiletVisitationsByUserIdDatasource(userId);
     return response;
   }
 }

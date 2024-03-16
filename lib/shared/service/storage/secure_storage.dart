@@ -13,11 +13,6 @@ enum ActiveTheme {
   const ActiveTheme(this.mode);
 }
 
-enum LoginState {
-  loggedIn,
-  notLoggedIn,
-}
-
 enum UpdateUserMetadataState {
   done,
 }
@@ -27,7 +22,7 @@ enum StorageKeys {
   language,
   theme,
   locale,
-  isLogin,
+  loggedInUser,
   isUpdateUserMetadata,
   ;
 }
@@ -75,8 +70,8 @@ class SecureStorage extends LocalStorage {
   }
 
   Future<bool> requiredUpdatedInitialUserData() async {
-    String? isLogin = await get(StorageKeys.isLogin);
+    String? isLogin = await get(StorageKeys.loggedInUser);
     String? isUpdateUserMetadata = await get(StorageKeys.isUpdateUserMetadata);
-    return isLogin == LoginState.loggedIn.name && isUpdateUserMetadata == null;
+    return isLogin != null && isUpdateUserMetadata == null;
   }
 }

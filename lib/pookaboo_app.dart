@@ -8,6 +8,8 @@ import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/localization/l10n.dart';
@@ -30,7 +32,9 @@ class PookabooApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<SettingsCubit>()..getActiveTheme()),
         BlocProvider(
             create: (_) => sl<AuthBloc>()..add(InitialCheckRequestedEvent())),
-        BlocProvider(create: (_) => sl<MapBloc>())
+        BlocProvider(create: (_) => sl<MapBloc>()),
+        BlocProvider(create: (_) => sl<VisitataionBloc>()),
+        BlocProvider(create: (_) => sl<ReviewBloc>())
       ],
       child: OKToast(
         child: ScreenUtilInit(

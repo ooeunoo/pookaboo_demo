@@ -7,7 +7,6 @@ import 'package:pookaboo/layers/auth/data/models/app_user.dart';
 import 'package:pookaboo/layers/auth/domain/entities/update_user_params.dart';
 import 'package:pookaboo/layers/auth/domain/usecases/auth_usecase.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'auth_event.dart';
@@ -92,14 +91,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _triggerBeforeAuthenticatedState(
       Emitter<AuthState> emit, AppUser user) async {
     await _secureStorage
-        .write(StorageKeys.isLogin, LoginState.loggedIn.name)
+        .write(StorageKeys.loggedInUser, user.id)
         .whenComplete(() => emit(AuthenticatedState(user: user)));
   }
 
   Future<void> _triggerBeforeUnAuthenticatedState(
       Emitter<AuthState> emit) async {
     await _secureStorage
-        .write(StorageKeys.isLogin, LoginState.notLoggedIn.name)
+        .write(StorageKeys.loggedInUser, null)
         .whenComplete(() => emit(UnAuthenticatedState()));
   }
 }

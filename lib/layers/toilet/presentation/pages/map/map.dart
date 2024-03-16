@@ -4,13 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/widgets/toilet_navigation_dialog.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
@@ -27,6 +30,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  final SecureStorage _secureStorage = sl<SecureStorage>();
+
   final Debouncer _debouncer = Debouncer(milliseconds: 200);
 
   late KakaoMapController _controller;
@@ -62,7 +67,13 @@ class _MapPageState extends State<MapPage> {
           controller: scrollController,
         );
       },
-    );
+    ).whenComplete(() async {
+      final userId = await _secureStorage.get(StorageKeys.loggedInUser);
+      if (userId != null) {
+        context.read<VisitataionBloc>().add(
+            CreateToiletVisitationEvent(userId: userId, toiletId: toilet.id));
+      }
+    });
   }
 
   Future<void> _clear() async {

@@ -14,9 +14,11 @@ import 'package:pookaboo/layers/toilet/domain/repositories/review_repository.dar
 import 'package:pookaboo/layers/toilet/domain/repositories/visitation_repository.dart';
 import 'package:pookaboo/layers/toilet/domain/usecases/review_usecase.dart';
 import 'package:pookaboo/layers/toilet/domain/usecases/map_usecase.dart';
+import 'package:pookaboo/layers/toilet/domain/usecases/visitation_usecase.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/service/hive/main_box.dart';
 import 'package:pookaboo/shared/service/kakao/kakao_map_service.dart';
@@ -74,12 +76,18 @@ Future<void> _useCase() async {
       () => GetToiletReviewsByToiletIdUseCase(sl()));
   sl.registerLazySingleton<GetToiletReviewsByUserIdUseCase>(
       () => GetToiletReviewsByUserIdUseCase(sl()));
+
+  sl.registerLazySingleton<CreateToiletVisitationUseCase>(
+      () => CreateToiletVisitationUseCase(sl()));
+  sl.registerLazySingleton<GetToiletVisitationsByUserIdUseCase>(
+      () => GetToiletVisitationsByUserIdUseCase(sl()));
 }
 
 Future<void> _bloc() async {
   sl.registerFactory(() => AuthBloc(sl(), sl()));
   sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => VisitataionBloc(sl(), sl()));
 }
 
 Future<void> _cubit() async {

@@ -64,10 +64,10 @@ class _UpdateUserDataBottomSheetState extends State<UpdateUserDataBottomSheet> {
   }
 
   Future<void> _updateUserMetadata() async {
-    final authState = context.read<AuthBloc>().state;
-    if (authState is AuthenticatedState) {
+    final state = context.read<AuthBloc>().state;
+    if (state is AuthenticatedState) {
       UpdateUserParams params = UpdateUserParams(
-        user_id: authState.user.id,
+        user_id: state.user.id,
         nickname: _nickname!,
         age: _age!.toString(),
         gender: _gender,

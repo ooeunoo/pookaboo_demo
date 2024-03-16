@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:pookaboo/layers/toilet/data/models/review.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
+import 'package:pookaboo/layers/toilet/data/models/visitation.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/create_visitation_params.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/get_nearby_toilets_params.dart';
@@ -25,6 +26,9 @@ abstract class ToiletRemoteDatasource {
 
   Future<Either<Failure, bool>> createToiletVisitationDatasource(
       CreateVisitationParams params);
+
+  Future<Either<Failure, List<Visitation>>>
+      getToiletVisitationsByUserIdDatasource(String userId);
 }
 
 class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
@@ -46,6 +50,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
         'password_filter': params.passwordFilter,
         'time_filter': params.timeFilter,
       });
+
+      log.d(data);
 
       final List<Toilet> toilets =
           data.map((json) => Toilet.fromJson(json)).toList();
@@ -84,6 +90,22 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
           .from('toilet_visitation')
           .insert({'toilet_id': params.toiletId, 'user_id': params.userId});
       return const Right(true);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Visitation>>>
+      getToiletVisitationsByUserIdDatasource(String userId) async {
+    try {
+      final List<Map<String, dynamic>> data = await _supabaseService.client
+          .from('toilet_visitation')
+          .select('*, toilet(*)')
+          .eq('user_id', userId);
+      final List<Visitation> visitations =
+          data.map((json) => Visitation.fromJson(json)).toList();
+      return Right(visitations);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

@@ -6,10 +6,13 @@ import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/pages/app.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/user/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/splash/presentation/pages/splash.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/map.dart';
 import 'package:pookaboo/layers/user/presentation/pages/review/review.dart';
+import 'package:pookaboo/layers/user/presentation/pages/review_old/review.dart';
+import 'package:pookaboo/layers/user/presentation/pages/visitation/visitation.dart';
 import 'package:pookaboo/shared/router/router_refresh_stream.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
@@ -21,6 +24,9 @@ enum AppRoutes {
 
   // profile page
   profile("/profile"),
+
+  // visitation page
+  visitation('/visitation'),
 
   // review page
   reviews("/reviews"),
@@ -40,7 +46,6 @@ class AppRoute {
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
-  static final _bottomNavigatorKey = GlobalKey<NavigatorState>();
 
   AppRoute.setStream(BuildContext ctx) {
     context = ctx;
@@ -78,9 +83,16 @@ class AppRoute {
             ),
           ),
           GoRoute(
+            path: AppRoutes.visitation.path,
+            name: AppRoutes.visitation.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              child: VisitationPage(),
+            ),
+          ),
+          GoRoute(
             path: AppRoutes.reviews.path,
             name: AppRoutes.reviews.name,
-            pageBuilder: (context, state) => const NoTransitionPage(
+            pageBuilder: (context, state) => const MaterialPage(
               child: ReviewPage(),
             ),
           ),

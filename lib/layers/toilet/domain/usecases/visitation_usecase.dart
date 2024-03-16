@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
+import 'package:pookaboo/layers/toilet/data/models/visitation.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/create_review_params.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/create_visitation_params.dart';
 import 'package:pookaboo/layers/toilet/domain/entities/get_nearby_toilets_params.dart';
@@ -18,5 +19,17 @@ class CreateToiletVisitationUseCase
   @override
   Future<Either<Failure, bool>> call(CreateVisitationParams params) {
     return _repo.createToiletVisitationImpl(params);
+  }
+}
+
+class GetToiletVisitationsByUserIdUseCase
+    extends UseCase<List<Visitation>, String> {
+  final VisitationRepository _repo;
+
+  GetToiletVisitationsByUserIdUseCase(this._repo);
+
+  @override
+  Future<Either<Failure, List<Visitation>>> call(String params) {
+    return _repo.getToiletVisitationsByUserIdImpl(params);
   }
 }
