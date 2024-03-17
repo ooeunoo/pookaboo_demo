@@ -30,6 +30,7 @@ class _BottomSheetMainState extends State<BottomSheetMain> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimens.space20),

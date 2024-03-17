@@ -1,5 +1,7 @@
 import 'package:blur/blur.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
@@ -60,17 +62,33 @@ class _ToiletBottomSeetTabBarViewState
           IndexedStack(
             index: _selectedIndex,
             children: [
-              shouldBlur
-                  ? _blurredContainer(
-                      ToiletBottomSheetInformation(widget.toilet))
-                  : ToiletBottomSheetInformation(widget.toilet),
-              BlocProvider(
-                create: (context) => sl<ReviewBloc>()
-                  ..add(GetToiletReviewsByToiletIdEvent(
-                      toiletId: widget.toilet.id)),
+              /////////////////////////////////////
+              /////////////////////////////////////
+              /////////////////////////////////////
+
+              Visibility(
+                visible: _selectedIndex == 0,
                 child: shouldBlur
-                    ? _blurredContainer(ToiletBottomSheetReview(widget.toilet))
-                    : ToiletBottomSheetReview(widget.toilet),
+                    ? _blurredContainer(
+                        ToiletBottomSheetInformation(widget.toilet))
+                    : ToiletBottomSheetInformation(widget.toilet),
+              ),
+
+              /////////////////////////////////////
+              /////////////////////////////////////
+              /////////////////////////////////////
+
+              Visibility(
+                visible: _selectedIndex == 1,
+                child: BlocProvider(
+                  create: (context) => sl<ReviewBloc>()
+                    ..add(GetToiletReviewsByToiletIdEvent(
+                        toiletId: widget.toilet.id)),
+                  child: shouldBlur
+                      ? _blurredContainer(
+                          ToiletBottomSheetReview(widget.toilet))
+                      : ToiletBottomSheetReview(widget.toilet),
+                ),
               ),
             ],
           ),

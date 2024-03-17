@@ -45,6 +45,7 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
           child: SingleChildScrollView(
             controller: widget.controller,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 BottomSheetMain(
                   toilet: widget.toilet,

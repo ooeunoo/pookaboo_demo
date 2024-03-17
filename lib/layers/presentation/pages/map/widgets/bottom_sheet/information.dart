@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,6 +103,7 @@ class _ToiletBottomSheetInformationState
       if (hasAmenity) {
         _amenities.add({'section': 'amenity', "emoji": emoji, "title": name});
       }
+      log.d(_amenities);
     }
   }
 
@@ -151,26 +153,20 @@ class _ToiletBottomSheetInformationState
           /////////////////////////////////////////////////////////////////////////////////
           ////// Equipment
           /////////////////////////////////////////////////////////////////////////////////
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _equipments.length,
-            itemBuilder: (context, index) {
-              final equipment = _equipments[index];
-
+          Column(mainAxisSize: MainAxisSize.min, children: [
+            ..._equipments.map((equipment) {
               return Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: Dimens.space20, vertical: Dimens.space12),
                 child: _equipmentWidget(
                     equipment["emoji"], equipment["title"], equipment["value"]),
               );
-            },
-          ),
+            })
+          ]),
 
           /////////////////////////////////////////////////////////////////////////////////
           ////// Convenience
           /////////////////////////////////////////////////////////////////////////////////
-
           if (_conveniences.isNotEmpty) ...{
             AppSpacerV(value: Dimens.space30),
             const AppDivider(),
@@ -181,20 +177,15 @@ class _ToiletBottomSheetInformationState
                   style: Theme.of(context).textTheme.bodyMedium!),
             ),
             AppSpacerV(value: Dimens.space30),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _conveniences.length,
-              itemBuilder: (context, index) {
-                final convenience = _conveniences[index];
-
+            Column(mainAxisSize: MainAxisSize.min, children: [
+              ..._conveniences.map((convenience) {
                 return Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: Dimens.space20, vertical: Dimens.space12),
                     child: _convenienceWidget(
                         convenience["emoji"], convenience["title"]));
-              },
-            ),
+              })
+            ]),
           },
 
           /////////////////////////////////////////////////////////////////////////////////
@@ -210,20 +201,16 @@ class _ToiletBottomSheetInformationState
                   style: Theme.of(context).textTheme.bodyMedium!),
             ),
             AppSpacerV(value: Dimens.space30),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _amenities.length,
-              itemBuilder: (context, index) {
-                final amenity = _amenities[index];
-
+            Column(mainAxisSize: MainAxisSize.min, children: [
+              ..._amenities.map((amenity) {
                 return Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: Dimens.space20, vertical: Dimens.space12),
                     child: _amenityWidget(amenity["emoji"], amenity["title"]));
-              },
-            ),
-          }
+              })
+            ]),
+          },
+          const Text("hello")
         ],
       ),
     );

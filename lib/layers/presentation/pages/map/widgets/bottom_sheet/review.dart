@@ -76,6 +76,7 @@ class _ToiletBottomSheetReviewState extends State<ToiletBottomSheetReview> {
               padding: EdgeInsets.symmetric(
                   horizontal: Dimens.space20, vertical: Dimens.space12),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   AppReviewCard(review: review),
                   AppSpacerV(

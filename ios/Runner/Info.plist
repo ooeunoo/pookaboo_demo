@@ -104,7 +104,13 @@
 		<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 		<!-- 			Permission     			-->
 		<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+		<!-- Location(GPS) -->
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>This app needs access to location when open.</string>
+		<!-- Camera -->
+		<key>NSCameraUsageDescription</key>
+		<string>your usage description here</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>your usage description here</string>
 	</dict>
 </plist>
