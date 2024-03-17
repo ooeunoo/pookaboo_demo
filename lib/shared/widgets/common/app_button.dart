@@ -53,15 +53,19 @@ class AppButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (image != null)
-              Padding(
-                padding: EdgeInsets.only(right: Dimens.space4),
-                child: SizedBox(
-                  width: Dimens.icon,
-                  height: Dimens.icon,
-                  child: image!,
-                ),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: Dimens.space4),
+                    child: SizedBox(
+                      width: Dimens.icon,
+                      height: Dimens.icon,
+                      child: image!,
+                    ),
+                  ),
+                  AppSpacerH(value: Dimens.space8),
+                ],
               ),
-            AppSpacerH(value: Dimens.space8),
             AppText(
               title,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(

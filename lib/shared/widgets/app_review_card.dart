@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pookaboo/layers/toilet/data/models/review.dart';
-import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
+import 'package:pookaboo/layers/data/models/review/review.dart';
+import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/time_helper.dart';
@@ -11,8 +11,9 @@ import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class AppReviewCard extends StatelessWidget {
   final Review review;
+  final int? maxLine;
 
-  const AppReviewCard({super.key, required this.review});
+  const AppReviewCard({super.key, required this.review, this.maxLine});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,9 @@ class AppReviewCard extends StatelessWidget {
         AppSpacerV(
           value: Dimens.space20,
         ),
-        AppText(review.comment ?? "",
+        AppText(review.comment,
+            maxLines: maxLine ?? 3,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyMedium!),
         AppSpacerV(
           value: Dimens.space20,
@@ -39,9 +42,6 @@ class AppReviewCard extends StatelessWidget {
                 "${review.user!.nickname ?? review.user!.name}﹒${parseAndFormatDateTime(review.created_at)}",
                 style: Theme.of(context).textTheme.labelMedium!),
           ],
-        ),
-        AppSpacerV(
-          value: Dimens.space20,
         ),
       ],
     );

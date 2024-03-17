@@ -52,15 +52,14 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
             child: DropdownButtonFormField<T>(
               isExpanded: true,
               focusNode: widget.focusNode,
-              dropdownColor:
-                  Theme.of(context).extension<PookabooColors>()!.card,
+              dropdownColor: Palette.coolGrey12,
               icon: const Icon(Icons.arrow_drop_down),
               decoration: InputDecoration(
                 alignLabelWithHint: true,
                 isDense: true,
                 isCollapsed: true,
                 filled: true,
-                fillColor: Theme.of(context).extension<PookabooColors>()!.card,
+                fillColor: Palette.coolGrey12,
                 prefixIcon: Padding(
                   padding: EdgeInsets.only(left: Dimens.space12),
                   child: widget.prefixIcon,
@@ -75,7 +74,7 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
                   borderRadius: BorderRadius.circular(Dimens.space12),
                   borderSide: const BorderSide(color: Palette.coolGrey09),
                   // borderSide: BorderSide(
-                  //   color: Theme.of(context).extension<PookabooColors>()!.card!,
+                  //   color: Palette.card!,
                   // ),
                 ),
                 border: OutlineInputBorder(
@@ -92,21 +91,21 @@ class _AppDropDownState<T> extends State<AppDropDown<T>> {
                   gapPadding: 0,
                   borderRadius: BorderRadius.circular(Dimens.space12),
                   // borderSide: BorderSide(
-                  //   color: Theme.of(context).extension<PookabooColors>()!.red!,
+                  //   color: Palette.red!,
                   // ),
                 ),
                 errorBorder: OutlineInputBorder(
                   gapPadding: 0,
                   borderRadius: BorderRadius.circular(Dimens.space12),
                   // borderSide: BorderSide(
-                  //   color: Theme.of(context).extension<PookabooColors>()!.red!,
+                  //   color: Palette.red!,
                   // ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   gapPadding: 0,
                   borderRadius: BorderRadius.circular(Dimens.space12),
                   // borderSide: BorderSide(
-                  //   color: Theme.of(context).extension<PookabooColors>()!.pink!,
+                  //   color: Palette.pink!,
                   // ),
                 ),
               ),

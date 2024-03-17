@@ -65,6 +65,7 @@ class Dimens {
   static double profilePicture = 110.w;
   static double birthdayCalendar = 120.w;
 
+  // static double smallButtonH:
   static double buttonH = 52.w;
   static double imageW = 46.w;
 

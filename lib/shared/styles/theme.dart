@@ -10,8 +10,6 @@ ThemeData themeLight(BuildContext context) => ThemeData(
       primaryColor: Palette.pinkLatte,
       disabledColor: Palette.shadowDark,
       hintColor: Palette.coolGrey05,
-      // cardColor: Palette.coolGrey12,
-
       scaffoldBackgroundColor: Palette.coolGrey12,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Palette.coolGrey12,
@@ -75,11 +73,11 @@ ThemeData themeLight(BuildContext context) => ThemeData(
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
         color: Palette.coolGrey12,
         iconTheme: const IconThemeData(color: Palette.coolGrey01),
-        systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-          statusBarColor: Colors.transparent,
-        ),
+        // systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+        //   statusBarColor: Colors.transparent,
+        // ),
         surfaceTintColor: Palette.coolGrey12,
-        shadowColor: Palette.shadow,
+        // shadowColor: Palette.shadow,
       ),
       bottomSheetTheme: const BottomSheetThemeData().copyWith(
         backgroundColor: Palette.coolGrey11,
@@ -191,11 +189,11 @@ ThemeData themeDark(BuildContext context) => ThemeData(
         titleTextStyle: Theme.of(context).textTheme.bodyLarge,
         color: Palette.coolGrey12,
         iconTheme: const IconThemeData(color: Palette.coolGrey01),
-        systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-          statusBarColor: Colors.transparent,
-        ),
+        // systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+        //   statusBarColor: Colors.transparent,
+        // ),
         surfaceTintColor: Palette.coolGrey12,
-        shadowColor: Palette.shadow,
+        // shadowColor: Palette.shadow,
       ),
       bottomSheetTheme: const BottomSheetThemeData().copyWith(
         backgroundColor: Palette.coolGrey11,

@@ -5,12 +5,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pookaboo/injection.dart';
-import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
-import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
-import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
-import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
-import 'package:pookaboo/layers/toilet/presentation/bloc/visitation/visitation_bloc.dart';
-import 'package:pookaboo/layers/user/presentation/bloc/profile_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
+import 'package:pookaboo/layers/presentation/cubit/settings/setting_cubit.dart';
+import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/profile/profile_bloc.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/localization/l10n.dart';
@@ -68,10 +68,10 @@ class PookabooApp extends StatelessWidget {
                 },
                 title: Config.get.appName,
                 theme: themeLight(context),
-                // darkTheme: themeDark(context),
+                darkTheme: themeDark(context),
                 locale: Locale(data.type ?? "ko"),
                 supportedLocales: L10n.all,
-                // themeMode: data.activeTheme.mode,
+                themeMode: data.activeTheme.mode,
               ),
             );
           },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_toast.dart';
@@ -20,7 +21,7 @@ extension StringExtension on String {
 
       showToastWidget(
         AppToast(
-          bgColor: Theme.of(context).extension<PookabooColors>()!.red,
+          bgColor: Palette.redLatte,
           icon: Icons.error,
           message: message,
           textColor: Colors.white,
@@ -45,7 +46,7 @@ extension StringExtension on String {
       // showToast(msg)
       showToastWidget(
         AppToast(
-          bgColor: Theme.of(context).extension<PookabooColors>()!.green,
+          bgColor: Palette.greenLatte,
           icon: Icons.check_circle,
           message: message,
           textColor: Colors.white,
@@ -68,7 +69,7 @@ extension StringExtension on String {
 
       showToastWidget(
         AppToast(
-          bgColor: Theme.of(context).extension<PookabooColors>()!.pink,
+          bgColor: Palette.pinkLatte,
           icon: Icons.info,
           message: message,
           textColor: Colors.white,

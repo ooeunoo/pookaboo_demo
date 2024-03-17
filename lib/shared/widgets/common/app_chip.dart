@@ -29,6 +29,7 @@ class _AppChipState extends State<AppChip> {
   Widget build(BuildContext context) {
     isSelected = widget.isSelected;
     return InkWell(
+      splashColor: Colors.transparent,
       onTap: widget.onTap,
       child: Chip(
         labelPadding: EdgeInsets.zero,

@@ -118,7 +118,7 @@ class _AppColorLoaderState extends State<AppColorLoader>
                   ),
                   child: Dot(
                     radius: dotRadius,
-                    color: Theme.of(context).extension<PookabooColors>()!.red,
+                    color: Palette.redLatte,
                   ),
                 ),
                 Transform.translate(
@@ -128,8 +128,7 @@ class _AppColorLoaderState extends State<AppColorLoader>
                   ),
                   child: Dot(
                     radius: dotRadius,
-                    color:
-                        Theme.of(context).extension<PookabooColors>()!.yellow,
+                    color: Palette.yellowLatte,
                   ),
                 ),
                 Transform.translate(
@@ -139,7 +138,7 @@ class _AppColorLoaderState extends State<AppColorLoader>
                   ),
                   child: Dot(
                     radius: dotRadius,
-                    color: Theme.of(context).extension<PookabooColors>()!.green,
+                    color: Palette.greenLatte,
                   ),
                 ),
                 Transform.translate(
@@ -149,8 +148,7 @@ class _AppColorLoaderState extends State<AppColorLoader>
                   ),
                   child: Dot(
                     radius: dotRadius,
-                    color:
-                        Theme.of(context).extension<PookabooColors>()!.flamingo,
+                    color: Palette.flamingoLatte,
                   ),
                 ),
                 Transform.translate(
@@ -160,8 +158,7 @@ class _AppColorLoaderState extends State<AppColorLoader>
                   ),
                   child: Dot(
                     radius: dotRadius,
-                    color:
-                        Theme.of(context).extension<PookabooColors>()!.lavender,
+                    color: Palette.lavenderLatte,
                   ),
                 ),
                 Transform.translate(
@@ -171,7 +168,7 @@ class _AppColorLoaderState extends State<AppColorLoader>
                   ),
                   child: Dot(
                     radius: dotRadius,
-                    color: Theme.of(context).extension<PookabooColors>()!.pink,
+                    color: Palette.pinkLatte,
                   ),
                 ),
               ],

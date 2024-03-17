@@ -23,7 +23,8 @@ class _AppStarScoreState extends State<AppStarScore> {
     return Row(
       children: List.generate(
         5,
-        (index) => GestureDetector(
+        (index) => InkWell(
+          splashColor: Colors.transparent,
           onTap: () {
             setState(() {
               if (rating == index + 1) {

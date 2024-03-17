@@ -73,6 +73,7 @@ class Palette {
   static const Color lemon03 = Color(0xffE0DD6B);
   static const Color skyblue01 = Color(0xff3D98FF);
   static const Color red01 = Color(0xffFF4D4D);
+  static const Color red02 = Color(0xffFF4D4D);
 
   // primary
   static const Color primary = Color(0xffE18925);

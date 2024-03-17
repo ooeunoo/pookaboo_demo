@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
+import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 Map<String, String> getCurrentDayAndTime() {
@@ -79,3 +79,5 @@ String parseAndFormatDateTime(DateTime dateTime) {
   String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
   return formattedDate;
 }
+
+final timestamp = DateTime.now().millisecondsSinceEpoch;

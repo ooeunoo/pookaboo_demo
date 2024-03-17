@@ -40,6 +40,7 @@ class _AppParentState extends State<AppParent> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         key: widget.scaffoldKey,
