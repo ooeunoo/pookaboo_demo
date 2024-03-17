@@ -9,10 +9,10 @@ class CreateReviewParams with _$CreateReviewParams {
   factory CreateReviewParams(
       {required int toiletId,
       required String userId,
-      @Default(0) int cleanliness,
-      @Default(0) int convenience,
-      @Default(0) int safety,
-      @Default(0) int management,
+      @Default(0) double cleanliness,
+      @Default(0) double convenience,
+      @Default(0) double safety,
+      @Default(0) double management,
       @Default('') String comment}) = _CreateReviewParams;
 
   factory CreateReviewParams.fromJson(Map<String, dynamic> json) =>

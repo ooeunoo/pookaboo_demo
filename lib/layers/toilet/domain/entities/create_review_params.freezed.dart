@@ -22,10 +22,10 @@ CreateReviewParams _$CreateReviewParamsFromJson(Map<String, dynamic> json) {
 mixin _$CreateReviewParams {
   int get toiletId => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
-  int get cleanliness => throw _privateConstructorUsedError;
-  int get convenience => throw _privateConstructorUsedError;
-  int get safety => throw _privateConstructorUsedError;
-  int get management => throw _privateConstructorUsedError;
+  double get cleanliness => throw _privateConstructorUsedError;
+  double get convenience => throw _privateConstructorUsedError;
+  double get safety => throw _privateConstructorUsedError;
+  double get management => throw _privateConstructorUsedError;
   String get comment => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,10 +43,10 @@ abstract class $CreateReviewParamsCopyWith<$Res> {
   $Res call(
       {int toiletId,
       String userId,
-      int cleanliness,
-      int convenience,
-      int safety,
-      int management,
+      double cleanliness,
+      double convenience,
+      double safety,
+      double management,
       String comment});
 }
 
@@ -83,19 +83,19 @@ class _$CreateReviewParamsCopyWithImpl<$Res, $Val extends CreateReviewParams>
       cleanliness: null == cleanliness
           ? _value.cleanliness
           : cleanliness // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       convenience: null == convenience
           ? _value.convenience
           : convenience // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       safety: null == safety
           ? _value.safety
           : safety // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       management: null == management
           ? _value.management
           : management // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       comment: null == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
@@ -115,10 +115,10 @@ abstract class _$$CreateReviewParamsImplCopyWith<$Res>
   $Res call(
       {int toiletId,
       String userId,
-      int cleanliness,
-      int convenience,
-      int safety,
-      int management,
+      double cleanliness,
+      double convenience,
+      double safety,
+      double management,
       String comment});
 }
 
@@ -153,19 +153,19 @@ class __$$CreateReviewParamsImplCopyWithImpl<$Res>
       cleanliness: null == cleanliness
           ? _value.cleanliness
           : cleanliness // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       convenience: null == convenience
           ? _value.convenience
           : convenience // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       safety: null == safety
           ? _value.safety
           : safety // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       management: null == management
           ? _value.management
           : management // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       comment: null == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
@@ -195,16 +195,16 @@ class _$CreateReviewParamsImpl implements _CreateReviewParams {
   final String userId;
   @override
   @JsonKey()
-  final int cleanliness;
+  final double cleanliness;
   @override
   @JsonKey()
-  final int convenience;
+  final double convenience;
   @override
   @JsonKey()
-  final int safety;
+  final double safety;
   @override
   @JsonKey()
-  final int management;
+  final double management;
   @override
   @JsonKey()
   final String comment;
@@ -256,10 +256,10 @@ abstract class _CreateReviewParams implements CreateReviewParams {
   factory _CreateReviewParams(
       {required final int toiletId,
       required final String userId,
-      final int cleanliness,
-      final int convenience,
-      final int safety,
-      final int management,
+      final double cleanliness,
+      final double convenience,
+      final double safety,
+      final double management,
       final String comment}) = _$CreateReviewParamsImpl;
 
   factory _CreateReviewParams.fromJson(Map<String, dynamic> json) =
@@ -270,13 +270,13 @@ abstract class _CreateReviewParams implements CreateReviewParams {
   @override
   String get userId;
   @override
-  int get cleanliness;
+  double get cleanliness;
   @override
-  int get convenience;
+  double get convenience;
   @override
-  int get safety;
+  double get safety;
   @override
-  int get management;
+  double get management;
   @override
   String get comment;
   @override

@@ -6,6 +6,7 @@ import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/toilet/data/models/toilet.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -123,7 +124,7 @@ class _ToiletBottomSheetInformationState
               itemBuilder: (context, index) {
                 return _images.isEmpty
                     ? SizedBox(
-                        width: Dimens.fullWidth(context),
+                        width: context.widthInPercent(100),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(Dimens.space12),
                           child: Image.asset(

@@ -84,9 +84,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           timeFilter: _hasFillter(ToiletFilter.time),
           genderFilter: _hasFillter(ToiletFilter.gender));
 
-      log.d(params);
       final response = await _getNearByToiletsUseCase(params);
-      log.d(response);
       response.fold((l) {
         log.e(l);
       }, (r) async {

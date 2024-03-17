@@ -118,7 +118,6 @@ class _UpdateUserDataBottomSheetState extends State<UpdateUserDataBottomSheet> {
             nextFocusNode: _ageFocusNode,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.text,
-            // validator: (String? value) => _checkValidNickname(),
             onChanged: (_) {
               setState(() {
                 _isValidNickname = _nicknameController.text.isNotEmpty &&

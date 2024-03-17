@@ -7,7 +7,7 @@ abstract class AuthEvent extends Equatable {}
 ///
 ///
 ////////////////////////////////
-class InitialCheckRequestedEvent extends AuthEvent {
+class CheckRequestedEvent extends AuthEvent {
   @override
   List<Object?> get props => [];
 }

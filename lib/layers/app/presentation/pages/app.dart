@@ -5,10 +5,12 @@ import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/pages/update_user_data_bottom_sheet/update_user_data_bottom_sheet.dart';
 import 'package:pookaboo/layers/app/presentation/widgets/navigation_bar_item_widget.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class AppPage extends StatefulWidget {
   final Widget screen;
@@ -20,6 +22,7 @@ class AppPage extends StatefulWidget {
 }
 
 class _AppPageState extends State<AppPage> {
+  late bool checked = true;
   final SecureStorage _secureStorage = sl<SecureStorage>();
 
   @override
@@ -28,9 +31,15 @@ class _AppPageState extends State<AppPage> {
   }
 
   void _checkUserUpdate() async {
-    bool require = await _secureStorage.requiredUpdatedInitialUserData();
-    if (require) {
-      _showUpdateUserMetadataBottomSheet();
+    if (checked) {
+      bool required = await _secureStorage.requiredUpdatedInitialUserData();
+      if (required) {
+        _showUpdateUserMetadataBottomSheet();
+      } else {
+        setState(() {
+          checked = false;
+        });
+      }
     }
   }
 
@@ -75,12 +84,12 @@ class _AppPageState extends State<AppPage> {
   Widget buildBottomNavigation(BuildContext context, AppState state) {
     final tabs = [
       NavigationBarItemWidget(
-        initialLocation: AppRoutes.map.path,
+        path: AppRoutes.map.path,
         icon: const Icon(Icons.search),
         label: 'Home',
       ),
       NavigationBarItemWidget(
-        initialLocation: AppRoutes.profile.path,
+        path: AppRoutes.profile.path,
         icon: const Icon(Icons.person),
         label: 'Profile',
       ),
@@ -98,8 +107,9 @@ class _AppPageState extends State<AppPage> {
             onTap: (value) async {
               if (value != state.index) {
                 context.read<AppCubit>().changeBottomNavigation(value);
-                context.go(tabs[value].initialLocation);
-                // 흠.. 바텀시트가 열려있을때 닫고 다른 페이지로 이동하기 위한 코드. 동작 이해 아직 안됨.
+
+                context.go(tabs[value].path);
+                // 흠. 바텀시트가 열려있을때 닫고 다른 페이지로 이동하기 위한 코드. 동작 이해 아직 안됨.
                 if (context.canPop()) {
                   context.pop();
                 }

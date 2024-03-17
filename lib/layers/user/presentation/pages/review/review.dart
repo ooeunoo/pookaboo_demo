@@ -1,83 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/toilet/data/models/review.dart';
 import 'package:pookaboo/mocks/image.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
-import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 import 'package:pookaboo/shared/widgets/review_header.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({super.key});
+  final String userId;
+
+  const ReviewPage({super.key, required this.userId});
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
-  final List<Review> _reviews = [
-    // {
-    //   "id": 1,
-    //   "image":
-    //       "https://cdn.pixabay.com/photo/2014/02/13/11/56/wc-265278_1280.jpg",
-    //   "name": "송파 파크하이오",
-    //   "date": "2023.02.03",
-    //   "ratings": {'clean': 0, 'convenience': 1, 'management': 2, 'safety': 3},
-    //   "comment": "너무 좋아요,너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요"
-    // },
-    // {
-    //   "id": 2,
-    //   "image":
-    //       "https://cdn.pixabay.com/photo/2016/09/12/23/35/urinal-1666092_1280.jpg",
-    //   "name": "청량리 현대아파트",
-    //   "date": "2023.04.03",
-    //   "ratings": {'clean': 0, 'convenience': 1, 'management': 2, 'safety': 3},
-    //   "comment": "너무 좋아요,너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요"
-    // },
-    // {
-    //   "id": 3,
-    //   "image":
-    //       "https://cdn.pixabay.com/photo/2013/05/14/16/56/wc-111092_1280.jpg",
-    //   "name": "동대문 경찰서",
-    //   "date": "2023.03.03",
-    //   "ratings": {'clean': 0, 'convenience': 1, 'management': 2, 'safety': 3},
-    //   "comment":
-    //       "너무 좋아요,너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요,너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요,너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요,너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요너무 좋아요"
-    // }
-  ];
+  final SecureStorage _secureStorage = sl<SecureStorage>();
 
-  // Widget _buildRatingLabel(String label, int rating, {bool divider = true}) {
-  //   return Row(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       AppText("$label ", style: Theme.of(context).textTheme.labelLarge!),
-  //       AppText("$rating",
-  //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
-  //                 color: Palette.lemon03,
-  //               )),
-  //       if (divider) ...[
-  //         const AppSpacerH(),
-  //         AppText('|', style: Theme.of(context).textTheme.labelLarge!),
-  //         const AppSpacerH(),
-  //       ],
-  //     ],
-  //   );
-  // }
-
-  // Widget _buildRatings(Map<String, dynamic> ratings) {
-  //   return Row(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       _buildRatingLabel("청결도", ratings['clean']),
-  //       _buildRatingLabel("편의성", ratings['convenience']),
-  //       _buildRatingLabel("관리도", ratings['management']),
-  //       _buildRatingLabel("안전성", ratings['safety'], divider: false),
-  //     ],
-  //   );
-  // }
+  final List<Review> _reviews = [];
 
   @override
   Widget build(BuildContext context) {

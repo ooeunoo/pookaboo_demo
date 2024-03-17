@@ -59,7 +59,6 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
 
       return Right(formatResponse);
     } catch (e) {
-      log.d(e);
       // log.e('e: $e');
       return Left(ServerFailure(e.toString()));
     }

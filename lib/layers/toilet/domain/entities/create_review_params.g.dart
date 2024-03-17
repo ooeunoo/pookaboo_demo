@@ -11,10 +11,10 @@ _$CreateReviewParamsImpl _$$CreateReviewParamsImplFromJson(
     _$CreateReviewParamsImpl(
       toiletId: json['toiletId'] as int,
       userId: json['userId'] as String,
-      cleanliness: json['cleanliness'] as int? ?? 0,
-      convenience: json['convenience'] as int? ?? 0,
-      safety: json['safety'] as int? ?? 0,
-      management: json['management'] as int? ?? 0,
+      cleanliness: (json['cleanliness'] as num?)?.toDouble() ?? 0,
+      convenience: (json['convenience'] as num?)?.toDouble() ?? 0,
+      safety: (json['safety'] as num?)?.toDouble() ?? 0,
+      management: (json['management'] as num?)?.toDouble() ?? 0,
       comment: json['comment'] as String? ?? '',
     );
 

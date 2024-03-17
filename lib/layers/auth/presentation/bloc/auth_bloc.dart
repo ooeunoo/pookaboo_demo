@@ -19,7 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   StreamSubscription<User?>? _userSubscription;
 
   AuthBloc(this._secureStorage, this._authUseCase) : super(InitialState()) {
-    on<InitialCheckRequestedEvent>(_onInitialCheckedRequestEvent);
+    on<CheckRequestedEvent>(_onCheckedRequestEvent);
     on<SignInWithKakaoEvent>(_onSignInWithKakaoEvent);
     on<ChangedUserEvent>(_onChangedUserEvent);
     on<LogoutEvent>(_onLogoutEvent);
@@ -28,8 +28,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _startUserSubscription();
   }
 
-  Future<void> _onInitialCheckedRequestEvent(
-      InitialCheckRequestedEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onCheckedRequestEvent(
+      CheckRequestedEvent event, Emitter<AuthState> emit) async {
     AppUser? appUser = await _authUseCase.getSignedInUser();
     appUser != null
         ? await _triggerBeforeAuthenticatedState(emit, appUser)

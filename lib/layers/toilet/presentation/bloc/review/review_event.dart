@@ -7,10 +7,12 @@ abstract class ReviewEvent extends Equatable {}
 /// Review Create
 ////////////////////////////////
 class CreateToiletReviewEvent extends ReviewEvent {
-  CreateToiletReviewEvent();
+  final CreateReviewParams params;
+
+  CreateToiletReviewEvent({required this.params});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [params];
 }
 
 /////////////////////////////////

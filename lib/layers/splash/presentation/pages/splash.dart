@@ -6,7 +6,6 @@ import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
 import 'package:pookaboo/shared/widgets/common/app_parent.dart';
 
-/// © 2020 | All Right Reserved
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -19,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      context.goNamed(AppRoutes.map.name);
+      context.go(AppRoutes.map.path);
     });
   }
 
@@ -33,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
             backgroundColor: Theme.of(context).hintColor,
             radius: Dimens.menu + Dimens.space6,
             child: CircleAvatar(
-              backgroundImage: AssetImage(Images.icLogo),
+              backgroundImage: const AssetImage(Images.icLogo),
               radius: Dimens.menu,
             ),
           ),

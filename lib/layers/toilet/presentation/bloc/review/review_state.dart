@@ -12,6 +12,14 @@ class InitialState extends ReviewState {
 }
 
 /////////////////////////////////
+/// Success Create Toielt Review
+////////////////////////////////
+class SuccessCreateToiletReviewState extends ReviewState {
+  @override
+  List<Object> get props => [];
+}
+
+/////////////////////////////////
 /// Searching Review
 ////////////////////////////////
 class SearchingToiletReviewState extends ReviewState {

@@ -19,6 +19,7 @@ import 'package:pookaboo/layers/toilet/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/setting/presentation/cubit/setting_cubit.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/visitation/visitation_bloc.dart';
+import 'package:pookaboo/layers/user/presentation/bloc/profile_bloc.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/service/hive/main_box.dart';
 import 'package:pookaboo/shared/service/kakao/kakao_map_service.dart';
@@ -92,6 +93,7 @@ Future<void> _bloc() async {
   sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl()));
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));
+  sl.registerFactory(() => ProfileBloc());
 }
 
 Future<void> _cubit() async {

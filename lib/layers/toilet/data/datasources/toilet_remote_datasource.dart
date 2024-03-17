@@ -8,7 +8,6 @@ import 'package:pookaboo/layers/toilet/domain/entities/get_nearby_toilets_params
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/service/supabase/supabase_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract class ToiletRemoteDatasource {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsDatasource(
@@ -50,8 +49,6 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
         'password_filter': params.passwordFilter,
         'time_filter': params.timeFilter,
       });
-
-      log.d(data);
 
       final List<Toilet> toilets =
           data.map((json) => Toilet.fromJson(json)).toList();
@@ -102,7 +99,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
       final List<Map<String, dynamic>> data = await _supabaseService.client
           .from('toilet_visitation')
           .select('*, toilet(*)')
-          .eq('user_id', userId);
+          .eq('user_id', userId)
+          .order('created_at', ascending: false);
       final List<Visitation> visitations =
           data.map((json) => Visitation.fromJson(json)).toList();
       return Right(visitations);
@@ -141,7 +139,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
       final List<Map<String, dynamic>> data = await _supabaseService.client
           .from('toilet_review')
           .select('*, user(*)')
-          .eq('toilet_id', toiletId);
+          .eq('toilet_id', toiletId)
+          .order('created_at', ascending: false);
 
       final List<Review> reviews =
           data.map((json) => Review.fromJson(json)).toList();
@@ -160,7 +159,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
       final List<Map<String, dynamic>> data = await _supabaseService.client
           .from('toilet_review')
           .select('*, toilet(*)')
-          .eq('user_id', userId);
+          .eq('user_id', userId)
+          .order('created_at', ascending: false);
       final List<Review> reviews =
           data.map((json) => Review.fromJson(json)).toList();
       return Right(reviews);

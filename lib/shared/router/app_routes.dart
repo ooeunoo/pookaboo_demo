@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -7,12 +6,13 @@ import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/layers/app/presentation/pages/app.dart';
 import 'package:pookaboo/layers/auth/presentation/bloc/auth_bloc.dart';
 import 'package:pookaboo/layers/toilet/presentation/bloc/review/review_bloc.dart';
+import 'package:pookaboo/layers/toilet/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/user/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/splash/presentation/pages/splash.dart';
 import 'package:pookaboo/layers/toilet/presentation/pages/map/map.dart';
 import 'package:pookaboo/layers/user/presentation/pages/review/review.dart';
-import 'package:pookaboo/layers/user/presentation/pages/review_old/review.dart';
 import 'package:pookaboo/layers/user/presentation/pages/visitation/visitation.dart';
+import 'package:pookaboo/shared/router/extra_params.dart';
 import 'package:pookaboo/shared/router/router_refresh_stream.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
@@ -85,24 +85,31 @@ class AppRoute {
           GoRoute(
             path: AppRoutes.visitation.path,
             name: AppRoutes.visitation.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              child: VisitationPage(),
-            ),
+            pageBuilder: (context, state) {
+              final extra = state.extra! as ExtraParams;
+              context
+                  .read<VisitataionBloc>()
+                  .add(GetToiletVisitationsByUserIdEvent(userId: extra.userId));
+              return MaterialPage(
+                child: VisitationPage(userId: extra.userId),
+              );
+            },
           ),
           GoRoute(
             path: AppRoutes.reviews.path,
             name: AppRoutes.reviews.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              child: ReviewPage(),
-            ),
+            pageBuilder: (context, state) {
+              final extra = state.extra! as ExtraParams;
+              context
+                  .read<ReviewBloc>()
+                  .add(GetToiletReviewsByUserIdEvent(userId: extra.userId));
+              return MaterialPage(
+                child: ReviewPage(userId: extra.userId),
+              );
+            },
           ),
         ],
       ),
-      // GoRoute(
-      //   path: AppRoutes.root.path,
-      //   name: AppRoutes.root.name,
-      //   redirect: (_, __) => AppRoutes.dashboard.path,
-      // ),
     ],
     initialLocation: AppRoutes.splash.path,
     routerNeglect: true,
@@ -128,7 +135,6 @@ class AppRoute {
 
       // if (currentPath == AppRoutes.login.path) {}
 
-      return null;
       // ///  Check if not login
       // ///  if current page is login page we don't need to direct user
       // ///  but if not we must direct user to login page
@@ -147,6 +153,7 @@ class AppRoute {
       // }
 
       /// No direct
+      return null;
     },
   );
 }

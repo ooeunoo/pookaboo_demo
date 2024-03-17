@@ -5,11 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/app/presentation/cubit/app_cubit.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
-import 'package:pookaboo/shared/router/app_routes.dart';
-import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
-import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class LogInMessage extends StatelessWidget {
@@ -28,21 +24,19 @@ class LogInMessage extends StatelessWidget {
             context.pop();
           }
         },
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppText('✨ 로그인하여 더 많은 정보를 확인해보세요.',
-                  style: Theme.of(context).textTheme.bodySmall!),
-              SvgPicture.asset(
-                Images.arrowRight,
-                colorFilter: const ColorFilter.mode(
-                  Palette.white,
-                  BlendMode.srcIn,
-                ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppText('✨ 로그인하여 더 많은 정보를 확인해보세요.',
+                style: Theme.of(context).textTheme.bodySmall!),
+            SvgPicture.asset(
+              Images.arrowRight,
+              colorFilter: const ColorFilter.mode(
+                Palette.white,
+                BlendMode.srcIn,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     });

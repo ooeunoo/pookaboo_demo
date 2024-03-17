@@ -12,6 +12,14 @@ class InitialState extends VisitationState {
 }
 
 /////////////////////////////////
+/// Empty
+////////////////////////////////
+class EmptyState extends VisitationState {
+  @override
+  List<Object> get props => [];
+}
+
+/////////////////////////////////
 /// Searching Visitation
 ////////////////////////////////
 class SearchingToiletVisitationtate extends VisitationState {
