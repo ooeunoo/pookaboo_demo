@@ -10,6 +10,8 @@ ThemeData themeLight(BuildContext context) => ThemeData(
       primaryColor: Palette.pinkLatte,
       disabledColor: Palette.shadowDark,
       hintColor: Palette.coolGrey05,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       scaffoldBackgroundColor: Palette.coolGrey12,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Palette.coolGrey12,
@@ -125,6 +127,8 @@ ThemeData themeDark(BuildContext context) => ThemeData(
       disabledColor: Palette.shadowDark,
       hintColor: Palette.coolGrey05,
       cardColor: Palette.coolGrey12,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       scaffoldBackgroundColor: Palette.coolGrey12,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Palette.coolGrey12,

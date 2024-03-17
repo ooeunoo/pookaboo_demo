@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/injection.dart';
@@ -10,6 +11,7 @@ import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class AppPage extends StatefulWidget {
@@ -95,16 +97,16 @@ class _AppPageState extends State<AppPage> {
     return Visibility(
         visible: state.visible,
         child: Container(
-          // height: Dimens.,
           decoration: const BoxDecoration(
               color: Palette.coolGrey08,
               border: Border(
                   top: BorderSide(color: Palette.coolGrey08, width: 1.0))),
           child: BottomNavigationBar(
             onTap: (value) async {
+              onHeavyVibration();
+
               if (value != state.index) {
                 context.read<AppCubit>().changeBottomNavigation(value);
-
                 context.go(tabs[value].path);
                 // 흠. 바텀시트가 열려있을때 닫고 다른 페이지로 이동하기 위한 코드. 동작 이해 아직 안됨.
                 if (context.canPop()) {
@@ -122,9 +124,5 @@ class _AppPageState extends State<AppPage> {
             currentIndex: state.index,
           ),
         ));
-  }
-
-  Widget buildBottomSheet(BuildContext context) {
-    return Container();
   }
 }

@@ -18,6 +18,7 @@ import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
+import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_chip.dart';
 
@@ -175,18 +176,19 @@ class _MapPageState extends State<MapPage> {
                     child: Container(
                       width: Dimens.space40,
                       height: Dimens.space40,
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(Dimens.space8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(Dimens.space12),
                         border: Border.all(
-                            width: 1, color: const Color(0xFFD3D7DF)),
+                            width: Dimens.space1,
+                            color: const Color(0xFFD3D7DF)),
                         // gap: const EdgeInsets.all(10),
                         color: Palette.white,
                       ),
                       child: SvgPicture.asset(
                         Images.arrowLeft,
-                        width: 24, // SVG 이미지의 너비 조정 가능
-                        height: 24, // SVG 이미지의 높이 조정 가능
+                        width: Dimens.space24,
+                        height: Dimens.space24,
                       ),
                     ),
                   )),
@@ -209,6 +211,7 @@ class _MapPageState extends State<MapPage> {
                           icon: filter.icon,
                           isSelected: _filtered.contains(filter),
                           onTap: () {
+                            onMediumVibration();
                             context
                                 .read<MapBloc>()
                                 .add(UpdateToiletFilterEvent(filter: filter));
@@ -229,23 +232,25 @@ class _MapPageState extends State<MapPage> {
                   child: InkWell(
                     splashColor: Colors.transparent,
                     onTap: () {
+                      onMediumVibration();
                       context.read<MapBloc>().add(MoveToMyPositionEvent());
                     },
                     child: Container(
                       width: Dimens.space40,
                       height: Dimens.space40,
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(Dimens.space8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(Dimens.space12),
                         border: Border.all(
-                            width: 1, color: const Color(0xFFD3D7DF)),
+                            width: Dimens.space1,
+                            color: const Color(0xFFD3D7DF)),
                         // gap: const EdgeInsets.all(10),
                         color: Palette.white,
                       ),
                       child: SvgPicture.asset(
                         Images.currentPosition,
-                        width: 24, // SVG 이미지의 너비 조정 가능
-                        height: 24, // SVG 이미지의 높이 조정 가능
+                        width: Dimens.space24,
+                        height: Dimens.space24,
                       ),
                     ),
                   )),
@@ -257,8 +262,8 @@ class _MapPageState extends State<MapPage> {
             if (state is LoadedToiletNavigationState) ...{
               Positioned(
                   bottom: Dimens.bottomBarHeight(context) + Dimens.space60,
-                  left: 0, // 이 위치를 조절하여 원하는 위치에 배치할 수 있습니다.
-                  right: 0,
+                  left: Dimens.zero,
+                  right: Dimens.zero,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
                     child: Container(

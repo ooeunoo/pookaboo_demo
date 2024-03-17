@@ -4,6 +4,7 @@ import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
+import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,7 @@ class AppButton extends StatelessWidget {
   final Color? splashColor;
   final Widget? image; // 이미지 추가
   final bool disable;
+  final bool vibrate;
 
   const AppButton({
     super.key,
@@ -30,6 +32,7 @@ class AppButton extends StatelessWidget {
     this.splashColor,
     this.image,
     this.disable = false,
+    this.vibrate = false,
   });
 
   @override
@@ -40,7 +43,11 @@ class AppButton extends StatelessWidget {
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(Dimens.space16)),
       child: TextButton(
-        onPressed: disable ? null : onPressed,
+        onPressed: () {
+          if (disable) return;
+
+          onPressed();
+        },
         style: ButtonStyle(
             backgroundColor: color != null
                 ? MaterialStateProperty.all(color)
