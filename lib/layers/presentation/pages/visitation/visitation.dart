@@ -86,7 +86,6 @@ class _VisitationPageState extends State<VisitationPage> {
       body: BlocConsumer<VisitataionBloc, VisitationState>(
           listener: (context, state) {
         if (state is LoadedToiletVisitationsByUserIdState) {
-          log.d('in: $timestamp');
           _setVisitations(state.visitations);
         }
       }, builder: (context, state) {

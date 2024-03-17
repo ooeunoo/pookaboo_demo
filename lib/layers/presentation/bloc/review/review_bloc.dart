@@ -47,11 +47,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       CreateToiletReviewEvent event, Emitter<ReviewState> emit) async {
     try {
       final response = await _createToiletReviewUseCase.call(event.params);
-      log.d('response: $response');
-      response.fold((l) {
-        log.d('l: $l');
-      }, (r) {
-        log.d('r: $r');
+      response.fold((l) {}, (r) {
         emit(SuccessCreateToiletReviewState());
       });
     } catch (e) {

@@ -10,7 +10,7 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/toilet_navigation_dialog.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/navigation_modal.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/extension/context.dart';
@@ -33,6 +33,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  late bool isOpenBottomSheet = false;
   final SecureStorage _secureStorage = sl<SecureStorage>();
 
   final Debouncer _debouncer = Debouncer(milliseconds: 200);
@@ -51,6 +52,9 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _showBottomSheet(BuildContext context, Toilet toilet) async {
+    setState(() {
+      isOpenBottomSheet = true;
+    });
     showFlexibleBottomSheet(
       context: context,
       anchors: [0.3, 1],
@@ -72,6 +76,9 @@ class _MapPageState extends State<MapPage> {
       },
     ).whenComplete(() async {
       final userId = await _secureStorage.get(StorageKeys.loggedInUser);
+      setState(() {
+        isOpenBottomSheet = false;
+      });
       if (userId != null) {
         context.read<VisitataionBloc>().add(
             CreateToiletVisitationEvent(userId: userId, toiletId: toilet.id));
@@ -276,7 +283,7 @@ class _MapPageState extends State<MapPage> {
                           ),
                         ),
                         height: Dimens.space155,
-                        child: ToiletNavigationModal(
+                        child: NavigationModal(
                             toilet: state.toilet, time: state.time)),
                   )),
             }

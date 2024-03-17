@@ -103,7 +103,6 @@ class _ToiletBottomSheetInformationState
       if (hasAmenity) {
         _amenities.add({'section': 'amenity', "emoji": emoji, "title": name});
       }
-      log.d(_amenities);
     }
   }
 
@@ -210,7 +209,6 @@ class _ToiletBottomSheetInformationState
               })
             ]),
           },
-          const Text("hello")
         ],
       ),
     );

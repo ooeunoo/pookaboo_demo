@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/bottom_sheet_main.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/layout.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/button.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/sign_in_message.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/login_message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_drag_handle_bar.dart';
@@ -47,7 +47,7 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BottomSheetMain(
+                BottomSheetLayout(
                   toilet: widget.toilet,
                   isExpand: isExpand,
                 ),

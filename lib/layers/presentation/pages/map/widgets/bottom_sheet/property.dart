@@ -24,6 +24,8 @@ class ToiletBottomSheetProperty extends StatefulWidget {
 class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
   bool isExpandTimeSchedule = false;
 
+  late String rating;
+  late String totalReviews;
   late int toiletType;
   late bool isGenderSeperate;
   late bool hasPassword;
@@ -33,6 +35,8 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
   @override
   void initState() {
     super.initState();
+    rating = Rating.getAverageRating(widget.toilet.rating!).toString();
+    totalReviews = widget.toilet.reviews.toString();
     toiletType = widget.toilet.type;
     isGenderSeperate = widget.toilet.gender;
     hasPassword = widget.toilet.password;
@@ -47,6 +51,13 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Row(children: [
+          SvgPicture.asset(Images.star),
+          const AppSpacerH(),
+          AppText("$rating ($totalReviews)",
+              style: Theme.of(context).textTheme.labelMedium!),
+          const AppSpacerH(),
+        ]),
         AppSpacerV(
           value: Dimens.space16,
         ),

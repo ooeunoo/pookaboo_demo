@@ -3,22 +3,21 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
-class ToiletBottomSheetLocation extends StatefulWidget {
+class LocationGuide extends StatefulWidget {
   final Toilet toilet;
   final int? time;
 
-  const ToiletBottomSheetLocation({
+  const LocationGuide({
     super.key,
     required this.toilet,
     this.time,
   });
 
   @override
-  State<ToiletBottomSheetLocation> createState() =>
-      _ToiletBottomSheetLocationState();
+  State<LocationGuide> createState() => _LocationGuideState();
 }
 
-class _ToiletBottomSheetLocationState extends State<ToiletBottomSheetLocation> {
+class _LocationGuideState extends State<LocationGuide> {
   late String locationTip;
 
   @override
@@ -47,7 +46,6 @@ class _ToiletBottomSheetLocationState extends State<ToiletBottomSheetLocation> {
                   style: Theme.of(context).textTheme.bodySmall!),
               const AppSpacerH(),
               AppText("|", style: Theme.of(context).textTheme.labelLarge!),
-              const AppSpacerH(),
             },
             AppText(locationTip, style: Theme.of(context).textTheme.labelLarge!)
           ],
