@@ -6,6 +6,8 @@ part 'create_toilet_params.g.dart';
 
 @freezed
 class CreateToiletParam with _$CreateToiletParam {
+  CreateToiletParam._();
+
   factory CreateToiletParam({
     required String name,
     required int type,

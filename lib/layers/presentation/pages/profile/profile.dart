@@ -42,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
           section: 1,
           title: '신규 화장실 제안하기',
           onTap: () {
-            context.push(AppRoutes.reviews.path, extra: extra);
+            context.push(AppRoutes.create_toilet.path, extra: extra);
           }),
       MenuItem(
           section: 2,

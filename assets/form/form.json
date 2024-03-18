@@ -1,0 +1,172 @@
+{
+    "id": "123",
+    "type": "navigable",
+    "rules": [
+        {
+            "type": "conditional",
+            "triggerStepIdentifier": {
+                "id": "3"
+            },
+            "values": {
+                "Yes": "2",
+                "No": "10"
+            }
+        },
+        {
+            "type": "direct",
+            "triggerStepIdentifier": {
+                "id": "1"
+            },
+            "destinationStepIdentifier": {
+                "id": "3"
+            }
+        },
+        {
+            "type": "direct",
+            "triggerStepIdentifier": {
+                "id": "2"
+            },
+            "destinationStepIdentifier": {
+                "id": "10"
+            }
+        }
+    ],
+    "steps": [
+        {
+            "step": {
+                "id": "1"
+            },
+            "type": "intro",
+            "title": "신규 화장실을 추가해주세요 🚽",
+            "text": "당신만이 알고있는 화장실, 누군가의 급한 상황에 도움이 될 수 있어요.",
+            "buttonText": "next"
+        },
+        {
+            "step": {
+                "id": "2"
+            },
+            "type": "question",
+            "title": "화장실 이름은 무엇인가요?",
+            "answerFormat": {
+                "type": "string",
+                "key": "toilet.name",
+                "hint": "화장실 명을 입력해주세요."
+            }
+        },
+        {
+            "step": {
+                "id": "3"
+            },
+            "type": "question",
+            "title": "화장실의 건물은 어떤 곳에 있나요?",
+            "text": "빌딩에 있나요? 카페에 있나요?",
+            "answerFormat": {
+                "type": "choices",
+                "key": "toilet.type",
+                "items": [
+                    {
+                        "text": "빌딩",
+                        "value": "0"
+                    },
+                    {
+                        "text": "카페",
+                        "value": "1"
+                    }
+                ]
+            }
+        },
+        {
+            "step": {
+                "id": "4"
+            },
+            "type": "question",
+            "title": "남녀가 분리된 화장실인가요?",
+            "text": "",
+            "answerFormat": {
+                "type": "bool",
+                "key": "toilet.gender",
+                "items": [
+                    {
+                        "text": "네",
+                        "value": true
+                    },
+                    {
+                        "text": "아니요",
+                        "value": false
+                    }
+                ]
+            }
+        },
+        {
+            "step": {
+                "id": "5"
+            },
+            "type": "question",
+            "title": "공용 화장실의 장비의 갯수를 알려주세요.",
+            "text": "",
+            "condition": {
+                "text.gender": true
+            },
+            "answerFormat": [
+                {
+                    "type": "integer",
+                    "key": "toilet.equipment[0]",
+                    "defaultValue": 0,
+                    "hint": "대변기 갯수는 몇개인가요?"
+                },
+                {
+                    "type": "integer",
+                    "key": "toilet.equipment[0]",
+                    "defaultValue": 0,
+                    "hint": "소변기 갯수는 몇개인가요?"
+                },
+                {
+                    "type": "integer",
+                    "key": "toilet.equipment[0]",
+                    "defaultValue": 0,
+                    "hint": "음수대 갯수는 몇개인가요?"
+                }
+            ]
+        },
+        {
+            "step": {
+                "id": "6"
+            },
+            "type": "question",
+            "title": "남자 화장실의 장비의 갯수를 알려주세요.",
+            "text": "",
+            "condition": {
+                "text.gender": true
+            },
+            "answerFormat": [
+                {
+                    "type": "integer",
+                    "key": "toilet.equipment[1]",
+                    "defaultValue": 0,
+                    "hint": "대변기 갯수는 몇개인가요?"
+                },
+                {
+                    "type": "integer",
+                    "key": "toilet.equipment[1]",
+                    "defaultValue": 0,
+                    "hint": "소변기 갯수는 몇개인가요?"
+                },
+                {
+                    "type": "integer",
+                    "key": "toilet.equipment[1]",
+                    "defaultValue": 0,
+                    "hint": "음수대 갯수는 몇개인가요?"
+                }
+            ]
+        },
+        {
+            "step": {
+                "id": "7"
+            },
+            "type": "completion",
+            "text": "고마워요~ 화장실이 추가되었어요!",
+            "title": "성공!!",
+            "buttonText": "완료"
+        }
+    ]
+}

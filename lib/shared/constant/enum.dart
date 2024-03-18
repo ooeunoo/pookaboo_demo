@@ -13,8 +13,6 @@ enum BottomNavigation {
   final IconData icon;
 }
 
-
-
 enum ToiletType {
   building,
   cafe;
