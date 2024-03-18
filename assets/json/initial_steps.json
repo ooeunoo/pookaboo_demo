@@ -1,0 +1,205 @@
+[
+    {
+        "id": "information_svg_step",
+        "stepType": "information",
+        "title": "Let's have a little survey",
+        "description": "Answer or skip questions, in the end your answers would be submitted",
+        "image": {
+            "path": "https://www.svgrepo.com/show/24762/round-done-button.svg",
+            "source": "network",
+            "type": "svg",
+            "width": 0.3
+        },
+        "primaryButton": {
+            "action": "action:showBottomSheetSurvey",
+            "text": "Next"
+        }
+    },
+    {
+        "id": "information_image_step",
+        "stepType": "information",
+        "title": "Let's have a little survey",
+        "description": "Answer or skip questions, in the end your answers would be submitted",
+        "image": {
+            "path": "https://icon-library.com/images/completed-icon/completed-icon-28.jpg"
+        },
+        "primaryButton": {
+            "action": "action:next",
+            "text": "Next"
+        },
+        "secondaryButton": {
+            "action": "action:skip",
+            "text": "Skip",
+            "style": "text",
+            "type": "secondary"
+        }
+    },
+    {
+        "id": "single_select_step",
+        "stepType": "singleSelect",
+        "title": "Select one option",
+        "description": "On this step you can select single answer to move forward",
+        "options": [
+            {
+                "id": "option_id_1",
+                "text": "Custom navigation option",
+                "description": "If you select this option number_request_step would be opened next",
+                "value": "option_1",
+                "navigationConditions": [
+                    {
+                        "nextStepId": "number_request_step"
+                    }
+                ]
+            },
+            {
+                "id": "option_id_2",
+                "text": "Notification permission",
+                "value": "option_2",
+                "action": "action:notificationsPermission"
+            },
+            {
+                "id": "option_id_3",
+                "text": "Option 3",
+                "description": "Option long description that should take at least two rows",
+                "value": "option_3"
+            },
+            {
+                "id": "option_id_4",
+                "text": "Option 4",
+                "value": "option_4"
+            }
+        ]
+    },
+    {
+        "id": "multi_select_step",
+        "stepType": "multiSelect",
+        "title": "Select from 1 to 2 options",
+        "description": "On this step you can select few options to move forward",
+        "minimumAmountOfOptionsSelected": 1,
+        "maximumAmountOfOptionsSelected": 2,
+        "options": [
+            {
+                "id": "option_id_1",
+                "text": "Option 1",
+                "description": "Option description",
+                "value": "option_1"
+            },
+            {
+                "id": "option_id_2",
+                "text": "Option 2",
+                "value": "option_2"
+            },
+            {
+                "id": "option_id_3",
+                "text": "Option 3",
+                "description": "Option long description that should take at least two rows",
+                "value": "option_3"
+            },
+            {
+                "id": "option_id_4",
+                "text": "Option 4",
+                "value": "option_4"
+            }
+        ]
+    },
+    {
+        "id": "number_request_step",
+        "stepType": "request",
+        "title": "What is your age?",
+        "description": "Enter your age. If you are younger than 18, you can't move forward",
+        "hint": "Your age",
+        "type": "numberInt",
+        "buttonsAlignment": "horizontal",
+        "primaryButton": {
+            "action": "action:next",
+            "text": "Next",
+            "predicate": {
+                "type": "moreThan",
+                "value": 18
+            },
+            "navigationConditions": [
+                {
+                    "nextStepId": "customStepId",
+                    "type": "moreThan",
+                    "value": 55
+                },
+                {
+                    "nextStepId": "time_request_step",
+                    "type": "lessThan",
+                    "value": 56
+                }
+            ]
+        }
+    },
+    {
+        "id": "text_request_step",
+        "stepType": "request",
+        "title": "What is your name?",
+        "description": "Enter your name to the text field to move forward",
+        "hint": "Your name",
+        "type": "text",
+        "buttonsAlignment": "horizontal",
+        "primaryButton": {
+            "action": "action:next",
+            "text": "Next"
+        },
+        "secondaryButton": {
+            "action": "action:skip",
+            "text": "Skip",
+            "style": "text",
+            "type": "secondary"
+        }
+    },
+    {
+        "id": "date_request_step",
+        "stepType": "dateRequest",
+        "title": "What is your birth day?",
+        "description": "Select your birth date to move forward",
+        "hint": "Your date of birth",
+        "type": "date",
+        "primaryButton": {
+            "action": "action:next",
+            "text": "Next"
+        }
+    },
+    {
+        "id": "time_request_step",
+        "stepType": "dateRequest",
+        "title": "When you want to have a meeting?",
+        "description": "Select time that is good for you to have a video call",
+        "hint": "Meeting time",
+        "type": "time",
+        "primaryButton": {
+            "action": "action:next",
+            "text": "Next"
+        }
+    },
+    {
+        "id": "date_and_time_request_step",
+        "stepType": "dateRequest",
+        "title": "When you want to have a meeting?",
+        "description": "Select date and time that is good for you to have a video call",
+        "hint": "Meeting date and time",
+        "type": "dateAndTime",
+        "primaryButton": {
+            "action": "action:next",
+            "text": "Next"
+        }
+    },
+    {
+        "id": "customStepId",
+        "stepType": "customStep",
+        "title": "This is my custom step title",
+        "description": "Description for this custom step",
+        "image": {
+            "path": "https://www.svgrepo.com/show/24762/round-done-button.svg",
+            "source": "network",
+            "type": "svg",
+            "width": 0.3
+        },
+        "primaryButton": {
+            "action": "action:submit",
+            "text": "Let`s start"
+        }
+    }
+]

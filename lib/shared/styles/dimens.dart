@@ -13,6 +13,9 @@ class Dimens {
   // static double titleSmall = 14.sp;
   // static double titleLarge = 20.sp;
 
+  static double headerLarge = 26.sp;
+  static double headerMedium = 24.sp;
+  static double headerSmall = 22.sp;
   static double bodyLarge = 20.sp;
   static double bodyMedium = 18.sp;
   static double bodySmall = 16.sp;

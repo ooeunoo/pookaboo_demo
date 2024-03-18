@@ -202,7 +202,7 @@ class __$$CreateToiletParamImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CreateToiletParamImpl implements _CreateToiletParam {
+class _$CreateToiletParamImpl extends _CreateToiletParam {
   _$CreateToiletParamImpl(
       {required this.name,
       required this.type,
@@ -212,7 +212,8 @@ class _$CreateToiletParamImpl implements _CreateToiletParam {
       required this.address,
       required this.road_address,
       required this.location_tip,
-      required this.city});
+      required this.city})
+      : super._();
 
   factory _$CreateToiletParamImpl.fromJson(Map<String, dynamic> json) =>
       _$$CreateToiletParamImplFromJson(json);
@@ -281,7 +282,7 @@ class _$CreateToiletParamImpl implements _CreateToiletParam {
   }
 }
 
-abstract class _CreateToiletParam implements CreateToiletParam {
+abstract class _CreateToiletParam extends CreateToiletParam {
   factory _CreateToiletParam(
       {required final String name,
       required final int type,
@@ -292,6 +293,7 @@ abstract class _CreateToiletParam implements CreateToiletParam {
       required final String road_address,
       required final String location_tip,
       required final String city}) = _$CreateToiletParamImpl;
+  _CreateToiletParam._() : super._();
 
   factory _CreateToiletParam.fromJson(Map<String, dynamic> json) =
       _$CreateToiletParamImpl.fromJson;

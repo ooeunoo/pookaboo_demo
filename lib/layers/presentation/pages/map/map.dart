@@ -11,6 +11,7 @@ import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/navigation_modal.dart';
+import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/extension/context.dart';
@@ -21,9 +22,6 @@ import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_chip.dart';
-
-// 최초 중심
-LatLng initialCenter = LatLng(37.584690, 127.046502);
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -140,7 +138,7 @@ class _MapPageState extends State<MapPage> {
             KakaoMap(
               currentLevel: 4,
               maxLevel: 5,
-              center: initialCenter,
+              center: Config.get.initialCenter,
               onMapTap: (LatLng loc) {
                 // context.read<MapBloc>().add(GetNearByToiletsEvent());
               },
