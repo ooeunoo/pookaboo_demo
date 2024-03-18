@@ -42,7 +42,6 @@ class _VisitationPageState extends State<VisitationPage> {
         useRootNavigator: true,
         isScrollControlled: true,
         isDismissible: true,
-        elevation: 10,
         useSafeArea: true,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(

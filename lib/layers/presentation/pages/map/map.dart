@@ -33,7 +33,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  late bool isOpenBottomSheet = false;
   final SecureStorage _secureStorage = sl<SecureStorage>();
 
   final Debouncer _debouncer = Debouncer(milliseconds: 200);
@@ -52,9 +51,6 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _showBottomSheet(BuildContext context, Toilet toilet) async {
-    setState(() {
-      isOpenBottomSheet = true;
-    });
     showFlexibleBottomSheet(
       context: context,
       anchors: [0.3, 1],
@@ -76,9 +72,6 @@ class _MapPageState extends State<MapPage> {
       },
     ).whenComplete(() async {
       final userId = await _secureStorage.get(StorageKeys.loggedInUser);
-      setState(() {
-        isOpenBottomSheet = false;
-      });
       if (userId != null) {
         context.read<VisitataionBloc>().add(
             CreateToiletVisitationEvent(userId: userId, toiletId: toilet.id));

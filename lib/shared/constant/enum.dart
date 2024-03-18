@@ -68,7 +68,7 @@ enum EquipmentOrder { common, male, female }
 enum EquipmentKey {
   urinal(['urinal', 'child_urinal', 'disable_urinal'], '소변기', '💦'),
   seat(['seat', 'child_seat', 'disable_seat'], '좌변기', '🚽'),
-  washbasin(['washbasin'], '음수대', '🚰');
+  washbasin(['washbasin'], '세면대', '🚰');
 
   const EquipmentKey(this.keys, this.name, this.emoji);
 

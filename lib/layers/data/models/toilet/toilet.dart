@@ -21,8 +21,8 @@ class Toilet with _$Toilet {
     required String road_address,
     required String location_tip,
     required String city,
-    required double? lat,
-    required double? lng,
+    double? lat,
+    double? lng,
     Convenience? convenience,
     Equipment? equipment,
     Rating? rating,
@@ -52,13 +52,13 @@ class Convenience with _$Convenience {
 @freezed
 class Equipment with _$Equipment {
   factory Equipment({
-    required String urinal,
-    required String child_urinal,
-    required String disable_urinal,
-    required String seat,
-    required String child_seat,
-    required String disable_seat,
-    required String washbasin,
+    required List<int> urinal,
+    required List<int> child_urinal,
+    required List<int> disable_urinal,
+    required List<int> seat,
+    required List<int> child_seat,
+    required List<int> disable_seat,
+    required List<int> washbasin,
   }) = _Equipment;
 
   factory Equipment.fromJson(Map<String, dynamic> json) =>

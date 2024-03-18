@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
@@ -10,7 +8,6 @@ import 'package:pookaboo/shared/constant/images.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
@@ -31,10 +28,7 @@ class ToiletBottomSheetInformation extends StatefulWidget {
 
 class _ToiletBottomSheetInformationState
     extends State<ToiletBottomSheetInformation> {
-  late final List<String> _images = [
-    'https://cdn.pixabay.com/photo/2023/09/30/17/13/coffee-beans-8286087_1280.jpg',
-    'https://media.istockphoto.com/id/814684194/ko/%EC%82%AC%EC%A7%84/%EC%9B%90%EB%91%90-%EC%BB%A4%ED%94%BC-%EA%B7%B8%EB%A6%AC%EA%B3%A0-%EB%9D%BC-%EB%96%BC-%EC%95%84%ED%8A%B8-%EB%82%98%EB%AC%B4-%EB%B0%B0%EA%B2%BD%EC%97%90-%EB%9C%A8%EA%B1%B0%EC%9A%B4-cofee-%EC%BB%B5-%ED%85%8D%EC%8A%A4%ED%8A%B8-%EB%B3%B5%EC%82%AC-%EA%B3%B5%EA%B0%84-%EC%B8%A1%EB%A9%B4-%EB%B3%B4%EA%B8%B0.jpg?s=2048x2048&w=is&k=20&c=JEYe0Tw3fIEcDvkU10sp7NVsJ5G3Clgg0G5sje5_Snc='
-  ];
+  late final List<String> _images = [];
 
   late final List<Map<String, dynamic>> _equipments = [];
   late final List<Map<String, dynamic>> _conveniences = [];

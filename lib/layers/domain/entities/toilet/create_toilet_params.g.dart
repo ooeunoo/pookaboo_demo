@@ -1,66 +1,42 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'toilet.dart';
+part of 'create_toilet_params.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ToiletImpl _$$ToiletImplFromJson(Map<String, dynamic> json) => _$ToiletImpl(
-      id: json['id'] as int,
+_$CreateToiletParamImpl _$$CreateToiletParamImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CreateToiletParamImpl(
       name: json['name'] as String,
       type: json['type'] as int,
-      visible: json['visible'] as bool,
       gender: json['gender'] as bool,
       password: json['password'] as bool,
-      password_tip: json['password_tip'] as String? ?? "",
-      reviews: json['reviews'] as int? ?? 0,
-      location_type: json['location_type'] as String,
+      password_tip: json['password_tip'] as String,
       address: json['address'] as String,
       road_address: json['road_address'] as String,
       location_tip: json['location_tip'] as String,
       city: json['city'] as String,
-      lat: (json['lat'] as num?)?.toDouble(),
-      lng: (json['lng'] as num?)?.toDouble(),
-      convenience: json['convenience'] == null
-          ? null
-          : Convenience.fromJson(json['convenience'] as Map<String, dynamic>),
-      equipment: json['equipment'] == null
-          ? null
-          : Equipment.fromJson(json['equipment'] as Map<String, dynamic>),
-      rating: json['rating'] == null
-          ? null
-          : Rating.fromJson(json['rating'] as Map<String, dynamic>),
-      time: json['time'] == null
-          ? null
-          : Time.fromJson(json['time'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$ToiletImplToJson(_$ToiletImpl instance) =>
+Map<String, dynamic> _$$CreateToiletParamImplToJson(
+        _$CreateToiletParamImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'name': instance.name,
       'type': instance.type,
-      'visible': instance.visible,
       'gender': instance.gender,
       'password': instance.password,
       'password_tip': instance.password_tip,
-      'reviews': instance.reviews,
-      'location_type': instance.location_type,
       'address': instance.address,
       'road_address': instance.road_address,
       'location_tip': instance.location_tip,
       'city': instance.city,
-      'lat': instance.lat,
-      'lng': instance.lng,
-      'convenience': instance.convenience,
-      'equipment': instance.equipment,
-      'rating': instance.rating,
-      'time': instance.time,
     };
 
-_$ConvenienceImpl _$$ConvenienceImplFromJson(Map<String, dynamic> json) =>
-    _$ConvenienceImpl(
+_$CreateConvenienceParamsImpl _$$CreateConvenienceParamsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CreateConvenienceParamsImpl(
       paper: json['paper'] as bool,
       towel: json['towel'] as bool,
       soap: json['soap'] as bool,
@@ -71,7 +47,8 @@ _$ConvenienceImpl _$$ConvenienceImplFromJson(Map<String, dynamic> json) =>
       bell: json['bell'] as bool,
     );
 
-Map<String, dynamic> _$$ConvenienceImplToJson(_$ConvenienceImpl instance) =>
+Map<String, dynamic> _$$CreateConvenienceParamsImplToJson(
+        _$CreateConvenienceParamsImpl instance) =>
     <String, dynamic>{
       'paper': instance.paper,
       'towel': instance.towel,
@@ -83,8 +60,9 @@ Map<String, dynamic> _$$ConvenienceImplToJson(_$ConvenienceImpl instance) =>
       'bell': instance.bell,
     };
 
-_$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
-    _$EquipmentImpl(
+_$CreateEquipmentParamsImpl _$$CreateEquipmentParamsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CreateEquipmentParamsImpl(
       urinal: (json['urinal'] as List<dynamic>).map((e) => e as int).toList(),
       child_urinal:
           (json['child_urinal'] as List<dynamic>).map((e) => e as int).toList(),
@@ -100,7 +78,8 @@ _$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
           (json['washbasin'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
-Map<String, dynamic> _$$EquipmentImplToJson(_$EquipmentImpl instance) =>
+Map<String, dynamic> _$$CreateEquipmentParamsImplToJson(
+        _$CreateEquipmentParamsImpl instance) =>
     <String, dynamic>{
       'urinal': instance.urinal,
       'child_urinal': instance.child_urinal,
@@ -111,22 +90,9 @@ Map<String, dynamic> _$$EquipmentImplToJson(_$EquipmentImpl instance) =>
       'washbasin': instance.washbasin,
     };
 
-_$RatingImpl _$$RatingImplFromJson(Map<String, dynamic> json) => _$RatingImpl(
-      cleanliness: (json['cleanliness'] as num).toDouble(),
-      safety: (json['safety'] as num).toDouble(),
-      convenience: (json['convenience'] as num).toDouble(),
-      management: (json['management'] as num).toDouble(),
-    );
-
-Map<String, dynamic> _$$RatingImplToJson(_$RatingImpl instance) =>
-    <String, dynamic>{
-      'cleanliness': instance.cleanliness,
-      'safety': instance.safety,
-      'convenience': instance.convenience,
-      'management': instance.management,
-    };
-
-_$TimeImpl _$$TimeImplFromJson(Map<String, dynamic> json) => _$TimeImpl(
+_$CreateTimeParamsImpl _$$CreateTimeParamsImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CreateTimeParamsImpl(
       mon: OperateTime.fromJson(json['mon'] as Map<String, dynamic>),
       tue: OperateTime.fromJson(json['tue'] as Map<String, dynamic>),
       wed: OperateTime.fromJson(json['wed'] as Map<String, dynamic>),
@@ -136,7 +102,8 @@ _$TimeImpl _$$TimeImplFromJson(Map<String, dynamic> json) => _$TimeImpl(
       sun: OperateTime.fromJson(json['sun'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$TimeImplToJson(_$TimeImpl instance) =>
+Map<String, dynamic> _$$CreateTimeParamsImplToJson(
+        _$CreateTimeParamsImpl instance) =>
     <String, dynamic>{
       'mon': instance.mon,
       'tue': instance.tue,
@@ -145,16 +112,4 @@ Map<String, dynamic> _$$TimeImplToJson(_$TimeImpl instance) =>
       'fri': instance.fri,
       'sat': instance.sat,
       'sun': instance.sun,
-    };
-
-_$OperateTimeImpl _$$OperateTimeImplFromJson(Map<String, dynamic> json) =>
-    _$OperateTimeImpl(
-      open: json['open'] as String?,
-      close: json['close'] as String?,
-    );
-
-Map<String, dynamic> _$$OperateTimeImplToJson(_$OperateTimeImpl instance) =>
-    <String, dynamic>{
-      'open': instance.open,
-      'close': instance.close,
     };

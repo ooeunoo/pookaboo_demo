@@ -40,24 +40,30 @@ class _ProfilePageState extends State<ProfilePage> {
     menu = [
       MenuItem(
           section: 1,
+          title: '신규 화장실 제안하기',
+          onTap: () {
+            context.push(AppRoutes.reviews.path, extra: extra);
+          }),
+      MenuItem(
+          section: 2,
           title: '최근에 방문한 화장실',
           onTap: () {
             context.push(AppRoutes.visitation.path, extra: extra);
           }),
       MenuItem(
-          section: 1,
+          section: 2,
           title: '나의 리뷰',
           onTap: () {
             context.push(AppRoutes.reviews.path, extra: extra);
           }),
-      MenuItem(section: 2, title: '내 정보 수정', onTap: () {}),
+      MenuItem(section: 3, title: '내 정보 수정', onTap: () {}),
       MenuItem(
-          section: 2,
+          section: 3,
           title: '로그아웃',
           onTap: () {
             context.read<AuthBloc>().add(LogoutEvent());
           }),
-      MenuItem(section: 2, title: '회원 탈퇴', onTap: () {}),
+      MenuItem(section: 3, title: '회원 탈퇴', onTap: () {}),
     ];
   }
 

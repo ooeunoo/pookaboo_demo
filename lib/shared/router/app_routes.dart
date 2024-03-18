@@ -11,6 +11,7 @@ import 'package:pookaboo/layers/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/presentation/pages/splash/splash.dart';
 import 'package:pookaboo/layers/presentation/pages/map/map.dart';
 import 'package:pookaboo/layers/presentation/pages/review/review.dart';
+import 'package:pookaboo/layers/presentation/pages/toilet/create_or_update_toilet.dart';
 import 'package:pookaboo/layers/presentation/pages/visitation/visitation.dart';
 import 'package:pookaboo/shared/router/extra_params.dart';
 import 'package:pookaboo/shared/router/router_refresh_stream.dart';
@@ -30,6 +31,8 @@ enum AppRoutes {
 
   // review page
   reviews("/reviews"),
+
+  create_toilet('/create_toilet'),
 
   // Auth Page
   // login("/auth/login"),
@@ -107,6 +110,13 @@ class AppRoute {
                 child: ReviewPage(userId: extra.userId),
               );
             },
+          ),
+          GoRoute(
+            path: AppRoutes.create_toilet.path,
+            name: AppRoutes.create_toilet.name,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: CreateOrUpdateToilet(),
+            ),
           ),
         ],
       ),

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'toilet.dart';
+part of 'create_toilet_params.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,73 +14,50 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Toilet _$ToiletFromJson(Map<String, dynamic> json) {
-  return _Toilet.fromJson(json);
+CreateToiletParam _$CreateToiletParamFromJson(Map<String, dynamic> json) {
+  return _CreateToiletParam.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Toilet {
-  int get id => throw _privateConstructorUsedError;
+mixin _$CreateToiletParam {
   String get name => throw _privateConstructorUsedError;
   int get type => throw _privateConstructorUsedError;
-  bool get visible => throw _privateConstructorUsedError;
   bool get gender => throw _privateConstructorUsedError;
   bool get password => throw _privateConstructorUsedError;
   String get password_tip => throw _privateConstructorUsedError;
-  int get reviews => throw _privateConstructorUsedError;
-  String get location_type => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get road_address => throw _privateConstructorUsedError;
   String get location_tip => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
-  double? get lat => throw _privateConstructorUsedError;
-  double? get lng => throw _privateConstructorUsedError;
-  Convenience? get convenience => throw _privateConstructorUsedError;
-  Equipment? get equipment => throw _privateConstructorUsedError;
-  Rating? get rating => throw _privateConstructorUsedError;
-  Time? get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ToiletCopyWith<Toilet> get copyWith => throw _privateConstructorUsedError;
+  $CreateToiletParamCopyWith<CreateToiletParam> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ToiletCopyWith<$Res> {
-  factory $ToiletCopyWith(Toilet value, $Res Function(Toilet) then) =
-      _$ToiletCopyWithImpl<$Res, Toilet>;
+abstract class $CreateToiletParamCopyWith<$Res> {
+  factory $CreateToiletParamCopyWith(
+          CreateToiletParam value, $Res Function(CreateToiletParam) then) =
+      _$CreateToiletParamCopyWithImpl<$Res, CreateToiletParam>;
   @useResult
   $Res call(
-      {int id,
-      String name,
+      {String name,
       int type,
-      bool visible,
       bool gender,
       bool password,
       String password_tip,
-      int reviews,
-      String location_type,
       String address,
       String road_address,
       String location_tip,
-      String city,
-      double? lat,
-      double? lng,
-      Convenience? convenience,
-      Equipment? equipment,
-      Rating? rating,
-      Time? time});
-
-  $ConvenienceCopyWith<$Res>? get convenience;
-  $EquipmentCopyWith<$Res>? get equipment;
-  $RatingCopyWith<$Res>? get rating;
-  $TimeCopyWith<$Res>? get time;
+      String city});
 }
 
 /// @nodoc
-class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
-    implements $ToiletCopyWith<$Res> {
-  _$ToiletCopyWithImpl(this._value, this._then);
+class _$CreateToiletParamCopyWithImpl<$Res, $Val extends CreateToiletParam>
+    implements $CreateToiletParamCopyWith<$Res> {
+  _$CreateToiletParamCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -90,31 +67,17 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
     Object? type = null,
-    Object? visible = null,
     Object? gender = null,
     Object? password = null,
     Object? password_tip = null,
-    Object? reviews = null,
-    Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
     Object? location_tip = null,
     Object? city = null,
-    Object? lat = freezed,
-    Object? lng = freezed,
-    Object? convenience = freezed,
-    Object? equipment = freezed,
-    Object? rating = freezed,
-    Object? time = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -123,10 +86,6 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as int,
-      visible: null == visible
-          ? _value.visible
-          : visible // ignore: cast_nullable_to_non_nullable
-              as bool,
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -138,14 +97,6 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
       password_tip: null == password_tip
           ? _value.password_tip
           : password_tip // ignore: cast_nullable_to_non_nullable
-              as String,
-      reviews: null == reviews
-          ? _value.reviews
-          : reviews // ignore: cast_nullable_to_non_nullable
-              as int,
-      location_type: null == location_type
-          ? _value.location_type
-          : location_type // ignore: cast_nullable_to_non_nullable
               as String,
       address: null == address
           ? _value.address
@@ -163,156 +114,52 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      lat: freezed == lat
-          ? _value.lat
-          : lat // ignore: cast_nullable_to_non_nullable
-              as double?,
-      lng: freezed == lng
-          ? _value.lng
-          : lng // ignore: cast_nullable_to_non_nullable
-              as double?,
-      convenience: freezed == convenience
-          ? _value.convenience
-          : convenience // ignore: cast_nullable_to_non_nullable
-              as Convenience?,
-      equipment: freezed == equipment
-          ? _value.equipment
-          : equipment // ignore: cast_nullable_to_non_nullable
-              as Equipment?,
-      rating: freezed == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as Rating?,
-      time: freezed == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as Time?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ConvenienceCopyWith<$Res>? get convenience {
-    if (_value.convenience == null) {
-      return null;
-    }
-
-    return $ConvenienceCopyWith<$Res>(_value.convenience!, (value) {
-      return _then(_value.copyWith(convenience: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $EquipmentCopyWith<$Res>? get equipment {
-    if (_value.equipment == null) {
-      return null;
-    }
-
-    return $EquipmentCopyWith<$Res>(_value.equipment!, (value) {
-      return _then(_value.copyWith(equipment: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RatingCopyWith<$Res>? get rating {
-    if (_value.rating == null) {
-      return null;
-    }
-
-    return $RatingCopyWith<$Res>(_value.rating!, (value) {
-      return _then(_value.copyWith(rating: value) as $Val);
-    });
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TimeCopyWith<$Res>? get time {
-    if (_value.time == null) {
-      return null;
-    }
-
-    return $TimeCopyWith<$Res>(_value.time!, (value) {
-      return _then(_value.copyWith(time: value) as $Val);
-    });
   }
 }
 
 /// @nodoc
-abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
-  factory _$$ToiletImplCopyWith(
-          _$ToiletImpl value, $Res Function(_$ToiletImpl) then) =
-      __$$ToiletImplCopyWithImpl<$Res>;
+abstract class _$$CreateToiletParamImplCopyWith<$Res>
+    implements $CreateToiletParamCopyWith<$Res> {
+  factory _$$CreateToiletParamImplCopyWith(_$CreateToiletParamImpl value,
+          $Res Function(_$CreateToiletParamImpl) then) =
+      __$$CreateToiletParamImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {int id,
-      String name,
+      {String name,
       int type,
-      bool visible,
       bool gender,
       bool password,
       String password_tip,
-      int reviews,
-      String location_type,
       String address,
       String road_address,
       String location_tip,
-      String city,
-      double? lat,
-      double? lng,
-      Convenience? convenience,
-      Equipment? equipment,
-      Rating? rating,
-      Time? time});
-
-  @override
-  $ConvenienceCopyWith<$Res>? get convenience;
-  @override
-  $EquipmentCopyWith<$Res>? get equipment;
-  @override
-  $RatingCopyWith<$Res>? get rating;
-  @override
-  $TimeCopyWith<$Res>? get time;
+      String city});
 }
 
 /// @nodoc
-class __$$ToiletImplCopyWithImpl<$Res>
-    extends _$ToiletCopyWithImpl<$Res, _$ToiletImpl>
-    implements _$$ToiletImplCopyWith<$Res> {
-  __$$ToiletImplCopyWithImpl(
-      _$ToiletImpl _value, $Res Function(_$ToiletImpl) _then)
+class __$$CreateToiletParamImplCopyWithImpl<$Res>
+    extends _$CreateToiletParamCopyWithImpl<$Res, _$CreateToiletParamImpl>
+    implements _$$CreateToiletParamImplCopyWith<$Res> {
+  __$$CreateToiletParamImplCopyWithImpl(_$CreateToiletParamImpl _value,
+      $Res Function(_$CreateToiletParamImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
     Object? type = null,
-    Object? visible = null,
     Object? gender = null,
     Object? password = null,
     Object? password_tip = null,
-    Object? reviews = null,
-    Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
     Object? location_tip = null,
     Object? city = null,
-    Object? lat = freezed,
-    Object? lng = freezed,
-    Object? convenience = freezed,
-    Object? equipment = freezed,
-    Object? rating = freezed,
-    Object? time = freezed,
   }) {
-    return _then(_$ToiletImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(_$CreateToiletParamImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -321,10 +168,6 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as int,
-      visible: null == visible
-          ? _value.visible
-          : visible // ignore: cast_nullable_to_non_nullable
-              as bool,
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -336,14 +179,6 @@ class __$$ToiletImplCopyWithImpl<$Res>
       password_tip: null == password_tip
           ? _value.password_tip
           : password_tip // ignore: cast_nullable_to_non_nullable
-              as String,
-      reviews: null == reviews
-          ? _value.reviews
-          : reviews // ignore: cast_nullable_to_non_nullable
-              as int,
-      location_type: null == location_type
-          ? _value.location_type
-          : location_type // ignore: cast_nullable_to_non_nullable
               as String,
       address: null == address
           ? _value.address
@@ -361,81 +196,37 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      lat: freezed == lat
-          ? _value.lat
-          : lat // ignore: cast_nullable_to_non_nullable
-              as double?,
-      lng: freezed == lng
-          ? _value.lng
-          : lng // ignore: cast_nullable_to_non_nullable
-              as double?,
-      convenience: freezed == convenience
-          ? _value.convenience
-          : convenience // ignore: cast_nullable_to_non_nullable
-              as Convenience?,
-      equipment: freezed == equipment
-          ? _value.equipment
-          : equipment // ignore: cast_nullable_to_non_nullable
-              as Equipment?,
-      rating: freezed == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as Rating?,
-      time: freezed == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as Time?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ToiletImpl implements _Toilet {
-  _$ToiletImpl(
-      {required this.id,
-      required this.name,
+class _$CreateToiletParamImpl implements _CreateToiletParam {
+  _$CreateToiletParamImpl(
+      {required this.name,
       required this.type,
-      required this.visible,
       required this.gender,
       required this.password,
-      this.password_tip = "",
-      this.reviews = 0,
-      required this.location_type,
+      required this.password_tip,
       required this.address,
       required this.road_address,
       required this.location_tip,
-      required this.city,
-      this.lat,
-      this.lng,
-      this.convenience,
-      this.equipment,
-      this.rating,
-      this.time});
+      required this.city});
 
-  factory _$ToiletImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ToiletImplFromJson(json);
+  factory _$CreateToiletParamImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateToiletParamImplFromJson(json);
 
-  @override
-  final int id;
   @override
   final String name;
   @override
   final int type;
   @override
-  final bool visible;
-  @override
   final bool gender;
   @override
   final bool password;
   @override
-  @JsonKey()
   final String password_tip;
-  @override
-  @JsonKey()
-  final int reviews;
-  @override
-  final String location_type;
   @override
   final String address;
   @override
@@ -444,138 +235,77 @@ class _$ToiletImpl implements _Toilet {
   final String location_tip;
   @override
   final String city;
-  @override
-  final double? lat;
-  @override
-  final double? lng;
-  @override
-  final Convenience? convenience;
-  @override
-  final Equipment? equipment;
-  @override
-  final Rating? rating;
-  @override
-  final Time? time;
 
   @override
   String toString() {
-    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, reviews: $reviews, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, rating: $rating, time: $time)';
+    return 'CreateToiletParam(name: $name, type: $type, gender: $gender, password: $password, password_tip: $password_tip, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ToiletImpl &&
-            (identical(other.id, id) || other.id == id) &&
+            other is _$CreateToiletParamImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.visible, visible) || other.visible == visible) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.password_tip, password_tip) ||
                 other.password_tip == password_tip) &&
-            (identical(other.reviews, reviews) || other.reviews == reviews) &&
-            (identical(other.location_type, location_type) ||
-                other.location_type == location_type) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.road_address, road_address) ||
                 other.road_address == road_address) &&
             (identical(other.location_tip, location_tip) ||
                 other.location_tip == location_tip) &&
-            (identical(other.city, city) || other.city == city) &&
-            (identical(other.lat, lat) || other.lat == lat) &&
-            (identical(other.lng, lng) || other.lng == lng) &&
-            (identical(other.convenience, convenience) ||
-                other.convenience == convenience) &&
-            (identical(other.equipment, equipment) ||
-                other.equipment == equipment) &&
-            (identical(other.rating, rating) || other.rating == rating) &&
-            (identical(other.time, time) || other.time == time));
+            (identical(other.city, city) || other.city == city));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        id,
-        name,
-        type,
-        visible,
-        gender,
-        password,
-        password_tip,
-        reviews,
-        location_type,
-        address,
-        road_address,
-        location_tip,
-        city,
-        lat,
-        lng,
-        convenience,
-        equipment,
-        rating,
-        time
-      ]);
+  int get hashCode => Object.hash(runtimeType, name, type, gender, password,
+      password_tip, address, road_address, location_tip, city);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ToiletImplCopyWith<_$ToiletImpl> get copyWith =>
-      __$$ToiletImplCopyWithImpl<_$ToiletImpl>(this, _$identity);
+  _$$CreateToiletParamImplCopyWith<_$CreateToiletParamImpl> get copyWith =>
+      __$$CreateToiletParamImplCopyWithImpl<_$CreateToiletParamImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ToiletImplToJson(
+    return _$$CreateToiletParamImplToJson(
       this,
     );
   }
 }
 
-abstract class _Toilet implements Toilet {
-  factory _Toilet(
-      {required final int id,
-      required final String name,
+abstract class _CreateToiletParam implements CreateToiletParam {
+  factory _CreateToiletParam(
+      {required final String name,
       required final int type,
-      required final bool visible,
       required final bool gender,
       required final bool password,
-      final String password_tip,
-      final int reviews,
-      required final String location_type,
+      required final String password_tip,
       required final String address,
       required final String road_address,
       required final String location_tip,
-      required final String city,
-      final double? lat,
-      final double? lng,
-      final Convenience? convenience,
-      final Equipment? equipment,
-      final Rating? rating,
-      final Time? time}) = _$ToiletImpl;
+      required final String city}) = _$CreateToiletParamImpl;
 
-  factory _Toilet.fromJson(Map<String, dynamic> json) = _$ToiletImpl.fromJson;
+  factory _CreateToiletParam.fromJson(Map<String, dynamic> json) =
+      _$CreateToiletParamImpl.fromJson;
 
-  @override
-  int get id;
   @override
   String get name;
   @override
   int get type;
-  @override
-  bool get visible;
   @override
   bool get gender;
   @override
   bool get password;
   @override
   String get password_tip;
-  @override
-  int get reviews;
-  @override
-  String get location_type;
   @override
   String get address;
   @override
@@ -585,29 +315,18 @@ abstract class _Toilet implements Toilet {
   @override
   String get city;
   @override
-  double? get lat;
-  @override
-  double? get lng;
-  @override
-  Convenience? get convenience;
-  @override
-  Equipment? get equipment;
-  @override
-  Rating? get rating;
-  @override
-  Time? get time;
-  @override
   @JsonKey(ignore: true)
-  _$$ToiletImplCopyWith<_$ToiletImpl> get copyWith =>
+  _$$CreateToiletParamImplCopyWith<_$CreateToiletParamImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-Convenience _$ConvenienceFromJson(Map<String, dynamic> json) {
-  return _Convenience.fromJson(json);
+CreateConvenienceParams _$CreateConvenienceParamsFromJson(
+    Map<String, dynamic> json) {
+  return _CreateConvenienceParams.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Convenience {
+mixin _$CreateConvenienceParams {
   bool get paper => throw _privateConstructorUsedError;
   bool get towel => throw _privateConstructorUsedError;
   bool get soap => throw _privateConstructorUsedError;
@@ -619,15 +338,15 @@ mixin _$Convenience {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ConvenienceCopyWith<Convenience> get copyWith =>
+  $CreateConvenienceParamsCopyWith<CreateConvenienceParams> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ConvenienceCopyWith<$Res> {
-  factory $ConvenienceCopyWith(
-          Convenience value, $Res Function(Convenience) then) =
-      _$ConvenienceCopyWithImpl<$Res, Convenience>;
+abstract class $CreateConvenienceParamsCopyWith<$Res> {
+  factory $CreateConvenienceParamsCopyWith(CreateConvenienceParams value,
+          $Res Function(CreateConvenienceParams) then) =
+      _$CreateConvenienceParamsCopyWithImpl<$Res, CreateConvenienceParams>;
   @useResult
   $Res call(
       {bool paper,
@@ -641,9 +360,10 @@ abstract class $ConvenienceCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ConvenienceCopyWithImpl<$Res, $Val extends Convenience>
-    implements $ConvenienceCopyWith<$Res> {
-  _$ConvenienceCopyWithImpl(this._value, this._then);
+class _$CreateConvenienceParamsCopyWithImpl<$Res,
+        $Val extends CreateConvenienceParams>
+    implements $CreateConvenienceParamsCopyWith<$Res> {
+  _$CreateConvenienceParamsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -700,11 +420,12 @@ class _$ConvenienceCopyWithImpl<$Res, $Val extends Convenience>
 }
 
 /// @nodoc
-abstract class _$$ConvenienceImplCopyWith<$Res>
-    implements $ConvenienceCopyWith<$Res> {
-  factory _$$ConvenienceImplCopyWith(
-          _$ConvenienceImpl value, $Res Function(_$ConvenienceImpl) then) =
-      __$$ConvenienceImplCopyWithImpl<$Res>;
+abstract class _$$CreateConvenienceParamsImplCopyWith<$Res>
+    implements $CreateConvenienceParamsCopyWith<$Res> {
+  factory _$$CreateConvenienceParamsImplCopyWith(
+          _$CreateConvenienceParamsImpl value,
+          $Res Function(_$CreateConvenienceParamsImpl) then) =
+      __$$CreateConvenienceParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -719,11 +440,13 @@ abstract class _$$ConvenienceImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ConvenienceImplCopyWithImpl<$Res>
-    extends _$ConvenienceCopyWithImpl<$Res, _$ConvenienceImpl>
-    implements _$$ConvenienceImplCopyWith<$Res> {
-  __$$ConvenienceImplCopyWithImpl(
-      _$ConvenienceImpl _value, $Res Function(_$ConvenienceImpl) _then)
+class __$$CreateConvenienceParamsImplCopyWithImpl<$Res>
+    extends _$CreateConvenienceParamsCopyWithImpl<$Res,
+        _$CreateConvenienceParamsImpl>
+    implements _$$CreateConvenienceParamsImplCopyWith<$Res> {
+  __$$CreateConvenienceParamsImplCopyWithImpl(
+      _$CreateConvenienceParamsImpl _value,
+      $Res Function(_$CreateConvenienceParamsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -738,7 +461,7 @@ class __$$ConvenienceImplCopyWithImpl<$Res>
     Object? diaper = null,
     Object? bell = null,
   }) {
-    return _then(_$ConvenienceImpl(
+    return _then(_$CreateConvenienceParamsImpl(
       paper: null == paper
           ? _value.paper
           : paper // ignore: cast_nullable_to_non_nullable
@@ -777,8 +500,8 @@ class __$$ConvenienceImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ConvenienceImpl implements _Convenience {
-  _$ConvenienceImpl(
+class _$CreateConvenienceParamsImpl implements _CreateConvenienceParams {
+  _$CreateConvenienceParamsImpl(
       {required this.paper,
       required this.towel,
       required this.soap,
@@ -788,8 +511,8 @@ class _$ConvenienceImpl implements _Convenience {
       required this.diaper,
       required this.bell});
 
-  factory _$ConvenienceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ConvenienceImplFromJson(json);
+  factory _$CreateConvenienceParamsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateConvenienceParamsImplFromJson(json);
 
   @override
   final bool paper;
@@ -810,14 +533,14 @@ class _$ConvenienceImpl implements _Convenience {
 
   @override
   String toString() {
-    return 'Convenience(paper: $paper, towel: $towel, soap: $soap, powder_room: $powder_room, hand_dry: $hand_dry, vending: $vending, diaper: $diaper, bell: $bell)';
+    return 'CreateConvenienceParams(paper: $paper, towel: $towel, soap: $soap, powder_room: $powder_room, hand_dry: $hand_dry, vending: $vending, diaper: $diaper, bell: $bell)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ConvenienceImpl &&
+            other is _$CreateConvenienceParamsImpl &&
             (identical(other.paper, paper) || other.paper == paper) &&
             (identical(other.towel, towel) || other.towel == towel) &&
             (identical(other.soap, soap) || other.soap == soap) &&
@@ -838,19 +561,20 @@ class _$ConvenienceImpl implements _Convenience {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ConvenienceImplCopyWith<_$ConvenienceImpl> get copyWith =>
-      __$$ConvenienceImplCopyWithImpl<_$ConvenienceImpl>(this, _$identity);
+  _$$CreateConvenienceParamsImplCopyWith<_$CreateConvenienceParamsImpl>
+      get copyWith => __$$CreateConvenienceParamsImplCopyWithImpl<
+          _$CreateConvenienceParamsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ConvenienceImplToJson(
+    return _$$CreateConvenienceParamsImplToJson(
       this,
     );
   }
 }
 
-abstract class _Convenience implements Convenience {
-  factory _Convenience(
+abstract class _CreateConvenienceParams implements CreateConvenienceParams {
+  factory _CreateConvenienceParams(
       {required final bool paper,
       required final bool towel,
       required final bool soap,
@@ -858,10 +582,10 @@ abstract class _Convenience implements Convenience {
       required final bool hand_dry,
       required final bool vending,
       required final bool diaper,
-      required final bool bell}) = _$ConvenienceImpl;
+      required final bool bell}) = _$CreateConvenienceParamsImpl;
 
-  factory _Convenience.fromJson(Map<String, dynamic> json) =
-      _$ConvenienceImpl.fromJson;
+  factory _CreateConvenienceParams.fromJson(Map<String, dynamic> json) =
+      _$CreateConvenienceParamsImpl.fromJson;
 
   @override
   bool get paper;
@@ -881,16 +605,17 @@ abstract class _Convenience implements Convenience {
   bool get bell;
   @override
   @JsonKey(ignore: true)
-  _$$ConvenienceImplCopyWith<_$ConvenienceImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateConvenienceParamsImplCopyWith<_$CreateConvenienceParamsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
-Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
-  return _Equipment.fromJson(json);
+CreateEquipmentParams _$CreateEquipmentParamsFromJson(
+    Map<String, dynamic> json) {
+  return _CreateEquipmentParams.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Equipment {
+mixin _$CreateEquipmentParams {
   List<int> get urinal => throw _privateConstructorUsedError;
   List<int> get child_urinal => throw _privateConstructorUsedError;
   List<int> get disable_urinal => throw _privateConstructorUsedError;
@@ -901,14 +626,15 @@ mixin _$Equipment {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $EquipmentCopyWith<Equipment> get copyWith =>
+  $CreateEquipmentParamsCopyWith<CreateEquipmentParams> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EquipmentCopyWith<$Res> {
-  factory $EquipmentCopyWith(Equipment value, $Res Function(Equipment) then) =
-      _$EquipmentCopyWithImpl<$Res, Equipment>;
+abstract class $CreateEquipmentParamsCopyWith<$Res> {
+  factory $CreateEquipmentParamsCopyWith(CreateEquipmentParams value,
+          $Res Function(CreateEquipmentParams) then) =
+      _$CreateEquipmentParamsCopyWithImpl<$Res, CreateEquipmentParams>;
   @useResult
   $Res call(
       {List<int> urinal,
@@ -921,9 +647,10 @@ abstract class $EquipmentCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
-    implements $EquipmentCopyWith<$Res> {
-  _$EquipmentCopyWithImpl(this._value, this._then);
+class _$CreateEquipmentParamsCopyWithImpl<$Res,
+        $Val extends CreateEquipmentParams>
+    implements $CreateEquipmentParamsCopyWith<$Res> {
+  _$CreateEquipmentParamsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -975,11 +702,12 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
 }
 
 /// @nodoc
-abstract class _$$EquipmentImplCopyWith<$Res>
-    implements $EquipmentCopyWith<$Res> {
-  factory _$$EquipmentImplCopyWith(
-          _$EquipmentImpl value, $Res Function(_$EquipmentImpl) then) =
-      __$$EquipmentImplCopyWithImpl<$Res>;
+abstract class _$$CreateEquipmentParamsImplCopyWith<$Res>
+    implements $CreateEquipmentParamsCopyWith<$Res> {
+  factory _$$CreateEquipmentParamsImplCopyWith(
+          _$CreateEquipmentParamsImpl value,
+          $Res Function(_$CreateEquipmentParamsImpl) then) =
+      __$$CreateEquipmentParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -993,11 +721,12 @@ abstract class _$$EquipmentImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$EquipmentImplCopyWithImpl<$Res>
-    extends _$EquipmentCopyWithImpl<$Res, _$EquipmentImpl>
-    implements _$$EquipmentImplCopyWith<$Res> {
-  __$$EquipmentImplCopyWithImpl(
-      _$EquipmentImpl _value, $Res Function(_$EquipmentImpl) _then)
+class __$$CreateEquipmentParamsImplCopyWithImpl<$Res>
+    extends _$CreateEquipmentParamsCopyWithImpl<$Res,
+        _$CreateEquipmentParamsImpl>
+    implements _$$CreateEquipmentParamsImplCopyWith<$Res> {
+  __$$CreateEquipmentParamsImplCopyWithImpl(_$CreateEquipmentParamsImpl _value,
+      $Res Function(_$CreateEquipmentParamsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1011,7 +740,7 @@ class __$$EquipmentImplCopyWithImpl<$Res>
     Object? disable_seat = null,
     Object? washbasin = null,
   }) {
-    return _then(_$EquipmentImpl(
+    return _then(_$CreateEquipmentParamsImpl(
       urinal: null == urinal
           ? _value._urinal
           : urinal // ignore: cast_nullable_to_non_nullable
@@ -1046,8 +775,8 @@ class __$$EquipmentImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EquipmentImpl implements _Equipment {
-  _$EquipmentImpl(
+class _$CreateEquipmentParamsImpl implements _CreateEquipmentParams {
+  _$CreateEquipmentParamsImpl(
       {required final List<int> urinal,
       required final List<int> child_urinal,
       required final List<int> disable_urinal,
@@ -1063,8 +792,8 @@ class _$EquipmentImpl implements _Equipment {
         _disable_seat = disable_seat,
         _washbasin = washbasin;
 
-  factory _$EquipmentImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EquipmentImplFromJson(json);
+  factory _$CreateEquipmentParamsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateEquipmentParamsImplFromJson(json);
 
   final List<int> _urinal;
   @override
@@ -1124,14 +853,14 @@ class _$EquipmentImpl implements _Equipment {
 
   @override
   String toString() {
-    return 'Equipment(urinal: $urinal, child_urinal: $child_urinal, disable_urinal: $disable_urinal, seat: $seat, child_seat: $child_seat, disable_seat: $disable_seat, washbasin: $washbasin)';
+    return 'CreateEquipmentParams(urinal: $urinal, child_urinal: $child_urinal, disable_urinal: $disable_urinal, seat: $seat, child_seat: $child_seat, disable_seat: $disable_seat, washbasin: $washbasin)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EquipmentImpl &&
+            other is _$CreateEquipmentParamsImpl &&
             const DeepCollectionEquality().equals(other._urinal, _urinal) &&
             const DeepCollectionEquality()
                 .equals(other._child_urinal, _child_urinal) &&
@@ -1161,29 +890,30 @@ class _$EquipmentImpl implements _Equipment {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EquipmentImplCopyWith<_$EquipmentImpl> get copyWith =>
-      __$$EquipmentImplCopyWithImpl<_$EquipmentImpl>(this, _$identity);
+  _$$CreateEquipmentParamsImplCopyWith<_$CreateEquipmentParamsImpl>
+      get copyWith => __$$CreateEquipmentParamsImplCopyWithImpl<
+          _$CreateEquipmentParamsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EquipmentImplToJson(
+    return _$$CreateEquipmentParamsImplToJson(
       this,
     );
   }
 }
 
-abstract class _Equipment implements Equipment {
-  factory _Equipment(
+abstract class _CreateEquipmentParams implements CreateEquipmentParams {
+  factory _CreateEquipmentParams(
       {required final List<int> urinal,
       required final List<int> child_urinal,
       required final List<int> disable_urinal,
       required final List<int> seat,
       required final List<int> child_seat,
       required final List<int> disable_seat,
-      required final List<int> washbasin}) = _$EquipmentImpl;
+      required final List<int> washbasin}) = _$CreateEquipmentParamsImpl;
 
-  factory _Equipment.fromJson(Map<String, dynamic> json) =
-      _$EquipmentImpl.fromJson;
+  factory _CreateEquipmentParams.fromJson(Map<String, dynamic> json) =
+      _$CreateEquipmentParamsImpl.fromJson;
 
   @override
   List<int> get urinal;
@@ -1201,216 +931,16 @@ abstract class _Equipment implements Equipment {
   List<int> get washbasin;
   @override
   @JsonKey(ignore: true)
-  _$$EquipmentImplCopyWith<_$EquipmentImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateEquipmentParamsImplCopyWith<_$CreateEquipmentParamsImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
-Rating _$RatingFromJson(Map<String, dynamic> json) {
-  return _Rating.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Rating {
-  double get cleanliness => throw _privateConstructorUsedError;
-  double get safety => throw _privateConstructorUsedError;
-  double get convenience => throw _privateConstructorUsedError;
-  double get management => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $RatingCopyWith<Rating> get copyWith => throw _privateConstructorUsedError;
+CreateTimeParams _$CreateTimeParamsFromJson(Map<String, dynamic> json) {
+  return _CreateTimeParams.fromJson(json);
 }
 
 /// @nodoc
-abstract class $RatingCopyWith<$Res> {
-  factory $RatingCopyWith(Rating value, $Res Function(Rating) then) =
-      _$RatingCopyWithImpl<$Res, Rating>;
-  @useResult
-  $Res call(
-      {double cleanliness,
-      double safety,
-      double convenience,
-      double management});
-}
-
-/// @nodoc
-class _$RatingCopyWithImpl<$Res, $Val extends Rating>
-    implements $RatingCopyWith<$Res> {
-  _$RatingCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? cleanliness = null,
-    Object? safety = null,
-    Object? convenience = null,
-    Object? management = null,
-  }) {
-    return _then(_value.copyWith(
-      cleanliness: null == cleanliness
-          ? _value.cleanliness
-          : cleanliness // ignore: cast_nullable_to_non_nullable
-              as double,
-      safety: null == safety
-          ? _value.safety
-          : safety // ignore: cast_nullable_to_non_nullable
-              as double,
-      convenience: null == convenience
-          ? _value.convenience
-          : convenience // ignore: cast_nullable_to_non_nullable
-              as double,
-      management: null == management
-          ? _value.management
-          : management // ignore: cast_nullable_to_non_nullable
-              as double,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$RatingImplCopyWith<$Res> implements $RatingCopyWith<$Res> {
-  factory _$$RatingImplCopyWith(
-          _$RatingImpl value, $Res Function(_$RatingImpl) then) =
-      __$$RatingImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {double cleanliness,
-      double safety,
-      double convenience,
-      double management});
-}
-
-/// @nodoc
-class __$$RatingImplCopyWithImpl<$Res>
-    extends _$RatingCopyWithImpl<$Res, _$RatingImpl>
-    implements _$$RatingImplCopyWith<$Res> {
-  __$$RatingImplCopyWithImpl(
-      _$RatingImpl _value, $Res Function(_$RatingImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? cleanliness = null,
-    Object? safety = null,
-    Object? convenience = null,
-    Object? management = null,
-  }) {
-    return _then(_$RatingImpl(
-      cleanliness: null == cleanliness
-          ? _value.cleanliness
-          : cleanliness // ignore: cast_nullable_to_non_nullable
-              as double,
-      safety: null == safety
-          ? _value.safety
-          : safety // ignore: cast_nullable_to_non_nullable
-              as double,
-      convenience: null == convenience
-          ? _value.convenience
-          : convenience // ignore: cast_nullable_to_non_nullable
-              as double,
-      management: null == management
-          ? _value.management
-          : management // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$RatingImpl implements _Rating {
-  _$RatingImpl(
-      {required this.cleanliness,
-      required this.safety,
-      required this.convenience,
-      required this.management});
-
-  factory _$RatingImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RatingImplFromJson(json);
-
-  @override
-  final double cleanliness;
-  @override
-  final double safety;
-  @override
-  final double convenience;
-  @override
-  final double management;
-
-  @override
-  String toString() {
-    return 'Rating(cleanliness: $cleanliness, safety: $safety, convenience: $convenience, management: $management)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$RatingImpl &&
-            (identical(other.cleanliness, cleanliness) ||
-                other.cleanliness == cleanliness) &&
-            (identical(other.safety, safety) || other.safety == safety) &&
-            (identical(other.convenience, convenience) ||
-                other.convenience == convenience) &&
-            (identical(other.management, management) ||
-                other.management == management));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, cleanliness, safety, convenience, management);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$RatingImplCopyWith<_$RatingImpl> get copyWith =>
-      __$$RatingImplCopyWithImpl<_$RatingImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RatingImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Rating implements Rating {
-  factory _Rating(
-      {required final double cleanliness,
-      required final double safety,
-      required final double convenience,
-      required final double management}) = _$RatingImpl;
-
-  factory _Rating.fromJson(Map<String, dynamic> json) = _$RatingImpl.fromJson;
-
-  @override
-  double get cleanliness;
-  @override
-  double get safety;
-  @override
-  double get convenience;
-  @override
-  double get management;
-  @override
-  @JsonKey(ignore: true)
-  _$$RatingImplCopyWith<_$RatingImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Time _$TimeFromJson(Map<String, dynamic> json) {
-  return _Time.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Time {
+mixin _$CreateTimeParams {
   OperateTime get mon => throw _privateConstructorUsedError;
   OperateTime get tue => throw _privateConstructorUsedError;
   OperateTime get wed => throw _privateConstructorUsedError;
@@ -1421,13 +951,15 @@ mixin _$Time {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TimeCopyWith<Time> get copyWith => throw _privateConstructorUsedError;
+  $CreateTimeParamsCopyWith<CreateTimeParams> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TimeCopyWith<$Res> {
-  factory $TimeCopyWith(Time value, $Res Function(Time) then) =
-      _$TimeCopyWithImpl<$Res, Time>;
+abstract class $CreateTimeParamsCopyWith<$Res> {
+  factory $CreateTimeParamsCopyWith(
+          CreateTimeParams value, $Res Function(CreateTimeParams) then) =
+      _$CreateTimeParamsCopyWithImpl<$Res, CreateTimeParams>;
   @useResult
   $Res call(
       {OperateTime mon,
@@ -1448,9 +980,9 @@ abstract class $TimeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TimeCopyWithImpl<$Res, $Val extends Time>
-    implements $TimeCopyWith<$Res> {
-  _$TimeCopyWithImpl(this._value, this._then);
+class _$CreateTimeParamsCopyWithImpl<$Res, $Val extends CreateTimeParams>
+    implements $CreateTimeParamsCopyWith<$Res> {
+  _$CreateTimeParamsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -1558,10 +1090,11 @@ class _$TimeCopyWithImpl<$Res, $Val extends Time>
 }
 
 /// @nodoc
-abstract class _$$TimeImplCopyWith<$Res> implements $TimeCopyWith<$Res> {
-  factory _$$TimeImplCopyWith(
-          _$TimeImpl value, $Res Function(_$TimeImpl) then) =
-      __$$TimeImplCopyWithImpl<$Res>;
+abstract class _$$CreateTimeParamsImplCopyWith<$Res>
+    implements $CreateTimeParamsCopyWith<$Res> {
+  factory _$$CreateTimeParamsImplCopyWith(_$CreateTimeParamsImpl value,
+          $Res Function(_$CreateTimeParamsImpl) then) =
+      __$$CreateTimeParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1590,10 +1123,11 @@ abstract class _$$TimeImplCopyWith<$Res> implements $TimeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$TimeImplCopyWithImpl<$Res>
-    extends _$TimeCopyWithImpl<$Res, _$TimeImpl>
-    implements _$$TimeImplCopyWith<$Res> {
-  __$$TimeImplCopyWithImpl(_$TimeImpl _value, $Res Function(_$TimeImpl) _then)
+class __$$CreateTimeParamsImplCopyWithImpl<$Res>
+    extends _$CreateTimeParamsCopyWithImpl<$Res, _$CreateTimeParamsImpl>
+    implements _$$CreateTimeParamsImplCopyWith<$Res> {
+  __$$CreateTimeParamsImplCopyWithImpl(_$CreateTimeParamsImpl _value,
+      $Res Function(_$CreateTimeParamsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1607,7 +1141,7 @@ class __$$TimeImplCopyWithImpl<$Res>
     Object? sat = null,
     Object? sun = null,
   }) {
-    return _then(_$TimeImpl(
+    return _then(_$CreateTimeParamsImpl(
       mon: null == mon
           ? _value.mon
           : mon // ignore: cast_nullable_to_non_nullable
@@ -1642,8 +1176,8 @@ class __$$TimeImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TimeImpl implements _Time {
-  _$TimeImpl(
+class _$CreateTimeParamsImpl implements _CreateTimeParams {
+  _$CreateTimeParamsImpl(
       {required this.mon,
       required this.tue,
       required this.wed,
@@ -1652,8 +1186,8 @@ class _$TimeImpl implements _Time {
       required this.sat,
       required this.sun});
 
-  factory _$TimeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TimeImplFromJson(json);
+  factory _$CreateTimeParamsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateTimeParamsImplFromJson(json);
 
   @override
   final OperateTime mon;
@@ -1672,14 +1206,14 @@ class _$TimeImpl implements _Time {
 
   @override
   String toString() {
-    return 'Time(mon: $mon, tue: $tue, wed: $wed, thu: $thu, fri: $fri, sat: $sat, sun: $sun)';
+    return 'CreateTimeParams(mon: $mon, tue: $tue, wed: $wed, thu: $thu, fri: $fri, sat: $sat, sun: $sun)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TimeImpl &&
+            other is _$CreateTimeParamsImpl &&
             (identical(other.mon, mon) || other.mon == mon) &&
             (identical(other.tue, tue) || other.tue == tue) &&
             (identical(other.wed, wed) || other.wed == wed) &&
@@ -1697,28 +1231,30 @@ class _$TimeImpl implements _Time {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TimeImplCopyWith<_$TimeImpl> get copyWith =>
-      __$$TimeImplCopyWithImpl<_$TimeImpl>(this, _$identity);
+  _$$CreateTimeParamsImplCopyWith<_$CreateTimeParamsImpl> get copyWith =>
+      __$$CreateTimeParamsImplCopyWithImpl<_$CreateTimeParamsImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TimeImplToJson(
+    return _$$CreateTimeParamsImplToJson(
       this,
     );
   }
 }
 
-abstract class _Time implements Time {
-  factory _Time(
+abstract class _CreateTimeParams implements CreateTimeParams {
+  factory _CreateTimeParams(
       {required final OperateTime mon,
       required final OperateTime tue,
       required final OperateTime wed,
       required final OperateTime thu,
       required final OperateTime fri,
       required final OperateTime sat,
-      required final OperateTime sun}) = _$TimeImpl;
+      required final OperateTime sun}) = _$CreateTimeParamsImpl;
 
-  factory _Time.fromJson(Map<String, dynamic> json) = _$TimeImpl.fromJson;
+  factory _CreateTimeParams.fromJson(Map<String, dynamic> json) =
+      _$CreateTimeParamsImpl.fromJson;
 
   @override
   OperateTime get mon;
@@ -1736,160 +1272,6 @@ abstract class _Time implements Time {
   OperateTime get sun;
   @override
   @JsonKey(ignore: true)
-  _$$TimeImplCopyWith<_$TimeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-OperateTime _$OperateTimeFromJson(Map<String, dynamic> json) {
-  return _OperateTime.fromJson(json);
-}
-
-/// @nodoc
-mixin _$OperateTime {
-  String? get open => throw _privateConstructorUsedError;
-  String? get close => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OperateTimeCopyWith<OperateTime> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $OperateTimeCopyWith<$Res> {
-  factory $OperateTimeCopyWith(
-          OperateTime value, $Res Function(OperateTime) then) =
-      _$OperateTimeCopyWithImpl<$Res, OperateTime>;
-  @useResult
-  $Res call({String? open, String? close});
-}
-
-/// @nodoc
-class _$OperateTimeCopyWithImpl<$Res, $Val extends OperateTime>
-    implements $OperateTimeCopyWith<$Res> {
-  _$OperateTimeCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? open = freezed,
-    Object? close = freezed,
-  }) {
-    return _then(_value.copyWith(
-      open: freezed == open
-          ? _value.open
-          : open // ignore: cast_nullable_to_non_nullable
-              as String?,
-      close: freezed == close
-          ? _value.close
-          : close // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$OperateTimeImplCopyWith<$Res>
-    implements $OperateTimeCopyWith<$Res> {
-  factory _$$OperateTimeImplCopyWith(
-          _$OperateTimeImpl value, $Res Function(_$OperateTimeImpl) then) =
-      __$$OperateTimeImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? open, String? close});
-}
-
-/// @nodoc
-class __$$OperateTimeImplCopyWithImpl<$Res>
-    extends _$OperateTimeCopyWithImpl<$Res, _$OperateTimeImpl>
-    implements _$$OperateTimeImplCopyWith<$Res> {
-  __$$OperateTimeImplCopyWithImpl(
-      _$OperateTimeImpl _value, $Res Function(_$OperateTimeImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? open = freezed,
-    Object? close = freezed,
-  }) {
-    return _then(_$OperateTimeImpl(
-      open: freezed == open
-          ? _value.open
-          : open // ignore: cast_nullable_to_non_nullable
-              as String?,
-      close: freezed == close
-          ? _value.close
-          : close // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$OperateTimeImpl implements _OperateTime {
-  _$OperateTimeImpl({required this.open, required this.close});
-
-  factory _$OperateTimeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$OperateTimeImplFromJson(json);
-
-  @override
-  final String? open;
-  @override
-  final String? close;
-
-  @override
-  String toString() {
-    return 'OperateTime(open: $open, close: $close)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$OperateTimeImpl &&
-            (identical(other.open, open) || other.open == open) &&
-            (identical(other.close, close) || other.close == close));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, open, close);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$OperateTimeImplCopyWith<_$OperateTimeImpl> get copyWith =>
-      __$$OperateTimeImplCopyWithImpl<_$OperateTimeImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$OperateTimeImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _OperateTime implements OperateTime {
-  factory _OperateTime(
-      {required final String? open,
-      required final String? close}) = _$OperateTimeImpl;
-
-  factory _OperateTime.fromJson(Map<String, dynamic> json) =
-      _$OperateTimeImpl.fromJson;
-
-  @override
-  String? get open;
-  @override
-  String? get close;
-  @override
-  @JsonKey(ignore: true)
-  _$$OperateTimeImplCopyWith<_$OperateTimeImpl> get copyWith =>
+  _$$CreateTimeParamsImplCopyWith<_$CreateTimeParamsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
