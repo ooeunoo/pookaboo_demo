@@ -55,10 +55,8 @@ class _ToiletBottomSheetInformationState
       int count = 0;
 
       for (var key in keys) {
-        String equipmentsJsonString = widget.toilet.equipment?.toJson()[key];
-        var equipmentsJson = jsonDecode(equipmentsJsonString) as List<dynamic>;
-        List<int> equipments =
-            equipmentsJson.map((item) => item as int).toList();
+        List<int> equipmentsJson = widget.toilet.equipment?.toJson()[key];
+        List<int> equipments = equipmentsJson.map((item) => item).toList();
 
         bool seperate = widget.toilet.gender;
 
