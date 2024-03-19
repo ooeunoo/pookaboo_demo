@@ -43,21 +43,27 @@ class _MultiSelectFormState extends State<AppMultiSelectForm> {
   Widget build(BuildContext context) {
     return FormContainer(
       step: step,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
+      child: ListView(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
         children: [
-          const Spacer(),
-          FormHeader(title: step.title),
-          if (step.description?.isNotEmpty == true)
-            FormDescription(description: step.description!),
-          AppSpacerV(value: Dimens.space30),
-          _options(context),
-          AppSpacerV(value: Dimens.space50),
-          FormButton(
-              onNextPress: widget.onNextPress,
-              onBackPress: widget.onBackPress,
-              result: StepResult(stepId: step.id, value: _selected)),
-          const SizedBox(),
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const AppSpacerV(),
+              FormHeader(title: step.title),
+              if (step.description?.isNotEmpty == true)
+                FormDescription(description: step.description!),
+              AppSpacerV(value: Dimens.space30),
+              _options(context),
+              AppSpacerV(value: Dimens.space50),
+              FormButton(
+                  onNextPress: widget.onNextPress,
+                  onBackPress: widget.onBackPress,
+                  result: StepResult(stepId: step.id, value: _selected)),
+              const SizedBox(),
+            ],
+          ),
         ],
       ),
     );

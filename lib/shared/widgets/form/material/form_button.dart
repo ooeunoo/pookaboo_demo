@@ -6,6 +6,7 @@ enum ButtonsAlignment { vertical, horizontal }
 
 class FormButton extends StatelessWidget {
   final void Function(StepResult? result)? onNextPress;
+  final String? nextText;
   final void Function()? onBackPress;
   final StepResult? result;
   final bool disable;
@@ -16,6 +17,7 @@ class FormButton extends StatelessWidget {
     this.onBackPress,
     this.result,
     this.disable = false,
+    this.nextText,
   });
 
   @override
@@ -29,7 +31,7 @@ class FormButton extends StatelessWidget {
               Expanded(
                   child: AppButton(
                 disable: disable,
-                title: '다음',
+                title: nextText ?? '다음',
                 onPressed: () {
                   onNextPress!(result);
                 },

@@ -69,6 +69,7 @@ class _AppConfirmFormState extends State<AppConfirmForm> {
           const Spacer(),
           FormButton(
             onNextPress: widget.onNextPress,
+            nextText: '등록 완료',
           ),
         ],
       ),

@@ -1,4 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:pookaboo/layers/data/repositories/proposal/proposal_repository_impl.dart';
+import 'package:pookaboo/layers/domain/repositories/proposal/proposal_repository.dart';
+import 'package:pookaboo/layers/domain/usecases/proposal/proposal_usecase.dart';
+import 'package:pookaboo/layers/presentation/bloc/proposal/proposal_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/data/repositories/auth/auth_repository_impl.dart';
 import 'package:pookaboo/layers/domain/repositories/auth/auth_repository.dart';
@@ -52,6 +56,8 @@ Future<void> _repositories() async {
   sl.registerLazySingleton<ReviewRepository>(() => ReviewRepositoryImpl(sl()));
   sl.registerLazySingleton<VisitationRepository>(
       () => VisitationRepositoryImpl(sl()));
+  sl.registerLazySingleton<ProposalRepository>(
+      () => ProposalRepositoryImpl(sl()));
 }
 
 Future<void> _dataSources() async {
@@ -88,6 +94,9 @@ Future<void> _useCase() async {
       () => CreateToiletVisitationUseCase(sl()));
   sl.registerLazySingleton<GetToiletVisitationsByUserIdUseCase>(
       () => GetToiletVisitationsByUserIdUseCase(sl()));
+
+  sl.registerLazySingleton<CreateToiletProposalUseCase>(
+      () => CreateToiletProposalUseCase(sl()));
 }
 
 Future<void> _bloc() async {
@@ -96,6 +105,7 @@ Future<void> _bloc() async {
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));
   sl.registerFactory(() => ProfileBloc());
+  sl.registerFactory(() => ProposalBloc(sl()));
 }
 
 Future<void> _cubit() async {

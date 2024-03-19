@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart' hide Step;
+import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
+import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
 import 'package:pookaboo/shared/entities/form/confirm_step.dart';
 import 'package:pookaboo/shared/entities/form/data_step.dart';
 import 'package:pookaboo/shared/entities/form/information_step.dart';
@@ -34,12 +36,15 @@ class SurveyFlow extends StatefulWidget {
 
 class _SurveyFlowState extends State<SurveyFlow> {
   final PageController _controller = PageController();
-
-  List<StepResult> results = [];
+  CreateToiletParam params = CreateToiletParam.getEmpty();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  void _onSave(List<StepResult> results) {
+    CreateToiletParam params = CreateToiletParam.getEmpty();
   }
 
   @override
@@ -62,6 +67,10 @@ class _SurveyFlowState extends State<SurveyFlow> {
         );
       },
     );
+  }
+
+  void _condition(Step step) {
+    if (step.id == 'equipment') {}
   }
 
   Widget _mapStep(BuildContext context, Step step) {
@@ -119,17 +128,17 @@ class _SurveyFlowState extends State<SurveyFlow> {
   }
 
   void _onPressNextButton(StepResult? result) {
-    log.d(result?.toJson());
     if (result != null) {
       setState(() {
-        results.add(result);
+        params = _updateParamsWithKey(params, result);
       });
     }
 
     if (_controller.page?.toInt() == steps.length - 1) {
       bool shouldFinish = true;
-      log.d('최종: $results');
-      return;
+
+      // _onSave(results);
+      // return;
     }
 
     // 다음 페이지 이동
@@ -140,10 +149,6 @@ class _SurveyFlowState extends State<SurveyFlow> {
   }
 
   void _onPressBackButton() {
-    if (results.isNotEmpty) {
-      results.removeLast();
-    }
-
     if (_controller.page?.toInt() == 0) {
       return;
     }
@@ -152,5 +157,91 @@ class _SurveyFlowState extends State<SurveyFlow> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
     );
+  }
+
+  CreateToiletParam _updateParamsWithKey(
+      CreateToiletParam params, StepResult result) {
+    String key = result.stepId;
+    dynamic value = result.value;
+    log.d(value);
+    switch (key) {
+      case 'name':
+        return params.copyWith(name: value as String);
+      case 'type':
+        return params.copyWith(type: value as int);
+      case 'gender':
+        return params.copyWith(gender: value as bool);
+      case 'password':
+        return params.copyWith(password: value as bool);
+      case 'password_tip':
+        return params.copyWith(password_tip: value as String);
+      case 'address':
+        return params.copyWith(address: value as String);
+      case 'road_address':
+        return params.copyWith(road_address: value as String);
+      case 'location_tip':
+        return params.copyWith(location_tip: value as String);
+      case 'city':
+        return params.copyWith(city: value as String);
+      case 'coordinates':
+        return params.copyWith(
+            coordinates: "POINT(${value.longitude} ${value.latitude})");
+      case 'convenience':
+        if (value.contains('paper')) {
+          return params.copyWith(paper: true);
+        }
+        if (value.contains('towel')) {
+          return params.copyWith(towel: true);
+        }
+        if (value.contains('soap')) {
+          return params.copyWith(soap: true);
+        }
+        if (value.contains('powder_room')) {
+          return params.copyWith(powder_room: true);
+        }
+        if (value.contains('hand_dry')) {
+          return params.copyWith(hand_dry: true);
+        }
+        if (value.contains('vending')) {
+          return params.copyWith(vending: true);
+        }
+        if (value.contains('diaper')) {
+          return params.copyWith(diaper: true);
+        }
+        if (value.contains('bell')) {
+          return params.copyWith(bell: true);
+        }
+      case 'time':
+        return params.copyWith(
+          mon: value.mon as OperateTime,
+          tue: value.tue as OperateTime,
+          wed: value.wed as OperateTime,
+          thu: value.thu as OperateTime,
+          fri: value.fri as OperateTime,
+          sat: value.sat as OperateTime,
+          sun: value.sun as OperateTime,
+        );
+      // case 'equipment':
+      // List<int> urnial = [
+      //   value.urinal,
+      //   value.child_urinal,
+      //   value.disable_urinal
+      // ];
+      // List<int> urnial = [
+      //   value.urinal,
+      //   value.child_urinal,
+      //   value.disable_urinal
+      // ];
+      // List<int> urnial = [
+      //   value.urinal,
+      //   value.child_urinal,
+      //   value.disable_urinal
+      // ];
+
+      // return params.copyWith(password: value as bool);
+      default:
+        return params;
+    }
+    return params;
   }
 }

@@ -40,12 +40,6 @@ class _DataFormState extends State<AppDataForm> {
   }
 
   @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FormContainer(
       step: step,
@@ -59,25 +53,23 @@ class _DataFormState extends State<AppDataForm> {
           Padding(
             padding: EdgeInsets.only(top: Dimens.space24),
             child: GestureDetector(
-              child: AbsorbPointer(
-                child: TextField(
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(height: Dimens.space20 / Dimens.space16),
-                  enabled: !isLoading,
-                  focusNode: _focusNode,
-                  decoration: _decoration(context),
-                  controller: _controller,
-                  keyboardType: textInputType,
-                  textAlign: TextAlign.center,
-                  onTapOutside: (_) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  onChanged: (_) {
-                    setState(() {});
-                  },
-                ),
+              child: TextField(
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(height: Dimens.space20 / Dimens.space16),
+                enabled: !isLoading,
+                focusNode: _focusNode,
+                decoration: _decoration(context),
+                controller: _controller,
+                keyboardType: textInputType,
+                textAlign: TextAlign.center,
+                onTapOutside: (_) {
+                  FocusScope.of(context).unfocus();
+                },
+                onChanged: (_) {
+                  setState(() {});
+                },
               ),
             ),
           ),

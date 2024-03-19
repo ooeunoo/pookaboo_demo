@@ -153,6 +153,7 @@ class _PictureFormState extends State<AppPictureForm> {
           const Spacer(),
           FormButton(
             onNextPress: widget.onNextPress,
+            onBackPress: widget.onBackPress,
             result: StepResult(stepId: step.id, value: _images),
           ),
         ],
