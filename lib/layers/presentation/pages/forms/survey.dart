@@ -5,6 +5,7 @@ import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart'
 import 'package:pookaboo/layers/domain/entities/form/step/map_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_select_step.dart';
+import 'package:pookaboo/layers/domain/entities/form/step/multi_time_data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/single_select_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
@@ -61,20 +62,32 @@ List<Step> steps = [
   //             text: '${value.name} ${value.emoji}', value: value.key);
   //       })
   //     ]),
-  MultiDataStep(
-      id: 'equipment',
-      title: '화장실에 있는 시설 갯수를 알려주세요!',
-      description: "",
-      type: DataType.numberInt,
-      options: [
-        ...EquipmentKey.values.expand((value) {
-          List<DataOption> options = [];
-          for (var (key, label) in value.keys) {
-            options.add(DataOption(id: key, label: label));
-          }
-          return options;
-        })
-      ]),
+  // MultiDataStep(
+  //     id: 'equipment',
+  //     title: '화장실에 있는 시설 갯수를 알려주세요!',
+  //     description: "",
+  //     type: DataType.numberInt,
+  //     options: [
+  //       ...EquipmentKey.values.expand((value) {
+  //         List<DataOption> options = [];
+  //         for (var (key, label) in value.keys) {
+  //           options.add(DataOption(id: key, label: label));
+  //         }
+  //         return options;
+  //       })
+  //     ]),
+  MultiTimeDataStep(
+    id: 'time',
+    title: '화장실의 운영시간을 알려주세요!',
+    description: "",
+    type: InputTimeDataType.time,
+    dateFormat: "HH:mm",
+    options: [
+      ...Week.values.map((value) {
+        return DataOption(id: value.key, label: value.ko);
+      })
+    ],
+  ),
   ////////////////////
 
   ////////////////////

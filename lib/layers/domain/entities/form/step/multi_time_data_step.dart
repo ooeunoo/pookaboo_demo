@@ -6,19 +6,19 @@ import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 
-class MultiDataStep implements Step {
+class MultiTimeDataStep implements Step {
   @override
   String id;
   @override
   String title;
   @override
   String? description;
-  InputDataType type;
+  InputTimeDataType type;
   String? dateFormat;
 
   List<DataOption> options;
 
-  MultiDataStep({
+  MultiTimeDataStep({
     required this.id,
     required this.title,
     this.description,
@@ -27,7 +27,8 @@ class MultiDataStep implements Step {
     this.dateFormat,
   });
 
-  factory MultiDataStep.fromJson(Map<String, dynamic> json) => MultiDataStep(
+  factory MultiTimeDataStep.fromJson(Map<String, dynamic> json) =>
+      MultiTimeDataStep(
         id: json["id"],
         title: json["title"],
         options: json["options"],

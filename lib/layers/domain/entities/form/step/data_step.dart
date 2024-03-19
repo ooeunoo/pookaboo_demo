@@ -1,16 +1,5 @@
 import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
-
-enum DataType {
-  text,
-  textMultiline,
-  name,
-  email,
-  numberInt,
-  numberDouble,
-  date,
-  time,
-  dateAndTime,
-}
+import 'package:pookaboo/shared/constant/enum.dart';
 
 class DataStep implements Step {
   @override
@@ -19,7 +8,7 @@ class DataStep implements Step {
   String title;
   @override
   String? description;
-  DataType type;
+  InputDataType type;
   String? dateFormat;
 
   DataStep({

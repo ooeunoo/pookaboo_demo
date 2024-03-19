@@ -63,11 +63,17 @@ enum RatingScoreType {
 
 enum EquipmentOrder { common, male, female }
 
-
-
 enum EquipmentKey {
-  urinal([('urinal', "소변기"), ('child_urinal', "어린이용 소변기"), ('disable_urinal', "장애인용 소변기")], '소변기', '💦'),
-  seat([('seat', "좌변기"), ('child_seat', "어린이용 좌변기"), ('disable_seat', "장애인용 좌변기")], '좌변기', '🚽'),
+  urinal([
+    ('urinal', "소변기"),
+    ('child_urinal', "어린이용 소변기"),
+    ('disable_urinal', "장애인용 소변기")
+  ], '소변기', '💦'),
+  seat([
+    ('seat', "좌변기"),
+    ('child_seat', "어린이용 좌변기"),
+    ('disable_seat', "장애인용 좌변기")
+  ], '좌변기', '🚽'),
   washbasin([('washbasin', "세면대")], '세면대', '🚰');
 
   const EquipmentKey(this.keys, this.name, this.emoji);
@@ -112,4 +118,19 @@ enum Coord {
   const Coord(this.key);
 
   final String key;
+}
+
+enum InputDataType {
+  text,
+  textMultiline,
+  name,
+  email,
+  numberInt,
+  numberDouble,
+}
+
+enum InputTimeDataType {
+  date,
+  time,
+  dateAndTime,
 }

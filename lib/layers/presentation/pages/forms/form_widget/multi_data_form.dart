@@ -6,6 +6,7 @@ import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
 import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_container.dart';
 import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_button.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
@@ -100,7 +101,6 @@ class _MultiDataFormState extends State<MultiDataForm> {
                       GestureDetector(
                         onTap: !isLoading ? () => _requestFocus(index) : null,
                         child: AbsorbPointer(
-                          absorbing: isDatePicker,
                           child: SizedBox(
                             width: Dimens.space100,
                             child: TextField(
@@ -175,91 +175,14 @@ class _MultiDataFormState extends State<MultiDataForm> {
     );
   }
 
-  Future<void> _showDatePicker(BuildContext context, int index) async {
-    final DateFormat dateFormat = DateFormat(dateFormatPattern);
-    DateTime? selected;
-
-    final DateTime initialDate = _selectedDate ?? DateTime.now();
-    setState(() {
-      _selectedDate = initialDate;
-      _controllers[index].text = dateFormat.format(initialDate);
-    });
-
-    // if (step.type == DataType.date) {
-    //   selected = await showPlatformDatePicker(
-    //     context,
-    //     initialDate: initialDate,
-    //     onDateTimeChanged: (DateTime selectedDate) {
-    //       setState(() {
-    //         _selectedDate = DateUtils.dateOnly(selectedDate);
-    //         _controllers[index].text = dateFormat.format(selectedDate);
-    //       });
-    //     },
-    //   );
-    //   selected = DateUtils.dateOnly(selected);
-    // } else if (step.type == DataType.time) {
-    //   final TimeOfDay? timeOfDay = await showPlatformTimePicker(
-    //     context,
-    //     initialDate: initialDate,
-    //     onDateTimeChanged: (DateTime selectedDate) {
-    //       setState(() {
-    //         _selectedDate = selectedDate;
-    //         _controllers[index].text = dateFormat.format(selectedDate);
-    //       });
-    //     },
-    //   );
-    //   if (timeOfDay != null) {
-    //     selected = DateTime(0, 0, 0, timeOfDay.hour, timeOfDay.minute);
-    //   }
-    // } else if (step.type == DataType.dateAndTime) {
-    //   selected = await showPlatformDateAndTimePicker(
-    //     context,
-    //     initialDate: initialDate,
-    //     onDateTimeChanged: (DateTime selectedDate) {
-    //       setState(() {
-    //         _selectedDate = selectedDate;
-    //         _controllers[index].text = dateFormat.format(selectedDate);
-    //       });
-    //     },
-    //   );
-    // }
-    // if (selected != null) {
-    //   setState(() {
-    //     _selectedDate = selected;
-    //     _controllers[index].text = dateFormat.format(selected!);
-    //   });
-    // }
-  }
-
-  String get dateFormatPattern {
-    if (step.dateFormat?.isNotEmpty == true) {
-      return step.dateFormat!;
-    }
-    switch (step.type) {
-      case DataType.date:
-        return _dateFormat;
-      case DataType.time:
-        return _timeFormat;
-      case DataType.dateAndTime:
-        return _dateTimeFormat;
-      default:
-        throw UnsupportedError('Wrong step type for date picker');
-    }
-  }
-
-  bool get isDatePicker =>
-      step.type == DataType.date ||
-      step.type == DataType.time ||
-      step.type == DataType.dateAndTime;
-
   dynamic get resultValue {
     switch (step.type) {
-      case DataType.text:
-      case DataType.textMultiline:
-      case DataType.name:
-      case DataType.email:
+      case InputDataType.text:
+      case InputDataType.textMultiline:
+      case InputDataType.name:
+      case InputDataType.email:
         return _controllers.map((controller) => controller.text).toList();
-      case DataType.numberInt:
+      case InputDataType.numberInt:
         Map<String, int?> values = {};
         for (int index = 0; index < _controllers.length; index++) {
           final option = step.options[index];
@@ -267,7 +190,7 @@ class _MultiDataFormState extends State<MultiDataForm> {
           values[option.id] = value;
         }
         return values;
-      case DataType.numberDouble:
+      case InputDataType.numberDouble:
         Map<String, double?> values = {};
         for (int index = 0; index < _controllers.length; index++) {
           final option = step.options[index];
@@ -275,49 +198,37 @@ class _MultiDataFormState extends State<MultiDataForm> {
           values[option.id] = value;
         }
         return values;
-      case DataType.date:
-      case DataType.time:
-      case DataType.dateAndTime:
-        return _selectedDate?.toIso8601String();
     }
   }
 
   TextInputType get textInputType {
     switch (step.type) {
-      case DataType.text:
+      case InputDataType.text:
         return TextInputType.text;
-      case DataType.textMultiline:
+      case InputDataType.textMultiline:
         return TextInputType.multiline;
-      case DataType.numberInt:
+      case InputDataType.numberInt:
         return const TextInputType.numberWithOptions(signed: true);
-      // return TextInputType.number;
-      case DataType.numberDouble:
+      case InputDataType.numberDouble:
         return const TextInputType.numberWithOptions(
           decimal: true,
         );
-      case DataType.email:
+      case InputDataType.email:
         return TextInputType.emailAddress;
-      case DataType.name:
+      case InputDataType.name:
         return TextInputType.name;
-      case DataType.date:
-      case DataType.time:
-      case DataType.dateAndTime:
-        return TextInputType.datetime;
     }
   }
 
   List<TextInputFormatter>? get textInputFormatter {
     switch (step.type) {
-      case DataType.numberInt:
+      case InputDataType.numberInt:
         return [FilteringTextInputFormatter.digitsOnly];
-      case DataType.text:
-      case DataType.textMultiline:
-      case DataType.numberDouble:
-      case DataType.email:
-      case DataType.name:
-      case DataType.date:
-      case DataType.time:
-      case DataType.dateAndTime:
+      case InputDataType.text:
+      case InputDataType.textMultiline:
+      case InputDataType.numberDouble:
+      case InputDataType.email:
+      case InputDataType.name:
         return null;
     }
   }
