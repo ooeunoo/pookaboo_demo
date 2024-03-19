@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
+import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
+import 'package:pookaboo/shared/entities/form/multi_data_step.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_header.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
@@ -14,28 +12,23 @@ import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
-const String _dateFormat = 'd MMMM yyyy';
-const String _timeFormat = 'HH:mm';
-const String _dateTimeFormat = 'd MMMM yyyy HH:mm';
-
-class MultiDataForm extends StatefulWidget {
+class AppMultiDataForm extends StatefulWidget {
   final MultiDataStep step;
   final void Function(StepResult? result) onNextPress;
   final void Function() onBackPress;
 
-  const MultiDataForm(
+  const AppMultiDataForm(
       {super.key,
       required this.onNextPress,
       required this.onBackPress,
       required this.step});
 
   @override
-  State<MultiDataForm> createState() => _MultiDataFormState();
+  State<AppMultiDataForm> createState() => _MultiDataFormState();
 }
 
-class _MultiDataFormState extends State<MultiDataForm> {
+class _MultiDataFormState extends State<AppMultiDataForm> {
   late List<TextEditingController> _controllers;
-  DateTime? _selectedDate;
   late List<FocusNode> _focusNodes;
 
   bool isLoading = false;

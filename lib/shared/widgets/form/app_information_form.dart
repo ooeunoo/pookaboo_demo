@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart' hide Step;
-import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
-import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/entities/form/information_step.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_header.dart';
 
-class InformationForm extends StatelessWidget {
+class AppInformationForm extends StatelessWidget {
   final InformationStep step;
   final void Function(StepResult? result) onNextPress;
 
-  const InformationForm({
+  const AppInformationForm({
     super.key,
     required this.step,
     required this.onNextPress,

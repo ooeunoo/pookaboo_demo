@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
+import 'package:pookaboo/shared/entities/form/step.dart';
 
-class SingleSelectStep implements Step {
+class InformationStep implements Step {
   @override
   String id;
   @override
@@ -11,27 +10,22 @@ class SingleSelectStep implements Step {
   @override
   String? description;
 
-  List<SelectOption> options;
-
-  SingleSelectStep({
+  InformationStep({
     required this.id,
     required this.title,
-    required this.options,
     this.description,
   });
 
-  factory SingleSelectStep.fromJson(Map<String, dynamic> json) =>
-      SingleSelectStep(
+  factory InformationStep.fromJson(Map<String, dynamic> json) =>
+      InformationStep(
         id: json["id"],
         title: json["title"],
-        options: json["options"],
         description: json["description"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
-        "options": options,
         "description": description,
       };
 }

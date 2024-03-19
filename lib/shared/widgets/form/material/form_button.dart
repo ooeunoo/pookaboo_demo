@@ -1,7 +1,5 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart' hide Step;
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 
 enum ButtonsAlignment { vertical, horizontal }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/time_helper.dart';
@@ -52,7 +52,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(children: [
-          SvgPicture.asset(Images.star),
+          SvgPicture.asset(Assets.star),
           const AppSpacerH(),
           AppText("$rating ($totalReviews)",
               style: Theme.of(context).textTheme.labelMedium!),
@@ -76,7 +76,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
     return type == ToiletType.building.index
         ? Row(children: [
             SvgPicture.asset(
-              Images.building,
+              Assets.building,
               colorFilter: const ColorFilter.mode(
                 Palette.coolGrey05,
                 BlendMode.srcIn,
@@ -87,7 +87,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
           ])
         : Row(children: [
             SvgPicture.asset(
-              Images.cafe,
+              Assets.cafe,
               colorFilter: const ColorFilter.mode(
                 Palette.coolGrey05,
                 BlendMode.srcIn,
@@ -120,7 +120,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
       children: [
         Row(children: [
           SvgPicture.asset(
-            Images.alarm,
+            Assets.alarm,
             colorFilter: const ColorFilter.mode(
               Palette.coolGrey05,
               BlendMode.srcIn,
@@ -156,7 +156,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
               });
             },
             child: SvgPicture.asset(
-              isExpandTimeSchedule ? Images.arrowTop : Images.arrowBottom,
+              isExpandTimeSchedule ? Assets.arrowTop : Assets.arrowBottom,
               colorFilter: const ColorFilter.mode(
                 Palette.coolGrey05,
                 BlendMode.srcIn,
@@ -207,7 +207,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
   Widget _gender(bool isGenderSeperate) {
     return Row(children: [
       SvgPicture.asset(
-        Images.gender,
+        Assets.gender,
         colorFilter: const ColorFilter.mode(
           Palette.coolGrey05,
           BlendMode.srcIn,
@@ -224,7 +224,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
       children: [
         Row(children: [
           SvgPicture.asset(
-            Images.openKey,
+            Assets.openKey,
             colorFilter: const ColorFilter.mode(
               Palette.coolGrey05,
               BlendMode.srcIn,

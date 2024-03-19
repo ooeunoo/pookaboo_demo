@@ -10,7 +10,7 @@ import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/mocks/image.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -104,7 +104,7 @@ class _ReviewFormState extends State<ReviewForm> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: SvgPicture.asset(Images.close),
+                  child: SvgPicture.asset(Assets.close),
                 )
               ],
             ),

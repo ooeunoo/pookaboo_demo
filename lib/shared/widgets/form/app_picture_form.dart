@@ -2,14 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart' hide Step;
 import 'package:image_picker/image_picker.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/picutre_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/entities/form/picutre_step.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_header.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
@@ -18,12 +16,12 @@ import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 
-class PictureForm extends StatefulWidget {
+class AppPictureForm extends StatefulWidget {
   final PictureStep step;
   final void Function(StepResult? result) onNextPress;
   final void Function() onBackPress;
 
-  const PictureForm({
+  const AppPictureForm({
     super.key,
     required this.step,
     required this.onNextPress,
@@ -31,12 +29,14 @@ class PictureForm extends StatefulWidget {
   });
 
   @override
-  State<PictureForm> createState() => _PictureFormState();
+  State<AppPictureForm> createState() => _PictureFormState();
 }
 
-class _PictureFormState extends State<PictureForm> {
+class _PictureFormState extends State<AppPictureForm> {
   final List<XFile> _images = [];
   final ImagePicker _picker = ImagePicker();
+
+  PictureStep get step => widget.step;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class _PictureFormState extends State<PictureForm> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(Dimens.space12),
                           child: Image.asset(
-                            Images.noImage,
+                            Assets.noImage,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -153,6 +153,7 @@ class _PictureFormState extends State<PictureForm> {
           const Spacer(),
           FormButton(
             onNextPress: widget.onNextPress,
+            result: StepResult(stepId: step.id, value: _images),
           ),
         ],
       ),

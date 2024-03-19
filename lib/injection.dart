@@ -20,7 +20,6 @@ import 'package:pookaboo/layers/presentation/cubit/settings/setting_cubit.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/profile/profile_bloc.dart';
-import 'package:pookaboo/shared/service/camera/camera_service.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/service/hive/main_box.dart';
 import 'package:pookaboo/shared/service/kakao/kakao_map_service.dart';
@@ -119,7 +118,4 @@ Future<void> _service() async {
 
   // Geolocator
   sl.registerSingleton<GeolocatorService>(GeolocatorService());
-
-  // Camera
-  sl.registerSingleton<CameraService>(CameraService());
 }

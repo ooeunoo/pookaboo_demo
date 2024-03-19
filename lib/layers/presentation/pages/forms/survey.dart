@@ -1,15 +1,16 @@
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/data_option.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/map_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_select_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_time_data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/picutre_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/single_select_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
+import 'package:pookaboo/shared/entities/form/confirm_step.dart';
+import 'package:pookaboo/shared/entities/form/data_option.dart';
+import 'package:pookaboo/shared/entities/form/data_step.dart';
+import 'package:pookaboo/shared/entities/form/information_step.dart';
+import 'package:pookaboo/shared/entities/form/map_step.dart';
+import 'package:pookaboo/shared/entities/form/multi_data_step.dart';
+import 'package:pookaboo/shared/entities/form/multi_select_step.dart';
+import 'package:pookaboo/shared/entities/form/multi_time_data_step.dart';
+import 'package:pookaboo/shared/entities/form/picutre_step.dart';
+import 'package:pookaboo/shared/entities/form/select_option.dart';
+import 'package:pookaboo/shared/entities/form/single_select_step.dart';
+import 'package:pookaboo/shared/entities/form/step.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 
 List<Step> steps = [
@@ -17,8 +18,12 @@ List<Step> steps = [
       id: 'Intro',
       title: '새로운 화장실 등록해볼까요?',
       description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
+  ConfirmStep(
+      id: 'confirm',
+      title: '등록이 완료되었습니다!',
+      description: '빠른 시일 내에 검토 후 등록 완료됩니다.',
+      image: '')
   //////////////////
-  PictureStep(id: 'images', title: '화장실 이미지를 올려주세요'),
   // MapStep(id: 'coordinates', title: ''),
   // ////////////////////
   // DataStep(
@@ -64,6 +69,7 @@ List<Step> steps = [
   //             text: '${value.emoji} ${value.name}', value: value.key);
   //       })
   //     ]),
+  // //////////////////
   // MultiDataStep(
   //     id: 'equipment',
   //     title: '화장실에 있는 시설 갯수를 알려주세요!',
@@ -78,6 +84,7 @@ List<Step> steps = [
   //         return options;
   //       })
   //     ]),
+  // ////////////////////
   // MultiTimeDataStep(
   //   id: 'time',
   //   title: '화장실의 운영시간을 알려주세요!',
@@ -90,8 +97,8 @@ List<Step> steps = [
   //     })
   //   ],
   // ),
-  ////////////////////
-
+  // ////////////////////
+  // PictureStep(id: 'images', title: '화장실 이미지를 올려주세요'),
   ////////////////////
   ////////////////////
   ////////////////////

@@ -1,4 +1,4 @@
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
+import 'package:pookaboo/shared/entities/form/step.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 
 class DataStep implements Step {

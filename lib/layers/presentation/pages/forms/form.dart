@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart' hide Step;
-import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/map_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_select_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_time_data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/picutre_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/single_select_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/data_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/information_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/map_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/multi_data_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/multi_select_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/multi_time_data_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/picture_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/single_select_form.dart';
+import 'package:pookaboo/shared/entities/form/confirm_step.dart';
+import 'package:pookaboo/shared/entities/form/data_step.dart';
+import 'package:pookaboo/shared/entities/form/information_step.dart';
+import 'package:pookaboo/shared/entities/form/map_step.dart';
+import 'package:pookaboo/shared/entities/form/multi_data_step.dart';
+import 'package:pookaboo/shared/entities/form/multi_select_step.dart';
+import 'package:pookaboo/shared/entities/form/multi_time_data_step.dart';
+import 'package:pookaboo/shared/entities/form/picutre_step.dart';
+import 'package:pookaboo/shared/entities/form/select_option.dart';
+import 'package:pookaboo/shared/entities/form/single_select_step.dart';
+import 'package:pookaboo/shared/entities/form/step.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/app_confirm_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_data_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_information_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_map_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_multi_data_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_multi_select_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_multi_time_data_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_picture_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_single_select_form.dart';
 import 'package:pookaboo/layers/presentation/pages/forms/survey.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
@@ -65,47 +67,52 @@ class _SurveyFlowState extends State<SurveyFlow> {
   Widget _mapStep(BuildContext context, Step step) {
     switch (step.runtimeType) {
       case const (InformationStep):
-        return InformationForm(
+        return AppInformationForm(
           step: step as InformationStep,
           onNextPress: _onPressNextButton,
         );
       case const (SingleSelectStep):
-        return SingleSelectForm(
+        return AppSingleSelectForm(
           step: step as SingleSelectStep,
           onNextPress: _onPressNextButton,
           onBackPress: _onPressBackButton,
         );
       case const (DataStep):
-        return DataForm(
+        return AppDataForm(
           step: step as DataStep,
           onNextPress: _onPressNextButton,
           onBackPress: _onPressBackButton,
         );
       case const (MultiSelectStep):
-        return MultiSelectForm(
+        return AppMultiSelectForm(
             step: step as MultiSelectStep,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
       case const (MultiDataStep):
-        return MultiDataForm(
+        return AppMultiDataForm(
             step: step as MultiDataStep,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
       case const (MultiTimeDataStep):
-        return MultiTimeDataForm(
+        return AppMultiTimeDataForm(
             step: step as MultiTimeDataStep,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
       case const (MapStep):
-        return MapForm(
+        return AppMapForm(
             step: step as MapStep,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
       case const (PictureStep):
-        return PictureForm(
+        return AppPictureForm(
             step: step as PictureStep,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
+      case const (ConfirmStep):
+        return AppConfirmForm(
+          step: step as ConfirmStep,
+          onNextPress: _onPressNextButton,
+        );
       default:
         return Container();
     }
@@ -119,7 +126,6 @@ class _SurveyFlowState extends State<SurveyFlow> {
       });
     }
 
-    // 마지막에 다음 버튼 클릭인 경우
     if (_controller.page?.toInt() == steps.length - 1) {
       bool shouldFinish = true;
       log.d('최종: $results');
@@ -147,45 +153,4 @@ class _SurveyFlowState extends State<SurveyFlow> {
       curve: Curves.easeIn,
     );
   }
-
-  // Future<void> _handleOnPressed(StepButton button, [StepResult? result]) async {
-  //   StepAction action = button.action;
-
-  //   if (result != null && action != StepAction.skip) {
-  //     results.add(result);
-  //   }
-  //   if (action == StepAction.back && _controller.page!.toInt() > 0) {}
-  //   if (action == StepAction.submit ||
-  //       _controller.page?.toInt() == steps.length - 1) {
-  //     bool shouldFinish = true;
-  //     // last page, so we need to submit
-  //     // if (widget.onSubmit != null) {
-  //     //   final List<Step> newSteps = await widget.onSubmit!(results);
-  //     //   shouldFinish = newSteps.isEmpty;
-  //     //   setState(() {
-  //     //     steps.addAll(newSteps);
-  //     //   });
-  //     // }
-  //     // if (shouldFinish) {
-  //     //   widget.onFinish();
-  //     //   return;
-  //     // }
-  //   }
-
-  //   switch (action) {
-  //     case StepAction.back:
-  //       _controller.previousPage(
-  //         duration: const Duration(milliseconds: 300),
-  //         curve: Curves.easeIn,
-  //       );
-  //     case StepAction.submit:
-  //     case StepAction.next:
-  //     case StepAction.skip:
-  //       _controller.nextPage(
-  //         duration: const Duration(milliseconds: 300),
-  //         curve: Curves.easeIn,
-  //       );
-  //       return;
-  //   }
-  // }
 }

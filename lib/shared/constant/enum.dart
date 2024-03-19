@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 
 enum BottomNavigation {
   map('map', '/map', Icons.search),
@@ -19,9 +19,9 @@ enum ToiletType {
 }
 
 enum ToiletFilter {
-  time("time", '현재운영', Images.alarm),
-  gender("gender", '남녀분리', Images.gender),
-  password("password", '개방', Images.closeKey),
+  time("time", '현재운영', Assets.alarm),
+  gender("gender", '남녀분리', Assets.gender),
+  password("password", '개방', Assets.closeKey),
   ;
 
   const ToiletFilter(this.key, this.text, this.icon);

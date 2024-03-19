@@ -13,7 +13,7 @@ import 'package:pookaboo/layers/presentation/pages/map/widgets/toilet_bottom_she
 import 'package:pookaboo/layers/presentation/pages/map/widgets/navigation_modal.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -184,7 +184,7 @@ class _MapPageState extends State<MapPage> {
                         color: Palette.white,
                       ),
                       child: SvgPicture.asset(
-                        Images.arrowLeft,
+                        Assets.arrowLeft,
                         width: Dimens.space24,
                         height: Dimens.space24,
                       ),
@@ -246,7 +246,7 @@ class _MapPageState extends State<MapPage> {
                         color: Palette.white,
                       ),
                       child: SvgPicture.asset(
-                        Images.currentPosition,
+                        Assets.currentPosition,
                         width: Dimens.space24,
                         height: Dimens.space24,
                       ),

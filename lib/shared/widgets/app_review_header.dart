@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/data/models/visitation/visitation.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/utils/helper/time_helper.dart';
 import 'package:pookaboo/shared/widgets/common/app_chip.dart';

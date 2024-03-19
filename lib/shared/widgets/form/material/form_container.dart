@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' hide Step;
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
+import 'package:pookaboo/shared/entities/form/step.dart';
 
 class FormContainer extends StatelessWidget {
   final Step step;

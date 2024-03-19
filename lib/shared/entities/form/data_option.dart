@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
+import 'package:pookaboo/shared/entities/form/data_step.dart';
+import 'package:pookaboo/shared/entities/form/select_option.dart';
+import 'package:pookaboo/shared/entities/form/step.dart';
 
 class DataOption {
   String id;

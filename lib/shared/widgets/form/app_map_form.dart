@@ -3,25 +3,23 @@ import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/injection.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/map_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_select_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
+import 'package:pookaboo/shared/entities/form/map_step.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/constant/config.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 
-class MapForm extends StatefulWidget {
+class AppMapForm extends StatefulWidget {
   final MapStep step;
   final void Function(StepResult? result) onNextPress;
   final void Function() onBackPress;
 
-  const MapForm(
+  const AppMapForm(
       {super.key,
       required this.step,
       required this.onNextPress,
@@ -31,7 +29,7 @@ class MapForm extends StatefulWidget {
   _MapFormState createState() => _MapFormState();
 }
 
-class _MapFormState extends State<MapForm> {
+class _MapFormState extends State<AppMapForm> {
   MapStep get step => widget.step;
   late KakaoMapController _controller;
   final GeolocatorService _geolocatorService = sl<GeolocatorService>();
@@ -52,37 +50,6 @@ class _MapFormState extends State<MapForm> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          // AppSpacerV(value: Dimens.space20),
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: Text(step.title,
-          //           textAlign: TextAlign.center,
-          //           style: Theme.of(context)
-          //               .textTheme
-          //               .bodyLarge!
-          //               .copyWith(fontSize: Dimens.headerLarge)),
-          //     ),
-          //   ],
-          // ),
-          // if (step.description?.isNotEmpty == true)
-          //   Row(
-          //     children: [
-          //       Expanded(
-          //         child: Padding(
-          //           padding: EdgeInsets.only(
-          //             top: Dimens.space12,
-          //           ),
-          //           child: Text(step.description!,
-          //               textAlign: TextAlign.center,
-          //               style: Theme.of(context).textTheme.labelLarge),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // AppSpacerV(
-          //   value: Dimens.space20,
-          // ),
           Expanded(
             child: Stack(
               children: [
@@ -112,7 +79,7 @@ class _MapFormState extends State<MapForm> {
                       splashColor: Colors.transparent,
                       onTap: () async {},
                       child: Image.asset(
-                        Images.markerGif,
+                        Assets.markerGif,
                         width: Dimens.space40,
                         height: Dimens.space40,
                       ),
@@ -148,7 +115,7 @@ class _MapFormState extends State<MapForm> {
                           color: Palette.white,
                         ),
                         child: SvgPicture.asset(
-                          Images.currentPosition,
+                          Assets.currentPosition,
                           width: Dimens.space24,
                           height: Dimens.space24,
                         ),

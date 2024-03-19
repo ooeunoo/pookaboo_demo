@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/multi_time_data_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/time_data_modal.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
+import 'package:pookaboo/shared/entities/form/multi_time_data_step.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/material/time_data_modal.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_header.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
@@ -22,22 +16,22 @@ const String _dateFormat = 'd MMMM yyyy';
 const String _timeFormat = 'HH:mm';
 const String _dateTimeFormat = 'd MMMM yyyy HH:mm';
 
-class MultiTimeDataForm extends StatefulWidget {
+class AppMultiTimeDataForm extends StatefulWidget {
   final MultiTimeDataStep step;
   final void Function(StepResult? result) onNextPress;
   final void Function() onBackPress;
 
-  const MultiTimeDataForm(
+  const AppMultiTimeDataForm(
       {super.key,
       required this.onNextPress,
       required this.onBackPress,
       required this.step});
 
   @override
-  State<MultiTimeDataForm> createState() => _MultiTimeDataFormState();
+  State<AppMultiTimeDataForm> createState() => _MultiTimeDataFormState();
 }
 
-class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
+class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
   late List<List<TextEditingController>> _controllers;
   late List<List<FocusNode>> _focusNodes;
 

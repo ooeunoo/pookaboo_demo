@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
@@ -31,7 +31,7 @@ class LogInMessage extends StatelessWidget {
             AppText('✨ 로그인하여 더 많은 정보를 확인해보세요.',
                 style: Theme.of(context).textTheme.bodySmall!),
             SvgPicture.asset(
-              Images.arrowRight,
+              Assets.arrowRight,
               colorFilter: const ColorFilter.mode(
                 Palette.white,
                 BlendMode.srcIn,

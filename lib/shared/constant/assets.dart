@@ -1,5 +1,5 @@
-class Images {
-  Images._();
+class Assets {
+  Assets._();
 
   static const String icLauncher = "assets/images/ic_launcher.png";
   static const String icLogo = "assets/images/ic_logo.png";
@@ -26,4 +26,8 @@ class Images {
 
   // GIF
   static const String markerGif = 'assets/gif/marker.gif';
+
+  // JSON
+  static const String splash = 'assets/json/splash.json';
+  static const String finish = 'assets/json/finish.json';
 }

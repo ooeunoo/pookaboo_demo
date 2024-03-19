@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/constant/images.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
@@ -121,7 +121,7 @@ class _ToiletBottomSheetInformationState
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(Dimens.space12),
                           child: Image.asset(
-                            Images.noImage,
+                            Assets.noImage,
                             fit: BoxFit.cover,
                           ),
                         ),

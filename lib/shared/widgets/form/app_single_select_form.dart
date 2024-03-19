@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart' hide Step;
-import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/single_select_step.dart';
-import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_description.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/select_option_card.dart';
+import 'package:pookaboo/shared/entities/form/select_option.dart';
+import 'package:pookaboo/shared/entities/form/single_select_step.dart';
+import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_description.dart';
+import 'package:pookaboo/shared/widgets/form/material/form_header.dart';
+import 'package:pookaboo/shared/widgets/form/material/select_option_card.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 
-class SingleSelectForm extends StatefulWidget {
+class AppSingleSelectForm extends StatefulWidget {
   final SingleSelectStep step;
   final void Function(StepResult? result) onNextPress;
   final void Function() onBackPress;
 
-  const SingleSelectForm(
+  const AppSingleSelectForm(
       {super.key,
       required this.step,
       required this.onNextPress,
@@ -26,7 +25,7 @@ class SingleSelectForm extends StatefulWidget {
   _SingleSelectFormState createState() => _SingleSelectFormState();
 }
 
-class _SingleSelectFormState extends State<SingleSelectForm> {
+class _SingleSelectFormState extends State<AppSingleSelectForm> {
   bool isLoading = false;
   SelectOption? _selected;
 

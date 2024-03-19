@@ -1,6 +1,6 @@
-import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
+import 'package:pookaboo/shared/entities/form/step.dart';
 
-class MapStep implements Step {
+class PictureStep implements Step {
   @override
   String id;
   @override
@@ -8,13 +8,13 @@ class MapStep implements Step {
   @override
   String? description;
 
-  MapStep({
+  PictureStep({
     required this.id,
     required this.title,
     this.description,
   });
 
-  factory MapStep.fromJson(Map<String, dynamic> json) => MapStep(
+  factory PictureStep.fromJson(Map<String, dynamic> json) => PictureStep(
         id: json["id"],
         title: json["title"],
         description: json["description"],
