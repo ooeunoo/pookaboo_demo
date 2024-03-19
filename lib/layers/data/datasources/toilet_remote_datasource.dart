@@ -126,7 +126,7 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
     try {
       await _supabaseService.client
           .from(ToiletTable.visitation.name)
-          .insert({'toilet_id': params.toiletId, 'user_id': params.userId});
+          .insert(params.toJson());
       return const Right(true);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

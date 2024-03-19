@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/presentation/pages/app.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/profile.dart';
@@ -123,14 +123,14 @@ class AppRoute {
     initialLocation: AppRoutes.splash.path,
     routerNeglect: true,
     // debugLogDiagnostics: kDebugMode,
-    refreshListenable: RouterRefreshStream(context.read<AuthBloc>().stream),
+    refreshListenable: RouterRefreshStream(context.read<UserBloc>().stream),
     redirect: (_, GoRouterState state) {
       // String currentPath = state.matchedLocation;
 
       // // 프로필 페이지로 이동한 경우, 로그인이 되어있지않다면 로그인 페이지로 이동
       // if (currentPath == AppRoutes.profile.path) {
-      //   final authState = context.read<AuthBloc>().state;
-      //   final bool isUserAuthenticated = authState.maybeWhen(
+      //   final userState = context.read<UserBloc>().state;
+      //   final bool isUserAuthenticated = userState.maybeWhen(
       //     authUserUnauthenticated: () => false,
       //     authUserAuthenticated: (_) => true,
       //     orElse: () => false,

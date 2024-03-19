@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/pookaboo_app.dart';
-// import 'package:flutter_auth_app/utils/utils.dart';
 
 void main() {
   runZonedGuarded(
-    /// Lock device orientation to portrait
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 

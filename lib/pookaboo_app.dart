@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pookaboo/injection.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/proposal/proposal_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/settings/setting_cubit.dart';
@@ -32,7 +32,7 @@ class PookabooApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<SettingsCubit>()..getActiveTheme()),
-        BlocProvider(create: (_) => sl<AuthBloc>()..add(CheckRequestedEvent())),
+        BlocProvider(create: (_) => sl<UserBloc>()..add(CheckRequestedEvent())),
         BlocProvider(create: (_) => sl<MapBloc>()),
         BlocProvider(create: (_) => sl<VisitataionBloc>()),
         BlocProvider(create: (_) => sl<ReviewBloc>()),

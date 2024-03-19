@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/domain/entities/profile/menu_item.dart';
 import 'package:pookaboo/layers/presentation/bloc/profile/profile_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/widgets/login_screen.dart';
@@ -26,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
 
-    AuthState state = context.read<AuthBloc>().state;
+    UserState state = context.read<UserBloc>().state;
     if (state is AuthenticatedState) {
       _generateMenu(state.user.id);
     }
@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
           section: 3,
           title: '로그아웃',
           onTap: () {
-            context.read<AuthBloc>().add(LogoutEvent());
+            context.read<UserBloc>().add(LogoutEvent());
           }),
       MenuItem(section: 3, title: '회원 탈퇴', onTap: () {}),
     ];
@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: Theme.of(context).textTheme.bodyLarge!),
           ),
         ),
-        body: BlocConsumer<AuthBloc, AuthState>(
+        body: BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {
             if (state is AuthenticatedState) {
               _generateMenu(state.user.id);

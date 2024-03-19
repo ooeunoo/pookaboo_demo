@@ -66,13 +66,7 @@ class _MapPageState extends State<MapPage> {
           controller: scrollController,
         );
       },
-    ).whenComplete(() async {
-      final userId = await _secureStorage.get(StorageKeys.loggedInUser);
-      if (userId != null) {
-        context.read<VisitataionBloc>().add(
-            CreateToiletVisitationEvent(userId: userId, toiletId: toilet.id));
-      }
-    });
+    );
   }
 
   Future<void> _clear() async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/layout.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/button.dart';
@@ -54,7 +54,7 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
             ),
           ),
         ),
-        BlocBuilder<AuthBloc, AuthState>(builder: (context, AuthState state) {
+        BlocBuilder<UserBloc, UserState>(builder: (context, UserState state) {
           bool isAuthenticated = state is AuthenticatedState;
           return Align(
             alignment: Alignment.bottomCenter,

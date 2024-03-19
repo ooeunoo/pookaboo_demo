@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
@@ -39,11 +39,11 @@ class _ToiletBottomSheetInformationState
     super.initState();
 
     // 사용자 성별 파악하기
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final state = context.read<UserBloc>().state;
 
     int? gender = 1;
-    if (authBloc.state is AuthenticatedState) {
-      final user = (authBloc.state as AuthenticatedState).user;
+    if (state is AuthenticatedState) {
+      final user = state.user;
       gender = user.isMale() ? 1 : 2;
     }
 

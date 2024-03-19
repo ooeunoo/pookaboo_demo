@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -18,7 +18,7 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInFormState extends State<LogInScreen> {
   void _signInWithKakao() {
-    context.read<AuthBloc>().add(SignInWithKakaoEvent());
+    context.read<UserBloc>().add(SignInWithKakaoEvent());
   }
 
   @override

@@ -1,13 +1,13 @@
-part of 'auth_bloc.dart';
+part of 'user_bloc.dart';
 
 @immutable
-abstract class AuthEvent extends Equatable {}
+abstract class UserEvent extends Equatable {}
 
 /////////////////////////////////
 ///
 ///
 ////////////////////////////////
-class CheckRequestedEvent extends AuthEvent {
+class CheckRequestedEvent extends UserEvent {
   @override
   List<Object?> get props => [];
 }
@@ -16,7 +16,7 @@ class CheckRequestedEvent extends AuthEvent {
 ///
 ///
 ////////////////////////////////
-class SignInWithKakaoEvent extends AuthEvent {
+class SignInWithKakaoEvent extends UserEvent {
   @override
   List<Object?> get props => [];
 }
@@ -25,7 +25,7 @@ class SignInWithKakaoEvent extends AuthEvent {
 ///
 ///
 ////////////////////////////////
-class ChangedUserEvent extends AuthEvent {
+class ChangedUserEvent extends UserEvent {
   final User? user;
 
   ChangedUserEvent({required this.user});
@@ -38,7 +38,7 @@ class ChangedUserEvent extends AuthEvent {
 ///
 ///
 ////////////////////////////////
-class LogoutEvent extends AuthEvent {
+class LogoutEvent extends UserEvent {
   @override
   List<Object?> get props => [];
 }
@@ -47,10 +47,22 @@ class LogoutEvent extends AuthEvent {
 ///
 ///
 ////////////////////////////////
-class UpdateUserEvent extends AuthEvent {
+class UpdateUserEvent extends UserEvent {
   final UpdateUserParams params;
 
   UpdateUserEvent({required this.params});
+
+  @override
+  List<Object?> get props => [params];
+}
+
+/////////////////////////////////
+///
+////////////////////////////////
+class CreateUserInquiryEvent extends UserEvent {
+  final CreateUserInquiryParams params;
+
+  CreateUserInquiryEvent({required this.params});
 
   @override
   List<Object?> get props => [params];

@@ -1,13 +1,14 @@
 import 'package:get_it/get_it.dart';
+import 'package:pookaboo/layers/data/datasources/user_remote_datasource.dart';
 import 'package:pookaboo/layers/data/repositories/proposal/proposal_repository_impl.dart';
 import 'package:pookaboo/layers/domain/repositories/proposal/proposal_repository.dart';
 import 'package:pookaboo/layers/domain/usecases/proposal/proposal_usecase.dart';
 import 'package:pookaboo/layers/presentation/bloc/proposal/proposal_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
-import 'package:pookaboo/layers/data/repositories/auth/auth_repository_impl.dart';
-import 'package:pookaboo/layers/domain/repositories/auth/auth_repository.dart';
-import 'package:pookaboo/layers/domain/usecases/auth/auth_usecase.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/data/repositories/user/user_repository_impl.dart';
+import 'package:pookaboo/layers/domain/repositories/user/user_repository.dart';
+import 'package:pookaboo/layers/domain/usecases/user/user_usecase.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/datasources/kakao_remote_datasource.dart';
 import 'package:pookaboo/layers/data/datasources/toilet_remote_datasource.dart';
 import 'package:pookaboo/layers/data/repositories/map/map_repository_impl.dart';
@@ -49,8 +50,8 @@ Future<void> _initAppLocalStorages() async {
 }
 
 Future<void> _repositories() async {
-  sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(sl()),
+  sl.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(sl()),
   );
   sl.registerLazySingleton<MapRepository>(() => MapRepositoryImpl(sl(), sl()));
   sl.registerLazySingleton<ReviewRepository>(() => ReviewRepositoryImpl(sl()));
@@ -63,14 +64,18 @@ Future<void> _repositories() async {
 Future<void> _dataSources() async {
   sl.registerLazySingleton<ToiletRemoteDatasource>(
       () => ToiletRemoteDatasourceImpl(sl()));
-
+  sl.registerLazySingleton<UserRemoteDatasource>(
+      () => UserRemoteDatasourceImpl(sl()));
   sl.registerLazySingleton<KakaoRemoteDatasource>(
       () => KakaoRemoteDatasourceImpl());
 }
 
 Future<void> _useCase() async {
   // auth
-  sl.registerLazySingleton<AuthUseCase>(() => AuthUseCase(sl()));
+  sl.registerLazySingleton<UserUseCase>(() => UserUseCase(sl()));
+  sl.registerLazySingleton<UpdateUserUseCase>(() => UpdateUserUseCase(sl()));
+  sl.registerLazySingleton<CreateUserInquireUseCase>(
+      () => CreateUserInquireUseCase(sl()));
 
   // map
   sl.registerLazySingleton<GetNearByToiletsUseCase>(
@@ -100,7 +105,7 @@ Future<void> _useCase() async {
 }
 
 Future<void> _bloc() async {
-  sl.registerFactory(() => AuthBloc(sl(), sl()));
+  sl.registerFactory(() => UserBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));

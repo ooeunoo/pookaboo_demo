@@ -16,7 +16,10 @@ import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/entities/form/single_select_step.dart';
 import 'package:pookaboo/shared/entities/form/step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
+import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 import 'package:pookaboo/shared/widgets/form/app_confirm_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_data_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_information_form.dart';
@@ -55,6 +58,26 @@ class _SurveyFlowState extends State<ToiletProposal> {
     return Builder(
       builder: (context) {
         return Scaffold(
+          extendBody: true,
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            leading: Container(),
+            // title: AppText(
+            //   '',
+            //   style: Theme.of(context).textTheme.bodyLarge!,
+            // ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(right: Dimens.space16),
+                child: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    context.back();
+                  },
+                ),
+              )
+            ],
+          ),
           body: Stack(
             children: [
               PageView.builder(
@@ -267,7 +290,7 @@ List<Step> steps = [
   DataStep(
       id: 'name',
       title: '화장실 이름을 알려주세요',
-      description: "화장실 이름은 정하실 수 있어요. \n등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
+      description: "등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
       type: InputDataType.text),
   ////////////////////
   SingleSelectStep(
@@ -300,7 +323,7 @@ List<Step> steps = [
   MultiSelectStep(
       id: 'convenience',
       title: '화장실에 있는 편의시설을 알려주세요!',
-      description: "여러개 선택하셔도 되요!",
+      description: "",
       options: [
         ...ConvenienceKey.values.map((value) {
           return SelectOption(
@@ -314,7 +337,7 @@ List<Step> steps = [
   //////////////////
   MultiDataStep(
       id: 'equipment',
-      title: '화장실에 있는 시설 갯수를 알려주세요!',
+      title: '화장실에 있는 시설 개수를 알려주세요!',
       description: "",
       type: InputDataType.numberInt,
       options: [

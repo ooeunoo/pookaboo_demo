@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/injection.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/information.dart';
@@ -30,8 +30,8 @@ class _ToiletBottomSeetTabBarViewState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, AuthState state) {
+    return BlocBuilder<UserBloc, UserState>(
+        builder: (context, UserState state) {
       bool shouldBlur = state is! AuthenticatedState;
 
       return Column(

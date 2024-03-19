@@ -4,33 +4,39 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/data/models/user/app_user.dart';
-import 'package:pookaboo/layers/domain/entities/auth/update_user_params.dart';
-import 'package:pookaboo/layers/domain/usecases/auth/auth_usecase.dart';
+import 'package:pookaboo/layers/domain/entities/user/create_user_inquiry_params.dart';
+import 'package:pookaboo/layers/domain/entities/user/update_user_params.dart';
+import 'package:pookaboo/layers/domain/usecases/user/user_usecase.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-part 'auth_event.dart';
-part 'auth_state.dart';
+part 'user_event.dart';
+part 'user_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class UserBloc extends Bloc<UserEvent, UserState> {
   final SecureStorage _secureStorage;
-  final AuthUseCase _authUseCase;
+  final UserUseCase _authUseCase;
+  final UpdateUserUseCase _updateUserUseCase;
+  final CreateUserInquireUseCase _createUserInquireUseCase;
 
   StreamSubscription<User?>? _userSubscription;
 
-  AuthBloc(this._secureStorage, this._authUseCase) : super(InitialState()) {
+  UserBloc(this._secureStorage, this._authUseCase, this._updateUserUseCase,
+      this._createUserInquireUseCase)
+      : super(InitialState()) {
     on<CheckRequestedEvent>(_onCheckedRequestEvent);
     on<SignInWithKakaoEvent>(_onSignInWithKakaoEvent);
     on<ChangedUserEvent>(_onChangedUserEvent);
     on<LogoutEvent>(_onLogoutEvent);
     on<UpdateUserEvent>(_onUpdateUserEvent);
+    on<CreateUserInquiryEvent>(_onCreateUserInquiryEvent);
 
     _startUserSubscription();
   }
 
   Future<void> _onCheckedRequestEvent(
-      CheckRequestedEvent event, Emitter<AuthState> emit) async {
+      CheckRequestedEvent event, Emitter<UserState> emit) async {
     log.d('in');
     AppUser? appUser = await _authUseCase.getSignedInUser();
     appUser != null
@@ -39,13 +45,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onSignInWithKakaoEvent(
-      SignInWithKakaoEvent event, Emitter<AuthState> emit) async {
+      SignInWithKakaoEvent event, Emitter<UserState> emit) async {
     emit(LoadInProgressState());
 
     try {
-      bool response = await _authUseCase.signInWithKakao();
+      await _authUseCase.signInWithKakao();
       AppUser? appUser = await _authUseCase.getSignedInUser();
-      if (response && appUser != null) {
+      if (appUser != null) {
         await _triggerBeforeAuthenticatedState(emit, appUser);
       }
     } catch (_) {
@@ -54,17 +60,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onChangedUserEvent(
-      ChangedUserEvent event, Emitter<AuthState> emit) async {
+      ChangedUserEvent event, Emitter<UserState> emit) async {
     if (event.user != null) {
       AppUser? appUser = await _authUseCase.getSignedInUser();
-      await _triggerBeforeAuthenticatedState(emit, appUser!);
+      if (appUser != null) {
+        await _triggerBeforeAuthenticatedState(emit, appUser);
+      }
     } else {
       await _triggerBeforeUnAuthenticatedState(emit);
     }
   }
 
   Future<void> _onLogoutEvent(
-      LogoutEvent event, Emitter<AuthState> emit) async {
+      LogoutEvent event, Emitter<UserState> emit) async {
     try {
       await _authUseCase.signOut();
       await _triggerBeforeUnAuthenticatedState(emit);
@@ -72,12 +80,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onUpdateUserEvent(
-      UpdateUserEvent event, Emitter<AuthState> emit) async {
+      UpdateUserEvent event, Emitter<UserState> emit) async {
     try {
-      await _authUseCase.updateUser(event.params).whenComplete(() =>
+      await _updateUserUseCase.call(event.params).whenComplete(() =>
           _secureStorage.write(
               StorageKeys.isUpdateUserMetadata, UpdateUserMetadataState.done));
     } catch (e) {}
+  }
+
+  Future<void> _onCreateUserInquiryEvent(
+      CreateUserInquiryEvent event, Emitter<UserState> emit) async {
+    try {
+      await _createUserInquireUseCase.call(event.params);
+    } catch (e) {
+      log.e(e);
+    }
   }
 
   void _startUserSubscription() => _userSubscription = _authUseCase
@@ -91,14 +108,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _triggerBeforeAuthenticatedState(
-      Emitter<AuthState> emit, AppUser user) async {
+      Emitter<UserState> emit, AppUser user) async {
     await _secureStorage
         .write(StorageKeys.loggedInUser, user.id)
         .whenComplete(() => emit(AuthenticatedState(user: user)));
   }
 
   Future<void> _triggerBeforeUnAuthenticatedState(
-      Emitter<AuthState> emit) async {
+      Emitter<UserState> emit) async {
     await _secureStorage
         .write(StorageKeys.loggedInUser, null)
         .whenComplete(() => emit(UnAuthenticatedState()));

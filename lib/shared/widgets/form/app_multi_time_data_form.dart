@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pookaboo/shared/entities/form/multi_time_data_step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/form/material/time_data_modal.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
@@ -206,21 +207,24 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
 
     String helperText = '$dayKo $timeKo';
 
-    final DateTime initialDate = DateTime.now();
-    setState(() {
-      _controllers[index][inner].text = dateFormat.format(initialDate);
-    });
+    // DateTime initialDate = DateTime.now();
+
+    // if (index > 0) {
+    //   final beforeTime = _controllers[index - 1][inner].text;
+    //   log.d('beforeTime: $beforeTime');
+    // }
+    // log.d(initialDate);
 
     if (step.type == InputTimeDataType.date) {
       selected = await showPlatformDatePicker(
         context,
-        initialDate: initialDate,
+        // initialDate: initialDate,
         onDateTimeChanged: (DateTime selectedDate) {},
       );
     } else if (step.type == InputTimeDataType.time) {
       final TimeOfDay? timeOfDay = await showPlatformTimePicker(
         context,
-        initialDate: initialDate,
+        // initialDate: initialDate,
         helperText: helperText,
         onDateTimeChanged: (DateTime selectedDate) {},
       );
@@ -230,7 +234,7 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
     } else if (step.type == InputTimeDataType.dateAndTime) {
       selected = await showPlatformDateAndTimePicker(
         context,
-        initialDate: initialDate,
+        // initialDate: initialDate,
         onDateTimeChanged: (DateTime selectedDate) {},
       );
     }
@@ -241,7 +245,7 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
       });
     }
 
-    _requestNextDatePicker(context, index, inner);
+    // _requestNextDatePicker(context, index, inner);
   }
 
   void _requestNextDatePicker(BuildContext context, int index, int inner) {

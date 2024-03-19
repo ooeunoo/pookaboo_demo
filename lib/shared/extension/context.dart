@@ -23,6 +23,9 @@ extension ContextExtensions on BuildContext {
 
   static late BuildContext ctx;
 
+  showSnackBar(SnackBar snackbar) =>
+      ScaffoldMessenger.of(this).showSnackBar(snackbar);
+
   Future<void> show() => showDialog(
         context: this,
         barrierDismissible: false,

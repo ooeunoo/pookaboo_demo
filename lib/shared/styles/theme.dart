@@ -21,10 +21,13 @@ ThemeData themeLight(BuildContext context) => ThemeData(
           confirmButtonStyle: TextButton.styleFrom(
             foregroundColor: Palette.coolGrey02,
           ),
-          helpTextStyle: Theme.of(context)
-              .textTheme
-              .bodyLarge!
-              .copyWith(color: Palette.white, fontSize: Dimens.headerLarge)),
+          hourMinuteTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                fontSize: Dimens.headerMedium,
+                color: Palette.white,
+              ),
+          helpTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Palette.white,
+              )),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Palette.coolGrey12,
         type: BottomNavigationBarType.fixed,

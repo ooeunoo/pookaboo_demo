@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/domain/entities/user/create_user_inquiry_params.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/inquire_dialog.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/location_guide.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/property.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/tab_bar_view.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
+import 'package:pookaboo/shared/widgets/common/app_button.dart';
+import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
@@ -29,14 +37,16 @@ class BottomSheetLayout extends StatefulWidget {
 }
 
 class _BottomSheetLayoutState extends State<BottomSheetLayout> {
+  String? userId;
   bool hasEditPermission = false;
   bool isEdit = false;
 
   @override
   void initState() {
-    final state = context.read<AuthBloc>().state;
+    final state = context.read<UserBloc>().state;
 
     if (state is AuthenticatedState) {
+      userId = state.user.id;
       hasEditPermission = state.user.isOwner();
     }
 
@@ -49,9 +59,47 @@ class _BottomSheetLayoutState extends State<BottomSheetLayout> {
     });
   }
 
+  void openInquire() {
+    context.pop();
+    if (userId != null) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(Dimens.space16))),
+                backgroundColor: Palette.coolGrey10,
+                content: InquireDialog(
+                  toilet: widget.toilet,
+                  confirmPress: (String inquiry) {
+                    context.read<UserBloc>().add(CreateUserInquiryEvent(
+                        params: CreateUserInquiryParams(
+                            toilet_id: widget.toilet.id,
+                            user_id: userId!,
+                            inquiry: inquiry)));
+                  },
+                ));
+          });
+    } else {
+      context.showSnackBar(AppSnackBar(
+          context,
+          height: Dimens.space12, // widget.isExpand ? 0 : Dimens.space220,
+          Row(
+            children: [
+              AppText('로그인',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Palette.lemon03, fontWeight: FontWeight.bold)),
+              AppText(' 후 이용 해주세요',
+                  style: Theme.of(context).textTheme.bodySmall!),
+            ],
+          )));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Column(
@@ -75,19 +123,38 @@ class _BottomSheetLayoutState extends State<BottomSheetLayout> {
                         /////////////////////////////////////////////
                         ///  Edit & Confirm Button
                         /////////////////////////////////////////////
-                        if (hasEditPermission) ...{
-                          GestureDetector(
-                              onTap: _toggleEdit,
-                              child: SvgPicture.asset(
-                                isEdit ? Assets.confirm : Assets.edit,
-                                width: Dimens.space24,
-                                height: Dimens.space24,
-                                colorFilter: ColorFilter.mode(
-                                  isEdit ? Palette.blueLatte : Palette.red01,
-                                  BlendMode.srcIn,
-                                ),
-                              ))
-                        }
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: openInquire,
+                              child: AppText('문의하기',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(
+                                          height:
+                                              Dimens.space20 / Dimens.space9,
+                                          color: Palette.blueLatte
+                                              .withOpacity(0.9))),
+                            ),
+                            // const AppSpacerH(),
+                            // if (hasEditPermission && widget.isExpand) ...{
+                            //   GestureDetector(
+                            //       onTap: _toggleEdit,
+                            //       child: SvgPicture.asset(
+                            //         isEdit ? Assets.confirm : Assets.edit,
+                            //         width: Dimens.space24,
+                            //         height: Dimens.space24,
+                            //         colorFilter: ColorFilter.mode(
+                            //           isEdit
+                            //               ? Palette.blueLatte
+                            //               : Palette.red01,
+                            //           BlendMode.srcIn,
+                            //         ),
+                            //       ))
+                            // }
+                          ],
+                        )
                       ],
                     ),
                     const AppSpacerV(),

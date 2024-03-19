@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/data/models/user/app_user.dart';
-import 'package:pookaboo/layers/domain/entities/auth/update_user_params.dart';
-import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
+import 'package:pookaboo/layers/domain/entities/user/update_user_params.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
@@ -64,7 +64,7 @@ class _UpdateUserDataBottomSheetState extends State<UpdateUserDataBottomSheet> {
   }
 
   Future<void> _updateUserMetadata() async {
-    final state = context.read<AuthBloc>().state;
+    UserState state = context.read<UserBloc>().state;
     if (state is AuthenticatedState) {
       UpdateUserParams params = UpdateUserParams(
         user_id: state.user.id,
@@ -73,7 +73,7 @@ class _UpdateUserDataBottomSheetState extends State<UpdateUserDataBottomSheet> {
         gender: _gender,
       );
 
-      context.read<AuthBloc>().add(UpdateUserEvent(params: params));
+      context.read<UserBloc>().add(UpdateUserEvent(params: params));
       context.pop();
     }
   }
