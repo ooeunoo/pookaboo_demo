@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:pookaboo/layers/domain/entities/form/step/data_option.dart';
+import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
 
@@ -10,14 +12,18 @@ class MultiDataStep implements Step {
   String title;
   @override
   String? description;
+  DataType type;
+  String? dateFormat;
 
-  List<SelectOption> options;
+  List<DataOption> options;
 
   MultiDataStep({
     required this.id,
     required this.title,
-    required this.options,
     this.description,
+    required this.options,
+    required this.type,
+    this.dateFormat,
   });
 
   factory MultiDataStep.fromJson(Map<String, dynamic> json) => MultiDataStep(
@@ -25,6 +31,8 @@ class MultiDataStep implements Step {
         title: json["title"],
         options: json["options"],
         description: json["description"],
+        type: json["type"],
+        dateFormat: json["dateFormat"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -32,5 +40,7 @@ class MultiDataStep implements Step {
         "title": title,
         "options": options,
         "description": description,
+        "type": type,
+        "dateFormat": dateFormat
       };
 }

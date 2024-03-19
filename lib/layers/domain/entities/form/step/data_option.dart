@@ -1,25 +1,22 @@
 import 'dart:convert';
 
+import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
+import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
+import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
+
 class DataOption {
-  String text;
-  dynamic value;
-  String? description;
+  String id;
+  String label;
 
   DataOption({
-    required this.text,
-    required this.value,
-    this.description,
+    required this.id,
+    required this.label,
   });
 
   factory DataOption.fromJson(Map<String, dynamic> json) => DataOption(
-        text: json["text"],
-        value: json["value"],
-        description: json["description"],
+        id: json["id"],
+        label: json["label"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "text": text,
-        "value": value,
-        "description": description,
-      };
+  Map<String, dynamic> toJson() => {"id": id, "label": label};
 }

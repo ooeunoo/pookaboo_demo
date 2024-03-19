@@ -49,12 +49,12 @@ class _ToiletBottomSheetInformationState
 
     // equipment
     for (var equipment in EquipmentKey.values) {
-      List<String> keys = equipment.keys;
+      List<(String, String)> keys = equipment.keys;
       String emoji = equipment.emoji;
       String name = equipment.name;
       int count = 0;
 
-      for (var key in keys) {
+      for (var (key, _) in keys) {
         List<int> equipmentsJson = widget.toilet.equipment?.toJson()[key];
         List<int> equipments = equipmentsJson.map((item) => item).toList();
 

@@ -63,14 +63,16 @@ enum RatingScoreType {
 
 enum EquipmentOrder { common, male, female }
 
+
+
 enum EquipmentKey {
-  urinal(['urinal', 'child_urinal', 'disable_urinal'], '소변기', '💦'),
-  seat(['seat', 'child_seat', 'disable_seat'], '좌변기', '🚽'),
-  washbasin(['washbasin'], '세면대', '🚰');
+  urinal([('urinal', "소변기"), ('child_urinal', "어린이용 소변기"), ('disable_urinal', "장애인용 소변기")], '소변기', '💦'),
+  seat([('seat', "좌변기"), ('child_seat', "어린이용 좌변기"), ('disable_seat', "장애인용 좌변기")], '좌변기', '🚽'),
+  washbasin([('washbasin', "세면대")], '세면대', '🚰');
 
   const EquipmentKey(this.keys, this.name, this.emoji);
 
-  final List<String> keys;
+  final List<(String, String)> keys;
   final String name;
   final String emoji;
 }
