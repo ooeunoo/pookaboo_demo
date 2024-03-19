@@ -87,6 +87,19 @@ class Rating with _$Rating {
 
     return double.parse(averageRating.toStringAsFixed(1));
   }
+
+  static Rating recalculrate(Rating prev, Rating cur) {
+    return Rating(
+      cleanliness: double.parse(
+          ((prev.cleanliness + cur.cleanliness) / 2).toStringAsFixed(1)),
+      safety: double.parse(
+          ((prev.safety + cur.cleanliness) / 2).toStringAsFixed(1)),
+      convenience: double.parse(
+          ((prev.convenience + cur.convenience) / 2).toStringAsFixed(1)),
+      management: double.parse(
+          ((prev.management + cur.management) / 2).toStringAsFixed(1)),
+    );
+  }
 }
 
 @freezed

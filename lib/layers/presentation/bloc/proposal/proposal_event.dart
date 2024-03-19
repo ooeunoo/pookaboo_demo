@@ -8,11 +8,10 @@ abstract class ProposalEvent extends Equatable {}
 ////////////////////////////////
 class CreateToiletProposalEvent extends ProposalEvent {
   final CreateToiletParam params;
-  final List<File> images;
 
   @override
-  CreateToiletProposalEvent({required this.params, required this.images});
+  CreateToiletProposalEvent({required this.params});
 
   @override
-  List<Object> get props => [params, images];
+  List<Object> get props => [params];
 }

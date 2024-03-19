@@ -2,7 +2,6 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
@@ -20,7 +19,6 @@ import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_chip.dart';
 
 class MapPage extends StatefulWidget {

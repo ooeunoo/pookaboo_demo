@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart' hide Step;
+import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/entities/form/confirm_step.dart';
+import 'package:pookaboo/shared/entities/form/data_option.dart';
 import 'package:pookaboo/shared/entities/form/data_step.dart';
 import 'package:pookaboo/shared/entities/form/information_step.dart';
 import 'package:pookaboo/shared/entities/form/map_step.dart';
@@ -13,6 +16,7 @@ import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/entities/form/single_select_step.dart';
 import 'package:pookaboo/shared/entities/form/step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/widgets/form/app_confirm_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_data_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_information_form.dart';
@@ -22,19 +26,18 @@ import 'package:pookaboo/shared/widgets/form/app_multi_select_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_multi_time_data_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_picture_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_single_select_form.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/survey.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
-class SurveyFlow extends StatefulWidget {
-  const SurveyFlow({
+class ToiletProposal extends StatefulWidget {
+  const ToiletProposal({
     super.key,
   });
 
   @override
-  State<SurveyFlow> createState() => _SurveyFlowState();
+  State<ToiletProposal> createState() => _SurveyFlowState();
 }
 
-class _SurveyFlowState extends State<SurveyFlow> {
+class _SurveyFlowState extends State<ToiletProposal> {
   final PageController _controller = PageController();
   CreateToiletParam params = CreateToiletParam.getEmpty();
 
@@ -43,8 +46,8 @@ class _SurveyFlowState extends State<SurveyFlow> {
     super.initState();
   }
 
-  void _onSave(List<StepResult> results) {
-    CreateToiletParam params = CreateToiletParam.getEmpty();
+  void _onSave() {
+    context.go(AppRoutes.profile.path);
   }
 
   @override
@@ -137,7 +140,7 @@ class _SurveyFlowState extends State<SurveyFlow> {
     if (_controller.page?.toInt() == steps.length - 1) {
       bool shouldFinish = true;
 
-      // _onSave(results);
+      _onSave();
       // return;
     }
 
@@ -213,13 +216,20 @@ class _SurveyFlowState extends State<SurveyFlow> {
         }
       case 'time':
         return params.copyWith(
-          mon: value.mon as OperateTime,
-          tue: value.tue as OperateTime,
-          wed: value.wed as OperateTime,
-          thu: value.thu as OperateTime,
-          fri: value.fri as OperateTime,
-          sat: value.sat as OperateTime,
-          sun: value.sun as OperateTime,
+          mon: OperateTime(
+              open: value['mon']['open'], close: value['mon']['close']),
+          tue: OperateTime(
+              open: value['tue']['open'], close: value['tue']['close']),
+          wed: OperateTime(
+              open: value['wed']['open'], close: value['wed']['close']),
+          thu: OperateTime(
+              open: value['thu']['open'], close: value['thu']['close']),
+          fri: OperateTime(
+              open: value['fri']['open'], close: value['fri']['close']),
+          sat: OperateTime(
+              open: value['sat']['open'], close: value['sat']['close']),
+          sun: OperateTime(
+              open: value['sun']['open'], close: value['sun']['close']),
         );
       // case 'equipment':
       // List<int> urnial = [
@@ -245,3 +255,96 @@ class _SurveyFlowState extends State<SurveyFlow> {
     return params;
   }
 }
+
+List<Step> steps = [
+  InformationStep(
+      id: 'Intro',
+      title: '새로운 화장실 등록해볼까요?',
+      description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
+  ////////////////
+  MapStep(id: 'coordinates', title: ''),
+  ////////////////////
+  DataStep(
+      id: 'name',
+      title: '화장실 이름을 알려주세요',
+      description: "화장실 이름은 정하실 수 있어요. \n등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
+      type: InputDataType.text),
+  ////////////////////
+  SingleSelectStep(
+      id: 'type',
+      title: '화장실이 어디에 있나요?',
+      description: "화장실이 빌딩에서 운영되고 있나요? 카페에서 운영되고있나요?",
+      options: [
+        SelectOption(text: '빌딩', value: 0),
+        SelectOption(text: '카페', value: 1),
+      ]),
+  ////////////////////
+  SingleSelectStep(
+      id: 'gender',
+      title: '화장실은 남녀가 분리되어있나요?',
+      description: "",
+      options: [
+        SelectOption(text: '공용', value: false),
+        SelectOption(text: '남녀분리', value: true),
+      ]),
+  ////////////////////
+  SingleSelectStep(
+      id: 'password',
+      title: '잠금이 걸려있나요?',
+      description: "",
+      options: [
+        SelectOption(text: '잠김', value: false),
+        SelectOption(text: '안잠김', value: true),
+      ]),
+  ////////////////////
+  MultiSelectStep(
+      id: 'convenience',
+      title: '화장실에 있는 편의시설을 알려주세요!',
+      description: "여러개 선택하셔도 되요!",
+      options: [
+        ...ConvenienceKey.values.map((value) {
+          return SelectOption(
+              text: '${value.emoji} ${value.name}', value: value.key);
+        }),
+        ...AmenityKey.values.map((value) {
+          return SelectOption(
+              text: '${value.emoji} ${value.name}', value: value.key);
+        })
+      ]),
+  //////////////////
+  MultiDataStep(
+      id: 'equipment',
+      title: '화장실에 있는 시설 갯수를 알려주세요!',
+      description: "",
+      type: InputDataType.numberInt,
+      options: [
+        ...EquipmentKey.values.expand((value) {
+          List<DataOption> options = [];
+          for (var (key, label) in value.keys) {
+            options.add(DataOption(id: key, label: label));
+          }
+          return options;
+        })
+      ]),
+  ////////////////////
+  MultiTimeDataStep(
+    id: 'time',
+    title: '화장실의 운영시간을 알려주세요!',
+    description: "",
+    type: InputTimeDataType.time,
+    dateFormat: "HH:mm",
+    options: [
+      ...WeekKey.values.map((value) {
+        return DataOption(id: value.key, label: value.ko);
+      })
+    ],
+  ),
+  ////////////////////
+  PictureStep(id: 'images', title: '화장실 이미지를 올려주세요'),
+  ////////////////////
+  ConfirmStep(
+      id: 'confirm',
+      title: '등록이 완료되었습니다!',
+      description: '빠른 시일 내에 검토 후 등록 완료됩니다.',
+      image: '')
+];

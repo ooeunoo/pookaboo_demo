@@ -20,7 +20,8 @@ class Assets {
   static const String arrowBottom = 'assets/svg/arrow_bottom.svg';
   static const String arrowLeft = 'assets/svg/arrow_left.svg';
   static const String close = 'assets/svg/close.svg';
-
+  static const String edit = 'assets/svg/edit.svg';
+  static const String confirm = 'assets/svg/confirm.svg';
   // PNG
   static const String noImage = 'assets/images/no_image.png';
 

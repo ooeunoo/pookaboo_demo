@@ -35,8 +35,7 @@ class ProposalBloc extends Bloc<ProposalEvent, ProposalState> {
   Future<void> _onCreateToiletProposalEvent(
       CreateToiletProposalEvent event, Emitter<ProposalState> emit) async {
     try {
-      final response =
-          await _createToiletProposalUseCase.call(event.params, event.images);
+      final response = await _createToiletProposalUseCase.call(event.params);
       response.fold((l) {
         log.e(l);
       }, (r) {

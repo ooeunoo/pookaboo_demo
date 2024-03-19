@@ -5,12 +5,10 @@ import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
 import 'package:pookaboo/layers/domain/entities/profile/menu_item.dart';
 import 'package:pookaboo/layers/presentation/bloc/profile/profile_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/widgets/login_screen.dart';
-import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/router/extra_params.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
@@ -40,9 +38,9 @@ class _ProfilePageState extends State<ProfilePage> {
     menu = [
       MenuItem(
           section: 1,
-          title: '신규 화장실 제안하기',
+          title: '신규 화장실 등록하기',
           onTap: () {
-            context.push(AppRoutes.create_toilet.path, extra: extra);
+            context.push(AppRoutes.toilet_proposal.path, extra: extra);
           }),
       MenuItem(
           section: 2,

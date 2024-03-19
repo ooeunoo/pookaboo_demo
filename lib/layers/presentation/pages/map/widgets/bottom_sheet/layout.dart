@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
+import 'package:pookaboo/layers/presentation/bloc/auth/auth_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/location_guide.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/property.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/tab_bar_view.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
@@ -22,51 +29,93 @@ class BottomSheetLayout extends StatefulWidget {
 }
 
 class _BottomSheetLayoutState extends State<BottomSheetLayout> {
+  bool hasEditPermission = false;
+  bool isEdit = false;
+
+  @override
+  void initState() {
+    final state = context.read<AuthBloc>().state;
+
+    if (state is AuthenticatedState) {
+      hasEditPermission = state.user.isOwner();
+    }
+
+    super.initState();
+  }
+
+  void _toggleEdit() {
+    setState(() {
+      isEdit = !isEdit;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /////////////////////////////////////////////
-              ///  HEADER
-              /////////////////////////////////////////////
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(widget.toilet.name,
-                      style: Theme.of(context).textTheme.bodyLarge!)
-                ],
-              ),
-              const AppSpacerV(),
-              /////////////////////////////////////////////
-              ///  Location Guide
-              /////////////////////////////////////////////
-              LocationGuide(
-                toilet: widget.toilet,
-              ),
-              const AppSpacerV(),
-            ],
-          ),
-        ),
-        // Divider Padding 때문에 분리함
-        if (widget.isExpand) ...[
-          Column(
+    return BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-                child: ToiletBottomSheetProperty(widget.toilet),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /////////////////////////////////////////////
+                    ///  HEADER
+                    /////////////////////////////////////////////
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppText(widget.toilet.name,
+                            style: Theme.of(context).textTheme.bodyLarge!),
+
+                        /////////////////////////////////////////////
+                        ///  Edit & Confirm Button
+                        /////////////////////////////////////////////
+                        if (hasEditPermission) ...{
+                          GestureDetector(
+                              onTap: _toggleEdit,
+                              child: SvgPicture.asset(
+                                isEdit ? Assets.confirm : Assets.edit,
+                                width: Dimens.space24,
+                                height: Dimens.space24,
+                                colorFilter: ColorFilter.mode(
+                                  isEdit ? Palette.blueLatte : Palette.red01,
+                                  BlendMode.srcIn,
+                                ),
+                              ))
+                        }
+                      ],
+                    ),
+                    const AppSpacerV(),
+                    /////////////////////////////////////////////
+                    ///  Location Guide
+                    /////////////////////////////////////////////
+                    LocationGuide(
+                      toilet: widget.toilet,
+                    ),
+                    const AppSpacerV(),
+                  ],
+                ),
               ),
-              const AppSpacerV(),
-              ToiletBottomSeetTabBarView(widget.toilet)
+              // Divider Padding 때문에 분리함
+              if (widget.isExpand) ...[
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+                      child: ToiletBottomSheetProperty(widget.toilet),
+                    ),
+                    const AppSpacerV(),
+                    ToiletBottomSeetTabBarView(widget.toilet)
+                  ],
+                ),
+              ]
             ],
-          ),
-        ]
-      ],
-    );
+          );
+        });
   }
 }

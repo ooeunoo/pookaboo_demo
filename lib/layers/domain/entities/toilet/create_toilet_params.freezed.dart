@@ -54,6 +54,8 @@ mixin _$CreateToiletParam {
   OperateTime get fri => throw _privateConstructorUsedError;
   OperateTime get sat => throw _privateConstructorUsedError;
   OperateTime get sun => throw _privateConstructorUsedError;
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  List<File>? get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -100,7 +102,9 @@ abstract class $CreateToiletParamCopyWith<$Res> {
       OperateTime thu,
       OperateTime fri,
       OperateTime sat,
-      OperateTime sun});
+      OperateTime sun,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      List<File>? images});
 
   $OperateTimeCopyWith<$Res> get mon;
   $OperateTimeCopyWith<$Res> get tue;
@@ -157,6 +161,7 @@ class _$CreateToiletParamCopyWithImpl<$Res, $Val extends CreateToiletParam>
     Object? fri = null,
     Object? sat = null,
     Object? sun = null,
+    Object? images = freezed,
   }) {
     return _then(_value.copyWith(
       user_id: null == user_id
@@ -291,6 +296,10 @@ class _$CreateToiletParamCopyWithImpl<$Res, $Val extends CreateToiletParam>
           ? _value.sun
           : sun // ignore: cast_nullable_to_non_nullable
               as OperateTime,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<File>?,
     ) as $Val);
   }
 
@@ -392,7 +401,9 @@ abstract class _$$CreateToiletParamImplCopyWith<$Res>
       OperateTime thu,
       OperateTime fri,
       OperateTime sat,
-      OperateTime sun});
+      OperateTime sun,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      List<File>? images});
 
   @override
   $OperateTimeCopyWith<$Res> get mon;
@@ -454,6 +465,7 @@ class __$$CreateToiletParamImplCopyWithImpl<$Res>
     Object? fri = null,
     Object? sat = null,
     Object? sun = null,
+    Object? images = freezed,
   }) {
     return _then(_$CreateToiletParamImpl(
       user_id: null == user_id
@@ -588,13 +600,17 @@ class __$$CreateToiletParamImplCopyWithImpl<$Res>
           ? _value.sun
           : sun // ignore: cast_nullable_to_non_nullable
               as OperateTime,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<File>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$CreateToiletParamImpl extends _CreateToiletParam {
+class _$CreateToiletParamImpl implements _CreateToiletParam {
   _$CreateToiletParamImpl(
       {required this.user_id,
       required this.name,
@@ -628,7 +644,9 @@ class _$CreateToiletParamImpl extends _CreateToiletParam {
       required this.thu,
       required this.fri,
       required this.sat,
-      required this.sun})
+      required this.sun,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      final List<File>? images})
       : _urinal = urinal,
         _child_urinal = child_urinal,
         _disable_urinal = disable_urinal,
@@ -636,7 +654,7 @@ class _$CreateToiletParamImpl extends _CreateToiletParam {
         _child_seat = child_seat,
         _disable_seat = disable_seat,
         _washbasin = washbasin,
-        super._();
+        _images = images;
 
   factory _$CreateToiletParamImpl.fromJson(Map<String, dynamic> json) =>
       _$$CreateToiletParamImplFromJson(json);
@@ -750,10 +768,20 @@ class _$CreateToiletParamImpl extends _CreateToiletParam {
   final OperateTime sat;
   @override
   final OperateTime sun;
+  final List<File>? _images;
+  @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  List<File>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'CreateToiletParam(user_id: $user_id, name: $name, type: $type, gender: $gender, password: $password, password_tip: $password_tip, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, coordinates: $coordinates, paper: $paper, towel: $towel, soap: $soap, powder_room: $powder_room, hand_dry: $hand_dry, vending: $vending, diaper: $diaper, bell: $bell, urinal: $urinal, child_urinal: $child_urinal, disable_urinal: $disable_urinal, seat: $seat, child_seat: $child_seat, disable_seat: $disable_seat, washbasin: $washbasin, mon: $mon, tue: $tue, wed: $wed, thu: $thu, fri: $fri, sat: $sat, sun: $sun)';
+    return 'CreateToiletParam(user_id: $user_id, name: $name, type: $type, gender: $gender, password: $password, password_tip: $password_tip, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, coordinates: $coordinates, paper: $paper, towel: $towel, soap: $soap, powder_room: $powder_room, hand_dry: $hand_dry, vending: $vending, diaper: $diaper, bell: $bell, urinal: $urinal, child_urinal: $child_urinal, disable_urinal: $disable_urinal, seat: $seat, child_seat: $child_seat, disable_seat: $disable_seat, washbasin: $washbasin, mon: $mon, tue: $tue, wed: $wed, thu: $thu, fri: $fri, sat: $sat, sun: $sun, images: $images)';
   }
 
   @override
@@ -805,7 +833,8 @@ class _$CreateToiletParamImpl extends _CreateToiletParam {
             (identical(other.thu, thu) || other.thu == thu) &&
             (identical(other.fri, fri) || other.fri == fri) &&
             (identical(other.sat, sat) || other.sat == sat) &&
-            (identical(other.sun, sun) || other.sun == sun));
+            (identical(other.sun, sun) || other.sun == sun) &&
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(ignore: true)
@@ -844,7 +873,8 @@ class _$CreateToiletParamImpl extends _CreateToiletParam {
         thu,
         fri,
         sat,
-        sun
+        sun,
+        const DeepCollectionEquality().hash(_images)
       ]);
 
   @JsonKey(ignore: true)
@@ -862,7 +892,7 @@ class _$CreateToiletParamImpl extends _CreateToiletParam {
   }
 }
 
-abstract class _CreateToiletParam extends CreateToiletParam {
+abstract class _CreateToiletParam implements CreateToiletParam {
   factory _CreateToiletParam(
       {required final String user_id,
       required final String name,
@@ -896,8 +926,9 @@ abstract class _CreateToiletParam extends CreateToiletParam {
       required final OperateTime thu,
       required final OperateTime fri,
       required final OperateTime sat,
-      required final OperateTime sun}) = _$CreateToiletParamImpl;
-  _CreateToiletParam._() : super._();
+      required final OperateTime sun,
+      @JsonKey(includeToJson: false, includeFromJson: false)
+      final List<File>? images}) = _$CreateToiletParamImpl;
 
   factory _CreateToiletParam.fromJson(Map<String, dynamic> json) =
       _$CreateToiletParamImpl.fromJson;
@@ -968,6 +999,9 @@ abstract class _CreateToiletParam extends CreateToiletParam {
   OperateTime get sat;
   @override
   OperateTime get sun;
+  @override
+  @JsonKey(includeToJson: false, includeFromJson: false)
+  List<File>? get images;
   @override
   @JsonKey(ignore: true)
   _$$CreateToiletParamImplCopyWith<_$CreateToiletParamImpl> get copyWith =>

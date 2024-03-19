@@ -13,9 +13,9 @@ class ProposalRepositoryImpl implements ProposalRepository {
 
   @override
   Future<Either<Failure, bool>> createToiletProposalImpl(
-      CreateToiletParam params, List<File> images) async {
-    final response = await toiletRemoteDatasource
-        .createToiletProposalDatasource(params, images);
+      CreateToiletParam params) async {
+    final response =
+        await toiletRemoteDatasource.createToiletProposalDatasource(params);
     return response;
   }
 }

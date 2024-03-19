@@ -67,7 +67,8 @@ abstract class ToiletRemoteDatasource {
       getToiletVisitationsByUserIdDatasource(String userId);
 
   Future<Either<Failure, bool>> createToiletProposalDatasource(
-      CreateToiletParam params, List<File> images);
+    CreateToiletParam params,
+  );
 }
 
 class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
@@ -160,6 +161,7 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
           .from(ToiletTable.visitation.name)
           .update({'reviewed': true}).match({'id': params.visitationId});
 
+      // 리뷰 작성
       await _supabaseService.client.from(ToiletTable.review.name).insert({
         'toilet_id': params.toiletId,
         'user_id': params.userId,
@@ -169,6 +171,32 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
         'management': params.management,
         "comment": params.comment
       });
+
+      // 화장실 평점 조회
+      final prevRating = await _supabaseService.client
+          .from(ToiletTable.rating.name)
+          .select('cleanliness, safety, management, convenience')
+          .eq("toilet_id", params.toiletId)
+          .single();
+
+      // 화장실 평점 재계산
+      Rating prev = Rating.fromJson(prevRating);
+      Rating cur = Rating(
+        cleanliness: params.cleanliness,
+        safety: params.safety,
+        convenience: params.convenience,
+        management: params.management,
+      );
+      Rating newRating = Rating.recalculrate(prev, cur);
+
+      // 화장실 평점 업데이트
+      await _supabaseService.client.from(ToiletTable.rating.name).update({
+        'cleanliness': newRating.cleanliness,
+        'safety': newRating.safety,
+        'convenience': newRating.convenience,
+        'management': newRating.management
+      }).match({'toilet_id': params.toiletId});
+
       return const Right(true);
     } catch (e) {
       log.e(e);
@@ -229,7 +257,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
 
   @override
   Future<Either<Failure, bool>> createToiletProposalDatasource(
-      CreateToiletParam params, List<File> images) async {
+    CreateToiletParam params,
+  ) async {
     try {
       final data = await _supabaseService.client
           .from(ToiletTable.proposal.name)

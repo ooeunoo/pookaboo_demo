@@ -7,6 +7,7 @@ import 'package:pookaboo/layers/data/models/user/app_user.dart';
 import 'package:pookaboo/layers/domain/entities/auth/update_user_params.dart';
 import 'package:pookaboo/layers/domain/usecases/auth/auth_usecase.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'auth_event.dart';
@@ -30,6 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onCheckedRequestEvent(
       CheckRequestedEvent event, Emitter<AuthState> emit) async {
+    log.d('in');
     AppUser? appUser = await _authUseCase.getSignedInUser();
     appUser != null
         ? await _triggerBeforeAuthenticatedState(emit, appUser)

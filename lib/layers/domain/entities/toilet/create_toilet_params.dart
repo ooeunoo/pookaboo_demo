@@ -9,8 +9,6 @@ part 'create_toilet_params.g.dart';
 
 @freezed
 class CreateToiletParam with _$CreateToiletParam {
-  CreateToiletParam._();
-
   factory CreateToiletParam({
     required String user_id,
     required String name,
@@ -45,6 +43,7 @@ class CreateToiletParam with _$CreateToiletParam {
     required OperateTime fri,
     required OperateTime sat,
     required OperateTime sun,
+    @JsonKey(includeToJson: false, includeFromJson: false) List<File>? images,
   }) = _CreateToiletParam;
 
   factory CreateToiletParam.fromJson(Map<String, dynamic> json) =>
@@ -52,39 +51,39 @@ class CreateToiletParam with _$CreateToiletParam {
 
   static CreateToiletParam getEmpty() {
     return CreateToiletParam(
-      user_id: '',
-      name: '',
-      type: 0,
-      gender: false,
-      password: false,
-      password_tip: '',
-      address: '',
-      road_address: '',
-      location_tip: '',
-      city: '',
-      coordinates: '',
-      paper: false,
-      towel: false,
-      soap: false,
-      powder_room: false,
-      hand_dry: false,
-      vending: false,
-      diaper: false,
-      bell: false,
-      urinal: [0, 0, 0],
-      child_urinal: [0, 0, 0],
-      disable_urinal: [0, 0, 0],
-      seat: [0, 0, 0],
-      child_seat: [0, 0, 0],
-      disable_seat: [0, 0, 0],
-      washbasin: [0, 0, 0],
-      mon: OperateTime(open: null, close: null),
-      tue: OperateTime(open: null, close: null),
-      wed: OperateTime(open: null, close: null),
-      thu: OperateTime(open: null, close: null),
-      fri: OperateTime(open: null, close: null),
-      sat: OperateTime(open: null, close: null),
-      sun: OperateTime(open: null, close: null),
-    );
+        user_id: '',
+        name: '',
+        type: 0,
+        gender: false,
+        password: false,
+        password_tip: '',
+        address: '',
+        road_address: '',
+        location_tip: '',
+        city: '',
+        coordinates: '',
+        paper: false,
+        towel: false,
+        soap: false,
+        powder_room: false,
+        hand_dry: false,
+        vending: false,
+        diaper: false,
+        bell: false,
+        urinal: [0, 0, 0],
+        child_urinal: [0, 0, 0],
+        disable_urinal: [0, 0, 0],
+        seat: [0, 0, 0],
+        child_seat: [0, 0, 0],
+        disable_seat: [0, 0, 0],
+        washbasin: [0, 0, 0],
+        mon: OperateTime(open: null, close: null),
+        tue: OperateTime(open: null, close: null),
+        wed: OperateTime(open: null, close: null),
+        thu: OperateTime(open: null, close: null),
+        fri: OperateTime(open: null, close: null),
+        sat: OperateTime(open: null, close: null),
+        sun: OperateTime(open: null, close: null),
+        images: []);
   }
 }

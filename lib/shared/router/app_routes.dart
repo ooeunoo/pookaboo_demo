@@ -10,12 +10,11 @@ import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dar
 import 'package:pookaboo/layers/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/presentation/pages/splash/splash.dart';
 import 'package:pookaboo/layers/presentation/pages/map/map.dart';
-import 'package:pookaboo/layers/presentation/pages/review/review.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form.dart';
-import 'package:pookaboo/layers/presentation/pages/visitation/visitation.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/review/review.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/toilet_proposal/toilet_proposal.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/visitation/visitation.dart';
 import 'package:pookaboo/shared/router/extra_params.dart';
 import 'package:pookaboo/shared/router/router_refresh_stream.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 
 enum AppRoutes {
   splash("/splash"),
@@ -32,7 +31,7 @@ enum AppRoutes {
   // review page
   reviews("/reviews"),
 
-  create_toilet('/create_toilet'),
+  toilet_proposal('/toilet_proposal'),
 
   // Auth Page
   // login("/auth/login"),
@@ -112,10 +111,10 @@ class AppRoute {
             },
           ),
           GoRoute(
-            path: AppRoutes.create_toilet.path,
-            name: AppRoutes.create_toilet.name,
+            path: AppRoutes.toilet_proposal.path,
+            name: AppRoutes.toilet_proposal.name,
             pageBuilder: (context, state) => const NoTransitionPage(
-              child: SurveyFlow(),
+              child: ToiletProposal(),
             ),
           ),
         ],

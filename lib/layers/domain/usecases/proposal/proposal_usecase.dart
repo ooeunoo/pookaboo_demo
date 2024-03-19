@@ -12,15 +12,13 @@ import 'package:pookaboo/layers/domain/repositories/review/review_repository.dar
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/usecase/usecase.dart';
 
-class CreateToiletProposalUseCase
-    extends UseCase2<bool, CreateToiletParam, List<File>> {
+class CreateToiletProposalUseCase extends UseCase<bool, CreateToiletParam> {
   final ProposalRepository _repo;
 
   CreateToiletProposalUseCase(this._repo);
 
   @override
-  Future<Either<Failure, bool>> call(
-      CreateToiletParam params, List<File> params2) {
-    return _repo.createToiletProposalImpl(params, params2);
+  Future<Either<Failure, bool>> call(CreateToiletParam params) {
+    return _repo.createToiletProposalImpl(params);
   }
 }

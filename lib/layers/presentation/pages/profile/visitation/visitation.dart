@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/layers/data/models/visitation/visitation.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
-import 'package:pookaboo/layers/presentation/pages/visitation/widgets/review_form.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/visitation/widgets/review_form.dart';
 import 'package:pookaboo/mocks/image.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
