@@ -49,6 +49,7 @@ Future<DateTime?> showPlatformDatePicker(
 Future<TimeOfDay?> showPlatformTimePicker(
   BuildContext context, {
   DateTime? initialDate,
+  String? helperText,
 
   /// only works for iOS/MacOS
   required ValueChanged<DateTime> onDateTimeChanged,
@@ -60,22 +61,27 @@ Future<TimeOfDay?> showPlatformTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(initialDate),
     );
-  } else if (Platform.isIOS || Platform.isMacOS) {
-    final DateTime? dateTime = await _showCupertinoModalDialog(
-      context,
-      CupertinoDatePicker(
-        initialDateTime: initialDate,
-        mode: CupertinoDatePickerMode.time,
-        use24hFormat: true,
-        onDateTimeChanged: onDateTimeChanged,
-      ),
-    );
-    return dateTime != null ? TimeOfDay.fromDateTime(dateTime) : null;
-  } else {
+  }
+  // else if (Platform.isIOS || Platform.isMacOS) {
+  //   final DateTime? dateTime = await _showCupertinoModalDialog(
+  //     context,
+  //     CupertinoDatePicker(
+  //       initialDateTime: initialDate,
+  //       mode: CupertinoDatePickerMode.time,
+  //       use24hFormat: true,
+  //       onDateTimeChanged: onDateTimeChanged,
+  //     ),
+  //   );
+  //   return dateTime != null ? TimeOfDay.fromDateTime(dateTime) : null;
+  // }
+  else {
     return showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(initialDate),
-    );
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(initialDate),
+        initialEntryMode: TimePickerEntryMode.inputOnly,
+        hourLabelText: "",
+        minuteLabelText: "",
+        helpText: helperText);
   }
 }
 

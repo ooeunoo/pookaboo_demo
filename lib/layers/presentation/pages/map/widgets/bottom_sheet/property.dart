@@ -178,7 +178,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
   Widget _timeScheduler(Time time) {
     List<Widget> timeTextWidgets = [];
 
-    for (var day in Week.values) {
+    for (var day in WeekKey.values) {
       String key = day.key;
 
       // 화장실 오늘 요일 오픈, 마감 시간

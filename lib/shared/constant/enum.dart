@@ -31,7 +31,7 @@ enum ToiletFilter {
   final String icon;
 }
 
-enum Week {
+enum WeekKey {
   mon('mon', '월요일'),
   tue('tue', '화요일'),
   wed('wed', '수요일'),
@@ -41,7 +41,7 @@ enum Week {
   sun('sun', '일요일'),
   ;
 
-  const Week(this.key, this.ko);
+  const WeekKey(this.key, this.ko);
 
   final String key;
   final String ko;

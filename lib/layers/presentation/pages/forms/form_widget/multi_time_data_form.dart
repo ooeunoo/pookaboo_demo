@@ -39,7 +39,6 @@ class MultiTimeDataForm extends StatefulWidget {
 class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
   late List<List<TextEditingController>> _controllers;
   late List<List<FocusNode>> _focusNodes;
-  late List<List<DateTime?>> _results;
 
   bool isLoading = false;
 
@@ -52,7 +51,6 @@ class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
         (_) => [TextEditingController(), TextEditingController()]);
     _focusNodes = List.generate(
         step.options.length, (index) => [FocusNode(), FocusNode()]);
-    _results = List.generate(step.options.length, (_) => [null, null]);
   }
 
   @override
@@ -110,8 +108,8 @@ class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
                       ),
                       GestureDetector(
                         onTap: !isLoading
-                            ? () {
-                                _showDatePicker(context, index, 0);
+                            ? () async {
+                                await _showDatePicker(context, index, 0);
                               }
                             : null,
                         child: AbsorbPointer(
@@ -147,8 +145,8 @@ class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
                                   height: Dimens.space20 / Dimens.space16)),
                       GestureDetector(
                         onTap: !isLoading
-                            ? () {
-                                _showDatePicker(context, index, 1);
+                            ? () async {
+                                await _showDatePicker(context, index, 1);
                               }
                             : null,
                         child: AbsorbPointer(
@@ -198,15 +196,6 @@ class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
     );
   }
 
-  // void _requestFocus(int index) {
-  //   final tuple = _focusNodes[index];
-  //   if (tuple.$1.hasFocus) {
-  //     tuple.$1.unfocus();
-  //   } else {
-  //     tuple.$1.requestFocus();
-  //   }
-  // }
-
   InputDecoration _decoration(BuildContext context) {
     return InputDecoration(
       contentPadding: EdgeInsets.symmetric(
@@ -229,57 +218,55 @@ class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
     final DateFormat dateFormat = DateFormat(dateFormatPattern);
     DateTime? selected;
 
+    String dayKo = WeekKey.values[index].ko;
+    String timeKo = inner == 0 ? '- 오픈 시간' : '- 마감 시간';
+
+    String helperText = '$dayKo $timeKo';
+
     final DateTime initialDate = DateTime.now();
     setState(() {
-      _results[index][inner] = initialDate;
       _controllers[index][inner].text = dateFormat.format(initialDate);
     });
 
     if (step.type == InputTimeDataType.date) {
-      await showPlatformDatePicker(
+      selected = await showPlatformDatePicker(
         context,
         initialDate: initialDate,
-        onDateTimeChanged: (DateTime selectedDate) {
-          selected = selectedDate;
-          setState(() {
-            _controllers[index][inner].text = dateFormat.format(selectedDate);
-          });
-        },
+        onDateTimeChanged: (DateTime selectedDate) {},
       );
-      if (selected != null) {
-        selected = DateUtils.dateOnly(selected!);
-      }
     } else if (step.type == InputTimeDataType.time) {
-      await showPlatformTimePicker(
+      final TimeOfDay? timeOfDay = await showPlatformTimePicker(
         context,
         initialDate: initialDate,
-        onDateTimeChanged: (DateTime selectedDate) {
-          selected = DateTime(0, 0, 0, selectedDate.hour, selectedDate.minute);
-          setState(() {
-            _controllers[index][inner].text = dateFormat.format(selectedDate);
-          });
-        },
+        helperText: helperText,
+        onDateTimeChanged: (DateTime selectedDate) {},
       );
-      if (selected != null) {
-        selected = DateTime(0, 0, 0, selected!.hour, selected!.minute);
+      if (timeOfDay != null) {
+        selected = DateTime(0, 0, 0, timeOfDay.hour, timeOfDay.minute);
       }
     } else if (step.type == InputTimeDataType.dateAndTime) {
-      await showPlatformDateAndTimePicker(
+      selected = await showPlatformDateAndTimePicker(
         context,
         initialDate: initialDate,
-        onDateTimeChanged: (DateTime selectedDate) {
-          selected = selectedDate;
-          setState(() {
-            _controllers[index][inner].text = dateFormat.format(selectedDate);
-          });
-        },
+        onDateTimeChanged: (DateTime selectedDate) {},
       );
     }
 
     if (selected != null) {
       setState(() {
-        _results[index][inner] = selected;
+        _controllers[index][inner].text = dateFormat.format(selected!);
       });
+    }
+
+    _requestNextDatePicker(context, index, inner);
+  }
+
+  void _requestNextDatePicker(BuildContext context, int index, int inner) {
+    int nextIndex = inner == 1 ? index + 1 : index;
+    int nextInner = inner == 1 ? 0 : inner + 1;
+
+    if (nextIndex <= step.options.length - 1) {
+      _showDatePicker(context, nextIndex, nextInner);
     }
   }
 
@@ -318,17 +305,15 @@ class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
       case InputTimeDataType.date:
       case InputTimeDataType.dateAndTime:
       case InputTimeDataType.time:
-        final DateFormat dateFormat = DateFormat(dateFormatPattern);
-
         Map<String, Map<String, String?>> values = {};
-        for (int index = 0; index < _results.length; index++) {
+        for (int index = 0; index < _controllers.length; index++) {
           final option = step.options[index];
-          DateTime? open = _results[index][0];
-          DateTime? close = _results[index][0];
+          final open = _controllers[index][0].text;
+          final close = _controllers[index][1].text;
 
           values[option.id] = {
-            "open": open != null ? dateFormat.format(open) : null,
-            "close": close != null ? dateFormat.format(close) : null,
+            "open": open != "" ? open : null,
+            "close": close != "" ? close : null,
           };
         }
         return values;

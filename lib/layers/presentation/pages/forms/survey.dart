@@ -83,7 +83,7 @@ List<Step> steps = [
     type: InputTimeDataType.time,
     dateFormat: "HH:mm",
     options: [
-      ...Week.values.map((value) {
+      ...WeekKey.values.map((value) {
         return DataOption(id: value.key, label: value.ko);
       })
     ],

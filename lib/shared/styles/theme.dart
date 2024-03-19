@@ -13,6 +13,18 @@ ThemeData themeLight(BuildContext context) => ThemeData(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       scaffoldBackgroundColor: Palette.coolGrey12,
+      timePickerTheme: TimePickerThemeData(
+          backgroundColor: Palette.coolGrey10,
+          hourMinuteColor: Palette.coolGrey05,
+          cancelButtonStyle:
+              TextButton.styleFrom(foregroundColor: Palette.coolGrey06),
+          confirmButtonStyle: TextButton.styleFrom(
+            foregroundColor: Palette.coolGrey02,
+          ),
+          helpTextStyle: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: Palette.white, fontSize: Dimens.headerLarge)),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Palette.coolGrey12,
         type: BottomNavigationBarType.fixed,
@@ -141,6 +153,18 @@ ThemeData themeDark(BuildContext context) => ThemeData(
         showUnselectedLabels: false,
         elevation: 0,
       ),
+      timePickerTheme: TimePickerThemeData(
+          backgroundColor: Palette.coolGrey10,
+          hourMinuteColor: Palette.coolGrey05,
+          cancelButtonStyle:
+              TextButton.styleFrom(foregroundColor: Palette.coolGrey06),
+          confirmButtonStyle: TextButton.styleFrom(
+            foregroundColor: Palette.coolGrey02,
+          ),
+          helpTextStyle: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: Palette.white, fontSize: Dimens.headerLarge)),
       textTheme: TextTheme(
         bodyLarge: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w600,
