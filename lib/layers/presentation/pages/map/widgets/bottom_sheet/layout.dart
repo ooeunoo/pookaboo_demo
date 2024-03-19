@@ -84,7 +84,7 @@ class _BottomSheetLayoutState extends State<BottomSheetLayout> {
     } else {
       context.showSnackBar(AppSnackBar(
           context,
-          height: Dimens.space12, // widget.isExpand ? 0 : Dimens.space220,
+          height: Dimens.space12,
           Row(
             children: [
               AppText('로그인',

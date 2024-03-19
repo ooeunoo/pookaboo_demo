@@ -19,19 +19,25 @@ class ToiletBottomSheetButton extends StatefulWidget {
 }
 
 class _ToiletBottomSheetButtonState extends State<ToiletBottomSheetButton> {
+  String? userId;
+
   @override
   void initState() {
     super.initState();
     UserState state = context.read<UserBloc>().state;
     if (state is AuthenticatedState) {
       String userId = state.user.id;
-      // 방문 기록
-      context.read<VisitataionBloc>().add(CreateToiletVisitationEvent(
-          userId: userId, toiletId: widget.toilet.id));
+      setState(() {
+        userId = userId;
+      });
     }
   }
 
   void _startNavigation() {
+    if (userId != null) {
+      context.read<VisitataionBloc>().add(CreateToiletVisitationEvent(
+          userId: userId!, toiletId: widget.toilet.id));
+    }
     context.read<MapBloc>().add(StartNavigationEvent(toilet: widget.toilet));
   }
 

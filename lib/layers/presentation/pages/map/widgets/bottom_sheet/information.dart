@@ -108,53 +108,12 @@ class _ToiletBottomSheetInformationState
           /////////////////////////////////////////////////////////////////////////////////
           ////// Image Swipe
           /////////////////////////////////////////////////////////////////////////////////
-          Container(
-            height: Dimens.bigImageW,
-            margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _images.isEmpty ? 1 : _images.length,
-              itemBuilder: (context, index) {
-                return _images.isEmpty
-                    ? SizedBox(
-                        width: context.widthInPercent(100),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(Dimens.space12),
-                          child: Image.asset(
-                            Assets.noImage,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    : Container(
-                        width: Dimens.bigImageW,
-                        margin: const EdgeInsets.only(right: 10.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(Dimens.space12),
-                          child: Image.network(
-                            _images[index],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-              },
-            ),
-          ),
+          _imageSwiperContainer(_images),
           AppSpacerV(value: Dimens.space30),
           /////////////////////////////////////////////////////////////////////////////////
           ////// Equipment
           /////////////////////////////////////////////////////////////////////////////////
-          Column(mainAxisSize: MainAxisSize.min, children: [
-            ..._equipments.map((equipment) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Dimens.space20, vertical: Dimens.space12),
-                child: _equipmentWidget(
-                    equipment["emoji"], equipment["title"], equipment["value"]),
-              );
-            })
-          ]),
-
+          _equipmentContainer(_equipments),
           /////////////////////////////////////////////////////////////////////////////////
           ////// Convenience
           /////////////////////////////////////////////////////////////////////////////////
@@ -168,17 +127,8 @@ class _ToiletBottomSheetInformationState
                   style: Theme.of(context).textTheme.bodyMedium!),
             ),
             AppSpacerV(value: Dimens.space30),
-            Column(mainAxisSize: MainAxisSize.min, children: [
-              ..._conveniences.map((convenience) {
-                return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Dimens.space20, vertical: Dimens.space12),
-                    child: _convenienceWidget(
-                        convenience["emoji"], convenience["title"]));
-              })
-            ]),
+            _convenienceContainer(_conveniences),
           },
-
           /////////////////////////////////////////////////////////////////////////////////
           ////// Amenity
           /////////////////////////////////////////////////////////////////////////////////
@@ -192,18 +142,82 @@ class _ToiletBottomSheetInformationState
                   style: Theme.of(context).textTheme.bodyMedium!),
             ),
             AppSpacerV(value: Dimens.space30),
-            Column(mainAxisSize: MainAxisSize.min, children: [
-              ..._amenities.map((amenity) {
-                return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Dimens.space20, vertical: Dimens.space12),
-                    child: _amenityWidget(amenity["emoji"], amenity["title"]));
-              })
-            ]),
+            _amenityContainer(_amenities)
           },
         ],
       ),
     );
+  }
+
+  Widget _imageSwiperContainer(List<String> images) {
+    return Container(
+      height: Dimens.bigImageW,
+      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: _images.isEmpty ? 1 : _images.length,
+        itemBuilder: (context, index) {
+          return _images.isEmpty
+              ? SizedBox(
+                  width: context.widthInPercent(100),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(Dimens.space12),
+                    child: Image.asset(
+                      Assets.noImage,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              : Container(
+                  width: Dimens.bigImageW,
+                  margin: const EdgeInsets.only(right: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(Dimens.space12),
+                    child: Image.network(
+                      _images[index],
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+        },
+      ),
+    );
+  }
+
+  Widget _equipmentContainer(List<Map<String, dynamic>> equipments) {
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      ...equipments.map((equipment) {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Dimens.space20, vertical: Dimens.space12),
+          child: _equipmentWidget(
+              equipment["emoji"], equipment["title"], equipment["value"]),
+        );
+      })
+    ]);
+  }
+
+  Widget _convenienceContainer(List<Map<String, dynamic>> conveniences) {
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      ...conveniences.map((convenience) {
+        return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Dimens.space20, vertical: Dimens.space12),
+            child:
+                _convenienceWidget(convenience["emoji"], convenience["title"]));
+      })
+    ]);
+  }
+
+  Widget _amenityContainer(List<Map<String, dynamic>> amenities) {
+    return Column(mainAxisSize: MainAxisSize.min, children: [
+      ...amenities.map((amenity) {
+        return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Dimens.space20, vertical: Dimens.space12),
+            child: _amenityWidget(amenity["emoji"], amenity["title"]));
+      })
+    ]);
   }
 
   Widget _equipmentWidget(String emoji, String title, String count) {

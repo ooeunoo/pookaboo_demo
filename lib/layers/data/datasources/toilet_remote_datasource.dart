@@ -129,6 +129,7 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
           .insert(params.toJson());
       return const Right(true);
     } catch (e) {
+      log.e(e);
       return Left(ServerFailure(e.toString()));
     }
   }
