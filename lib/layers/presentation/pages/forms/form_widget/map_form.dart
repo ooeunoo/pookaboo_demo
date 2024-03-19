@@ -52,37 +52,37 @@ class _MapFormState extends State<MapForm> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          AppSpacerV(value: Dimens.space20),
-          Row(
-            children: [
-              Expanded(
-                child: Text(step.title,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(fontSize: Dimens.headerLarge)),
-              ),
-            ],
-          ),
-          if (step.description?.isNotEmpty == true)
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: Dimens.space12,
-                    ),
-                    child: Text(step.description!,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.labelLarge),
-                  ),
-                ),
-              ],
-            ),
-          AppSpacerV(
-            value: Dimens.space20,
-          ),
+          // AppSpacerV(value: Dimens.space20),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Text(step.title,
+          //           textAlign: TextAlign.center,
+          //           style: Theme.of(context)
+          //               .textTheme
+          //               .bodyLarge!
+          //               .copyWith(fontSize: Dimens.headerLarge)),
+          //     ),
+          //   ],
+          // ),
+          // if (step.description?.isNotEmpty == true)
+          //   Row(
+          //     children: [
+          //       Expanded(
+          //         child: Padding(
+          //           padding: EdgeInsets.only(
+          //             top: Dimens.space12,
+          //           ),
+          //           child: Text(step.description!,
+          //               textAlign: TextAlign.center,
+          //               style: Theme.of(context).textTheme.labelLarge),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // AppSpacerV(
+          //   value: Dimens.space20,
+          // ),
           Expanded(
             child: Stack(
               children: [
@@ -93,17 +93,35 @@ class _MapFormState extends State<MapForm> {
 
                     setState(() {});
                   }),
-                  onMapTap: (LatLng loc) {
-                    _changeMarker(loc);
+                  onDragChangeCallback:
+                      (LatLng latLng, int zoomLevel, DragType dragType) {
+                    _marker.latLng = latLng;
+                    setState(() {});
                   },
-                  onMarkerDragChangeCallback:
-                      (markerId, latLng, zoomLevel, markerDragType) {
-                    if (markerDragType == MarkerDragType.end) {
-                      _changeMarker(latLng);
-                    }
-                  },
-                  markers: [_marker],
                 ),
+                ///////////////////////////////////
+                // MARKER
+                ///////////////////////////////////
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Center(
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      onTap: () async {},
+                      child: Image.asset(
+                        Images.markerGif,
+                        width: Dimens.space40,
+                        height: Dimens.space40,
+                      ),
+                    ),
+                  ),
+                ),
+                ///////////////////////////////////
+                // MY POSITION
+                ///////////////////////////////////
                 Positioned(
                     right: Dimens.space20,
                     bottom: Dimens.bottomBarHeight(context) + Dimens.space24,
@@ -139,10 +157,13 @@ class _MapFormState extends State<MapForm> {
               ],
             ),
           ),
+          ///////////////////////////////////
+          // BUTTON
+          ///////////////////////////////////
           AppSpacerV(value: Dimens.space20),
           FormButton(
             onNextPress: widget.onNextPress,
-            onBackPress: widget.onBackPress,
+            // onBackPress: widget.onBackPress,
             result: StepResult(stepId: step.id, value: _marker.latLng),
           ),
         ],

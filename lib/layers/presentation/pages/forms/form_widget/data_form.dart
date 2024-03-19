@@ -29,7 +29,7 @@ class DataForm extends StatefulWidget {
 class _DataFormState extends State<DataForm> {
   final TextEditingController _controller = TextEditingController();
   DateTime? _selectedDate;
-  late FocusNode _focusNode; // Declare FocusNode
+  late FocusNode _focusNode;
 
   bool isLoading = false;
 
@@ -38,13 +38,13 @@ class _DataFormState extends State<DataForm> {
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode(); // Initialize FocusNode
-    _focusNode.requestFocus(); // Request focus when the page is loaded
+    _focusNode = FocusNode();
+    _focusNode.requestFocus();
   }
 
   @override
   void dispose() {
-    _focusNode.dispose(); // Dispose the FocusNode when no longer needed
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -99,7 +99,7 @@ class _DataFormState extends State<DataForm> {
                       .bodyMedium!
                       .copyWith(height: Dimens.space20 / Dimens.space16),
                   enabled: !isLoading,
-                  focusNode: _focusNode, // Attach FocusNode to TextField
+                  focusNode: _focusNode,
                   decoration: _decoration(context),
                   controller: _controller,
                   keyboardType: textInputType,
@@ -116,6 +116,7 @@ class _DataFormState extends State<DataForm> {
           ),
           const Spacer(),
           FormButton(
+            disable: _controller.text.isEmpty,
             onNextPress: widget.onNextPress,
             onBackPress: widget.onBackPress,
             result: StepResult(

@@ -99,7 +99,7 @@ class _MultiSelectFormState extends State<MultiSelectForm> {
           selected: _selected.contains(step.options[index].value),
           onSelected: (SelectOption option) async {
             setState(() {
-              if (_selected.contains(option)) {
+              if (_selected.contains(option.value)) {
                 _selected.remove(option.value);
               } else {
                 _selected.add(option.value);

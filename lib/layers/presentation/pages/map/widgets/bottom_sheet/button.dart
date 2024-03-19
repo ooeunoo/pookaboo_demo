@@ -29,9 +29,8 @@ class _ToiletBottomSheetButtonState extends State<ToiletBottomSheetButton> {
   Future<void> _getUserId() async {
     final authState = context.read<AuthBloc>().state;
     if (authState is AuthenticatedState) {
-      userId =
-          authState.user.id; // Assuming user id is accessible via 'id' property
-      setState(() {}); // Trigger a rebuild to reflect the updated user ID
+      userId = authState.user.id;
+      setState(() {});
     }
   }
 

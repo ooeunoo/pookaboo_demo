@@ -9,9 +9,12 @@ import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 
 List<Step> steps = [
-  InformationStep(id: 'Intro', title: '화장실 추가하기', description: '화장실을 추가해주세요'),
+  InformationStep(
+      id: 'Intro',
+      title: '새로운 화장실 등록해볼까요?',
+      description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
   ////////////////////
-  MapStep(id: 'coordinates', title: '화장실 위치가 어디인가요?'),
+  MapStep(id: 'coordinates', title: ''),
   ////////////////////
   DataStep(
       id: 'name',
@@ -22,7 +25,7 @@ List<Step> steps = [
   SingleSelectStep(
       id: 'type',
       title: '화장실이 어디에 있나요?',
-      description: "화장실이 빌딩 내 관리라면 빌딩, 카페 내에서 운영 중이라면 카페",
+      description: "화장실이 빌딩에서 운영되고 있나요? 카페에서 운영되고있나요?",
       options: [
         SelectOption(text: '빌딩', value: 0),
         SelectOption(text: '카페', value: 1),
@@ -57,16 +60,7 @@ List<Step> steps = [
         })
       ]),
   ////////////////////
-  MultiSelectStep(
-      id: 'convenience',
-      title: '화장실에 있는 편의시설을 알려주세요!',
-      description: "여러개 선택하셔도 되요!",
-      options: [
-        ...ConvenienceKey.values.map((value) {
-          return SelectOption(
-              text: '${value.name} ${value.emoji}', value: value.key);
-        })
-      ]),
+
   ////////////////////
   ////////////////////
   ////////////////////

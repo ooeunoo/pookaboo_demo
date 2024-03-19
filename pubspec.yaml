@@ -97,6 +97,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/svg/
+    - assets/gif/
     - assets/json/
 
   # example:

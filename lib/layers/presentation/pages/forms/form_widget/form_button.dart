@@ -10,14 +10,14 @@ class FormButton extends StatelessWidget {
   final void Function(StepResult? result)? onNextPress;
   final void Function()? onBackPress;
   final StepResult? result;
-  final bool? diable;
+  final bool disable;
 
   const FormButton({
     super.key,
     this.onNextPress,
     this.onBackPress,
     this.result,
-    this.diable = false,
+    this.disable = false,
   });
 
   @override
@@ -30,6 +30,7 @@ class FormButton extends StatelessWidget {
             children: [
               Expanded(
                   child: AppButton(
+                disable: disable,
                 title: '다음',
                 onPressed: () {
                   onNextPress!(result);
