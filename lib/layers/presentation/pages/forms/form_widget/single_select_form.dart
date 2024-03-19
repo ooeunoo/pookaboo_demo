@@ -3,9 +3,11 @@ import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart'
 import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/single_select_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_button.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/select_option_card.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_description.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/select_option_card.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 
@@ -37,33 +39,9 @@ class _SingleSelectFormState extends State<SingleSelectForm> {
         mainAxisSize: MainAxisSize.max,
         children: [
           const Spacer(),
-          Row(
-            children: [
-              Expanded(
-                child: Text(step.title,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(fontSize: Dimens.headerLarge)),
-              ),
-            ],
-          ),
+          FormHeader(title: step.title),
           if (step.description?.isNotEmpty == true)
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: Dimens.space12,
-                    ),
-                    child: Text(step.description!,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.labelLarge),
-                  ),
-                ),
-              ],
-            ),
+            FormDescription(description: step.description!),
           AppSpacerV(value: Dimens.space100),
           _options(context),
           AppSpacerV(value: Dimens.space40),

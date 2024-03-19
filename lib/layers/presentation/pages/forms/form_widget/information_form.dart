@@ -2,8 +2,9 @@ import 'package:flutter/material.dart' hide Step;
 import 'package:pookaboo/layers/domain/entities/form/step/information_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_button.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 
 class InformationForm extends StatelessWidget {
@@ -24,18 +25,7 @@ class InformationForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           const Spacer(),
-          Row(
-            children: [
-              Expanded(
-                child: Text(step.title,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(fontSize: Dimens.headerLarge)),
-              ),
-            ],
-          ),
+          FormHeader(title: step.title),
           if (step.description?.isNotEmpty == true)
             Row(
               children: [

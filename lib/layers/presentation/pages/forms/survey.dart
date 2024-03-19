@@ -6,6 +6,7 @@ import 'package:pookaboo/layers/domain/entities/form/step/map_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_select_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_time_data_step.dart';
+import 'package:pookaboo/layers/domain/entities/form/step/picutre_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/single_select_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
@@ -16,14 +17,15 @@ List<Step> steps = [
       id: 'Intro',
       title: '새로운 화장실 등록해볼까요?',
       description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
-  ////////////////////
+  //////////////////
+  PictureStep(id: 'images', title: '화장실 이미지를 올려주세요'),
   // MapStep(id: 'coordinates', title: ''),
   // ////////////////////
   // DataStep(
   //     id: 'name',
   //     title: '화장실 이름을 알려주세요',
   //     description: "화장실 이름은 정하실 수 있어요. \n등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
-  //     type: DataType.text),
+  //     type: InputDataType.text),
   // ////////////////////
   // SingleSelectStep(
   //     id: 'type',
@@ -59,14 +61,14 @@ List<Step> steps = [
   //     options: [
   //       ...ConvenienceKey.values.map((value) {
   //         return SelectOption(
-  //             text: '${value.name} ${value.emoji}', value: value.key);
+  //             text: '${value.emoji} ${value.name}', value: value.key);
   //       })
   //     ]),
   // MultiDataStep(
   //     id: 'equipment',
   //     title: '화장실에 있는 시설 갯수를 알려주세요!',
   //     description: "",
-  //     type: DataType.numberInt,
+  //     type: InputDataType.numberInt,
   //     options: [
   //       ...EquipmentKey.values.expand((value) {
   //         List<DataOption> options = [];
@@ -76,18 +78,18 @@ List<Step> steps = [
   //         return options;
   //       })
   //     ]),
-  MultiTimeDataStep(
-    id: 'time',
-    title: '화장실의 운영시간을 알려주세요!',
-    description: "",
-    type: InputTimeDataType.time,
-    dateFormat: "HH:mm",
-    options: [
-      ...WeekKey.values.map((value) {
-        return DataOption(id: value.key, label: value.ko);
-      })
-    ],
-  ),
+  // MultiTimeDataStep(
+  //   id: 'time',
+  //   title: '화장실의 운영시간을 알려주세요!',
+  //   description: "",
+  //   type: InputTimeDataType.time,
+  //   dateFormat: "HH:mm",
+  //   options: [
+  //     ...WeekKey.values.map((value) {
+  //       return DataOption(id: value.key, label: value.ko);
+  //     })
+  //   ],
+  // ),
   ////////////////////
 
   ////////////////////

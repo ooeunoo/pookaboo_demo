@@ -6,9 +6,10 @@ import 'package:pookaboo/layers/domain/entities/form/step/data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_time_data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step_result.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/data_modal.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_container.dart';
-import 'package:pookaboo/layers/presentation/pages/forms/form_widget/form_button.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/time_data_modal.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_container.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_button.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/material/form_header.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
@@ -80,20 +81,8 @@ class _MultiTimeDataFormState extends State<MultiTimeDataForm> {
           Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: AppText(
-                      step.title,
-                      align: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: Dimens.headerLarge),
-                    ),
-                  ),
-                ],
-              ),
+              FormHeader(title: step.title),
+              const AppSpacerV(),
               ...List.generate(step.options.length, (index) {
                 final option = step.options[index];
                 return Padding(

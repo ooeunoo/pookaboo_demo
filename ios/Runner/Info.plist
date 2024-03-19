@@ -112,5 +112,8 @@
 		<string>your usage description here</string>
 		<key>NSMicrophoneUsageDescription</key>
 		<string>your usage description here</string>
+		<!-- Photo (Image Picker) -->
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>your usage description here</string>
 	</dict>
 </plist>

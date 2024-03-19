@@ -5,6 +5,7 @@ import 'package:pookaboo/layers/domain/entities/form/step/map_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_data_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_select_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/multi_time_data_step.dart';
+import 'package:pookaboo/layers/domain/entities/form/step/picutre_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/select_option.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/single_select_step.dart';
 import 'package:pookaboo/layers/domain/entities/form/step/step.dart';
@@ -15,6 +16,7 @@ import 'package:pookaboo/layers/presentation/pages/forms/form_widget/map_form.da
 import 'package:pookaboo/layers/presentation/pages/forms/form_widget/multi_data_form.dart';
 import 'package:pookaboo/layers/presentation/pages/forms/form_widget/multi_select_form.dart';
 import 'package:pookaboo/layers/presentation/pages/forms/form_widget/multi_time_data_form.dart';
+import 'package:pookaboo/layers/presentation/pages/forms/form_widget/picture_form.dart';
 import 'package:pookaboo/layers/presentation/pages/forms/form_widget/single_select_form.dart';
 import 'package:pookaboo/layers/presentation/pages/forms/survey.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -97,6 +99,11 @@ class _SurveyFlowState extends State<SurveyFlow> {
       case const (MapStep):
         return MapForm(
             step: step as MapStep,
+            onNextPress: _onPressNextButton,
+            onBackPress: _onPressBackButton);
+      case const (PictureStep):
+        return PictureForm(
+            step: step as PictureStep,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
       default:
