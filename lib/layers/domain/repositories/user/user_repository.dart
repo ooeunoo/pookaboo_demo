@@ -15,4 +15,5 @@ abstract class UserRepository {
   Future<Either<Failure, AppUser>> updateUserImpl(UpdateUserParams params);
   Future<Either<Failure, bool>> createUserInquiryImpl(
       CreateUserInquiryParams params);
+  Future<Either<Failure, bool>> deleteUserImpl(String userId);
 }

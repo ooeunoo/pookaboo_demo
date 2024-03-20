@@ -25,9 +25,8 @@ class _DetailSheetButtonState extends State<DetailSheetButton> {
     super.initState();
     UserState state = context.read<UserBloc>().state;
     if (state is AuthenticatedState) {
-      String userId = state.user.id;
       setState(() {
-        userId = userId;
+        userId = state.user.id;
       });
     }
   }

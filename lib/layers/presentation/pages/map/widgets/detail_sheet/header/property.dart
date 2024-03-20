@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
@@ -35,7 +36,7 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
   void initState() {
     super.initState();
     rating = Rating.getAverageRating(widget.toilet.rating!).toString();
-    totalReviews = widget.toilet.total_review.toString();
+    totalReviews = widget.toilet.total_reviews.toString();
     toiletType = widget.toilet.type;
     isGenderSeperate = widget.toilet.gender;
     hasPassword = widget.toilet.password;
@@ -237,27 +238,38 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
           value: Dimens.space16,
         ),
         if (hasPassword && passwordTip != "") ...[
-          Card(
-            elevation: 1,
-            color: const Color(0xff202328),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(Dimens.space12),
-            ),
-            child: Container(
-              height: Dimens.space48,
-              padding: EdgeInsets.all(Dimens.space12),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: AppText(
-                        passwordTip!,
-                        style: Theme.of(context).textTheme.labelMedium!,
+          GestureDetector(
+            onTap: () {},
+            child: Card(
+              elevation: 1,
+              color: Palette.coolGrey11,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimens.space12),
+                side: const BorderSide(
+                  color: Palette.coolGrey11,
+                  width: 2,
+                ),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimens.space12),
+                ),
+                height: Dimens.space48,
+                padding: EdgeInsets.all(Dimens.space12),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: AppText(
+                          '🔒  ${passwordTip!}',
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.labelMedium!,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

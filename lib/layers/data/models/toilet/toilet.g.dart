@@ -14,6 +14,7 @@ _$ToiletImpl _$$ToiletImplFromJson(Map<String, dynamic> json) => _$ToiletImpl(
       gender: json['gender'] as bool,
       password: json['password'] as bool,
       password_tip: json['password_tip'] as String? ?? "",
+      total_reviews: json['total_reviews'] as int? ?? 0,
       location_type: json['location_type'] as String,
       address: json['address'] as String,
       road_address: json['road_address'] as String,
@@ -21,7 +22,6 @@ _$ToiletImpl _$$ToiletImplFromJson(Map<String, dynamic> json) => _$ToiletImpl(
       city: json['city'] as String,
       lat: (json['lat'] as num?)?.toDouble(),
       lng: (json['lng'] as num?)?.toDouble(),
-      total_review: json['total_review'] as int?,
       convenience: json['convenience'] == null
           ? null
           : Convenience.fromJson(json['convenience'] as Map<String, dynamic>),
@@ -45,6 +45,7 @@ Map<String, dynamic> _$$ToiletImplToJson(_$ToiletImpl instance) =>
       'gender': instance.gender,
       'password': instance.password,
       'password_tip': instance.password_tip,
+      'total_reviews': instance.total_reviews,
       'location_type': instance.location_type,
       'address': instance.address,
       'road_address': instance.road_address,
@@ -52,7 +53,6 @@ Map<String, dynamic> _$$ToiletImplToJson(_$ToiletImpl instance) =>
       'city': instance.city,
       'lat': instance.lat,
       'lng': instance.lng,
-      'total_review': instance.total_review,
       'convenience': instance.convenience,
       'equipment': instance.equipment,
       'rating': instance.rating,

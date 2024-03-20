@@ -40,7 +40,11 @@ class NavigationModal extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: Dimens.space20,
             ),
-            child: LocationGuide(toilet: toilet, time: time),
+            child: LocationGuide(
+              toilet: toilet,
+              time: time,
+              isExpand: false,
+            ),
           ),
           AppSpacerV(value: Dimens.space12),
           AppDivider(height: Dimens.space1, color: Palette.coolGrey10),

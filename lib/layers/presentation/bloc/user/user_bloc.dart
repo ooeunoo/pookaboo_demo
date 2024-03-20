@@ -19,11 +19,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UserUseCase _authUseCase;
   final UpdateUserUseCase _updateUserUseCase;
   final CreateUserInquireUseCase _createUserInquireUseCase;
+  final DeleteUserUseCase _deleteUserUseCase;
 
   StreamSubscription<User?>? _userSubscription;
 
   UserBloc(this._secureStorage, this._authUseCase, this._updateUserUseCase,
-      this._createUserInquireUseCase)
+      this._createUserInquireUseCase, this._deleteUserUseCase)
       : super(InitialState()) {
     on<CheckRequestedEvent>(_onCheckedRequestEvent);
     on<SignInWithKakaoEvent>(_onSignInWithKakaoEvent);
@@ -31,6 +32,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<LogoutEvent>(_onLogoutEvent);
     on<UpdateUserEvent>(_onUpdateUserEvent);
     on<CreateUserInquiryEvent>(_onCreateUserInquiryEvent);
+    on<DeleteUserEvent>(_onDeleteUserEvent);
 
     _startUserSubscription();
   }
@@ -75,6 +77,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       LogoutEvent event, Emitter<UserState> emit) async {
     try {
       await _authUseCase.signOut();
+      await _triggerBeforeUnAuthenticatedState(emit);
+    } catch (e) {}
+  }
+
+  Future<void> _onDeleteUserEvent(
+      DeleteUserEvent event, Emitter<UserState> emit) async {
+    try {
+      await _deleteUserUseCase.call(event.userId);
       await _triggerBeforeUnAuthenticatedState(emit);
     } catch (e) {}
   }

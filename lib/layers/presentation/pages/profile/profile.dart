@@ -5,11 +5,16 @@ import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/domain/entities/profile/menu_item.dart';
 import 'package:pookaboo/layers/presentation/bloc/profile/profile_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/widgets/login_screen.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/router/extra_params.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -66,8 +71,60 @@ class _ProfilePageState extends State<ProfilePage> {
           onTap: () {
             context.read<UserBloc>().add(LogoutEvent());
           }),
-      MenuItem(section: 3, title: '회원 탈퇴', onTap: () {}),
+      MenuItem(
+          section: 3,
+          title: '회원 탈퇴',
+          onTap: () {
+            _confirmUpdate();
+          }),
     ];
+  }
+
+  void _confirmUpdate() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(Dimens.space16))),
+              backgroundColor: Palette.coolGrey10,
+              content: SizedBox(
+                  width: context.widthInPercent(95),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const AppSpacerV(),
+                      AppText('탈퇴하시겠습니까?',
+                          style: Theme.of(context).textTheme.bodyMedium!),
+                      AppSpacerV(value: Dimens.space20),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AppButton(
+                                title: '아니요',
+                                titleColor: Palette.coolGrey03,
+                                color: Colors.transparent,
+                                onPressed: () {
+                                  context.back();
+                                }),
+                          ),
+                          const AppSpacerH(),
+                          Expanded(
+                            child: AppButton(
+                                title: '네',
+                                titleColor: Palette.coolGrey12,
+                                color: Palette.red01,
+                                onPressed: () {
+                                  context.back();
+                                }),
+                          )
+                        ],
+                      )
+                    ],
+                  )));
+        });
   }
 
   @override

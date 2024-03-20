@@ -33,6 +33,7 @@ class Dimens {
   static double space6 = 6.w;
   static double space8 = 8.w;
   static double space9 = 9.w;
+  static double space10 = 10.w;
 
   static double space12 = 12.w;
   static double space16 = 16.w;
@@ -52,6 +53,8 @@ class Dimens {
   static double space80 = 80.w;
 
   static double space100 = 100.w;
+  static double space120 = 120.w;
+
   static double space150 = 150.w;
   static double space155 = 155.w;
   static double space200 = 200.w;
@@ -77,6 +80,7 @@ class Dimens {
   static double birthdayCalendar = 120.w;
 
   // static double smallButtonH:
+  static double smallButtonH = 40.w;
   static double buttonH = 52.w;
   static double imageW = 46.w;
 

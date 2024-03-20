@@ -185,7 +185,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool get isChanged =>
       user?.nickname != _nicknameController.text ||
       user?.age.toString() != _ageController.text;
-  // ||  user?.gender != _genderController.text;
 
   @override
   Widget build(BuildContext context) {

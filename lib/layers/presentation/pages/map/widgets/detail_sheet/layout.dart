@@ -37,28 +37,20 @@ class DetailSheetLayout extends StatefulWidget {
 
 class _DetailSheetLayoutState extends State<DetailSheetLayout> {
   String? userId;
-  bool hasEditPermission = false;
-  bool isEdit = false;
 
   @override
   void initState() {
-    final state = context.read<UserBloc>().state;
-
-    if (state is AuthenticatedState) {
-      userId = state.user.id;
-      hasEditPermission = state.user.isOwner();
-    }
-
     super.initState();
-  }
-
-  void _toggleEdit() {
-    setState(() {
-      isEdit = !isEdit;
-    });
+    UserState state = context.read<UserBloc>().state;
+    if (state is AuthenticatedState) {
+      setState(() {
+        userId = state.user.id;
+      });
+    }
   }
 
   void openInquire() {
+    log.d(userId);
     context.pop();
     if (userId != null) {
       showDialog(
@@ -116,8 +108,12 @@ class _DetailSheetLayoutState extends State<DetailSheetLayout> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppText(widget.toilet.name,
-                            style: Theme.of(context).textTheme.bodyLarge!),
+                        SizedBox(
+                            width: context.widthInPercent(60),
+                            child: AppText(widget.toilet.name,
+                                maxLines: widget.isExpand ? 5 : 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.bodyLarge!)),
 
                         /////////////////////////////////////////////
                         ///  Edit & Confirm Button
@@ -146,6 +142,7 @@ class _DetailSheetLayoutState extends State<DetailSheetLayout> {
                     /////////////////////////////////////////////
                     LocationGuide(
                       toilet: widget.toilet,
+                      isExpand: widget.isExpand,
                     ),
                     const AppSpacerV(),
                   ],

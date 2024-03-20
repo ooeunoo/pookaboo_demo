@@ -47,4 +47,9 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, AppUser>> updateUserImpl(UpdateUserParams params) {
     return userRemoteDatasource.updateUserDatasource(params);
   }
+
+  @override
+  Future<Either<Failure, bool>> deleteUserImpl(String userId) {
+    return userRemoteDatasource.deleteUserDatasource(userId);
+  }
 }

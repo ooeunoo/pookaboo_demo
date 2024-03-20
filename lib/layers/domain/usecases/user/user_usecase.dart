@@ -57,3 +57,14 @@ class CreateUserInquireUseCase extends UseCase<bool, CreateUserInquiryParams> {
     return _repo.createUserInquiryImpl(params);
   }
 }
+
+class DeleteUserUseCase extends UseCase<bool, String> {
+  final UserRepository _repo;
+
+  DeleteUserUseCase(this._repo);
+
+  @override
+  Future<Either<Failure, bool>> call(String params) {
+    return _repo.deleteUserImpl(params);
+  }
+}

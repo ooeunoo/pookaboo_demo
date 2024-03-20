@@ -24,7 +24,18 @@ class DetailSheetTabBarView extends StatefulWidget {
 }
 
 class _DetailSheetTabBarViewState extends State<DetailSheetTabBarView> {
+  Toilet get toilet => widget.toilet;
+
   int _selectedIndex = 0;
+  late String rating;
+  late String totalReviews;
+
+  @override
+  initState() {
+    super.initState();
+    totalReviews = toilet.total_reviews.toString();
+    rating = Rating.getAverageRating(toilet.rating!).toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +52,17 @@ class _DetailSheetTabBarViewState extends State<DetailSheetTabBarView> {
             scrollDirection: Axis.horizontal,
             child: Center(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildTabItem(0, '정보'),
-                  AppSpacerH(
-                    value: Dimens.space12,
-                  ),
-                  _buildTabItem(1, '평점'),
+                  // AppSpacerH(
+                  //   value: Dimens.space12,
+                  // ),
+                  _buildTabItem(1, '⭐️ 평점 $rating ($totalReviews)'),
                 ],
               ),
             ),
           ),
+
           AppSpacerV(value: Dimens.space20),
 
           /////////////////////////////////////////////////////////////////////////////////
@@ -105,32 +116,28 @@ class _DetailSheetTabBarViewState extends State<DetailSheetTabBarView> {
         });
       },
       child: Container(
-        width: 120, // Adjust the width as needed
+        width: Dimens.space150,
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: _selectedIndex == index
-                  ? Colors.white
-                  : Colors.transparent, // Change color for selected tab
-              width: 2.0, // Border width
+              color:
+                  _selectedIndex == index ? Colors.white : Colors.transparent,
+              width: Dimens.space1,
             ),
           ),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Center(
-          child: Text(
-            title,
-            style: _selectedIndex == index
-                ? Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: Dimens.bodySmall,
-                      color: Palette.coolGrey01,
-                    )
-                : Theme.of(context).textTheme.labelLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: Dimens.labelLarge,
-                      color: Palette.coolGrey05,
-                    ),
+        // padding: EdgeInsets.symmetric(vertical: Dimens.space10),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: Dimens.space10),
+          child: Center(
+            child: Text(
+              title,
+              style: _selectedIndex == index
+                  ? Theme.of(context).textTheme.labelLarge!.copyWith(
+                        color: Palette.coolGrey01,
+                      )
+                  : Theme.of(context).textTheme.labelLarge!,
+            ),
           ),
         ),
       ),

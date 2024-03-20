@@ -76,7 +76,7 @@ Future<void> _useCase() async {
   sl.registerLazySingleton<UpdateUserUseCase>(() => UpdateUserUseCase(sl()));
   sl.registerLazySingleton<CreateUserInquireUseCase>(
       () => CreateUserInquireUseCase(sl()));
-
+  sl.registerLazySingleton<DeleteUserUseCase>(() => DeleteUserUseCase(sl()));
   // map
   sl.registerLazySingleton<GetNearByToiletsUseCase>(
       () => GetNearByToiletsUseCase(sl()));
@@ -105,7 +105,7 @@ Future<void> _useCase() async {
 }
 
 Future<void> _bloc() async {
-  sl.registerFactory(() => UserBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => UserBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));

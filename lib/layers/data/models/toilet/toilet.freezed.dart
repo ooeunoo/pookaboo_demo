@@ -27,6 +27,7 @@ mixin _$Toilet {
   bool get gender => throw _privateConstructorUsedError;
   bool get password => throw _privateConstructorUsedError;
   String get password_tip => throw _privateConstructorUsedError;
+  int? get total_reviews => throw _privateConstructorUsedError;
   String get location_type => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get road_address => throw _privateConstructorUsedError;
@@ -34,7 +35,6 @@ mixin _$Toilet {
   String get city => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lng => throw _privateConstructorUsedError;
-  int? get total_review => throw _privateConstructorUsedError;
   Convenience? get convenience => throw _privateConstructorUsedError;
   Equipment? get equipment => throw _privateConstructorUsedError;
   Rating? get rating => throw _privateConstructorUsedError;
@@ -58,6 +58,7 @@ abstract class $ToiletCopyWith<$Res> {
       bool gender,
       bool password,
       String password_tip,
+      int? total_reviews,
       String location_type,
       String address,
       String road_address,
@@ -65,7 +66,6 @@ abstract class $ToiletCopyWith<$Res> {
       String city,
       double? lat,
       double? lng,
-      int? total_review,
       Convenience? convenience,
       Equipment? equipment,
       Rating? rating,
@@ -97,6 +97,7 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
     Object? gender = null,
     Object? password = null,
     Object? password_tip = null,
+    Object? total_reviews = freezed,
     Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
@@ -104,7 +105,6 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
     Object? city = null,
     Object? lat = freezed,
     Object? lng = freezed,
-    Object? total_review = freezed,
     Object? convenience = freezed,
     Object? equipment = freezed,
     Object? rating = freezed,
@@ -139,6 +139,10 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.password_tip
           : password_tip // ignore: cast_nullable_to_non_nullable
               as String,
+      total_reviews: freezed == total_reviews
+          ? _value.total_reviews
+          : total_reviews // ignore: cast_nullable_to_non_nullable
+              as int?,
       location_type: null == location_type
           ? _value.location_type
           : location_type // ignore: cast_nullable_to_non_nullable
@@ -167,10 +171,6 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.lng
           : lng // ignore: cast_nullable_to_non_nullable
               as double?,
-      total_review: freezed == total_review
-          ? _value.total_review
-          : total_review // ignore: cast_nullable_to_non_nullable
-              as int?,
       convenience: freezed == convenience
           ? _value.convenience
           : convenience // ignore: cast_nullable_to_non_nullable
@@ -254,6 +254,7 @@ abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
       bool gender,
       bool password,
       String password_tip,
+      int? total_reviews,
       String location_type,
       String address,
       String road_address,
@@ -261,7 +262,6 @@ abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
       String city,
       double? lat,
       double? lng,
-      int? total_review,
       Convenience? convenience,
       Equipment? equipment,
       Rating? rating,
@@ -295,6 +295,7 @@ class __$$ToiletImplCopyWithImpl<$Res>
     Object? gender = null,
     Object? password = null,
     Object? password_tip = null,
+    Object? total_reviews = freezed,
     Object? location_type = null,
     Object? address = null,
     Object? road_address = null,
@@ -302,7 +303,6 @@ class __$$ToiletImplCopyWithImpl<$Res>
     Object? city = null,
     Object? lat = freezed,
     Object? lng = freezed,
-    Object? total_review = freezed,
     Object? convenience = freezed,
     Object? equipment = freezed,
     Object? rating = freezed,
@@ -337,6 +337,10 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.password_tip
           : password_tip // ignore: cast_nullable_to_non_nullable
               as String,
+      total_reviews: freezed == total_reviews
+          ? _value.total_reviews
+          : total_reviews // ignore: cast_nullable_to_non_nullable
+              as int?,
       location_type: null == location_type
           ? _value.location_type
           : location_type // ignore: cast_nullable_to_non_nullable
@@ -365,10 +369,6 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.lng
           : lng // ignore: cast_nullable_to_non_nullable
               as double?,
-      total_review: freezed == total_review
-          ? _value.total_review
-          : total_review // ignore: cast_nullable_to_non_nullable
-              as int?,
       convenience: freezed == convenience
           ? _value.convenience
           : convenience // ignore: cast_nullable_to_non_nullable
@@ -400,6 +400,7 @@ class _$ToiletImpl implements _Toilet {
       required this.gender,
       required this.password,
       this.password_tip = "",
+      this.total_reviews = 0,
       required this.location_type,
       required this.address,
       required this.road_address,
@@ -407,7 +408,6 @@ class _$ToiletImpl implements _Toilet {
       required this.city,
       this.lat,
       this.lng,
-      this.total_review,
       this.convenience,
       this.equipment,
       this.rating,
@@ -432,6 +432,9 @@ class _$ToiletImpl implements _Toilet {
   @JsonKey()
   final String password_tip;
   @override
+  @JsonKey()
+  final int? total_reviews;
+  @override
   final String location_type;
   @override
   final String address;
@@ -446,8 +449,6 @@ class _$ToiletImpl implements _Toilet {
   @override
   final double? lng;
   @override
-  final int? total_review;
-  @override
   final Convenience? convenience;
   @override
   final Equipment? equipment;
@@ -458,7 +459,7 @@ class _$ToiletImpl implements _Toilet {
 
   @override
   String toString() {
-    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, total_review: $total_review, convenience: $convenience, equipment: $equipment, rating: $rating, time: $time)';
+    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, total_reviews: $total_reviews, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, rating: $rating, time: $time)';
   }
 
   @override
@@ -475,6 +476,8 @@ class _$ToiletImpl implements _Toilet {
                 other.password == password) &&
             (identical(other.password_tip, password_tip) ||
                 other.password_tip == password_tip) &&
+            (identical(other.total_reviews, total_reviews) ||
+                other.total_reviews == total_reviews) &&
             (identical(other.location_type, location_type) ||
                 other.location_type == location_type) &&
             (identical(other.address, address) || other.address == address) &&
@@ -485,8 +488,6 @@ class _$ToiletImpl implements _Toilet {
             (identical(other.city, city) || other.city == city) &&
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.lng, lng) || other.lng == lng) &&
-            (identical(other.total_review, total_review) ||
-                other.total_review == total_review) &&
             (identical(other.convenience, convenience) ||
                 other.convenience == convenience) &&
             (identical(other.equipment, equipment) ||
@@ -506,6 +507,7 @@ class _$ToiletImpl implements _Toilet {
         gender,
         password,
         password_tip,
+        total_reviews,
         location_type,
         address,
         road_address,
@@ -513,7 +515,6 @@ class _$ToiletImpl implements _Toilet {
         city,
         lat,
         lng,
-        total_review,
         convenience,
         equipment,
         rating,
@@ -543,6 +544,7 @@ abstract class _Toilet implements Toilet {
       required final bool gender,
       required final bool password,
       final String password_tip,
+      final int? total_reviews,
       required final String location_type,
       required final String address,
       required final String road_address,
@@ -550,7 +552,6 @@ abstract class _Toilet implements Toilet {
       required final String city,
       final double? lat,
       final double? lng,
-      final int? total_review,
       final Convenience? convenience,
       final Equipment? equipment,
       final Rating? rating,
@@ -573,6 +574,8 @@ abstract class _Toilet implements Toilet {
   @override
   String get password_tip;
   @override
+  int? get total_reviews;
+  @override
   String get location_type;
   @override
   String get address;
@@ -586,8 +589,6 @@ abstract class _Toilet implements Toilet {
   double? get lat;
   @override
   double? get lng;
-  @override
-  int? get total_review;
   @override
   Convenience? get convenience;
   @override

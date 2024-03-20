@@ -43,6 +43,8 @@ abstract class UserRemoteDatasource {
 
   Future<Either<Failure, bool>> createUserInquiryDatasource(
       CreateUserInquiryParams params);
+
+  Future<Either<Failure, bool>> deleteUserDatasource(String userId);
 }
 
 class UserRemoteDatasourceImpl implements UserRemoteDatasource {
@@ -144,5 +146,18 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
 
     final AppUser user = AppUser.fromJson(data);
     return user;
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteUserDatasource(String userId) async {
+    try {
+      await _supabaseService.client
+          .from(UserTable.user.name)
+          .delete()
+          .eq('id', userId);
+      return const Right(true);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 }

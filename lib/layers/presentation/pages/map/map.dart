@@ -3,25 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_utils.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
-import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/navigation_modal.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
-import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_chip.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class MapPage extends StatefulWidget {
@@ -32,8 +30,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  final Debouncer _debouncer = Debouncer(milliseconds: 200);
-  final Debouncer _isChangeCenterDebouncer = Debouncer(milliseconds: 200);
+  final Debouncer _debouncer = Debouncer(milliseconds: 300);
+  final Debouncer _isChangeCenterDebouncer = Debouncer(milliseconds: 300);
 
   bool isOpenDetailSheet = false;
   bool isChangedCenter = false;
@@ -87,6 +85,9 @@ class _MapPageState extends State<MapPage> {
     await _controller.clearCustomOverlay();
     await _controller.clearMarkerClusterer();
     await _controller.clearPolyline();
+    setState(() {
+      isChangedCenter = false;
+    });
   }
 
   Future<void> _drawMarker(Set<CustomOverlay> markers) async {
@@ -105,6 +106,19 @@ class _MapPageState extends State<MapPage> {
     _controller.setLevel(Zoom.building.index);
 
     _controller.panTo(loc);
+  }
+
+  void _changedCenter(LatLng lat) {
+    log.d(lat);
+    if (mounted) {
+      setState(() {
+        isChangedCenter = false;
+      });
+
+      _isChangeCenterDebouncer.run(() => setState(() {
+            isChangedCenter = true;
+          }));
+    }
   }
 
   @override
@@ -161,9 +175,9 @@ class _MapPageState extends State<MapPage> {
                       toiletId: int.parse(customOverlayId)));
                 }
               },
-              // onBoundsChangeCallback: (LatLngBounds latLngBounds) {
-              //   context.read<MapBloc>().add(BoundChangeEvent());
-              // },
+              onCenterChangeCallback: (LatLng latlng, int zoomLevel) {
+                _changedCenter(latlng);
+              },
             ),
 
             ////////////////////////////////////
@@ -185,8 +199,7 @@ class _MapPageState extends State<MapPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(Dimens.space12),
                         border: Border.all(
-                            width: Dimens.space1,
-                            color: const Color(0xFFD3D7DF)),
+                            width: Dimens.space1, color: Palette.coolGrey03),
                         // gap: const EdgeInsets.all(10),
                         color: Palette.white,
                       ),
@@ -248,9 +261,7 @@ class _MapPageState extends State<MapPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(Dimens.space12),
                         border: Border.all(
-                            width: Dimens.space1,
-                            color: const Color(0xFFD3D7DF)),
-                        // gap: const EdgeInsets.all(10),
+                            width: Dimens.space1, color: Palette.coolGrey03),
                         color: Palette.white,
                       ),
                       child: SvgPicture.asset(
@@ -265,33 +276,60 @@ class _MapPageState extends State<MapPage> {
             ////////////////////////////////////
             ///  Search Modal
             ///////////////////////////////////
-            if (state is BoundChangedState) ...{
+            if (isChangedCenter) ...{
               Positioned(
-                  left: 0,
-                  right: 0,
-                  // right: Dimens.space20,
-                  bottom: Dimens.bottomBarHeight(context) + Dimens.space24,
+                  left: Dimens.space100,
+                  right: Dimens.space100,
+                  bottom: Dimens.bottomBarHeight(context) + Dimens.space60,
                   child: InkWell(
                     splashColor: Colors.transparent,
                     onTap: () {
                       onMediumVibration();
+                      setState(() {
+                        isChangedCenter = false;
+                      });
 
-                      // context.read<MapBloc>().add(MoveToMyPositionEvent());
+                      context.read<MapBloc>().add(GetNearByToiletsEvent());
                     },
                     child: Container(
-                      width: Dimens.space40,
+                      width: Dimens.space20,
                       height: Dimens.space40,
                       padding: EdgeInsets.all(Dimens.space8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(Dimens.space12),
                         border: Border.all(
                             width: Dimens.space1,
-                            color: const Color(0xFFD3D7DF)),
-                        // gap: const EdgeInsets.all(10),
-                        color: Palette.white,
+                            color: Palette.coolGrey02.withOpacity(0.7)),
+                        color: Palette.coolGrey02.withOpacity(0.7),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Palette.coolGrey12.withOpacity(0.2),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                      child: AppText('현 지도에서 검색',
-                          style: Theme.of(context).textTheme.bodySmall!),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            Assets.refresh,
+                            width: Dimens.space16,
+                            height: Dimens.space16,
+                            colorFilter: const ColorFilter.mode(
+                              Palette.coolGrey08,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                          const AppSpacerH(),
+                          AppText('현 지도에서 검색',
+                              align: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Palette.coolGrey08)),
+                        ],
+                      ),
                     ),
                   )),
             },

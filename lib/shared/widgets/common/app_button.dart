@@ -13,6 +13,8 @@ class AppButton extends StatelessWidget {
   final String title;
   final VoidCallback onPressed;
   final double? width;
+  final double? height;
+
   final Color? color;
   final Color? titleColor;
   final double? fontSize;
@@ -26,6 +28,7 @@ class AppButton extends StatelessWidget {
     required this.title,
     required this.onPressed,
     this.width,
+    this.height,
     this.color,
     this.titleColor,
     this.fontSize,
@@ -39,7 +42,8 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Dimens.space8),
-      height: Dimens.buttonH,
+      height: height ?? Dimens.buttonH,
+      width: width,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(Dimens.space16)),
       child: TextButton(

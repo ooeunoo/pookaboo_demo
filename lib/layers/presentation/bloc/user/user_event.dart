@@ -38,6 +38,19 @@ class ChangedUserEvent extends UserEvent {
 ///
 ///
 ////////////////////////////////
+class DeleteUserEvent extends UserEvent {
+  final String userId;
+
+  DeleteUserEvent({required this.userId});
+
+  @override
+  List<Object?> get props => [userId];
+}
+
+/////////////////////////////////
+///
+///
+////////////////////////////////
 class LogoutEvent extends UserEvent {
   @override
   List<Object?> get props => [];
