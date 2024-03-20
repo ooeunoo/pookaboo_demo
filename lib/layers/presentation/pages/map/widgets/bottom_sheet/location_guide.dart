@@ -46,6 +46,7 @@ class _LocationGuideState extends State<LocationGuide> {
                   style: Theme.of(context).textTheme.bodySmall!),
               const AppSpacerH(),
               AppText("|", style: Theme.of(context).textTheme.labelLarge!),
+              const AppSpacerH()
             },
             AppText(locationTip, style: Theme.of(context).textTheme.labelLarge!)
           ],

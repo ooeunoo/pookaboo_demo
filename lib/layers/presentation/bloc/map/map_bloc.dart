@@ -67,7 +67,16 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Future<void> _onMapCreateEvent(
       MapCreateEvent event, Emitter<MapState> emit) async {
     _mapController = event.controller;
-    emit(MapCreatedState(controller: _mapController));
+
+    bool locationPermission = await _geolocatorService.hasPermission();
+    log.d(locationPermission);
+    if (locationPermission) {
+      // 내위치로 이동하기
+      await _onMoveToMyPositionEvent(MoveToMyPositionEvent(), emit);
+    } else {
+      // 현재 위치 주변 화장실 찾긴
+      await _onGetNearByToiletsEvent(GetNearByToiletsEvent(), emit);
+    }
   }
 
   /////////////////////////////////
@@ -115,7 +124,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       _mapController.panTo(myPosition);
       emit(MovedMyPositionState(loc: myPosition));
     } catch (e) {
-      await _geolocatorService.askPermission();
       log.e(e);
     }
   }

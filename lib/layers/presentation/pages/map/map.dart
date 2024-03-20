@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/injection.dart';
+import 'package:pookaboo/layers/presentation/bloc/map/map_utils.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
@@ -85,16 +86,6 @@ class _MapPageState extends State<MapPage> {
 
   Future<void> _drawMarker(Set<CustomOverlay> markers) async {
     await _controller.addCustomOverlay(customOverlays: markers.toList());
-
-    // Clusterer clusterer = Clusterer(
-    //   averageCenter: true,
-    //   disableClickZoom: false,
-    //   gridSize: 30,
-    //   minLevel: 3,
-    //   markers: markers.toList(),
-    // );
-
-    // await _controller.addMarkerClusterer(clusterer: clusterer);
   }
 
   Future<void> _drawPolyline(Set<Polyline> polylines) async {
@@ -105,13 +96,17 @@ class _MapPageState extends State<MapPage> {
     context.read<AppCubit>().updateBottomNavigationVisible(state);
   }
 
+  void _moveToCenter(LatLng loc) {
+    _controller.setLevel(Zoom.building.index);
+
+    _controller.panTo(loc);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MapBloc, MapState>(
       listener: (context, state) async {
-        if (state is MapCreatedState) {
-          context.read<MapBloc>().add(MoveToMyPositionEvent());
-        } else if (state is MovedMyPositionState ||
+        if (state is MovedMyPositionState ||
             state is StoppedToiletNavigationState) {
           _updateVisibleOfBottomNavigation(true);
           context.read<MapBloc>().add(GetNearByToiletsEvent());
@@ -144,12 +139,10 @@ class _MapPageState extends State<MapPage> {
         return Stack(
           children: [
             KakaoMap(
-              currentLevel: 4,
-              maxLevel: 5,
+              currentLevel: Zoom.street.level,
+              maxLevel: Zoom.city.index,
               center: Config.get.initialCenter,
-              onMapTap: (LatLng loc) {
-                // context.read<MapBloc>().add(GetNearByToiletsEvent());
-              },
+              onMapTap: (LatLng loc) {},
               onMapCreated: ((controller) async {
                 _controller = controller;
                 context
@@ -162,15 +155,6 @@ class _MapPageState extends State<MapPage> {
                       toiletId: int.parse(customOverlayId)));
                 }
               },
-              // onMarkerTap: (String markerId, _, __) {
-              //   context.read<MapBloc>().add(
-              //       SelecteToiletMarkerEvent(toiletId: int.parse(markerId)));
-              // },
-              // onMarkerClustererTap: (LatLng loc, int zoomLevel) {
-              //   context
-              //       .read<MapBloc>()
-              //       .add(ClickToClusterEvent(loc: loc, zoomLevel: zoomLevel));
-              // },
             ),
 
             ////////////////////////////////////

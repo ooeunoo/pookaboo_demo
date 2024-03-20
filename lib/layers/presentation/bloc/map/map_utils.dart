@@ -3,6 +3,21 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 
+enum Zoom {
+  ground(1),
+  building(2),
+  block(3),
+  street(4),
+  district(5),
+  neighbor(6),
+  city(7),
+  ;
+
+  const Zoom(this.level);
+
+  final int level;
+}
+
 String getDefaultMarkerInnerText(int type, Rating rating) {
   String image = type == ToiletType.building.index ? '🏢' : '☕️';
   double avgRating = Rating.getAverageRating(rating);
