@@ -236,7 +236,7 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
         AppSpacerV(
           value: Dimens.space16,
         ),
-        if (hasPassword) ...[
+        if (hasPassword && passwordTip != "") ...[
           Card(
             elevation: 1,
             color: const Color(0xff202328),
@@ -252,7 +252,7 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: AppText(
-                        "🔒 스타벅스 비밀번호는 직원에게 문의",
+                        passwordTip!,
                         style: Theme.of(context).textTheme.labelMedium!,
                       ),
                     ),

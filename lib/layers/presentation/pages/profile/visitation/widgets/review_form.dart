@@ -117,7 +117,7 @@ class _ReviewFormState extends State<ReviewForm> {
             child: Column(
               children: [
                 AppReviewHeader(
-                    image: mockImage,
+                    image: null,
                     name: widget.visitation.toilet.name,
                     date: widget.visitation.created_at),
                 const AppSpacerV(),

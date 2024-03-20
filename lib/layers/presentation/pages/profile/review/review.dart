@@ -131,7 +131,7 @@ class _ReviewPageState extends State<ReviewPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppReviewHeader(
-                        image: mockImage,
+                        image: null,
                         name: review.toilet!.name,
                         date: review.created_at),
                     AppSpacerV(value: Dimens.space20),

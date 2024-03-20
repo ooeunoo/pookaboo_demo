@@ -24,6 +24,7 @@ class Assets {
   static const String confirm = 'assets/svg/confirm.svg';
   // PNG
   static const String noImage = 'assets/images/no_image.png';
+  static const String noImageSmall = 'assets/images/no_image_small.png';
 
   // GIF
   static const String markerGif = 'assets/gif/marker.gif';
