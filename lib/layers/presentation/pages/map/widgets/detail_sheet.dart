@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/layout.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/button.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/login_message.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/layout.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/button.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/login_message.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/widgets/common/app_drag_handle_bar.dart';
 
-class ToiletBottomSheet extends StatefulWidget {
+class DetailSheet extends StatefulWidget {
   final ScrollController controller;
   final Toilet toilet;
   final double offset;
 
-  const ToiletBottomSheet(
+  const DetailSheet(
       {super.key,
       required this.offset,
       required this.toilet,
       required this.controller});
 
   @override
-  State<ToiletBottomSheet> createState() => _ToiletBottomSheetState();
+  State<DetailSheet> createState() => _DetailSheetState();
 }
 
-class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
+class _DetailSheetState extends State<DetailSheet> {
   bool isExpand = false;
 
   @override
@@ -46,7 +46,7 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BottomSheetLayout(
+                DetailSheetLayout(
                   toilet: widget.toilet,
                   isExpand: isExpand,
                 ),
@@ -62,7 +62,7 @@ class _ToiletBottomSheetState extends State<ToiletBottomSheet> {
               padding: EdgeInsets.all(Dimens.space20),
               child: !isAuthenticated && isExpand
                   ? const LogInMessage()
-                  : ToiletBottomSheetButton(toilet: widget.toilet),
+                  : DetailSheetButton(toilet: widget.toilet),
             ),
           );
         })

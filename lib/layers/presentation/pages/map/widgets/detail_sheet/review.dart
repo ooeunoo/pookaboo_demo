@@ -12,17 +12,16 @@ import 'package:pookaboo/shared/widgets/common/app_divider.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
-class ToiletBottomSheetReview extends StatefulWidget {
+class DetailSheetReview extends StatefulWidget {
   final Toilet toilet;
 
-  const ToiletBottomSheetReview(this.toilet, {super.key});
+  const DetailSheetReview(this.toilet, {super.key});
 
   @override
-  State<ToiletBottomSheetReview> createState() =>
-      _ToiletBottomSheetReviewState();
+  State<DetailSheetReview> createState() => _DetailSheetReviewState();
 }
 
-class _ToiletBottomSheetReviewState extends State<ToiletBottomSheetReview> {
+class _DetailSheetReviewState extends State<DetailSheetReview> {
   late List<Review> _reviews = [];
 
   @override

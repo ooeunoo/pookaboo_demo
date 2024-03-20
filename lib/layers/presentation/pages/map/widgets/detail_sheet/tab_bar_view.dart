@@ -7,25 +7,23 @@ import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/information.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/review.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/information.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/review.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 
-class ToiletBottomSeetTabBarView extends StatefulWidget {
+class DetailSheetTabBarView extends StatefulWidget {
   final Toilet toilet;
 
-  const ToiletBottomSeetTabBarView(this.toilet, {super.key});
+  const DetailSheetTabBarView(this.toilet, {super.key});
 
   @override
-  _ToiletBottomSeetTabBarViewState createState() =>
-      _ToiletBottomSeetTabBarViewState();
+  _DetailSheetTabBarViewState createState() => _DetailSheetTabBarViewState();
 }
 
-class _ToiletBottomSeetTabBarViewState
-    extends State<ToiletBottomSeetTabBarView> {
+class _DetailSheetTabBarViewState extends State<DetailSheetTabBarView> {
   int _selectedIndex = 0;
 
   @override
@@ -69,9 +67,8 @@ class _ToiletBottomSeetTabBarViewState
               Visibility(
                 visible: _selectedIndex == 0,
                 child: shouldBlur
-                    ? _blurredContainer(
-                        ToiletBottomSheetInformation(widget.toilet))
-                    : ToiletBottomSheetInformation(widget.toilet),
+                    ? _blurredContainer(DetailSheetInformation(widget.toilet))
+                    : DetailSheetInformation(widget.toilet),
               ),
 
               /////////////////////////////////////
@@ -85,9 +82,8 @@ class _ToiletBottomSeetTabBarViewState
                     ..add(GetToiletReviewsByToiletIdEvent(
                         toiletId: widget.toilet.id)),
                   child: shouldBlur
-                      ? _blurredContainer(
-                          ToiletBottomSheetReview(widget.toilet))
-                      : ToiletBottomSheetReview(widget.toilet),
+                      ? _blurredContainer(DetailSheetReview(widget.toilet))
+                      : DetailSheetReview(widget.toilet),
                 ),
               ),
             ],

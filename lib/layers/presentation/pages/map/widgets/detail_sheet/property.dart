@@ -11,17 +11,16 @@ import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
-class ToiletBottomSheetProperty extends StatefulWidget {
+class DetailSheetProperty extends StatefulWidget {
   final Toilet toilet;
 
-  const ToiletBottomSheetProperty(this.toilet, {super.key});
+  const DetailSheetProperty(this.toilet, {super.key});
 
   @override
-  State<ToiletBottomSheetProperty> createState() =>
-      _ToiletBottomSheetPropertyState();
+  State<DetailSheetProperty> createState() => _DetailSheetPropertyState();
 }
 
-class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
+class _DetailSheetPropertyState extends State<DetailSheetProperty> {
   bool isExpandTimeSchedule = false;
 
   late String rating;

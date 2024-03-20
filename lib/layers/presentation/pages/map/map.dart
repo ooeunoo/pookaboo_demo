@@ -9,7 +9,7 @@ import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/toilet_bottom_sheet.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/navigation_modal.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
@@ -63,7 +63,7 @@ class _MapPageState extends State<MapPage> {
       draggableScrollableController: DraggableScrollableController(),
       builder: (BuildContext context, ScrollController scrollController,
           double offset) {
-        return ToiletBottomSheet(
+        return DetailSheet(
           offset: offset,
           toilet: toilet,
           controller: scrollController,
@@ -123,6 +123,7 @@ class _MapPageState extends State<MapPage> {
           markers.addAll({state.startMarker, state.endMarker});
           await _drawPolyline(state.polylines);
           await _drawMarker(markers);
+          _moveToCenter(state.startMarker.latLng);
 
           context.back();
           _updateVisibleOfBottomNavigation(false);
@@ -229,6 +230,7 @@ class _MapPageState extends State<MapPage> {
                     splashColor: Colors.transparent,
                     onTap: () {
                       onMediumVibration();
+
                       context.read<MapBloc>().add(MoveToMyPositionEvent());
                     },
                     child: Container(

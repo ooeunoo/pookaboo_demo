@@ -8,17 +8,16 @@ import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dar
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 
-class ToiletBottomSheetButton extends StatefulWidget {
+class DetailSheetButton extends StatefulWidget {
   final Toilet toilet;
 
-  const ToiletBottomSheetButton({super.key, required this.toilet});
+  const DetailSheetButton({super.key, required this.toilet});
 
   @override
-  State<ToiletBottomSheetButton> createState() =>
-      _ToiletBottomSheetButtonState();
+  State<DetailSheetButton> createState() => _DetailSheetButtonState();
 }
 
-class _ToiletBottomSheetButtonState extends State<ToiletBottomSheetButton> {
+class _DetailSheetButtonState extends State<DetailSheetButton> {
   String? userId;
 
   @override

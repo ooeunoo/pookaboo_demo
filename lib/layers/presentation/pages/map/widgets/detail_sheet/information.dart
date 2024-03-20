@@ -13,21 +13,19 @@ import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
-class ToiletBottomSheetInformation extends StatefulWidget {
+class DetailSheetInformation extends StatefulWidget {
   final Toilet toilet;
 
-  const ToiletBottomSheetInformation(
+  const DetailSheetInformation(
     this.toilet, {
     super.key,
   });
 
   @override
-  State<ToiletBottomSheetInformation> createState() =>
-      _ToiletBottomSheetInformationState();
+  State<DetailSheetInformation> createState() => _DetailSheetInformationState();
 }
 
-class _ToiletBottomSheetInformationState
-    extends State<ToiletBottomSheetInformation> {
+class _DetailSheetInformationState extends State<DetailSheetInformation> {
   late final List<String> _images = [];
 
   late final List<Map<String, dynamic>> _equipments = [];

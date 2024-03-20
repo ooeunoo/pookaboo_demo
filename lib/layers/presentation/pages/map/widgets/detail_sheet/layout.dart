@@ -7,10 +7,10 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/domain/entities/user/create_user_inquiry_params.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/inquire_dialog.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/location_guide.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/property.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/bottom_sheet/tab_bar_view.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/inquire_dialog.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/location_guide.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/property.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/tab_bar_view.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
@@ -22,21 +22,21 @@ import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
-class BottomSheetLayout extends StatefulWidget {
+class DetailSheetLayout extends StatefulWidget {
   final bool isExpand;
   final Toilet toilet;
 
-  const BottomSheetLayout({
+  const DetailSheetLayout({
     super.key,
     required this.isExpand,
     required this.toilet,
   });
 
   @override
-  _BottomSheetLayoutState createState() => _BottomSheetLayoutState();
+  _DetailSheetLayoutState createState() => _DetailSheetLayoutState();
 }
 
-class _BottomSheetLayoutState extends State<BottomSheetLayout> {
+class _DetailSheetLayoutState extends State<DetailSheetLayout> {
   String? userId;
   bool hasEditPermission = false;
   bool isEdit = false;
@@ -174,10 +174,10 @@ class _BottomSheetLayoutState extends State<BottomSheetLayout> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-                      child: ToiletBottomSheetProperty(widget.toilet),
+                      child: DetailSheetProperty(widget.toilet),
                     ),
                     const AppSpacerV(),
-                    ToiletBottomSeetTabBarView(widget.toilet)
+                    DetailSheetTabBarView(widget.toilet)
                   ],
                 ),
               ]
