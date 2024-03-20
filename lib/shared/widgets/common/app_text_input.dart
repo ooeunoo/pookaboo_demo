@@ -10,6 +10,7 @@ class AppTextInput extends StatefulWidget {
     this.curFocusNode,
     this.nextFocusNode,
     this.hint,
+    this.hintStyle,
     this.validator,
     this.onChanged,
     this.keyboardType,
@@ -30,11 +31,14 @@ class AppTextInput extends StatefulWidget {
     this.hintText,
     this.autofillHints,
     this.semantic,
+    this.maxLength,
+    this.onTapOutside,
   });
 
   final FocusNode? curFocusNode;
   final FocusNode? nextFocusNode;
   final String? hint;
+  final TextStyle? hintStyle;
   final Function(String)? validator;
   final Function(String)? onChanged;
   final Function? onTap;
@@ -55,6 +59,8 @@ class AppTextInput extends StatefulWidget {
   final String? hintText;
   final Iterable<String>? autofillHints;
   final String? semantic;
+  final int? maxLength;
+  final TapRegionCallback? onTapOutside;
 
   @override
   _TextFState createState() => _TextFState();
@@ -76,12 +82,10 @@ class _TextFState extends State<AppTextInput> {
             visible: widget.isHintVisible,
             child: Text(
               widget.hint ?? "",
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: Theme.of(context)
-                        .extension<PookabooColors>()!
-                        .background,
-                    height: 0.1,
-                  ),
+              style: widget.hintStyle,
+              // style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              //       height: 0.1,
+              //     ),
             ),
           ),
           Container(
@@ -101,11 +105,14 @@ class _TextFState extends State<AppTextInput> {
                 textAlign: widget.textAlign ?? TextAlign.start,
                 minLines: widget.minLine ?? 1,
                 maxLines: widget.maxLine ?? 10,
+                maxLength: widget.maxLength,
                 inputFormatters: widget.inputFormatter,
                 textAlignVertical: TextAlignVertical.center,
                 style: Theme.of(context).textTheme.bodyMedium,
                 cursorColor: Palette.coolGrey01,
+                onTapOutside: widget.onTapOutside,
                 decoration: InputDecoration(
+                  counterText: '',
                   prefixText: widget.prefixText,
                   alignLabelWithHint: true,
                   isDense: true,

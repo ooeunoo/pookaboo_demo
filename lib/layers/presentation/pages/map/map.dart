@@ -70,7 +70,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> _clear() async {
-    await _controller.clearMarker();
+    await _controller.clearCustomOverlay();
     await _controller.clearMarkerClusterer();
     await _controller.clearPolyline();
   }
@@ -79,11 +79,12 @@ class _MapPageState extends State<MapPage> {
     Clusterer clusterer = Clusterer(
       averageCenter: true,
       disableClickZoom: false,
-      markers: markers.toList(),
       gridSize: 30,
       minLevel: 3,
+      markers: markers.toList(),
     );
 
+    // await _controller.addCustomOverlay(customOverlays: markers.toList());
     await _controller.addMarkerClusterer(clusterer: clusterer);
   }
 

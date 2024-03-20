@@ -54,7 +54,12 @@ class _ProfilePageState extends State<ProfilePage> {
           onTap: () {
             context.push(AppRoutes.reviews.path, extra: extra);
           }),
-      MenuItem(section: 3, title: '내 정보 수정', onTap: () {}),
+      MenuItem(
+          section: 3,
+          title: '내 정보 수정',
+          onTap: () {
+            context.push(AppRoutes.edit_profile.path, extra: extra);
+          }),
       MenuItem(
           section: 3,
           title: '로그아웃',

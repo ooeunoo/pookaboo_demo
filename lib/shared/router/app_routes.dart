@@ -7,6 +7,7 @@ import 'package:pookaboo/layers/presentation/pages/app.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/edit_profile/edit_profile.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/presentation/pages/splash/splash.dart';
 import 'package:pookaboo/layers/presentation/pages/map/map.dart';
@@ -33,9 +34,7 @@ enum AppRoutes {
 
   toilet_proposal('/toilet_proposal'),
 
-  // Auth Page
-  // login("/auth/login"),
-  register("/auth/register"),
+  edit_profile("/edit_profile"),
   ;
 
   const AppRoutes(this.path);
@@ -107,6 +106,15 @@ class AppRoute {
                   .add(GetToiletReviewsByUserIdEvent(userId: extra.userId));
               return MaterialPage(
                 child: ReviewPage(userId: extra.userId),
+              );
+            },
+          ),
+          GoRoute(
+            path: AppRoutes.edit_profile.path,
+            name: AppRoutes.edit_profile.name,
+            pageBuilder: (context, state) {
+              return const MaterialPage(
+                child: EditProfilePage(),
               );
             },
           ),

@@ -12,7 +12,7 @@ abstract class UserRepository {
   Stream<User?> getCurrentUserImpl();
   Future<AppUser?> getSignedInUserImpl();
   String getAccessTokenImpl();
-  Future<Either<Failure, bool>> updateUserImpl(UpdateUserParams params);
+  Future<Either<Failure, AppUser>> updateUserImpl(UpdateUserParams params);
   Future<Either<Failure, bool>> createUserInquiryImpl(
       CreateUserInquiryParams params);
 }

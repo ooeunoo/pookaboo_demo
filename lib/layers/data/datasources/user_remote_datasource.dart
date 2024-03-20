@@ -38,7 +38,8 @@ abstract class UserRemoteDatasource {
 
   String getAccessTokenDatasource();
 
-  Future<Either<Failure, bool>> updateUserDatasource(UpdateUserParams params);
+  Future<Either<Failure, AppUser>> updateUserDatasource(
+      UpdateUserParams params);
 
   Future<Either<Failure, bool>> createUserInquiryDatasource(
       CreateUserInquiryParams params);
@@ -50,7 +51,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   UserRemoteDatasourceImpl(this._supabaseService);
 
   @override
-  Future<Either<Failure, bool>> updateUserDatasource(
+  Future<Either<Failure, AppUser>> updateUserDatasource(
       UpdateUserParams params) async {
     try {
       Map<String, dynamic> metadata = {};
@@ -69,11 +70,15 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
         metadata['gender'] = params.gender!.name;
       }
 
-      await _supabaseService.client
-          .from('users')
+      final user = await _supabaseService.client
+          .from(UserTable.user.name)
           .update(metadata)
-          .match({'id': params.user_id});
-      return const Right(true);
+          .match({'id': params.user_id})
+          .select()
+          .single();
+      log.d(user);
+
+      return Right(AppUser.fromJson(user));
     } catch (e) {
       LongPrint(e.toString());
       return Left(ServerFailure(e.toString()));
@@ -132,7 +137,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
 
   Future<AppUser?> _getAppUser(String userId) async {
     final data = await _supabaseService.client
-        .from('user')
+        .from(UserTable.user.name)
         .select('*')
         .eq('id', userId)
         .single();

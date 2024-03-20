@@ -36,13 +36,13 @@ class UserUseCase {
   }
 }
 
-class UpdateUserUseCase extends UseCase<bool, UpdateUserParams> {
+class UpdateUserUseCase extends UseCase<AppUser, UpdateUserParams> {
   final UserRepository _repo;
 
   UpdateUserUseCase(this._repo);
 
   @override
-  Future<Either<Failure, bool>> call(UpdateUserParams params) {
+  Future<Either<Failure, AppUser>> call(UpdateUserParams params) {
     return _repo.updateUserImpl(params);
   }
 }

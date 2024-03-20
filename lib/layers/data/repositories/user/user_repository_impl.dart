@@ -52,7 +52,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updateUserImpl(UpdateUserParams params) {
+  Future<Either<Failure, AppUser>> updateUserImpl(UpdateUserParams params) {
     return userRemoteDatasource.updateUserDatasource(params);
   }
 }

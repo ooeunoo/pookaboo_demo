@@ -13,6 +13,7 @@ import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
+import 'package:pookaboo/layers/presentation/bloc/map/map_utils.dart';
 
 part 'map_state.dart';
 part 'map_event.dart';
@@ -85,16 +86,13 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           genderFilter: _hasFillter(ToiletFilter.gender));
 
       final response = await _getNearByToiletsUseCase(params);
-      response.fold((l) {
-        log.e(l);
-      }, (r) async {
-        _markers = r.map<Marker>((toilet) {
+      response.fold((left) {
+        log.e(left);
+      }, (right) async {
+        _markers = right.map<Marker>((toilet) {
           return Marker(
             markerId: toilet.id.toString(),
-            latLng: LatLng(
-              toilet.lat!,
-              toilet.lng!,
-            ),
+            latLng: LatLng(toilet.lat!, toilet.lng!),
           );
         }).toSet();
 
@@ -116,9 +114,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       _mapController.panTo(myPosition);
       emit(MovedMyPositionState(loc: myPosition));
     } catch (e) {
-      // 사용자 위치 접근 허용을 요청하는 알람
       log.e(e);
-      // emit(ErrorState(message: ''));
     }
   }
 
@@ -137,9 +133,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       }
       emit(ZoomToClusterState(markers: _markers));
     } catch (e) {
-      // 사용자 위치 접근 허용을 요청하는 알람
       log.e(e);
-      // emit(ErrorState(message: ''));
     }
   }
 
@@ -153,10 +147,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       final response = await _getToiletByIdUseCase.call(toiletId);
 
       response.fold((l) {
-        // error
-        //  if (l is ServerFailure) {
-        //   emit(_Failure(l.message ?? ""));
-        // }
         log.e(l);
       }, (r) {
         emit(LoadedSelectedToiletState(toilet: r));
@@ -172,8 +162,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Future<void> _onStartNavigationEvent(
       StartNavigationEvent event, Emitter<MapState> emit) async {
     emit(SearchingToiletNavigationState());
-    // 마커 제거
-
     Toilet toilet = event.toilet;
     try {
       final Position position = await _geolocatorService.getPosition();
@@ -182,7 +170,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         position.longitude,
         position.latitude,
       );
-
       Document tp = coordconvWGS84ToWCONGNAMUL(toilet.lng!, toilet.lat!);
 
       GetRouteParams params = GetRouteParams(

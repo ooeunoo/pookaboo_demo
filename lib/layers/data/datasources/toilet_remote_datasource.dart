@@ -12,6 +12,8 @@ import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/service/supabase/supabase_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
+String buildObject = 'json_build_object';
+
 enum ToiletStorage {
   image('toilet_images'),
   proposal('toilet_proposal_images');
@@ -92,7 +94,7 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
       });
 
       final List<Toilet> toilets =
-          data.map((json) => Toilet.fromJson(json)).toList();
+          data.map((json) => Toilet.fromJson(json[buildObject])).toList();
       return Right(toilets);
     } catch (e) {
       log.e(e);
@@ -106,9 +108,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
       final List<Map<String, dynamic>> data = await _supabaseService.client
           .rpc(ToiletFunction.get_toilet.name, params: {'t_id': id});
 
-      final List<Toilet> toilet = data
-          .map((json) => Toilet.fromJson(json['json_build_object']))
-          .toList();
+      final List<Toilet> toilet =
+          data.map((json) => Toilet.fromJson(json[buildObject])).toList();
 
       return Right(toilet[0]);
     } catch (e) {

@@ -82,9 +82,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onUpdateUserEvent(
       UpdateUserEvent event, Emitter<UserState> emit) async {
     try {
-      await _updateUserUseCase.call(event.params).whenComplete(() =>
-          _secureStorage.write(
+      final response = await _updateUserUseCase.call(event.params).whenComplete(
+          () => _secureStorage.write(
               StorageKeys.isUpdateUserMetadata, UpdateUserMetadataState.done));
+
+      await response.fold((l) => null, (r) async {
+        await _triggerBeforeAuthenticatedState(emit, r);
+      });
     } catch (e) {}
   }
 
