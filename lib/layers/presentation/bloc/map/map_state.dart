@@ -35,7 +35,7 @@ class SearchingToiletState extends MapState {}
 /// Loaded Toilet Markers
 ////////////////////////////////
 class LoadedToiletMarkersState extends MapState {
-  final Set<Marker> markers;
+  final Set<CustomOverlay> markers;
   @override
   LoadedToiletMarkersState({required this.markers});
 }
@@ -58,19 +58,25 @@ class SearchingToiletNavigationState extends MapState {}
 /// Loaded Toilet Direction
 ////////////////////////////////
 class LoadedToiletNavigationState extends MapState {
+  final CustomOverlay startMarker;
+  final CustomOverlay endMarker;
   final Toilet toilet;
   final Set<Polyline> polylines;
   final int time;
 
   LoadedToiletNavigationState(
-      {required this.toilet, required this.polylines, required this.time});
+      {required this.startMarker,
+      required this.endMarker,
+      required this.toilet,
+      required this.polylines,
+      required this.time});
 }
 
 /////////////////////////////////
 /// Zoom To Cluster
 ////////////////////////////////
 class ZoomToClusterState extends MapState {
-  final Set<Marker> markers;
+  final Set<CustomOverlay> markers;
 
   ZoomToClusterState({required this.markers});
 }

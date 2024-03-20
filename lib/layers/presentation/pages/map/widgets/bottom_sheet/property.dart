@@ -36,7 +36,7 @@ class _ToiletBottomSheetPropertyState extends State<ToiletBottomSheetProperty> {
   void initState() {
     super.initState();
     rating = Rating.getAverageRating(widget.toilet.rating!).toString();
-    totalReviews = widget.toilet.reviews.toString();
+    totalReviews = widget.toilet.total_review.toString();
     toiletType = widget.toilet.type;
     isGenderSeperate = widget.toilet.gender;
     hasPassword = widget.toilet.password;

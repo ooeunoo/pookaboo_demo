@@ -29,9 +29,8 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  final SecureStorage _secureStorage = sl<SecureStorage>();
-
   final Debouncer _debouncer = Debouncer(milliseconds: 200);
+  bool isOpenDetailSheet = false;
 
   late KakaoMapController _controller;
   List<ToiletFilter> _filtered = [];
@@ -47,6 +46,9 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _showBottomSheet(BuildContext context, Toilet toilet) async {
+    setState(() {
+      isOpenDetailSheet = true;
+    });
     showFlexibleBottomSheet(
       context: context,
       anchors: [0.3, 1],
@@ -66,7 +68,13 @@ class _MapPageState extends State<MapPage> {
           controller: scrollController,
         );
       },
-    );
+    ).whenComplete(() {
+      if (mounted) {
+        setState(() {
+          isOpenDetailSheet = false;
+        });
+      }
+    });
   }
 
   Future<void> _clear() async {
@@ -75,17 +83,18 @@ class _MapPageState extends State<MapPage> {
     await _controller.clearPolyline();
   }
 
-  Future<void> _drawCluster(Set<Marker> markers) async {
-    Clusterer clusterer = Clusterer(
-      averageCenter: true,
-      disableClickZoom: false,
-      gridSize: 30,
-      minLevel: 3,
-      markers: markers.toList(),
-    );
+  Future<void> _drawMarker(Set<CustomOverlay> markers) async {
+    await _controller.addCustomOverlay(customOverlays: markers.toList());
 
-    // await _controller.addCustomOverlay(customOverlays: markers.toList());
-    await _controller.addMarkerClusterer(clusterer: clusterer);
+    // Clusterer clusterer = Clusterer(
+    //   averageCenter: true,
+    //   disableClickZoom: false,
+    //   gridSize: 30,
+    //   minLevel: 3,
+    //   markers: markers.toList(),
+    // );
+
+    // await _controller.addMarkerClusterer(clusterer: clusterer);
   }
 
   Future<void> _drawPolyline(Set<Polyline> polylines) async {
@@ -108,17 +117,23 @@ class _MapPageState extends State<MapPage> {
           context.read<MapBloc>().add(GetNearByToiletsEvent());
         } else if (state is LoadedToiletMarkersState) {
           await _clear();
-          await _drawCluster(state.markers);
+          await _drawMarker(state.markers);
         } else if (state is LoadedSelectedToiletState) {
           _showBottomSheet(context, state.toilet);
         } else if (state is LoadedToiletNavigationState) {
           await _clear();
+
+          // 마커 및 경로 그리기
+          Set<CustomOverlay> markers = {};
+          markers.addAll({state.startMarker, state.endMarker});
           await _drawPolyline(state.polylines);
+          await _drawMarker(markers);
+
           context.back();
           _updateVisibleOfBottomNavigation(false);
         } else if (state is ZoomToClusterState) {
           await _clear();
-          await _drawCluster(state.markers);
+          await _drawMarker(state.markers);
         } else if (state is UpdatedFilterState) {
           _filtered = state.filters;
           _debouncer
@@ -141,15 +156,21 @@ class _MapPageState extends State<MapPage> {
                     .read<MapBloc>()
                     .add(MapCreateEvent(controller: controller));
               }),
-              onMarkerTap: (String markerId, _, __) {
-                context.read<MapBloc>().add(
-                    SelecteToiletMarkerEvent(toiletId: int.parse(markerId)));
+              onCustomOverlayTap: (String customOverlayId, LatLng latLng) {
+                if (!isOpenDetailSheet) {
+                  context.read<MapBloc>().add(SelecteToiletMarkerEvent(
+                      toiletId: int.parse(customOverlayId)));
+                }
               },
-              onMarkerClustererTap: (LatLng loc, int zoomLevel) {
-                context
-                    .read<MapBloc>()
-                    .add(ClickToClusterEvent(loc: loc, zoomLevel: zoomLevel));
-              },
+              // onMarkerTap: (String markerId, _, __) {
+              //   context.read<MapBloc>().add(
+              //       SelecteToiletMarkerEvent(toiletId: int.parse(markerId)));
+              // },
+              // onMarkerClustererTap: (LatLng loc, int zoomLevel) {
+              //   context
+              //       .read<MapBloc>()
+              //       .add(ClickToClusterEvent(loc: loc, zoomLevel: zoomLevel));
+              // },
             ),
 
             ////////////////////////////////////

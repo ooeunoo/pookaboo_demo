@@ -58,7 +58,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   late KakaoMapController _mapController;
   late final List<ToiletFilter> _filters = [];
-  late Set<Marker> _markers = {};
+  late Set<CustomOverlay> _markers = {};
   late Set<Polyline> _polylines = {};
 
   /////////////////////////////////
@@ -89,11 +89,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       response.fold((left) {
         log.e(left);
       }, (right) async {
-        _markers = right.map<Marker>((toilet) {
-          return Marker(
-            markerId: toilet.id.toString(),
-            latLng: LatLng(toilet.lat!, toilet.lng!),
-          );
+        _markers = right.map<CustomOverlay>((toilet) {
+          return CustomOverlay(
+              isClickable: true,
+              customOverlayId: toilet.id.toString(),
+              latLng: LatLng(toilet.lat!, toilet.lng!),
+              content: getDefaultMarkerInnerText(toilet.type, toilet.rating!));
         }).toSet();
 
         emit(LoadedToiletMarkersState(markers: _markers));
@@ -114,6 +115,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       _mapController.panTo(myPosition);
       emit(MovedMyPositionState(loc: myPosition));
     } catch (e) {
+      await _geolocatorService.askPermission();
       log.e(e);
     }
   }
@@ -165,12 +167,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Toilet toilet = event.toilet;
     try {
       final Position position = await _geolocatorService.getPosition();
+      LatLng mpLoc = LatLng(position.latitude, position.longitude);
+      LatLng tpLoc = LatLng(toilet.lat!, toilet.lng!);
 
       Document mp = coordconvWGS84ToWCONGNAMUL(
-        position.longitude,
-        position.latitude,
+        mpLoc.longitude,
+        mpLoc.latitude,
       );
-      Document tp = coordconvWGS84ToWCONGNAMUL(toilet.lng!, toilet.lat!);
+      Document tp = coordconvWGS84ToWCONGNAMUL(tpLoc.longitude, tpLoc.latitude);
 
       GetRouteParams params = GetRouteParams(
           sName: '나의 위치',
@@ -197,8 +201,22 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               strokeStyle: StrokeStyle.solid)
         };
 
+        CustomOverlay startMarker = CustomOverlay(
+            customOverlayId: 'start',
+            latLng: mpLoc,
+            content: getStartMarkerInnerText());
+
+        CustomOverlay endMarer = CustomOverlay(
+            customOverlayId: toilet.id.toString(),
+            latLng: tpLoc,
+            content: getEndMarkerInnerText(toilet.type));
+
         emit(LoadedToiletNavigationState(
-            toilet: toilet, polylines: _polylines, time: r.time));
+            startMarker: startMarker,
+            endMarker: endMarer,
+            toilet: toilet,
+            polylines: _polylines,
+            time: r.time));
       });
     } catch (e) {
       log.e(e);
