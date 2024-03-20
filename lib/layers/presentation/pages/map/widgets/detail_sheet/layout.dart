@@ -8,7 +8,7 @@ import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/inquire_dialog.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/location_guide.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/property.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/header/property.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/tab_bar_view.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
@@ -136,22 +136,6 @@ class _DetailSheetLayoutState extends State<DetailSheetLayout> {
                                           color: Palette.blueLatte
                                               .withOpacity(0.9))),
                             ),
-                            // const AppSpacerH(),
-                            // if (hasEditPermission && widget.isExpand) ...{
-                            //   GestureDetector(
-                            //       onTap: _toggleEdit,
-                            //       child: SvgPicture.asset(
-                            //         isEdit ? Assets.confirm : Assets.edit,
-                            //         width: Dimens.space24,
-                            //         height: Dimens.space24,
-                            //         colorFilter: ColorFilter.mode(
-                            //           isEdit
-                            //               ? Palette.blueLatte
-                            //               : Palette.red01,
-                            //           BlendMode.srcIn,
-                            //         ),
-                            //       ))
-                            // }
                           ],
                         )
                       ],

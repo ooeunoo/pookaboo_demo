@@ -93,6 +93,15 @@ class StartNavigationEvent extends MapEvent {
 }
 
 /////////////////////////////////
+/// Bounde Change
+/// 지도 바운드 변화 이벤트
+////////////////////////////////
+class BoundChangeEvent extends MapEvent {
+  @override
+  List<Object> get props => [];
+}
+
+/////////////////////////////////
 /// Stop Navigation
 /// 화장실 길찾기 종료
 ////////////////////////////////

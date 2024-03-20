@@ -20,7 +20,9 @@ import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_chip.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -31,7 +33,10 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   final Debouncer _debouncer = Debouncer(milliseconds: 200);
+  final Debouncer _isChangeCenterDebouncer = Debouncer(milliseconds: 200);
+
   bool isOpenDetailSheet = false;
+  bool isChangedCenter = false;
 
   late KakaoMapController _controller;
   List<ToiletFilter> _filtered = [];
@@ -156,6 +161,9 @@ class _MapPageState extends State<MapPage> {
                       toiletId: int.parse(customOverlayId)));
                 }
               },
+              // onBoundsChangeCallback: (LatLngBounds latLngBounds) {
+              //   context.read<MapBloc>().add(BoundChangeEvent());
+              // },
             ),
 
             ////////////////////////////////////
@@ -250,6 +258,40 @@ class _MapPageState extends State<MapPage> {
                         width: Dimens.space24,
                         height: Dimens.space24,
                       ),
+                    ),
+                  )),
+            },
+
+            ////////////////////////////////////
+            ///  Search Modal
+            ///////////////////////////////////
+            if (state is BoundChangedState) ...{
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  // right: Dimens.space20,
+                  bottom: Dimens.bottomBarHeight(context) + Dimens.space24,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      onMediumVibration();
+
+                      // context.read<MapBloc>().add(MoveToMyPositionEvent());
+                    },
+                    child: Container(
+                      width: Dimens.space40,
+                      height: Dimens.space40,
+                      padding: EdgeInsets.all(Dimens.space8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimens.space12),
+                        border: Border.all(
+                            width: Dimens.space1,
+                            color: const Color(0xFFD3D7DF)),
+                        // gap: const EdgeInsets.all(10),
+                        color: Palette.white,
+                      ),
+                      child: AppText('현 지도에서 검색',
+                          style: Theme.of(context).textTheme.bodySmall!),
                     ),
                   )),
             },

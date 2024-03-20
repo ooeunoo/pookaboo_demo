@@ -49,6 +49,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
     on<StartNavigationEvent>(_onStartNavigationEvent);
     on<StopNavigationEvent>(_onStopNavigationEvent);
+    on<BoundChangeEvent>(_onBoundChangeEvent);
+
     on<UpdateToiletFilterEvent>(_onUpdateToiletFilterEvent);
   }
 
@@ -94,10 +96,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           timeFilter: _hasFillter(ToiletFilter.time),
           genderFilter: _hasFillter(ToiletFilter.gender));
 
-      final response = await _getNearByToiletsUseCase(params);
-      response.fold((left) {
-        log.e(left);
-      }, (right) async {
+      final response = await _getNearByToiletsUseCase.call(params);
+      response.fold((left) {}, (right) async {
         _markers = right.map<CustomOverlay>((toilet) {
           return CustomOverlay(
               isClickable: true,
@@ -241,6 +241,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     // LatLng myPosition = LatLng(position.latitude, position.longitude);
     // _mapController.panTo(myPosition);
     // emit(MovedMyPositionState(loc: myPosition));
+  }
+
+  /////////////////////////////////
+  /// [BoundChangeEvent] Event Handler
+  ////////////////////////////////
+  Future<void> _onBoundChangeEvent(
+      BoundChangeEvent event, Emitter<MapState> emit) async {
+    emit(BoundChangedState());
   }
 
   Future<void> _onUpdateToiletFilterEvent(

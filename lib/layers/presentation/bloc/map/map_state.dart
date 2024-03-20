@@ -91,6 +91,11 @@ class UpdatedFilterState extends MapState {
 }
 
 /////////////////////////////////
+/// Bound Changed State
+////////////////////////////////
+class BoundChangedState extends MapState {}
+
+/////////////////////////////////
 /// Stopped Toilet AppState
 ////////////////////////////////
 class StoppedToiletNavigationState extends MapState {}

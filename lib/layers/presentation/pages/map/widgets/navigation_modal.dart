@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
-import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/information.dart';
+import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/information_tab/information.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/location_guide.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/navigation_guide.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
