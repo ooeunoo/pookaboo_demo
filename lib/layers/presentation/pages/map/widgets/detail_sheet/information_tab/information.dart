@@ -82,6 +82,7 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
                   images: _images,
                   isOwner: isOwner,
                 ),
+                const AppSpacerV(),
                 // 관리자라면 사진 올리기 버튼!
                 if (isOwner) ...{
                   if (_uploadImages.isNotEmpty) ...{
