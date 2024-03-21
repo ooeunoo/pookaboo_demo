@@ -27,8 +27,9 @@ mixin _$AppUser {
   int get role => throw _privateConstructorUsedError;
   String? get nickname => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
-  Gender? get gender => throw _privateConstructorUsedError;
+  int? get gender => throw _privateConstructorUsedError;
   int? get age => throw _privateConstructorUsedError;
+  int get version => throw _privateConstructorUsedError;
   DateTime get created_at => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,8 +50,9 @@ abstract class $AppUserCopyWith<$Res> {
       int role,
       String? nickname,
       String? phone,
-      Gender? gender,
+      int? gender,
       int? age,
+      int version,
       DateTime created_at});
 }
 
@@ -76,6 +78,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? phone = freezed,
     Object? gender = freezed,
     Object? age = freezed,
+    Object? version = null,
     Object? created_at = null,
   }) {
     return _then(_value.copyWith(
@@ -110,11 +113,15 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as Gender?,
+              as int?,
       age: freezed == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
               as int?,
+      version: null == version
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as int,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -138,8 +145,9 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       int role,
       String? nickname,
       String? phone,
-      Gender? gender,
+      int? gender,
       int? age,
+      int version,
       DateTime created_at});
 }
 
@@ -163,6 +171,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? phone = freezed,
     Object? gender = freezed,
     Object? age = freezed,
+    Object? version = null,
     Object? created_at = null,
   }) {
     return _then(_$AppUserImpl(
@@ -197,11 +206,15 @@ class __$$AppUserImplCopyWithImpl<$Res>
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as Gender?,
+              as int?,
       age: freezed == age
           ? _value.age
           : age // ignore: cast_nullable_to_non_nullable
               as int?,
+      version: null == version
+          ? _value.version
+          : version // ignore: cast_nullable_to_non_nullable
+              as int,
       created_at: null == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -223,6 +236,7 @@ class _$AppUserImpl extends _AppUser {
       this.phone,
       this.gender,
       this.age,
+      required this.version,
       required this.created_at})
       : super._();
 
@@ -244,15 +258,17 @@ class _$AppUserImpl extends _AppUser {
   @override
   final String? phone;
   @override
-  final Gender? gender;
+  final int? gender;
   @override
   final int? age;
+  @override
+  final int version;
   @override
   final DateTime created_at;
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, name: $name, avatar_url: $avatar_url, role: $role, nickname: $nickname, phone: $phone, gender: $gender, age: $age, created_at: $created_at)';
+    return 'AppUser(id: $id, email: $email, name: $name, avatar_url: $avatar_url, role: $role, nickname: $nickname, phone: $phone, gender: $gender, age: $age, version: $version, created_at: $created_at)';
   }
 
   @override
@@ -271,6 +287,7 @@ class _$AppUserImpl extends _AppUser {
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.age, age) || other.age == age) &&
+            (identical(other.version, version) || other.version == version) &&
             (identical(other.created_at, created_at) ||
                 other.created_at == created_at));
   }
@@ -278,7 +295,7 @@ class _$AppUserImpl extends _AppUser {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, email, name, avatar_url,
-      role, nickname, phone, gender, age, created_at);
+      role, nickname, phone, gender, age, version, created_at);
 
   @JsonKey(ignore: true)
   @override
@@ -303,8 +320,9 @@ abstract class _AppUser extends AppUser {
       required final int role,
       final String? nickname,
       final String? phone,
-      final Gender? gender,
+      final int? gender,
       final int? age,
+      required final int version,
       required final DateTime created_at}) = _$AppUserImpl;
   const _AppUser._() : super._();
 
@@ -325,9 +343,11 @@ abstract class _AppUser extends AppUser {
   @override
   String? get phone;
   @override
-  Gender? get gender;
+  int? get gender;
   @override
   int? get age;
+  @override
+  int get version;
   @override
   DateTime get created_at;
   @override

@@ -50,7 +50,6 @@ class _DetailSheetLayoutState extends State<DetailSheetLayout> {
   }
 
   void openInquire() {
-    log.d(userId);
     context.pop();
     if (userId != null) {
       showDialog(

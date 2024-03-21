@@ -19,12 +19,8 @@ enum StorageKeys {
   theme,
   locale,
   loggedInUser,
-  updateVersion,
+  initProfile,
   ;
-}
-
-enum UpdateVersion {
-  userDefaultDataV1,
 }
 
 class SecureStorage extends LocalStorage {
@@ -34,9 +30,7 @@ class SecureStorage extends LocalStorage {
   ));
 
   @override
-  Future<void> initialize() async {
-    await storage.deleteAll();
-  }
+  Future<void> initialize() async {}
 
   @override
   Future<String?> accessToken() async {
@@ -70,11 +64,6 @@ class SecureStorage extends LocalStorage {
   Future<String?> get(StorageKeys key) async {
     String? r = await storage.read(key: key.name);
     return _convertNull(r ?? "null");
-  }
-
-  Future<bool> requiredUpdateVersion1() async {
-    String? updateVersion = await get(StorageKeys.updateVersion);
-    return updateVersion == null;
   }
 
   String? _convertNull(String r) {

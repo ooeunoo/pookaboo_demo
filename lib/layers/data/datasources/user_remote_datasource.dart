@@ -69,7 +69,11 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
       }
 
       if (params.gender != null) {
-        metadata['gender'] = params.gender!.name;
+        metadata['gender'] = params.gender;
+      }
+
+      if (params.version != null) {
+        metadata['version'] = params.version;
       }
 
       final user = await _supabaseService.client
@@ -78,7 +82,6 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
           .match({'id': params.user_id})
           .select()
           .single();
-      log.d(user);
 
       return Right(AppUser.fromJson(user));
     } catch (e) {
@@ -91,8 +94,6 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   Future<Either<Failure, bool>> createUserInquiryDatasource(
       CreateUserInquiryParams params) async {
     try {
-      log.d(params.toJson());
-
       await _supabaseService.client
           .from(UserTable.inquiry.name)
           .insert(params.toJson());

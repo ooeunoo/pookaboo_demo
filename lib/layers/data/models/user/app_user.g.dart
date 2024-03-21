@@ -15,8 +15,9 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       role: json['role'] as int,
       nickname: json['nickname'] as String?,
       phone: json['phone'] as String?,
-      gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
+      gender: json['gender'] as int?,
       age: json['age'] as int?,
+      version: json['version'] as int,
       created_at: DateTime.parse(json['created_at'] as String),
     );
 
@@ -29,12 +30,8 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'role': instance.role,
       'nickname': instance.nickname,
       'phone': instance.phone,
-      'gender': _$GenderEnumMap[instance.gender],
+      'gender': instance.gender,
       'age': instance.age,
+      'version': instance.version,
       'created_at': instance.created_at.toIso8601String(),
     };
-
-const _$GenderEnumMap = {
-  Gender.male: 'male',
-  Gender.female: 'female',
-};

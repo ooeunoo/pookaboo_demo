@@ -17,9 +17,7 @@ class LogInMessage extends StatelessWidget {
       return InkWell(
         splashColor: Colors.transparent,
         onTap: () {
-          context
-              .read<AppCubit>()
-              .changeBottomNavigation(BottomNavigation.profile.index);
+          context.read<AppCubit>().changeBottomNavigation(1);
           context.go(BottomNavigation.profile.path);
           if (context.canPop()) {
             context.pop();

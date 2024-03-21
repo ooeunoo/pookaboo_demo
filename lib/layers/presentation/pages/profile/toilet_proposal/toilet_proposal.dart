@@ -95,10 +95,6 @@ class _SurveyFlowState extends State<ToiletProposal> {
     );
   }
 
-  void _condition(Step step) {
-    if (step.id == 'equipment') {}
-  }
-
   Widget _mapStep(BuildContext context, Step step) {
     switch (step.runtimeType) {
       case const (InformationStep):
@@ -189,7 +185,6 @@ class _SurveyFlowState extends State<ToiletProposal> {
       CreateToiletParam params, StepResult result) {
     String key = result.stepId;
     dynamic value = result.value;
-    log.d(value);
     switch (key) {
       case 'name':
         return params.copyWith(name: value as String);

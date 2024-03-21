@@ -39,7 +39,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   Future<void> _onCheckedRequestEvent(
       CheckRequestedEvent event, Emitter<UserState> emit) async {
-    log.d('in');
     AppUser? appUser = await _authUseCase.getSignedInUser();
     appUser != null
         ? await _triggerBeforeAuthenticatedState(emit, appUser)
@@ -92,9 +91,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onUpdateUserEvent(
       UpdateUserEvent event, Emitter<UserState> emit) async {
     try {
-      final response = await _updateUserUseCase.call(event.params).whenComplete(
-          () => _secureStorage.write(
-              StorageKeys.updateVersion, UpdateVersion.userDefaultDataV1));
+      final response = await _updateUserUseCase.call(event.params);
 
       await response.fold((l) => null, (r) async {
         await _triggerBeforeAuthenticatedState(emit, r);

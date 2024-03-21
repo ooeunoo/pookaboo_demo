@@ -207,14 +207,6 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
 
     String helperText = '$dayKo $timeKo';
 
-    // DateTime initialDate = DateTime.now();
-
-    // if (index > 0) {
-    //   final beforeTime = _controllers[index - 1][inner].text;
-    //   log.d('beforeTime: $beforeTime');
-    // }
-    // log.d(initialDate);
-
     if (step.type == InputTimeDataType.date) {
       selected = await showPlatformDatePicker(
         context,

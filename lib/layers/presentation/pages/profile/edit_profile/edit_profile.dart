@@ -99,7 +99,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
       _nicknameController.text = user?.nickname ?? "";
       _ageController.text = user?.age.toString() ?? "";
-      _genderController.text = user?.gender?.name ?? "";
+      _genderController.text =
+          user!.isMale() ? Gender.male.name : Gender.female.name;
     }
   }
 
@@ -155,14 +156,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void _onUpdate() async {
-    log.d(_genderController.text);
     UpdateUserParams params = UpdateUserParams(
-        user_id: user!.id,
-        nickname: _nicknameController.text,
-        age: _ageController.text,
-        gender: Gender.male.name == _genderController.text
-            ? Gender.male
-            : Gender.female);
+      user_id: user!.id,
+      nickname: _nicknameController.text,
+      age: _ageController.text,
+      // gender: Gender.male.index == _genderController.text
+      //     ? Gender.male
+      // : Gender.female
+    );
 
     context.read<UserBloc>().add(UpdateUserEvent(params: params));
 
@@ -188,8 +189,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    log.d('isChanged: $isChanged $timestamp');
-    log.d(nicknamechanged);
     return Scaffold(
         appBar: AppBar(
           leading: Padding(
@@ -249,33 +248,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const AppSpacerV(),
                 if (mounted) ...{
-                  AppDropDown(
-                    hint: '성별',
-                    focusNode: _genderFocusNode,
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .labelMedium!
-                        .copyWith(
-                            color: _genderFocusNode.hasFocus
-                                ? Palette.lemon04
-                                : Palette.coolGrey05),
-                    value: _genderController.text,
-                    items: Gender.values
-                        .map(
-                          (data) => DropdownMenuItem(
-                            value: data.name,
-                            child: AppText(
-                              _getGenderName(data, context),
-                              style: Theme.of(context).textTheme.bodyMedium!,
-                              align: TextAlign.start,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      log.d(value);
-                    },
-                  ),
+                  // AppDropDown(
+                  //   hint: '성별',
+                  //   focusNode: _genderFocusNode,
+                  //   hintStyle: Theme.of(context)
+                  //       .textTheme
+                  //       .labelMedium!
+                  //       .copyWith(
+                  //           color: _genderFocusNode.hasFocus
+                  //               ? Palette.lemon04
+                  //               : Palette.coolGrey05),
+                  //   value: _genderController.text,
+                  //   items: Gender.values
+                  //       .map(
+                  //         (data) => DropdownMenuItem(
+                  //           value: data.name,
+                  //           child: AppText(
+                  //             _getGenderName(data, context),
+                  //             style: Theme.of(context).textTheme.bodyMedium!,
+                  //             align: TextAlign.start,
+                  //           ),
+                  //         ),
+                  //       )
+                  //       .toList(),
+                  //   onChanged: (value) {},
+                  // ),
                 },
                 const Spacer(),
                 AppButton(

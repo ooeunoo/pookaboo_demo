@@ -108,10 +108,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
       final List<Map<String, dynamic>> data = await _supabaseService.client
           .rpc(ToiletFunction.get_toilet.name, params: {'t_id': id});
 
-      log.d('data, $data');
       final List<Toilet> toilet =
           data.map((json) => Toilet.fromJson(json[buildObject])).toList();
-      log.d('toilet, $toilet');
 
       return Right(toilet[0]);
     } catch (e) {

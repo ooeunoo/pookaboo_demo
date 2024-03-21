@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pookaboo/injection.dart';
+import 'package:pookaboo/layers/data/models/user/app_user.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/domain/entities/profile/menu_item.dart';
 import 'package:pookaboo/layers/presentation/bloc/profile/profile_bloc.dart';
+import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/widgets/update_user_data_v1_sheet.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/widgets/login_screen.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/localization/generated/message.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
 import 'package:pookaboo/shared/router/extra_params.dart';
+import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
@@ -30,7 +36,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-
     UserState state = context.read<UserBloc>().state;
     if (state is AuthenticatedState) {
       _generateMenu(state.user.id);
@@ -127,6 +132,27 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
+  void _showUpdateUserProfileSheet() {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        isDismissible: false,
+        useRootNavigator: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimens.space20),
+                topRight: Radius.circular(Dimens.space20))),
+        builder: (context) {
+          return Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: const Wrap(
+                children: [
+                  UpdateUserDataV1Sheet(),
+                ],
+              ));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,9 +166,15 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         body: BlocConsumer<UserBloc, UserState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is AuthenticatedState) {
-              _generateMenu(state.user.id);
+              AppUser user = state.user;
+              if (user.isRequiredUpdateV1()) {
+                context.read<AppCubit>().changeBottomNavigation(0);
+                context.go(AppRoutes.map.path);
+                _showUpdateUserProfileSheet();
+              }
+              _generateMenu(user.id);
             }
           },
           builder: (context, state) {

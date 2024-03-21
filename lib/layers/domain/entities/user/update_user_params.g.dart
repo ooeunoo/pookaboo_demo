@@ -12,8 +12,9 @@ _$UpdateUserParamsImpl _$$UpdateUserParamsImplFromJson(
       user_id: json['user_id'] as String,
       nickname: json['nickname'] as String? ?? null,
       phone: json['phone'] as String? ?? null,
-      gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']) ?? null,
+      gender: json['gender'] as int? ?? null,
       age: json['age'] as String? ?? null,
+      version: json['version'] as int? ?? null,
     );
 
 Map<String, dynamic> _$$UpdateUserParamsImplToJson(
@@ -22,11 +23,7 @@ Map<String, dynamic> _$$UpdateUserParamsImplToJson(
       'user_id': instance.user_id,
       'nickname': instance.nickname,
       'phone': instance.phone,
-      'gender': _$GenderEnumMap[instance.gender],
+      'gender': instance.gender,
       'age': instance.age,
+      'version': instance.version,
     };
-
-const _$GenderEnumMap = {
-  Gender.male: 'male',
-  Gender.female: 'female',
-};

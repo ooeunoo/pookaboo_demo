@@ -94,7 +94,7 @@ class SelectOptionCard extends StatelessWidget {
   }
 
   Color _getSelectedColor(BuildContext context) {
-    return Palette.blueLatte;
+    return Palette.coolGrey08;
   }
 
   Color? _getBackgroundColor(BuildContext context) {

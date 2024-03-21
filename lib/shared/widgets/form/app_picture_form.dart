@@ -176,9 +176,5 @@ class _PictureFormState extends State<AppPictureForm> {
     setState(() {
       _images.addAll(files.map((XFile file) => XFile(file.path)));
     });
-
-    log.d(_images.map((image) {
-      log.d(image.path);
-    }));
   }
 }

@@ -26,6 +26,9 @@ enum AppRoutes {
   // profile page
   profile("/profile"),
 
+  // init profile
+  init_profile('/init_profile'),
+
   // visitation page
   visitation('/visitation'),
 
@@ -58,6 +61,11 @@ class AppRoute {
       GoRoute(
         path: AppRoutes.splash.path,
         name: AppRoutes.splash.name,
+        builder: (_, __) => const SplashPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.init_profile.path,
+        name: AppRoutes.init_profile.name,
         builder: (_, __) => const SplashPage(),
       ),
       ShellRoute(

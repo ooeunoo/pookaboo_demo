@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 
-enum BottomNavigation {
-  map('map', '/map', Icons.search),
-  profile('profile', '/profile', Icons.person),
-  ;
-
-  const BottomNavigation(this.label, this.path, this.icon);
-
-  final String label;
-  final String path;
-  final IconData icon;
-}
-
 enum ToiletType {
   building,
   cafe;

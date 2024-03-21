@@ -18,6 +18,11 @@ enum Role {
   owner,
 }
 
+enum UserVersion {
+  init,
+  profileupdated,
+}
+
 @freezed
 class AppUser with _$AppUser {
   const AppUser._(); // Added constructor
@@ -30,8 +35,9 @@ class AppUser with _$AppUser {
       required int role,
       String? nickname,
       String? phone,
-      Gender? gender,
+      int? gender,
       int? age,
+      required int version,
       required DateTime created_at}) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
@@ -43,10 +49,10 @@ class AppUser with _$AppUser {
 
   bool isMale() {
     if (gender == null) return false;
-    return gender == Gender.male ? true : false;
+    return gender == Gender.male.index ? true : false;
   }
 
-  bool isUpdated() {
-    return gender != null && nickname != null && age != null;
+  bool isRequiredUpdateV1() {
+    return version < UserVersion.profileupdated.index;
   }
 }
