@@ -109,6 +109,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       _mapController.panTo(myPosition);
       emit(MovedMyPositionState(loc: myPosition));
     } catch (e) {
+      await _geolocatorService.askPermission();
       log.e(e);
     }
   }
