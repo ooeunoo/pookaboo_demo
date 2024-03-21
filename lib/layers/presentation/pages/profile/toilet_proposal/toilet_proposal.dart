@@ -63,6 +63,13 @@ class _SurveyFlowState extends State<ToiletProposal> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: steps.length,
             itemBuilder: (BuildContext context, int index) {
+              Step step = steps[index];
+
+              // if (step.id == 'password_tip' && !params.password) {
+              //   _passToNextPage(_controller, index);
+              //   return Container();
+              // }
+
               return _mapStep(context, steps[index]);
             },
           ),
@@ -136,7 +143,6 @@ class _SurveyFlowState extends State<ToiletProposal> {
         params = _updateParamsWithKey(params, result);
       });
     }
-    log.d('herer: ${result!.value.toString()}');
 
     if (_controller.page?.toInt() == steps.length - 1) {
       bool shouldFinish = true;
@@ -251,27 +257,42 @@ class _SurveyFlowState extends State<ToiletProposal> {
 }
 
 List<Step> steps = [
-  // InformationStep(
-  //     id: 'Intro',
-  //     title: '새로운 화장실 등록해볼까요?',
-  //     description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
-  // //////////////
-  // MapStep(id: 'coordinates', title: ''),
-  // ////////////////////
+  InformationStep(
+      id: 'Intro',
+      title: '새로운 화장실 등록해볼까요?',
+      description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
+  //////////////
+  MapStep(id: 'coordinates', title: ''),
+  ////////////////////
+  DataStep(
+      id: 'name',
+      title: '화장실 이름을 알려주세요',
+      description: "등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
+      type: InputDataType.text),
+  ////////////////////
+  SingleSelectStep(
+      id: 'type',
+      title: '화장실이 어떤 곳에 있나요?',
+      description: "",
+      options: [
+        SelectOption(text: '빌딩', value: 0),
+        SelectOption(text: '카페', value: 1),
+      ]),
+  //////////////////
+  SingleSelectStep(
+      id: 'password',
+      title: '🔒 잠금이 걸려있나요?',
+      description: "",
+      options: [
+        SelectOption(text: '잠김', value: true),
+        SelectOption(text: '안잠김', value: false),
+      ]),
+  //////////////////
   // DataStep(
-  //     id: 'name',
-  //     title: '화장실 이름을 알려주세요',
-  //     description: "등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
+  //     id: 'password_tip',
+  //     title: '화장실이 잠금되어있다면 열 수있는 방법이 있나요?',
+  //     description: "예를 들어, 스타벅스 카운터에 문의, 빌딩 관리자에게 요청",
   //     type: InputDataType.text),
-  // ////////////////////
-  // SingleSelectStep(
-  //     id: 'type',
-  //     title: '화장실이 어떤 곳에 있나요?',
-  //     description: "",
-  //     options: [
-  //       SelectOption(text: '빌딩', value: 0),
-  //       SelectOption(text: '카페', value: 1),
-  //     ]),
   ////////////////////
   SingleSelectStep(
       id: 'gender',
@@ -281,30 +302,21 @@ List<Step> steps = [
         SelectOption(text: '공용', value: false),
         SelectOption(text: '남녀분리', value: true),
       ]),
-  ////////////////////
-  // SingleSelectStep(
-  //     id: 'password',
-  //     title: '🔒 잠금이 걸려있나요?',
-  //     description: "",
-  //     options: [
-  //       SelectOption(text: '잠김', value: false),
-  //       SelectOption(text: '안잠김', value: true),
-  //     ]),
-  // ////////////////////
-  // MultiSelectStep(
-  //     id: 'convenience',
-  //     title: '화장실에 있는 편의시설을 알려주세요!',
-  //     description: "",
-  //     options: [
-  //       ...ConvenienceKey.values.map((value) {
-  //         return SelectOption(
-  //             text: '${value.emoji} ${value.name}', value: value.key);
-  //       }),
-  //       ...AmenityKey.values.map((value) {
-  //         return SelectOption(
-  //             text: '${value.emoji} ${value.name}', value: value.key);
-  //       })
-  //     ]),
+  ///////////////////////
+  MultiSelectStep(
+      id: 'convenience',
+      title: '화장실에 있는 편의시설을 알려주세요!',
+      description: "",
+      options: [
+        ...ConvenienceKey.values.map((value) {
+          return SelectOption(
+              text: '${value.emoji} ${value.name}', value: value.key);
+        }),
+        ...AmenityKey.values.map((value) {
+          return SelectOption(
+              text: '${value.emoji} ${value.name}', value: value.key);
+        })
+      ]),
   //////////////////
   EquipmentDataStep(
       id: 'equipment',
@@ -342,3 +354,8 @@ List<Step> steps = [
       description: '빠른 시일 내에 검토 후 등록 완료됩니다.',
       image: '')
 ];
+
+void _passToNextPage(PageController controller, int curIndex) {
+  controller.animateToPage(curIndex + 1,
+      duration: const Duration(milliseconds: 300), curve: Curves.ease);
+}
