@@ -117,6 +117,7 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
 
     bool isCurrentOpen = isCurrentlyOpen(currentTime, openTime, closeTime);
 
+    log.d('$openTime, $closeTime');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -142,7 +143,7 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
               ],
             )
           ] else ...[
-            AppText("운영 안함",
+            AppText(openTime == null && closeTime == null ? "알수 없음" : "운영 마감",
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
@@ -190,6 +191,10 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
 
       String timeFormat =
           '${day.ko} ﹒ ${formatTime(openTime)} ~ ${formatTime(closeTime)}';
+
+      if (openTime == null && closeTime == null) {
+        timeFormat = '${day.ko} ﹒ ';
+      }
 
       timeTextWidgets.add(
         Padding(
