@@ -106,7 +106,7 @@ Future<void> _useCase() async {
 
 Future<void> _bloc() async {
   sl.registerFactory(() => UserBloc(sl(), sl(), sl(), sl(), sl()));
-  sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => MapBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));
   sl.registerFactory(() => ProfileBloc());

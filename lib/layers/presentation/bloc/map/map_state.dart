@@ -34,10 +34,10 @@ class SearchingToiletState extends MapState {}
 /////////////////////////////////
 /// Loaded Toilet Markers
 ////////////////////////////////
-class LoadedToiletMarkersState extends MapState {
+class LoadedNearByToiletMarkersState extends MapState {
   final Set<CustomOverlay> markers;
   @override
-  LoadedToiletMarkersState({required this.markers});
+  LoadedNearByToiletMarkersState({required this.markers});
 }
 
 /////////////////////////////////

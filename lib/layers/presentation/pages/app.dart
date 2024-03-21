@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/injection.dart';
+import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/presentation/pages/widgets/update_user_data_bottom_sheet.dart';
 import 'package:pookaboo/layers/presentation/pages/widgets/navigation_bar_item_widget.dart';
@@ -13,6 +14,8 @@ import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
+import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
+import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class AppPage extends StatefulWidget {
   final Widget screen;
@@ -24,22 +27,31 @@ class AppPage extends StatefulWidget {
 }
 
 class _AppPageState extends State<AppPage> {
-  late bool checked = true;
+  late bool checked = false;
   final SecureStorage _secureStorage = sl<SecureStorage>();
 
   @override
   void initState() {
     super.initState();
+    _checkUpdateVersion1();
   }
 
-  void _checkUserUpdate() async {
-    if (checked) {
-      bool required = await _secureStorage.requiredUpdatedInitialUserData();
-      if (required) {
-        _showUpdateUserMetadataBottomSheet();
-      } else {
+  @override
+  void didUpdateWidget(AppPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _checkUpdateVersion1();
+  }
+
+  void _checkUpdateVersion1() async {
+    if (!checked) {
+      UserState state = context.read<UserBloc>().state;
+      if (state is AuthenticatedState) {
+        bool required = await _secureStorage.requiredUpdateVersion1();
+        if (required) {
+          _showUpdateUserMetadataBottomSheet();
+        }
         setState(() {
-          checked = false;
+          checked = true;
         });
       }
     }
@@ -49,6 +61,8 @@ class _AppPageState extends State<AppPage> {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
+        isDismissible: false,
+        useRootNavigator: true,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(Dimens.space20),
@@ -57,22 +71,47 @@ class _AppPageState extends State<AppPage> {
           return Padding(
               padding: MediaQuery.of(context).viewInsets,
               child: const Wrap(
-                children: <Widget>[
+                children: [
                   UpdateUserDataBottomSheet(),
                 ],
               ));
-        });
+        }).whenComplete(() {
+      context.showSnackBar(
+        AppSnackBar(
+            context,
+            height: Dimens.space12,
+            AppText('정보를 수정했어요.',
+                style: Theme.of(context).textTheme.bodySmall!)),
+      );
+      context.showSnackBar(
+        AppSnackBar(
+            context,
+            height: Dimens.space12,
+            Row(
+              children: [
+                AppText('마이페이지 -> 내 정보 수정',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Palette.lemon03,
+                        fontWeight: FontWeight.bold,
+                        fontSize: Dimens.labelMedium)),
+                AppText('에서 바꿀 수 있어요.',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontSize: Dimens.labelMedium)),
+              ],
+            )),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    _checkUserUpdate();
-
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Palette.coolGrey12,
-          // resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: false,
           body: widget.screen,
           bottomNavigationBar: buildBottomNavigation(context, state),
         );

@@ -13,18 +13,18 @@ enum ActiveTheme {
   const ActiveTheme(this.mode);
 }
 
-enum UpdateUserMetadataState {
-  done,
-}
-
 enum StorageKeys {
   token,
   language,
   theme,
   locale,
   loggedInUser,
-  isUpdateUserMetadata,
+  updateVersion,
   ;
+}
+
+enum UpdateVersion {
+  userDefaultDataV1,
 }
 
 class SecureStorage extends LocalStorage {
@@ -34,7 +34,9 @@ class SecureStorage extends LocalStorage {
   ));
 
   @override
-  Future<void> initialize() async {}
+  Future<void> initialize() async {
+    await storage.deleteAll();
+  }
 
   @override
   Future<String?> accessToken() async {
@@ -66,12 +68,16 @@ class SecureStorage extends LocalStorage {
   }
 
   Future<String?> get(StorageKeys key) async {
-    return storage.read(key: key.name);
+    String? r = await storage.read(key: key.name);
+    return _convertNull(r ?? "null");
   }
 
-  Future<bool> requiredUpdatedInitialUserData() async {
-    String? isLogin = await get(StorageKeys.loggedInUser);
-    String? isUpdateUserMetadata = await get(StorageKeys.isUpdateUserMetadata);
-    return isLogin != null && isUpdateUserMetadata == null;
+  Future<bool> requiredUpdateVersion1() async {
+    String? updateVersion = await get(StorageKeys.updateVersion);
+    return updateVersion == null;
+  }
+
+  String? _convertNull(String r) {
+    return r == "null" ? null : r;
   }
 }

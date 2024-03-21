@@ -20,8 +20,8 @@ class MapCreateEvent extends MapEvent {
 /// Get Near By Toilets
 /// 현재 근처 화장실 찾기
 ////////////////////////////////
-class GetNearByToiletsEvent extends MapEvent {
-  GetNearByToiletsEvent();
+class GetNearByToiletMarkersEvent extends MapEvent {
+  GetNearByToiletMarkersEvent();
 
   @override
   List<Object?> get props => [];

@@ -29,21 +29,16 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   ////////////////////////////////
   final GetNearByToiletsUseCase _getNearByToiletsUseCase;
   final GetToiletByIdUseCase _getToiletByIdUseCase;
-  final CreateToiletReviewUseCase _createToiletReviewUseCase;
   final GetRoutesUseCase _getRoutesUseCase;
 
   /////////////////////////////////
   /// Event Mapping
   ////////////////////////////////
-  MapBloc(
-      this._geolocatorService,
-      this._getNearByToiletsUseCase,
-      this._getToiletByIdUseCase,
-      this._createToiletReviewUseCase,
-      this._getRoutesUseCase)
+  MapBloc(this._geolocatorService, this._getNearByToiletsUseCase,
+      this._getToiletByIdUseCase, this._getRoutesUseCase)
       : super(InitialState()) {
     on<MapCreateEvent>(_onMapCreateEvent);
-    on<GetNearByToiletsEvent>(_onGetNearByToiletsEvent);
+    on<GetNearByToiletMarkersEvent>(_onGetNearByToiletMarkersEvent);
     on<ClickToClusterEvent>(_onClickToClusterEvent);
     on<MoveToMyPositionEvent>(_onMoveToMyPositionEvent);
     on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
@@ -55,35 +50,29 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /////////////////////////////////
   /// Property
   ////////////////////////////////
-
   late KakaoMapController _mapController;
   late final List<ToiletFilter> _filters = [];
   late Set<CustomOverlay> _markers = {};
   late Set<Polyline> _polylines = {};
 
   /////////////////////////////////
-  /// [MapCreateEvent] Event Handler
-  ////////////////////////////////
   Future<void> _onMapCreateEvent(
       MapCreateEvent event, Emitter<MapState> emit) async {
     _mapController = event.controller;
 
     bool locationPermission = await _geolocatorService.hasPermission();
-    log.d(locationPermission);
     if (locationPermission) {
       // 내위치로 이동하기
       await _onMoveToMyPositionEvent(MoveToMyPositionEvent(), emit);
     } else {
       // 현재 위치 주변 화장실 찾긴
-      await _onGetNearByToiletsEvent(GetNearByToiletsEvent(), emit);
+      await _onGetNearByToiletMarkersEvent(GetNearByToiletMarkersEvent(), emit);
     }
   }
 
   /////////////////////////////////
-  /// [GetNearByToiletsEvent] Event Handler
-  ////////////////////////////////
-  Future<void> _onGetNearByToiletsEvent(
-    GetNearByToiletsEvent event,
+  Future<void> _onGetNearByToiletMarkersEvent(
+    GetNearByToiletMarkersEvent event,
     Emitter<MapState> emit,
   ) async {
     try {
@@ -104,7 +93,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               content: getDefaultMarkerInnerText(toilet.type, toilet.rating!));
         }).toSet();
 
-        emit(LoadedToiletMarkersState(markers: _markers));
+        emit(LoadedNearByToiletMarkersState(markers: _markers));
       });
     } catch (e) {
       log.e(e);
@@ -112,8 +101,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   /////////////////////////////////
-  /// [MoveToMyPositionEvent] Event Handler
-  ////////////////////////////////
   Future<void> _onMoveToMyPositionEvent(
       MoveToMyPositionEvent event, Emitter<MapState> emit) async {
     try {
@@ -126,8 +113,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     }
   }
 
-  /////////////////////////////////
-  /// [ClickToClusterEvent] Event Handler
   ////////////////////////////////
   Future<void> _onClickToClusterEvent(
       ClickToClusterEvent event, Emitter<MapState> emit) async {
@@ -146,8 +131,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   /////////////////////////////////
-  /// [SelecteToiletMarkerEvent] Event Handler
-  ////////////////////////////////
   Future<void> _onSelecteToiletMarkerEvent(
       SelecteToiletMarkerEvent event, Emitter<MapState> emit) async {
     try {
@@ -165,8 +148,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   /////////////////////////////////
-  /// [StartDirectionEvent] Event Handler
-  ////////////////////////////////
   Future<void> _onStartNavigationEvent(
       StartNavigationEvent event, Emitter<MapState> emit) async {
     emit(SearchingToiletNavigationState());
@@ -230,17 +211,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   /////////////////////////////////
-  /// [EndDirectionEvent] Event Handler
-  ////////////////////////////////
   Future<void> _onStopNavigationEvent(
       StopNavigationEvent event, Emitter<MapState> emit) async {
     emit(StoppedToiletNavigationState());
-    // final Position position = await _geolocatorService.getPosition();
-    // LatLng myPosition = LatLng(position.latitude, position.longitude);
-    // _mapController.panTo(myPosition);
-    // emit(MovedMyPositionState(loc: myPosition));
   }
 
+  /////////////////////////////////
   Future<void> _onUpdateToiletFilterEvent(
       UpdateToiletFilterEvent event, Emitter<MapState> emit) async {
     ToiletFilter selectFilter = event.filter;

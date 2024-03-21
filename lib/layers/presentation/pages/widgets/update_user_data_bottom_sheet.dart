@@ -4,6 +4,7 @@ import 'package:pookaboo/layers/data/models/user/app_user.dart';
 import 'package:pookaboo/layers/domain/entities/user/update_user_params.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/utils/helper/validate_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_dropdown.dart';
@@ -118,10 +119,10 @@ class _UpdateUserDataBottomSheetState extends State<UpdateUserDataBottomSheet> {
             nextFocusNode: _ageFocusNode,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.text,
-            onChanged: (_) {
+            validator: (String? v) => isValidNickname(v),
+            onChanged: (String value) {
               setState(() {
-                _isValidNickname = _nicknameController.text.isNotEmpty &&
-                    _nicknameController.text.length > 2;
+                _isValidNickname = isValidNickname(value) == null;
               });
             }),
         const AppSpacerV(),
@@ -153,10 +154,13 @@ class _UpdateUserDataBottomSheetState extends State<UpdateUserDataBottomSheet> {
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.number,
           suffixText: '세',
-          // validator: (String? value) => _checkValideAge(),
-          onChanged: (_) {
+          validator: (String? value) => isValidAge(value),
+          onChanged: (value) {
             setState(() {
-              _isValidAge = _ageController.text.isNotEmpty;
+              if (value.startsWith('0') && value.length > 1) {
+                _ageController.text = int.parse(value).toString();
+              }
+              _isValidAge = isValidAge(_ageController.text) == null;
             });
           },
         ),

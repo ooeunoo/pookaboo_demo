@@ -94,7 +94,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final response = await _updateUserUseCase.call(event.params).whenComplete(
           () => _secureStorage.write(
-              StorageKeys.isUpdateUserMetadata, UpdateUserMetadataState.done));
+              StorageKeys.updateVersion, UpdateVersion.userDefaultDataV1));
 
       await response.fold((l) => null, (r) async {
         await _triggerBeforeAuthenticatedState(emit, r);
