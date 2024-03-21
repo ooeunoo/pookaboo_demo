@@ -127,7 +127,7 @@ class _MultiDataFormState extends State<AppEquipmentDataForm>
             onBackPress: widget.onBackPress,
             result: StepResult(
               stepId: step.id,
-              value: StepResult(stepId: step.id, value: _resultValue),
+              value: _resultValue(),
               // value: resultValue,
             ),
           ),
@@ -269,13 +269,16 @@ class _MultiDataFormState extends State<AppEquipmentDataForm>
   Widget _countInput(TextEditingController controller, FocusNode node) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3.0),
-      child: TextFormField(
+      child: TextField(
           onTapOutside: (event) {
             node.unfocus();
           },
           decoration: const InputDecoration(
             counterText: "",
           ),
+          onChanged: (_) {
+            setState(() {});
+          },
           controller: controller,
           maxLength: 2,
           textAlign: TextAlign.center,
@@ -285,7 +288,7 @@ class _MultiDataFormState extends State<AppEquipmentDataForm>
     );
   }
 
-  Map<String, List<int>> get _resultValue {
+  Map<String, List<int>> _resultValue() {
     switch (isSeperateGender) {
       case true:
         return {
