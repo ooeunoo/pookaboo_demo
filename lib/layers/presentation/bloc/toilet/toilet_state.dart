@@ -13,6 +13,8 @@ class InitialState extends ToiletState {}
 ////////////////////////////////
 class EmptyState extends ToiletState {}
 
+class LoadingToiletImagesState extends ToiletState {}
+
 /////////////////////////////////
 ///
 ////////////////////////////////

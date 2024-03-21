@@ -17,6 +17,7 @@ import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_loading.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
@@ -78,10 +79,26 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                ImageSwiper(
-                  images: _images,
-                  isOwner: isOwner,
-                ),
+                if (state is LoadingToiletImagesState) ...{
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          height: Dimens.bigImageW,
+                          margin:
+                              const EdgeInsets.only(left: 20.0, right: 20.0),
+                          child: const Center(
+                              child: CircularProgressIndicator(
+                            color: Palette.coolGrey01,
+                          )))
+                    ],
+                  )
+                } else ...{
+                  ImageSwiper(
+                    images: _images,
+                  ),
+                },
+
                 const AppSpacerV(),
                 // 관리자라면 사진 올리기 버튼!
                 if (isOwner) ...{
@@ -110,7 +127,6 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
                       onPressed: () async {
                         List<XFile> files =
                             await _pickerService.getImages(ImageSource.gallery);
-                        log.d(files);
                         setState(() {
                           _uploadImages.addAll(files);
                         });
@@ -308,7 +324,6 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
           storagePath: '/$toiletId/${DateTime.now().millisecondsSinceEpoch}')
     ]);
 
-    log.d(image.path);
     context.read<ToiletBloc>().add(UploadToiletImagesEvent(params: params));
 
     _removeUploadImages(index);
