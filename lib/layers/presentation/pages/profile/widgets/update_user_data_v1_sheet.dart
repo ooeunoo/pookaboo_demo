@@ -93,7 +93,8 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
       );
 
       context.read<UserBloc>().add(UpdateUserEvent(params: params));
-      _occurSnackbar();
+      NotifyAfterEditProfileSnackBar(context);
+      NotifyGuideProfileEditSnackBar(context);
       context.pop();
     }
   }
@@ -229,34 +230,6 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
               _nextStep();
             }),
       ],
-    );
-  }
-
-  void _occurSnackbar() {
-    context.showSnackBar(
-      AppSnackBar(
-          context,
-          height: Dimens.space12,
-          AppText('정보를 수정했어요.', style: Theme.of(context).textTheme.bodySmall!)),
-    );
-    context.showSnackBar(
-      AppSnackBar(
-          context,
-          height: Dimens.space12,
-          Row(
-            children: [
-              AppText('마이페이지 -> 내 정보 수정',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: Palette.lemon03,
-                      fontWeight: FontWeight.bold,
-                      fontSize: Dimens.labelMedium)),
-              AppText('에서 바꿀 수 있어요.',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontSize: Dimens.labelMedium)),
-            ],
-          )),
     );
   }
 }

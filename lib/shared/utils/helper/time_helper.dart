@@ -24,8 +24,8 @@ bool isCurrentlyOpen(String currentTime, String? openTime, String? closeTime) {
       DateTime currentDateTime = DateTime.parse('2022-01-01 $currentTime');
 
       // Check if the current time falls within the opening hours
-      if (currentDateTime.isAfter(openDateTime) &&
-          currentDateTime.isBefore(closeDateTime)) {
+      if (currentDateTime.compareTo(openDateTime) >= 0 &&
+          currentDateTime.compareTo(closeDateTime) <= 0) {
         return true; // Currently open
       } else {
         return false; // Currently closed

@@ -167,13 +167,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     context.read<UserBloc>().add(UpdateUserEvent(params: params));
 
     context.pop();
-    context.showSnackBar(
-      AppSnackBar(
-          context,
-          height: Dimens.space12,
-          AppText('내 정보를 수정했어요.',
-              style: Theme.of(context).textTheme.bodySmall!)),
-    );
+    NotifyAfterEditProfileSnackBar(context);
     // 사용자 정보 업데이트되는 거 대기
     // await Future.delayed(const Duration(seconds: 1));
     // _refresh();

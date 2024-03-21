@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pookaboo/layers/data/models/user/app_user.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/upload_toilet_images_params.dart';
 import 'package:pookaboo/layers/presentation/bloc/toilet/toilet_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
@@ -32,10 +33,9 @@ class DetailSheetInformation extends StatefulWidget {
 
 class _DetailSheetInformationState extends State<DetailSheetInformation> {
   Toilet get toilet => widget.toilet;
+  AppUser? user;
 
   final ImagePickerService _pickerService = ImagePickerService();
-
-  late bool isOwner = false;
 
   late List<String> _images = [];
   late final List<Map<String, dynamic>> _equipments = [];
@@ -48,11 +48,102 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
   @override
   void initState() {
     super.initState();
-    _checkOwner();
-    _fetchImages();
+    _fetchUser();
     _fetchEquipments();
     _fetchConveiences();
     _fetchAmenities();
+  }
+
+  void _fetchUser() {
+    UserState state = context.read<UserBloc>().state;
+    if (state is AuthenticatedState) {
+      setState(() {
+        user = state.user;
+      });
+    }
+  }
+
+  void _fetchImages() {
+    context.read<ToiletBloc>().add(GetToiletImagesEvent(toiletId: toilet.id));
+  }
+
+  void _fetchEquipments() {
+    final state = context.read<UserBloc>().state;
+
+    int? gender = 1;
+    if (state is AuthenticatedState) {
+      final user = state.user;
+      gender = user.isMale() ? 1 : 2;
+    }
+
+    // equipment
+    for (var equipment in EquipmentKey.values) {
+      List<(String, String)> keys = equipment.keys;
+      String emoji = equipment.emoji;
+      String name = equipment.name;
+      int count = 0;
+
+      for (var (key, _) in keys) {
+        List<int> equipmentsJson = toilet.equipment?.toJson()[key];
+        List<int> equipments = equipmentsJson.map((item) => item).toList();
+
+        bool seperate = toilet.gender;
+
+        if (equipments.isNotEmpty) {
+          count += equipments[seperate ? gender : 0];
+        }
+      }
+
+      _equipments
+          .add({"emoji": emoji, "title": name, "value": count.toString()});
+    }
+  }
+
+  void _fetchConveiences() {
+    for (var convenience in ConvenienceKey.values) {
+      String key = convenience.key;
+      String emoji = convenience.emoji;
+      String name = convenience.name;
+      bool hasConvenience = toilet.convenience?.toJson()[key];
+      if (hasConvenience) {
+        _conveniences.add({"emoji": emoji, "title": name});
+      }
+    }
+  }
+
+  void _fetchAmenities() {
+    for (var amenity in AmenityKey.values) {
+      String key = amenity.key;
+      String emoji = amenity.emoji;
+      String name = amenity.name;
+      bool hasAmenity = toilet.convenience?.toJson()[key];
+
+      if (hasAmenity) {
+        _amenities.add({"emoji": emoji, "title": name});
+      }
+    }
+  }
+
+  void _onUploadImage(int toiletId, int index) {
+    XFile image = _uploadImages[index];
+
+    UploadToiletImagesParams params = UploadToiletImagesParams(images: [
+      ImageFormData(
+          filePath: image.path,
+          storagePath: '/$toiletId/${DateTime.now().millisecondsSinceEpoch}')
+    ]);
+
+    context.read<ToiletBloc>().add(UploadToiletImagesEvent(params: params));
+
+    _removeUploadImages(index);
+  }
+
+  void _removeUploadImages(int index) {
+    setState(() {
+      if (_uploadImages.length > index) {
+        _uploadImages.removeAt(index);
+      }
+    });
   }
 
   @override
@@ -65,8 +156,7 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
           /////////////////////////////////////////////////////////////////////////////////
           ////// Image Swipe
           /////////////////////////////////////////////////////////////////////////////////
-          BlocConsumer<ToiletBloc, ToiletState>(
-              listener: (context, state) async {
+          BlocConsumer<ToiletBloc, ToiletState>(listener: (context, state) {
             if (state is SuccessUploadToiletImagesState) {
               _fetchImages();
             }
@@ -79,29 +169,12 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                if (state is LoadingToiletImagesState) ...{
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          height: Dimens.bigImageW,
-                          margin:
-                              const EdgeInsets.only(left: 20.0, right: 20.0),
-                          child: const Center(
-                              child: CircularProgressIndicator(
-                            color: Palette.coolGrey01,
-                          )))
-                    ],
-                  )
-                } else ...{
-                  ImageSwiper(
-                    images: _images,
-                  ),
-                },
-
+                ImageSwiper(
+                  images: _images,
+                ),
                 const AppSpacerV(),
                 // 관리자라면 사진 올리기 버튼!
-                if (isOwner) ...{
+                if (user!.isOwner()) ...{
                   if (_uploadImages.isNotEmpty) ...{
                     Column(
                       children: [
@@ -137,6 +210,8 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
               ],
             );
           }),
+
+          /////////////////////////////////////////////////////////////////////////////////
           AppSpacerV(value: Dimens.space30),
           /////////////////////////////////////////////////////////////////////////////////
           ////// Equipment
@@ -174,6 +249,21 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
           },
         ],
       ),
+    );
+  }
+
+  Widget _loadingImage() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+            height: Dimens.bigImageW,
+            margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+            child: const Center(
+                child: CircularProgressIndicator(
+              color: Palette.coolGrey01,
+            )))
+      ],
     );
   }
 
@@ -238,102 +328,5 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
         );
       },
     );
-  }
-
-  void _fetchImages() {
-    context.read<ToiletBloc>().add(GetToiletImagesEvent(toiletId: toilet.id));
-  }
-
-  void _fetchEquipments() {
-    final state = context.read<UserBloc>().state;
-
-    int? gender = 1;
-    if (state is AuthenticatedState) {
-      final user = state.user;
-      gender = user.isMale() ? 1 : 2;
-    }
-
-    // equipment
-    for (var equipment in EquipmentKey.values) {
-      List<(String, String)> keys = equipment.keys;
-      String emoji = equipment.emoji;
-      String name = equipment.name;
-      int count = 0;
-
-      for (var (key, _) in keys) {
-        List<int> equipmentsJson = toilet.equipment?.toJson()[key];
-        List<int> equipments = equipmentsJson.map((item) => item).toList();
-
-        bool seperate = toilet.gender;
-
-        if (equipments.isNotEmpty) {
-          count += equipments[seperate ? gender : 0];
-        }
-      }
-
-      _equipments.add({
-        'section': 'equipment',
-        "emoji": emoji,
-        "title": name,
-        "value": count.toString()
-      });
-    }
-  }
-
-  void _fetchConveiences() {
-    // convenience
-    for (var convenience in ConvenienceKey.values) {
-      String key = convenience.key;
-      String emoji = convenience.emoji;
-      String name = convenience.name;
-      bool hasConvenience = toilet.convenience?.toJson()[key];
-      if (hasConvenience) {
-        _conveniences
-            .add({'section': 'convenience', "emoji": emoji, "title": name});
-      }
-    }
-  }
-
-  void _fetchAmenities() {
-    // amenity
-    for (var amenity in AmenityKey.values) {
-      String key = amenity.key;
-      String emoji = amenity.emoji;
-      String name = amenity.name;
-      bool hasAmenity = toilet.convenience?.toJson()[key];
-
-      if (hasAmenity) {
-        _amenities.add({'section': 'amenity', "emoji": emoji, "title": name});
-      }
-    }
-  }
-
-  void _checkOwner() {
-    final state = context.read<UserBloc>().state;
-    if (state is AuthenticatedState) {
-      isOwner = state.user.isOwner();
-    }
-  }
-
-  void _onUploadImage(int toiletId, int index) {
-    XFile image = _uploadImages[index];
-
-    UploadToiletImagesParams params = UploadToiletImagesParams(images: [
-      ImageFormData(
-          filePath: image.path,
-          storagePath: '/$toiletId/${DateTime.now().millisecondsSinceEpoch}')
-    ]);
-
-    context.read<ToiletBloc>().add(UploadToiletImagesEvent(params: params));
-
-    _removeUploadImages(index);
-  }
-
-  void _removeUploadImages(int index) {
-    setState(() {
-      if (_uploadImages.length > index) {
-        _uploadImages.removeAt(index);
-      }
-    });
   }
 }

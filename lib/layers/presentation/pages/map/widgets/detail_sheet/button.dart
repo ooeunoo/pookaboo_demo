@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/layers/data/models/user/app_user.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
@@ -18,23 +19,27 @@ class DetailSheetButton extends StatefulWidget {
 }
 
 class _DetailSheetButtonState extends State<DetailSheetButton> {
-  String? userId;
+  AppUser? user;
 
   @override
   void initState() {
     super.initState();
+    _fetchUser();
+  }
+
+  void _fetchUser() {
     UserState state = context.read<UserBloc>().state;
     if (state is AuthenticatedState) {
       setState(() {
-        userId = state.user.id;
+        user = state.user;
       });
     }
   }
 
   void _startNavigation() {
-    if (userId != null) {
+    if (user != null) {
       context.read<VisitataionBloc>().add(CreateToiletVisitationEvent(
-          userId: userId!, toiletId: widget.toilet.id));
+          userId: user!.id, toiletId: widget.toilet.id));
     }
     context.read<MapBloc>().add(StartNavigationEvent(toilet: widget.toilet));
   }

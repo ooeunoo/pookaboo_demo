@@ -22,6 +22,8 @@ class DetailSheetProperty extends StatefulWidget {
 }
 
 class _DetailSheetPropertyState extends State<DetailSheetProperty> {
+  Toilet get toilet => widget.toilet;
+
   bool isExpandTimeSchedule = false;
 
   late String rating;
@@ -35,15 +37,15 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
   @override
   void initState() {
     super.initState();
-    rating = Rating.getAverageRating(widget.toilet.rating!).toString();
-    totalReviews = widget.toilet.total_reviews.toString();
-    toiletType = widget.toilet.type;
-    isGenderSeperate = widget.toilet.gender;
-    hasPassword = widget.toilet.password;
-    passwordTip = widget.toilet.password_tip;
+    rating = Rating.getAverageRating(toilet.rating!).toString();
+    totalReviews = toilet.total_reviews.toString();
+    toiletType = toilet.type;
+    isGenderSeperate = toilet.gender;
+    hasPassword = toilet.password;
+    passwordTip = toilet.password_tip;
 
     // 현재 요일과 시간
-    time = widget.toilet.time!;
+    time = toilet.time!;
   }
 
   @override

@@ -5,35 +5,35 @@ import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/styles/theme.dart';
 
 class AppTextInput extends StatefulWidget {
-  const AppTextInput({
-    super.key,
-    this.curFocusNode,
-    this.nextFocusNode,
-    this.hint,
-    this.hintStyle,
-    this.validator,
-    this.onChanged,
-    this.keyboardType,
-    this.textInputAction,
-    this.obscureText,
-    this.controller,
-    this.onTap,
-    this.textAlign,
-    this.enable,
-    this.inputFormatter,
-    this.minLine,
-    this.maxLine,
-    this.suffixText,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.isHintVisible = true,
-    this.prefixText,
-    this.hintText,
-    this.autofillHints,
-    this.semantic,
-    this.maxLength,
-    this.onTapOutside,
-  });
+  const AppTextInput(
+      {super.key,
+      this.curFocusNode,
+      this.nextFocusNode,
+      this.hint,
+      this.hintStyle,
+      this.validator,
+      this.onChanged,
+      this.keyboardType,
+      this.textInputAction,
+      this.obscureText,
+      this.controller,
+      this.onTap,
+      this.textAlign,
+      this.enable,
+      this.inputFormatter,
+      this.minLine,
+      this.maxLine,
+      this.suffixText,
+      this.suffixIcon,
+      this.prefixIcon,
+      this.isHintVisible = true,
+      this.prefixText,
+      this.hintText,
+      this.autofillHints,
+      this.semantic,
+      this.maxLength,
+      this.onTapOutside,
+      this.verticalMargin = 8});
 
   final FocusNode? curFocusNode;
   final FocusNode? nextFocusNode;
@@ -61,6 +61,7 @@ class AppTextInput extends StatefulWidget {
   final String? semantic;
   final int? maxLength;
   final TapRegionCallback? onTapOutside;
+  final double verticalMargin;
 
   @override
   _TextFState createState() => _TextFState();
@@ -74,7 +75,7 @@ class _TextFState extends State<AppTextInput> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(vertical: Dimens.space8),
+      margin: EdgeInsets.symmetric(vertical: widget.verticalMargin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -89,7 +90,7 @@ class _TextFState extends State<AppTextInput> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: Dimens.space8),
+            margin: EdgeInsets.symmetric(vertical: widget.verticalMargin),
             child: Semantics(
               label: widget.semantic,
               child: TextFormField(

@@ -4,6 +4,7 @@ import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
+import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
@@ -24,12 +25,21 @@ class InquireDialog extends StatefulWidget {
 }
 
 class _InquireDialogState extends State<InquireDialog> {
+  Toilet get toilet => widget.toilet;
+  void Function(String inqury) get confirm => widget.confirmPress;
+
   final _controller = TextEditingController();
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _registerInquiry() {
+    confirm(_controller.text);
+    NotifyAfterInquirySnackBar(context);
+    context.back();
   }
 
   @override
@@ -41,12 +51,23 @@ class _InquireDialogState extends State<InquireDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const AppSpacerV(),
-          AppText(
-            '문의하기',
-            style: Theme.of(context).textTheme.bodyMedium!,
+          Row(
+            children: [
+              AppText(
+                '문의하기',
+                style: Theme.of(context).textTheme.bodyMedium!,
+              ),
+              const AppSpacerH(),
+            ],
           ),
-          AppSpacerV(value: Dimens.space12),
+          AppSpacerV(value: Dimens.space4),
+          AppText(
+            toilet.name,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.labelMedium!,
+          ),
           AppTextInput(
+            verticalMargin: 0,
             controller: _controller,
             minLine: 3,
           ),
@@ -69,8 +90,7 @@ class _InquireDialogState extends State<InquireDialog> {
                     titleColor: Palette.coolGrey12,
                     color: Palette.lemon01,
                     onPressed: () {
-                      widget.confirmPress(_controller.text);
-                      context.back();
+                      _registerInquiry();
                     }),
               )
             ],
