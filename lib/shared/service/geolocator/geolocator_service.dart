@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geolocator_apple/geolocator_apple.dart';
 import 'package:geolocator_android/geolocator_android.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 ///[gradle.properties]
@@ -58,10 +59,9 @@ class GeolocatorService {
   }
 
   Future<bool> hasPermission() async {
-    bool serviceEnabled;
     LocationPermission permission;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) return false;
 
     permission = await Geolocator.checkPermission();
@@ -81,7 +81,8 @@ class GeolocatorService {
   }
 
   Future<void> askPermission() async {
-    await Geolocator.openAppSettings();
-    await Geolocator.openLocationSettings();
+    if (await Permission.location.isPermanentlyDenied) {
+      openAppSettings();
+    }
   }
 }

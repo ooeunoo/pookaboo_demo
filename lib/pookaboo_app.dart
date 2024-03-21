@@ -5,9 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pookaboo/injection.dart';
+import 'package:pookaboo/layers/presentation/bloc/toilet/toilet_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
-import 'package:pookaboo/layers/presentation/bloc/proposal/proposal_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/settings/setting_cubit.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
@@ -37,7 +37,7 @@ class PookabooApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<VisitataionBloc>()),
         BlocProvider(create: (_) => sl<ReviewBloc>()),
         BlocProvider(create: (_) => sl<ProfileBloc>()),
-        BlocProvider(create: (_) => sl<ProposalBloc>())
+        BlocProvider(create: (_) => sl<ToiletBloc>())
       ],
       child: OKToast(
         child: ScreenUtilInit(

@@ -6,11 +6,13 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/data/models/visitation/visitation.dart';
 import 'package:pookaboo/layers/domain/entities/review/create_review_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
+import 'package:pookaboo/layers/domain/entities/toilet/upload_toilet_images_params.dart';
 import 'package:pookaboo/layers/domain/entities/visitation/create_visitation_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/get_nearby_toilets_params.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/service/supabase/supabase_service.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 String buildObject = 'json_build_object';
 
@@ -71,6 +73,11 @@ abstract class ToiletRemoteDatasource {
   Future<Either<Failure, bool>> createToiletProposalDatasource(
     CreateToiletParam params,
   );
+
+  Future<Either<Failure, bool>> uploadToiletImagesDatasource(
+      UploadToiletImagesParams params);
+
+  Future<Either<Failure, List<String>>> getToiletImagesDatasource(int toiletId);
 }
 
 class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
@@ -271,6 +278,60 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
 
       return const Right(true);
     } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> uploadToiletImagesDatasource(
+      UploadToiletImagesParams params) async {
+    try {
+      for (var image in params.images) {
+        await _supabaseService.client.storage
+            .from(ToiletStorage.image.name)
+            .upload(
+              image.storagePath,
+              File(image.filePath),
+              fileOptions:
+                  const FileOptions(cacheControl: '3600', upsert: false),
+            );
+      }
+      return const Right(true);
+    } catch (e) {
+      log.e(e);
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<String>>> getToiletImagesDatasource(
+      int toiletId) async {
+    try {
+      final List<String> urls = [];
+
+      final List<FileObject> objects = await _supabaseService.client.storage
+          .from(ToiletStorage.image.name)
+          .list(path: toiletId.toString());
+
+      if (objects.isEmpty) {
+        return Right(urls);
+      }
+
+      List<String> filepath = objects
+          .map((FileObject object) => '${toiletId.toString()}/${object.name}')
+          .toList();
+
+      final List<SignedUrl> signedUrls = await _supabaseService.client.storage
+          .from(ToiletStorage.image.name)
+          .createSignedUrls(filepath, 60);
+
+      urls.addAll(signedUrls
+          .map((SignedUrl signedUrl) => signedUrl.signedUrl)
+          .toList());
+
+      return Right(urls);
+    } catch (e) {
+      log.e(e);
       return Left(ServerFailure(e.toString()));
     }
   }

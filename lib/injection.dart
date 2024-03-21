@@ -1,9 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:pookaboo/layers/data/datasources/user_remote_datasource.dart';
-import 'package:pookaboo/layers/data/repositories/proposal/proposal_repository_impl.dart';
-import 'package:pookaboo/layers/domain/repositories/proposal/proposal_repository.dart';
-import 'package:pookaboo/layers/domain/usecases/proposal/proposal_usecase.dart';
-import 'package:pookaboo/layers/presentation/bloc/proposal/proposal_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/toilet/toilet_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/data/repositories/user/user_repository_impl.dart';
 import 'package:pookaboo/layers/domain/repositories/user/user_repository.dart';
@@ -11,14 +8,14 @@ import 'package:pookaboo/layers/domain/usecases/user/user_usecase.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/datasources/kakao_remote_datasource.dart';
 import 'package:pookaboo/layers/data/datasources/toilet_remote_datasource.dart';
-import 'package:pookaboo/layers/data/repositories/map/map_repository_impl.dart';
+import 'package:pookaboo/layers/data/repositories/toilet/toilet_repository_impl.dart';
 import 'package:pookaboo/layers/data/repositories/review/review_repository_impl.dart';
 import 'package:pookaboo/layers/data/repositories/visitation/visitation_repository_impl.dart';
-import 'package:pookaboo/layers/domain/repositories/map/map_repository.dart';
+import 'package:pookaboo/layers/domain/repositories/toilet/toilet_repository.dart';
 import 'package:pookaboo/layers/domain/repositories/review/review_repository.dart';
 import 'package:pookaboo/layers/domain/repositories/visitation/visitation_repository.dart';
 import 'package:pookaboo/layers/domain/usecases/review/review_usecase.dart';
-import 'package:pookaboo/layers/domain/usecases/map/map_usecase.dart';
+import 'package:pookaboo/layers/domain/usecases/toilet/toilet_usecase.dart';
 import 'package:pookaboo/layers/domain/usecases/visitation/visitation_usecase.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/settings/setting_cubit.dart';
@@ -53,12 +50,11 @@ Future<void> _repositories() async {
   sl.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(sl()),
   );
-  sl.registerLazySingleton<MapRepository>(() => MapRepositoryImpl(sl(), sl()));
+  sl.registerLazySingleton<ToiletRepository>(
+      () => ToiletRepositoryImpl(sl(), sl()));
   sl.registerLazySingleton<ReviewRepository>(() => ReviewRepositoryImpl(sl()));
   sl.registerLazySingleton<VisitationRepository>(
       () => VisitationRepositoryImpl(sl()));
-  sl.registerLazySingleton<ProposalRepository>(
-      () => ProposalRepositoryImpl(sl()));
 }
 
 Future<void> _dataSources() async {
@@ -77,6 +73,7 @@ Future<void> _useCase() async {
   sl.registerLazySingleton<CreateUserInquireUseCase>(
       () => CreateUserInquireUseCase(sl()));
   sl.registerLazySingleton<DeleteUserUseCase>(() => DeleteUserUseCase(sl()));
+
   // map
   sl.registerLazySingleton<GetNearByToiletsUseCase>(
       () => GetNearByToiletsUseCase(sl()));
@@ -100,8 +97,13 @@ Future<void> _useCase() async {
   sl.registerLazySingleton<GetToiletVisitationsByUserIdUseCase>(
       () => GetToiletVisitationsByUserIdUseCase(sl()));
 
+  // Toilet
   sl.registerLazySingleton<CreateToiletProposalUseCase>(
       () => CreateToiletProposalUseCase(sl()));
+  sl.registerLazySingleton<UploadToiletImagesUseCase>(
+      () => UploadToiletImagesUseCase(sl()));
+  sl.registerLazySingleton<GetToiletImagesUseCase>(
+      () => GetToiletImagesUseCase(sl()));
 }
 
 Future<void> _bloc() async {
@@ -110,7 +112,7 @@ Future<void> _bloc() async {
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));
   sl.registerFactory(() => ProfileBloc());
-  sl.registerFactory(() => ProposalBloc(sl()));
+  sl.registerFactory(() => ToiletBloc(sl(), sl(), sl()));
 }
 
 Future<void> _cubit() async {

@@ -7,7 +7,6 @@ import 'package:pookaboo/layers/data/models/user/app_user.dart';
 import 'package:pookaboo/layers/domain/entities/user/update_user_params.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
-import 'package:pookaboo/mocks/image.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';

@@ -17,6 +17,8 @@ class AppButton extends StatelessWidget {
 
   final Color? color;
   final Color? titleColor;
+  final TextStyle? titleStyle;
+
   final double? fontSize;
   final Color? splashColor;
   final Widget? image; // 이미지 추가
@@ -31,6 +33,7 @@ class AppButton extends StatelessWidget {
     this.height,
     this.color,
     this.titleColor,
+    this.titleStyle,
     this.fontSize,
     this.splashColor,
     this.image,
@@ -79,9 +82,10 @@ class AppButton extends StatelessWidget {
               ),
             AppText(
               title,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: titleColor ??
-                      (disable ? Palette.coolGrey06 : Palette.coolGrey12)),
+              style: titleStyle ??
+                  Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: titleColor ??
+                          (disable ? Palette.coolGrey06 : Palette.coolGrey12)),
               align: TextAlign.center,
             ),
           ],

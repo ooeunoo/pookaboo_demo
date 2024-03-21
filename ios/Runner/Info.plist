@@ -106,14 +106,14 @@
 		<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 		<!-- Location(GPS) -->
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string>This app needs access to location when open.</string>
+		<string>사용자의 위치 접근 허용이 되어있지않습니다. 단말기의 '설정'애서 위치 접근을 허용해주세요.</string>
 		<!-- Camera -->
 		<key>NSCameraUsageDescription</key>
-		<string>your usage description here</string>
+		<string>사용자의 카메라 접근 허용이 되어있지않습니다. 단말기의 '설정'애서 카메라 접근을 허용해주세요.</string>
 		<key>NSMicrophoneUsageDescription</key>
-		<string>your usage description here</string>
+		<string>사용자의 마이크 접근 허용이 되어있지않습니다. 단말기의 '설정'애서 마이크 접근을 허용해주세요.</string>
 		<!-- Photo (Image Picker) -->
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>your usage description here</string>
+		<string>사용자의 사진 접근 허용이 되어있지않습니다. 단말기의 '설정'애서 사진 접근을 허용해주세요.</string>
 	</dict>
 </plist>

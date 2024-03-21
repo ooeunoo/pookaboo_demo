@@ -23,6 +23,7 @@ class Assets {
   static const String edit = 'assets/svg/edit.svg';
   static const String confirm = 'assets/svg/confirm.svg';
   static const String refresh = 'assets/svg/refresh.svg';
+  static const String plus = 'assets/svg/plus.svg';
 
   // PNG
   static const String noImage = 'assets/images/no_image.png';

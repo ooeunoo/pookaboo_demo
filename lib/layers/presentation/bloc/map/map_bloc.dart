@@ -8,7 +8,7 @@ import 'package:pookaboo/layers/domain/entities/toilet/get_nearby_toilets_params
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/domain/usecases/review/review_usecase.dart';
-import 'package:pookaboo/layers/domain/usecases/map/map_usecase.dart';
+import 'package:pookaboo/layers/domain/usecases/toilet/toilet_usecase.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';

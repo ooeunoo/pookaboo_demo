@@ -8,7 +8,6 @@ import 'package:pookaboo/layers/data/models/visitation/visitation.dart';
 import 'package:pookaboo/layers/domain/entities/review/create_review_params.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
-import 'package:pookaboo/mocks/image.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
