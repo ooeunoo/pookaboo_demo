@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:pookaboo/shared/entities/form/data_option.dart';
-import 'package:pookaboo/shared/entities/form/data_step.dart';
-import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/entities/form/step.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 
-class MultiDataStep implements Step {
+class EquipmentDataStep implements Step {
   @override
   String id;
   @override
@@ -14,27 +10,26 @@ class MultiDataStep implements Step {
   @override
   String? description;
   InputDataType type;
-  String? dateFormat;
+  bool? isGenderSeperate;
 
   List<DataOption> options;
 
-  MultiDataStep({
-    required this.id,
-    required this.title,
-    this.description,
-    required this.options,
-    required this.type,
-    this.dateFormat,
-  });
+  EquipmentDataStep(
+      {required this.id,
+      required this.title,
+      this.description,
+      required this.options,
+      required this.type,
+      this.isGenderSeperate});
 
-  factory MultiDataStep.fromJson(Map<String, dynamic> json) => MultiDataStep(
-        id: json["id"],
-        title: json["title"],
-        options: json["options"],
-        description: json["description"],
-        type: json["type"],
-        dateFormat: json["dateFormat"],
-      );
+  factory EquipmentDataStep.fromJson(Map<String, dynamic> json) =>
+      EquipmentDataStep(
+          id: json["id"],
+          title: json["title"],
+          options: json["options"],
+          description: json["description"],
+          type: json["type"],
+          isGenderSeperate: json['isGenderSeperate']);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -42,6 +37,6 @@ class MultiDataStep implements Step {
         "options": options,
         "description": description,
         "type": type,
-        "dateFormat": dateFormat
+        'isGenderSeperate': isGenderSeperate
       };
 }

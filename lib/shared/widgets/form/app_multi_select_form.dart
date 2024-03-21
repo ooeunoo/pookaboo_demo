@@ -43,36 +43,37 @@ class _MultiSelectFormState extends State<AppMultiSelectForm> {
   Widget build(BuildContext context) {
     return FormContainer(
       step: step,
-      child: ListView(
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const AppSpacerV(),
-              FormHeader(title: step.title),
-              if (step.description?.isNotEmpty == true)
-                FormDescription(description: step.description!),
-              AppSpacerV(value: Dimens.space30),
-              _options(context),
-              AppSpacerV(value: Dimens.space50),
-              FormButton(
-                  onNextPress: widget.onNextPress,
-                  onBackPress: widget.onBackPress,
-                  result: StepResult(stepId: step.id, value: _selected)),
-              const SizedBox(),
-            ],
-          ),
+          const AppSpacerV(),
+          FormHeader(title: step.title),
+          if (step.description?.isNotEmpty == true)
+            FormDescription(description: step.description!),
+          AppSpacerV(value: Dimens.space40),
+          _options(context),
+          const Spacer(),
+          FormButton(
+              onNextPress: widget.onNextPress,
+              onBackPress: widget.onBackPress,
+              result: StepResult(stepId: step.id, value: _selected)),
+          // const SizedBox(),
         ],
       ),
     );
   }
 
   Widget _options(BuildContext context) {
-    return ListView.separated(
+    return GridView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.zero,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // Number of items per line
+        crossAxisSpacing: 8.0, // Spacing between items horizontally
+        mainAxisSpacing: 12.0, // Spacing between items vertically
+        childAspectRatio: MediaQuery.of(context).size.width /
+            (MediaQuery.of(context).size.height / 6),
+      ),
       physics: const NeverScrollableScrollPhysics(),
       itemCount: step.options.length,
       itemBuilder: (BuildContext context, int index) {
@@ -90,11 +91,6 @@ class _MultiSelectFormState extends State<AppMultiSelectForm> {
               }
             });
           },
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return SizedBox(
-          height: Dimens.space12,
         );
       },
     );

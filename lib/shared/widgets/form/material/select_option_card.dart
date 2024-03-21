@@ -29,7 +29,7 @@ class SelectOptionCard extends StatelessWidget {
       this.selected = false,
       this.loading = false,
       this.enabled = true,
-      this.height = 6.0})
+      this.height = 3.0})
       : multi = true;
 
   @override

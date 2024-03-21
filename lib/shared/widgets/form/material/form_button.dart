@@ -8,6 +8,8 @@ class FormButton extends StatelessWidget {
   final void Function(StepResult? result)? onNextPress;
   final String? nextText;
   final void Function()? onBackPress;
+  final void Function()? onSkipPress;
+
   final StepResult? result;
   final bool disable;
 
@@ -15,6 +17,7 @@ class FormButton extends StatelessWidget {
     super.key,
     this.onNextPress,
     this.onBackPress,
+    this.onSkipPress,
     this.result,
     this.disable = false,
     this.nextText,
@@ -36,6 +39,21 @@ class FormButton extends StatelessWidget {
                   onNextPress!(result);
                 },
               )),
+            ],
+          ),
+        },
+        if (onSkipPress != null) ...{
+          const SizedBox(height: 8.0),
+          Row(
+            children: [
+              Expanded(
+                  child: AppButton(
+                      title: "스킵하기",
+                      color: Colors.transparent,
+                      titleColor: Colors.white,
+                      onPressed: () {
+                        onBackPress!();
+                      })),
             ],
           ),
         },

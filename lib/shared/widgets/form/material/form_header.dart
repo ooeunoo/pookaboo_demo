@@ -15,7 +15,7 @@ class FormHeader extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!
-                  .copyWith(fontSize: Dimens.headerMedium)),
+                  .copyWith(fontSize: Dimens.bodyLarge)),
         ),
       ],
     );

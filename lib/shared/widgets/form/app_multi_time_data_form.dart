@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pookaboo/shared/entities/form/multi_time_data_step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/form/material/time_data_modal.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_button.dart';

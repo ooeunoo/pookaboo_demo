@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pookaboo/shared/entities/form/data_step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_description.dart';
@@ -26,7 +27,7 @@ class AppDataForm extends StatefulWidget {
 
 class _DataFormState extends State<AppDataForm> {
   final TextEditingController _controller = TextEditingController();
-  late FocusNode _focusNode;
+  final FocusNode _focusNode = FocusNode();
 
   bool isLoading = false;
 
@@ -35,7 +36,6 @@ class _DataFormState extends State<AppDataForm> {
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
     _focusNode.requestFocus();
   }
 
@@ -83,7 +83,7 @@ class _DataFormState extends State<AppDataForm> {
               value: resultValue,
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
+          // SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
         ],
       ),
     );

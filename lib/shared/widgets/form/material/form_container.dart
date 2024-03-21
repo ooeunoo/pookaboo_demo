@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart' hide Step;
 import 'package:pookaboo/shared/entities/form/step.dart';
+import 'package:pookaboo/shared/extension/context.dart';
+import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/widgets/common/app_done.dart';
 
 class FormContainer extends StatelessWidget {
   final Step step;
@@ -22,6 +25,21 @@ class FormContainer extends StatelessWidget {
 
   Widget _fullScreen(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: Container(),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: Dimens.space16),
+            child: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                context.back();
+              },
+            ),
+          )
+        ],
+      ),
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Center(

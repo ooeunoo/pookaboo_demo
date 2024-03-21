@@ -24,7 +24,7 @@ import 'package:pookaboo/shared/widgets/form/app_confirm_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_data_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_information_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_map_form.dart';
-import 'package:pookaboo/shared/widgets/form/app_multi_data_form.dart';
+import 'package:pookaboo/shared/widgets/form/app_equipment_data_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_multi_select_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_multi_time_data_form.dart';
 import 'package:pookaboo/shared/widgets/form/app_picture_form.dart';
@@ -57,40 +57,16 @@ class _SurveyFlowState extends State<ToiletProposal> {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return Scaffold(
-          extendBody: true,
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            leading: Container(),
-            // title: AppText(
-            //   '',
-            //   style: Theme.of(context).textTheme.bodyLarge!,
-            // ),
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: Dimens.space16),
-                child: IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    context.back();
-                  },
-                ),
-              )
-            ],
+        return Stack(children: [
+          PageView.builder(
+            controller: _controller,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: steps.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _mapStep(context, steps[index]);
+            },
           ),
-          body: Stack(
-            children: [
-              PageView.builder(
-                controller: _controller,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: steps.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _mapStep(context, steps[index]);
-                },
-              ),
-            ],
-          ),
-        );
+        ]);
       },
     );
   }
@@ -119,9 +95,14 @@ class _SurveyFlowState extends State<ToiletProposal> {
             step: step as MultiSelectStep,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
-      case const (MultiDataStep):
-        return AppMultiDataForm(
-            step: step as MultiDataStep,
+      case const (EquipmentDataStep):
+        bool isSeperateGender = false;
+        if (params.gender == true) {
+          isSeperateGender = true;
+        }
+        return AppEquipmentDataForm(
+            step: step as EquipmentDataStep,
+            isSeperateGender: isSeperateGender,
             onNextPress: _onPressNextButton,
             onBackPress: _onPressBackButton);
       case const (MultiTimeDataStep):
@@ -155,6 +136,7 @@ class _SurveyFlowState extends State<ToiletProposal> {
         params = _updateParamsWithKey(params, result);
       });
     }
+    log.d('herer: ${result!.value.toString()}');
 
     if (_controller.page?.toInt() == steps.length - 1) {
       bool shouldFinish = true;
@@ -249,88 +231,82 @@ class _SurveyFlowState extends State<ToiletProposal> {
           sun: OperateTime(
               open: value['sun']['open'], close: value['sun']['close']),
         );
-      // case 'equipment':
-      // List<int> urnial = [
-      //   value.urinal,
-      //   value.child_urinal,
-      //   value.disable_urinal
-      // ];
-      // List<int> urnial = [
-      //   value.urinal,
-      //   value.child_urinal,
-      //   value.disable_urinal
-      // ];
-      // List<int> urnial = [
-      //   value.urinal,
-      //   value.child_urinal,
-      //   value.disable_urinal
-      // ];
-
-      // return params.copyWith(password: value as bool);
+      case 'equipment':
+        return params.copyWith(
+          urinal: value["urinal"],
+          child_urinal: value["child_urinal"],
+          disable_urinal: value["disable_urinal"],
+          seat: value["seat"],
+          child_seat: value["child_seat"],
+          disable_seat: value["disable_seat"],
+          washbasin: value["washbasin"],
+        );
       default:
         return params;
     }
+
+    log.d(params.urinal);
     return params;
   }
 }
 
 List<Step> steps = [
-  InformationStep(
-      id: 'Intro',
-      title: '새로운 화장실 등록해볼까요?',
-      description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
-  ////////////////
-  MapStep(id: 'coordinates', title: ''),
-  ////////////////////
-  DataStep(
-      id: 'name',
-      title: '화장실 이름을 알려주세요',
-      description: "등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
-      type: InputDataType.text),
-  ////////////////////
-  SingleSelectStep(
-      id: 'type',
-      title: '화장실이 어디에 있나요?',
-      description: "화장실이 빌딩에서 운영되고 있나요? 카페에서 운영되고있나요?",
-      options: [
-        SelectOption(text: '빌딩', value: 0),
-        SelectOption(text: '카페', value: 1),
-      ]),
+  // InformationStep(
+  //     id: 'Intro',
+  //     title: '새로운 화장실 등록해볼까요?',
+  //     description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
+  // //////////////
+  // MapStep(id: 'coordinates', title: ''),
+  // ////////////////////
+  // DataStep(
+  //     id: 'name',
+  //     title: '화장실 이름을 알려주세요',
+  //     description: "등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
+  //     type: InputDataType.text),
+  // ////////////////////
+  // SingleSelectStep(
+  //     id: 'type',
+  //     title: '화장실이 어떤 곳에 있나요?',
+  //     description: "",
+  //     options: [
+  //       SelectOption(text: '빌딩', value: 0),
+  //       SelectOption(text: '카페', value: 1),
+  //     ]),
   ////////////////////
   SingleSelectStep(
       id: 'gender',
-      title: '화장실은 남녀가 분리되어있나요?',
+      title: '👫 화장실은 남녀가 분리되어있나요?',
       description: "",
       options: [
         SelectOption(text: '공용', value: false),
         SelectOption(text: '남녀분리', value: true),
       ]),
   ////////////////////
-  SingleSelectStep(
-      id: 'password',
-      title: '잠금이 걸려있나요?',
-      description: "",
-      options: [
-        SelectOption(text: '잠김', value: false),
-        SelectOption(text: '안잠김', value: true),
-      ]),
-  ////////////////////
-  MultiSelectStep(
-      id: 'convenience',
-      title: '화장실에 있는 편의시설을 알려주세요!',
-      description: "",
-      options: [
-        ...ConvenienceKey.values.map((value) {
-          return SelectOption(
-              text: '${value.emoji} ${value.name}', value: value.key);
-        }),
-        ...AmenityKey.values.map((value) {
-          return SelectOption(
-              text: '${value.emoji} ${value.name}', value: value.key);
-        })
-      ]),
+  // SingleSelectStep(
+  //     id: 'password',
+  //     title: '🔒 잠금이 걸려있나요?',
+  //     description: "",
+  //     options: [
+  //       SelectOption(text: '잠김', value: false),
+  //       SelectOption(text: '안잠김', value: true),
+  //     ]),
+  // ////////////////////
+  // MultiSelectStep(
+  //     id: 'convenience',
+  //     title: '화장실에 있는 편의시설을 알려주세요!',
+  //     description: "",
+  //     options: [
+  //       ...ConvenienceKey.values.map((value) {
+  //         return SelectOption(
+  //             text: '${value.emoji} ${value.name}', value: value.key);
+  //       }),
+  //       ...AmenityKey.values.map((value) {
+  //         return SelectOption(
+  //             text: '${value.emoji} ${value.name}', value: value.key);
+  //       })
+  //     ]),
   //////////////////
-  MultiDataStep(
+  EquipmentDataStep(
       id: 'equipment',
       title: '화장실에 있는 시설 개수를 알려주세요!',
       description: "",
