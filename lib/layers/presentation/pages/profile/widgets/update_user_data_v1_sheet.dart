@@ -57,10 +57,10 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
   @override
   void dispose() {
     _nicknameController.dispose();
-    _ageController.dispose();
-    _genderController.dispose();
     _nicknameFocusNode.dispose();
+    _ageController.dispose();
     _ageFocusNode.dispose();
+    _genderController.dispose();
     super.dispose();
   }
 

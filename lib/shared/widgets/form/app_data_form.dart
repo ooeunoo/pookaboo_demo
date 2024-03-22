@@ -40,6 +40,12 @@ class _DataFormState extends State<AppDataForm> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FormContainer(
       step: step,

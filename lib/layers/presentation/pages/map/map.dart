@@ -182,7 +182,8 @@ class _MapPageState extends State<MapPage> {
               }),
 
               onCustomOverlayTap: (String customOverlayId, LatLng latLng) {
-                if (!isOpenDetailSheet) {
+                if (!isOpenDetailSheet &&
+                    state is! LoadedToiletNavigationState) {
                   context.read<MapBloc>().add(SelecteToiletMarkerEvent(
                       toiletId: int.parse(customOverlayId)));
                 }

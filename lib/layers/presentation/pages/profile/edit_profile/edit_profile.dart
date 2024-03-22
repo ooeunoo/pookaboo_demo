@@ -43,8 +43,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _ageFocusNode = FocusNode();
   final _genderFocusNode = FocusNode();
 
-  final List<Gender> _listGender = [Gender.male, Gender.female];
-
   @override
   void initState() {
     super.initState();
