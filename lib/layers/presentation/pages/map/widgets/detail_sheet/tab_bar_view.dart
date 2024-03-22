@@ -91,7 +91,7 @@ class _DetailSheetTabBarViewState extends State<DetailSheetTabBarView> {
                 child: BlocProvider(
                   create: (context) => sl<ReviewBloc>()
                     ..add(GetToiletReviewsByToiletIdEvent(
-                        toiletId: widget.toilet.id)),
+                        toilet_id: widget.toilet.id)),
                   child: shouldBlur
                       ? _blurredContainer(DetailSheetReview(widget.toilet))
                       : DetailSheetReview(widget.toilet),

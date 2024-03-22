@@ -9,13 +9,13 @@ part of 'create_visitation_params.dart';
 _$CreateVisitationParamsImpl _$$CreateVisitationParamsImplFromJson(
         Map<String, dynamic> json) =>
     _$CreateVisitationParamsImpl(
-      toiletId: json['toiletId'] as int,
-      userId: json['userId'] as String,
+      toilet_id: json['toilet_id'] as int,
+      user_id: json['user_id'] as String,
     );
 
 Map<String, dynamic> _$$CreateVisitationParamsImplToJson(
         _$CreateVisitationParamsImpl instance) =>
     <String, dynamic>{
-      'toiletId': instance.toiletId,
-      'userId': instance.userId,
+      'toilet_id': instance.toilet_id,
+      'user_id': instance.user_id,
     };

@@ -11,6 +11,7 @@ class SelectOptionCard extends StatelessWidget {
   final bool multi;
   final bool enabled;
   final double height;
+  final TextStyle? optionTextStyle;
 
   const SelectOptionCard(
       {super.key,
@@ -20,6 +21,7 @@ class SelectOptionCard extends StatelessWidget {
       this.loading = false,
       this.multi = false,
       this.enabled = true,
+      this.optionTextStyle,
       this.height = 12.0});
 
   const SelectOptionCard.multi(
@@ -29,6 +31,7 @@ class SelectOptionCard extends StatelessWidget {
       this.selected = false,
       this.loading = false,
       this.enabled = true,
+      this.optionTextStyle,
       this.height = 3.0})
       : multi = true;
 
@@ -79,7 +82,7 @@ class SelectOptionCard extends StatelessWidget {
           option.text,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodyLarge!,
+          style: optionTextStyle ?? Theme.of(context).textTheme.bodyLarge!,
         ),
         if (option.description?.isNotEmpty == true)
           Padding(

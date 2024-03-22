@@ -286,7 +286,13 @@ List<Step> steps = [
       options: [
         SelectOption(text: '잠김', value: true),
         SelectOption(text: '안잠김', value: false),
-      ]),
+      ],
+      expandCondition: SelectOption(text: '잠김', value: true),
+      expand: DataStep(
+          id: 'password_tip',
+          title: '화장실이 잠금되어있다면 열 수있는 방법이 있나요?',
+          description: "예를 들어, 스타벅스 카운터에 문의, 빌딩 관리자에게 요청",
+          type: InputDataType.text)),
   //////////////////
   // DataStep(
   //     id: 'password_tip',
@@ -357,5 +363,10 @@ List<Step> steps = [
 
 void _passToNextPage(PageController controller, int curIndex) {
   controller.animateToPage(curIndex + 1,
+      duration: const Duration(milliseconds: 300), curve: Curves.ease);
+}
+
+void _passToPrevPage(PageController controller, int curIndex) {
+  controller.animateToPage(curIndex - 1,
       duration: const Duration(milliseconds: 300), curve: Curves.ease);
 }

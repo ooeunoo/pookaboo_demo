@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart' hide Step;
+import 'package:pookaboo/shared/entities/form/data_step.dart';
 import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/entities/form/single_select_step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/widgets/form/app_data_form.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_description.dart';
@@ -30,6 +32,8 @@ class _SingleSelectFormState extends State<AppSingleSelectForm> {
   SelectOption? _selected;
 
   SingleSelectStep get step => widget.step;
+  DataStep? get expandStep => widget.step.expand;
+
   @override
   Widget build(BuildContext context) {
     return FormContainer(
@@ -43,6 +47,9 @@ class _SingleSelectFormState extends State<AppSingleSelectForm> {
             FormDescription(description: step.description!),
           AppSpacerV(value: Dimens.space100),
           _options(context),
+          if (step.expandCondition == _selected) ...{
+            // AppDataForm(step.expand)
+          },
           AppSpacerV(value: Dimens.space40),
           FormButton(onBackPress: widget.onBackPress),
           const SizedBox(),

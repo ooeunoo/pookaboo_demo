@@ -39,7 +39,7 @@ class _DetailSheetButtonState extends State<DetailSheetButton> {
   void _startNavigation() {
     if (user != null) {
       context.read<VisitataionBloc>().add(CreateToiletVisitationEvent(
-          userId: user!.id, toiletId: widget.toilet.id));
+          user_id: user!.id, toilet_id: widget.toilet.id));
     }
     context.read<MapBloc>().add(StartNavigationEvent(toilet: widget.toilet));
   }

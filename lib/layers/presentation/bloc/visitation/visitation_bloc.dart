@@ -41,11 +41,12 @@ class VisitataionBloc extends Bloc<VisitationEvent, VisitationState> {
       CreateToiletVisitationEvent event, Emitter<VisitationState> emit) async {
     try {
       CreateVisitationParams params = CreateVisitationParams(
-          toiletId: event.toiletId, userId: event.userId);
+          toilet_id: event.toilet_id, user_id: event.user_id);
       final response = await _createToiletVisitationUseCase.call(params);
       response.fold((l) {
         log.e(l);
       }, (r) {
+        log.d(r);
         // emit(LoadedToiletVisitationsByUserIdState(visitations: r));
       });
     } catch (e) {}
@@ -59,7 +60,7 @@ class VisitataionBloc extends Bloc<VisitationEvent, VisitationState> {
       Emitter<VisitationState> emit) async {
     try {
       final response =
-          await _getToiletVisitationsByUserIdUseCase.call(event.userId);
+          await _getToiletVisitationsByUserIdUseCase.call(event.user_id);
       response.fold((l) {
         log.e(l);
       }, (r) {

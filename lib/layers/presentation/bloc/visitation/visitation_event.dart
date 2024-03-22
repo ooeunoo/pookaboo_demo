@@ -7,25 +7,25 @@ abstract class VisitationEvent extends Equatable {}
 /// Visitation Event
 ////////////////////////////////
 class CreateToiletVisitationEvent extends VisitationEvent {
-  final String userId;
-  final int toiletId;
+  final String user_id;
+  final int toilet_id;
 
-  CreateToiletVisitationEvent({required this.userId, required this.toiletId});
+  CreateToiletVisitationEvent({required this.user_id, required this.toilet_id});
 
   @override
-  List<Object?> get props => [userId, toiletId];
+  List<Object?> get props => [user_id, toilet_id];
 }
 
 /////////////////////////////////
 /// Get Visitations By User Id
 ////////////////////////////////
 class GetToiletVisitationsByUserIdEvent extends VisitationEvent {
-  final String userId;
+  final String user_id;
 
-  GetToiletVisitationsByUserIdEvent({required this.userId});
+  GetToiletVisitationsByUserIdEvent({required this.user_id});
 
   @override
-  List<Object?> get props => [userId];
+  List<Object?> get props => [user_id];
 }
 
 /////////////////////////////////

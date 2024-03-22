@@ -113,7 +113,7 @@ class _ReviewPageState extends State<ReviewPage> {
         } else if (state is SuccessDeleteToiletReviewState) {
           context
               .read<ReviewBloc>()
-              .add(GetToiletReviewsByUserIdEvent(userId: widget.userId));
+              .add(GetToiletReviewsByUserIdEvent(user_id: widget.userId));
         }
 
         return Padding(

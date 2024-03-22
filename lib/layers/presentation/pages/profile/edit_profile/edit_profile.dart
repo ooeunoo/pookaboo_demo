@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,7 @@ import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 import 'package:pookaboo/shared/widgets/app_review_header.dart';
 import 'package:pookaboo/shared/widgets/common/app_text_input.dart';
+import 'package:pookaboo/shared/widgets/form/material/select_option_card.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -137,16 +139,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 }),
                           ),
                           const AppSpacerH(),
-                          Expanded(
-                            child: AppButton(
-                                title: '네',
-                                titleColor: Palette.coolGrey12,
-                                color: Palette.lemon01,
-                                onPressed: () {
-                                  _onUpdate();
-                                  context.back();
-                                }),
-                          )
+                          AppButton(
+                              title: '네',
+                              titleColor: Palette.coolGrey12,
+                              color: Palette.lemon01,
+                              onPressed: () {
+                                _onUpdate();
+                                context.back();
+                              }),
                         ],
                       )
                     ],
@@ -156,21 +156,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void _onUpdate() async {
     UpdateUserParams params = UpdateUserParams(
-      user_id: user!.id,
-      nickname: _nicknameController.text,
-      age: _ageController.text,
-      // gender: Gender.male.index == _genderController.text
-      //     ? Gender.male
-      // : Gender.female
-    );
+        user_id: user!.id,
+        nickname: _nicknameController.text,
+        age: _ageController.text,
+        gender: _genderController.text == Gender.male.name ? 0 : 1);
 
     context.read<UserBloc>().add(UpdateUserEvent(params: params));
 
     context.pop();
     NotifyAfterEditProfileSnackBar(context);
-    // 사용자 정보 업데이트되는 거 대기
-    // await Future.delayed(const Duration(seconds: 1));
-    // _refresh();
   }
 
   String get nicknamechanged =>
@@ -178,11 +172,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   bool get isChanged =>
       user?.nickname != _nicknameController.text ||
-      user?.age.toString() != _ageController.text;
+      user?.age.toString() != _ageController.text ||
+      Gender.values[user!.gender!].name != _genderController.text;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: Padding(
             padding: EdgeInsets.only(left: Dimens.space16),
@@ -207,6 +203,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             padding: EdgeInsets.symmetric(
                 vertical: Dimens.space20, horizontal: Dimens.space20),
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppTextInput(
@@ -221,75 +218,132 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   maxLength: 12,
                   maxLine: 1,
                   onTapOutside: (_) {
-                    FocusScope.of(context).unfocus();
+                    _nicknameFocusNode.unfocus();
                   },
                 ),
                 const AppSpacerV(),
-                AppTextInput(
-                  hint: '나이',
-                  hintStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: _ageFocusNode.hasFocus
-                          ? Palette.lemon04
-                          : Palette.coolGrey05),
-                  controller: _ageController,
-                  curFocusNode: _ageFocusNode,
-                  keyboardType: TextInputType.number,
-                  maxLength: 2,
-                  onTapOutside: (_) {
-                    FocusScope.of(context).unfocus();
-                  },
+                Column(
+                  children: [
+                    AppTextInput(
+                      hint: '나이',
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(
+                              color: _ageFocusNode.hasFocus
+                                  ? Palette.lemon04
+                                  : Palette.coolGrey05),
+                      controller: _ageController,
+                      curFocusNode: _ageFocusNode,
+                      keyboardType: TextInputType.number,
+                      maxLength: 2,
+                      onTapOutside: (_) {
+                        _ageFocusNode.unfocus();
+                      },
+                    ),
+                  ],
                 ),
                 const AppSpacerV(),
-                if (mounted) ...{
-                  // AppDropDown(
-                  //   hint: '성별',
-                  //   focusNode: _genderFocusNode,
-                  //   hintStyle: Theme.of(context)
-                  //       .textTheme
-                  //       .labelMedium!
-                  //       .copyWith(
-                  //           color: _genderFocusNode.hasFocus
-                  //               ? Palette.lemon04
-                  //               : Palette.coolGrey05),
-                  //   value: _genderController.text,
-                  //   items: Gender.values
-                  //       .map(
-                  //         (data) => DropdownMenuItem(
-                  //           value: data.name,
-                  //           child: AppText(
-                  //             _getGenderName(data, context),
-                  //             style: Theme.of(context).textTheme.bodyMedium!,
-                  //             align: TextAlign.start,
-                  //           ),
-                  //         ),
-                  //       )
-                  //       .toList(),
-                  //   onChanged: (value) {},
-                  // ),
-                },
+                _genderForm(context),
                 const Spacer(),
-                AppButton(
-                    disable: !isChanged,
-                    title: '수정완료',
-                    onPressed: _confirmUpdate),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppButton(
+                          disable: !isChanged,
+                          title: '수정완료',
+                          onPressed: _confirmUpdate),
+                    )
+                  ],
+                )
               ],
             ),
           );
         }));
   }
 
-  String _getGenderName(Gender gender, BuildContext context) {
-    if (gender == Gender.male) {
-      return Gender.male.ko;
-    } else {
-      return Gender.female.ko;
-    }
+  Widget _genderForm(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("성별",
+              style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  color: _genderFocusNode.hasFocus
+                      ? Palette.lemon04
+                      : Palette.coolGrey05)),
+          const AppSpacerV(),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelMedium!,
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.space12,
+                        horizontal: Dimens.space16,
+                      ),
+                      backgroundColor: _isSelected(Gender.male)
+                          ? Palette.coolGrey02
+                          : Palette.coolGrey12,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          Dimens.space12,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _genderController.text = Gender.male.name;
+                      });
+                    },
+                    child: Text("남성",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: _isSelected(Gender.male)
+                                ? Palette.coolGrey12
+                                : Palette.coolGrey02))),
+              ),
+              AppSpacerH(
+                value: Dimens.space20,
+              ),
+              Expanded(
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      textStyle: Theme.of(context).textTheme.labelMedium!,
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimens.space12,
+                        horizontal: Dimens.space16,
+                      ),
+                      backgroundColor: _isSelected(Gender.female)
+                          ? Palette.coolGrey02
+                          : Palette.coolGrey12,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          Dimens.space12,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _genderController.text = Gender.female.name;
+                      });
+                    },
+                    child: Text("여성",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: _isSelected(Gender.female)
+                                ? Palette.coolGrey12
+                                : Palette.coolGrey02))),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
-  TextStyle _hintStyle(FocusNode node) {
-    return Theme.of(context)
-        .textTheme
-        .labelMedium!
-        .copyWith(color: node.hasFocus ? Palette.lemon04 : Palette.coolGrey05);
+  bool _isSelected(Gender gender) {
+    return _genderController.text == gender.name;
   }
 }

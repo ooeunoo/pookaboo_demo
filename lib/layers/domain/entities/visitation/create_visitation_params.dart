@@ -7,8 +7,8 @@ part 'create_visitation_params.g.dart';
 @freezed
 class CreateVisitationParams with _$CreateVisitationParams {
   factory CreateVisitationParams({
-    required int toiletId,
-    required String userId,
+    required int toilet_id,
+    required String user_id,
   }) = _CreateVisitationParams;
 
   factory CreateVisitationParams.fromJson(Map<String, dynamic> json) =>

@@ -35,14 +35,24 @@ class ReviewForm extends StatefulWidget {
 }
 
 class _ReviewFormState extends State<ReviewForm> {
+  final ScrollController _scrollController = ScrollController();
+  final _commentController = TextEditingController();
+  final _commentFocusNode = FocusNode();
+  bool _disable = true;
   Rating _ratingController =
       Rating(cleanliness: 0, safety: 0, convenience: 0, management: 0);
-  final _commentController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
     super.dispose();
     _commentController.dispose();
+    _scrollController.dispose();
+    _commentFocusNode.dispose();
   }
 
   void _onChangeRatingScore(RatingScoreType key, double value) {
@@ -56,6 +66,19 @@ class _ReviewFormState extends State<ReviewForm> {
       case RatingScoreType.safety:
         _ratingController = _ratingController.copyWith(safety: value);
     }
+
+    bool disable;
+    if (_ratingController.cleanliness <= 0 ||
+        _ratingController.convenience <= 0 ||
+        _ratingController.management <= 0 ||
+        _ratingController.safety <= 0) {
+      disable = true;
+    } else {
+      disable = false;
+    }
+    setState(() {
+      _disable = disable;
+    });
   }
 
   void _onSave() async {
@@ -79,90 +102,111 @@ class _ReviewFormState extends State<ReviewForm> {
       if (state is SuccessCreateToiletReviewState) {
         context
             .read<VisitataionBloc>()
-            .add(GetToiletVisitationsByUserIdEvent(userId: widget.userId));
+            .add(GetToiletVisitationsByUserIdEvent(user_id: widget.userId));
         context.back();
       }
     }), builder: (context, state) {
       return SingleChildScrollView(
+          controller: _scrollController,
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /////////////////////////////////
-          ///  Header
-          /////////////////////////////////
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: Dimens.space30, horizontal: Dimens.space20),
-            child: Row(
-              children: [
-                Expanded(child: Container()),
-                AppText("리뷰 작성", style: Theme.of(context).textTheme.bodyLarge!),
-                Expanded(child: Container()),
-                InkWell(
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: SvgPicture.asset(Assets.close),
-                )
-              ],
-            ),
-          ),
-          /////////////////////////////////
-          ///  Header & RATING
-          /////////////////////////////////
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-            child: Column(
-              children: [
-                AppReviewHeader(
-                    image: null,
-                    name: widget.visitation.toilet.name,
-                    date: widget.visitation.created_at),
-                const AppSpacerV(),
-                AppDivider(height: Dimens.space1, color: Palette.coolGrey10),
-                const AppSpacerV(),
-                _ratingsStarSelectForm(_onChangeRatingScore),
-                const AppSpacerV()
-              ],
-            ),
-          ),
-          /////////////////////////////////
-          ///  DIVIDER
-          /////////////////////////////////
-          AppSpacerV(value: Dimens.space30),
-          const AppDivider(),
-          AppSpacerV(value: Dimens.space30),
-          /////////////////////////////////
-          ///  COMMENT & BUTTON
-          /////////////////////////////////
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText("의견", style: Theme.of(context).textTheme.bodyMedium!),
-                AppSpacerV(value: Dimens.space30),
-                _commentTextInputForm(_commentController),
-                AppSpacerV(value: Dimens.space30),
-                AppButton(title: "리뷰 작성", onPressed: _onSave),
-                AppSpacerV(value: Dimens.space30),
-              ],
-            ),
-          ),
-        ],
-      ));
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /////////////////////////////////
+              ///  Header
+              /////////////////////////////////
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimens.space30, horizontal: Dimens.space20),
+                child: Row(
+                  children: [
+                    Expanded(child: Container()),
+                    AppText("리뷰 작성",
+                        style: Theme.of(context).textTheme.bodyLarge!),
+                    Expanded(child: Container()),
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: SvgPicture.asset(Assets.close),
+                    )
+                  ],
+                ),
+              ),
+              /////////////////////////////////
+              ///  Header & RATING
+              /////////////////////////////////
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Dimens.space20),
+                child: Column(
+                  children: [
+                    AppReviewHeader(
+                        image: null,
+                        name: widget.visitation.toilet.name,
+                        date: widget.visitation.created_at),
+                    const AppSpacerV(),
+                    AppDivider(
+                        height: Dimens.space1, color: Palette.coolGrey10),
+                    const AppSpacerV(),
+                    _ratingsStarSelectForm(_onChangeRatingScore),
+                    const AppSpacerV()
+                  ],
+                ),
+              ),
+              /////////////////////////////////
+              ///  DIVIDER
+              /////////////////////////////////
+              AppSpacerV(value: Dimens.space30),
+              const AppDivider(),
+              AppSpacerV(value: Dimens.space30),
+              /////////////////////////////////
+              ///  COMMENT & BUTTON
+              /////////////////////////////////
+              ///   SizedBox(
+              // height: _commentFocusNode.hasFocus
+              //     ? EdgeInsets.only(
+              //         bottom: MediaQuery.of(context).viewInsets.bottom)
+              //     : const EdgeInsets.only(bottom: 0))
+              Padding(
+                padding: EdgeInsets.only(
+                  right: Dimens.space20,
+                  left: Dimens.space20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText("의견",
+                        style: Theme.of(context).textTheme.bodyMedium!),
+                    _commentTextInputForm(
+                        _commentController, _commentFocusNode),
+                    AppSpacerV(value: Dimens.space30),
+                    AppButton(
+                        title: "리뷰 작성", onPressed: _onSave, disable: _disable),
+                    AppSpacerV(value: Dimens.space30),
+                  ],
+                ),
+              ),
+            ],
+          ));
     });
   }
 
-  Widget _commentTextInputForm(TextEditingController controller) {
+  Widget _commentTextInputForm(
+      TextEditingController controller, FocusNode node) {
     return AppTextInput(
       hintText: '화장실을 사용하면서 좋았던 점 또는 아쉬웠던 점을 공유해주세요.',
       keyboardType: TextInputType.text,
       controller: controller,
+      curFocusNode: node,
       minLine: 4,
       maxLine: 10,
+      verticalMargin: 0,
+      onTapOutside: (_) {
+        node.unfocus();
+      },
       textAlign: TextAlign.start,
+      scrollPadding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
     );
   }
 

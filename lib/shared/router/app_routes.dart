@@ -96,9 +96,8 @@ class AppRoute {
             name: AppRoutes.visitation.name,
             pageBuilder: (context, state) {
               final extra = state.extra! as ExtraParams;
-              context
-                  .read<VisitataionBloc>()
-                  .add(GetToiletVisitationsByUserIdEvent(userId: extra.userId));
+              context.read<VisitataionBloc>().add(
+                  GetToiletVisitationsByUserIdEvent(user_id: extra.userId));
               return MaterialPage(
                 child: VisitationPage(userId: extra.userId),
               );
@@ -111,7 +110,7 @@ class AppRoute {
               final extra = state.extra! as ExtraParams;
               context
                   .read<ReviewBloc>()
-                  .add(GetToiletReviewsByUserIdEvent(userId: extra.userId));
+                  .add(GetToiletReviewsByUserIdEvent(user_id: extra.userId));
               return MaterialPage(
                 child: ReviewPage(userId: extra.userId),
               );

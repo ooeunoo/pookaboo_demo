@@ -62,7 +62,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       GetToiletReviewsByToiletIdEvent event, Emitter<ReviewState> emit) async {
     try {
       final response =
-          await _getToiletReviewsByToiletIdUseCase.call(event.toiletId);
+          await _getToiletReviewsByToiletIdUseCase.call(event.toilet_id);
       response.fold((l) {
         log.e(l);
       }, (r) {
@@ -78,7 +78,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
       GetToiletReviewsByUserIdEvent event, Emitter<ReviewState> emit) async {
     try {
       final response =
-          await _getToiletReviewsByUserIdUseCase.call(event.userId);
+          await _getToiletReviewsByUserIdUseCase.call(event.user_id);
       response.fold((l) {
         log.e(l);
       }, (r) {

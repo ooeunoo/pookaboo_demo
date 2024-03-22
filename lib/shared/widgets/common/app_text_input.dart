@@ -33,6 +33,7 @@ class AppTextInput extends StatefulWidget {
       this.semantic,
       this.maxLength,
       this.onTapOutside,
+      this.scrollPadding,
       this.verticalMargin = 8});
 
   final FocusNode? curFocusNode;
@@ -62,6 +63,7 @@ class AppTextInput extends StatefulWidget {
   final int? maxLength;
   final TapRegionCallback? onTapOutside;
   final double verticalMargin;
+  final EdgeInsets? scrollPadding;
 
   @override
   _TextFState createState() => _TextFState();
@@ -112,6 +114,8 @@ class _TextFState extends State<AppTextInput> {
                 style: Theme.of(context).textTheme.bodyMedium,
                 cursorColor: Palette.coolGrey01,
                 onTapOutside: widget.onTapOutside,
+                scrollPadding:
+                    widget.scrollPadding ?? const EdgeInsets.all(20.0),
                 decoration: InputDecoration(
                   counterText: '',
                   prefixText: widget.prefixText,
@@ -121,6 +125,7 @@ class _TextFState extends State<AppTextInput> {
                   hintStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
                         color: Theme.of(context).hintColor,
                       ),
+
                   suffix: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

@@ -155,6 +155,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
           data.map((json) => Visitation.fromJson(json)).toList();
       return Right(visitations);
     } catch (e) {
+      log.e(e);
+
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -246,6 +248,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
           data.map((json) => Review.fromJson(json)).toList();
       return Right(reviews);
     } catch (e) {
+      log.e(e);
+
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -260,6 +264,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
           .match({'id': reviewId});
       return const Right(true);
     } catch (e) {
+      log.e(e);
+
       return Left(ServerFailure(e.toString()));
     }
   }
@@ -278,6 +284,8 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
 
       return const Right(true);
     } catch (e) {
+      log.e(e);
+
       return Left(ServerFailure(e.toString()));
     }
   }

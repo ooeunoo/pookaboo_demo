@@ -3,6 +3,7 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/information_tab/information.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/location_guide.dart';
 import 'package:pookaboo/layers/presentation/pages/map/widgets/detail_sheet/navigation_guide.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
@@ -30,8 +31,12 @@ class NavigationModal extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(toilet.name,
-                    style: Theme.of(context).textTheme.bodyLarge!)
+                SizedBox(
+                    width: context.widthInPercent(60),
+                    child: AppText(toilet.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyLarge!)),
               ],
             ),
           ),

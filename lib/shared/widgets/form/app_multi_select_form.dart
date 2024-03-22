@@ -68,9 +68,9 @@ class _MultiSelectFormState extends State<AppMultiSelectForm> {
       shrinkWrap: true,
       padding: EdgeInsets.zero,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Number of items per line
-        crossAxisSpacing: 8.0, // Spacing between items horizontally
-        mainAxisSpacing: 12.0, // Spacing between items vertically
+        crossAxisCount: 2,
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 12.0,
         childAspectRatio: MediaQuery.of(context).size.width /
             (MediaQuery.of(context).size.height / 6),
       ),
@@ -80,6 +80,7 @@ class _MultiSelectFormState extends State<AppMultiSelectForm> {
         return SelectOptionCard.multi(
           option: step.options[index],
           loading: isLoading,
+          optionTextStyle: Theme.of(context).textTheme.bodyMedium,
           enabled: !maximumItemsSelected,
           selected: _selected.contains(step.options[index].value),
           onSelected: (SelectOption option) async {

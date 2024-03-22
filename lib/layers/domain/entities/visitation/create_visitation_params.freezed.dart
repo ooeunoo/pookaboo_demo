@@ -21,8 +21,8 @@ CreateVisitationParams _$CreateVisitationParamsFromJson(
 
 /// @nodoc
 mixin _$CreateVisitationParams {
-  int get toiletId => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
+  int get toilet_id => throw _privateConstructorUsedError;
+  String get user_id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $CreateVisitationParamsCopyWith<$Res> {
           $Res Function(CreateVisitationParams) then) =
       _$CreateVisitationParamsCopyWithImpl<$Res, CreateVisitationParams>;
   @useResult
-  $Res call({int toiletId, String userId});
+  $Res call({int toilet_id, String user_id});
 }
 
 /// @nodoc
@@ -53,17 +53,17 @@ class _$CreateVisitationParamsCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? toiletId = null,
-    Object? userId = null,
+    Object? toilet_id = null,
+    Object? user_id = null,
   }) {
     return _then(_value.copyWith(
-      toiletId: null == toiletId
-          ? _value.toiletId
-          : toiletId // ignore: cast_nullable_to_non_nullable
+      toilet_id: null == toilet_id
+          ? _value.toilet_id
+          : toilet_id // ignore: cast_nullable_to_non_nullable
               as int,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      user_id: null == user_id
+          ? _value.user_id
+          : user_id // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -78,7 +78,7 @@ abstract class _$$CreateVisitationParamsImplCopyWith<$Res>
       __$$CreateVisitationParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int toiletId, String userId});
+  $Res call({int toilet_id, String user_id});
 }
 
 /// @nodoc
@@ -94,17 +94,17 @@ class __$$CreateVisitationParamsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? toiletId = null,
-    Object? userId = null,
+    Object? toilet_id = null,
+    Object? user_id = null,
   }) {
     return _then(_$CreateVisitationParamsImpl(
-      toiletId: null == toiletId
-          ? _value.toiletId
-          : toiletId // ignore: cast_nullable_to_non_nullable
+      toilet_id: null == toilet_id
+          ? _value.toilet_id
+          : toilet_id // ignore: cast_nullable_to_non_nullable
               as int,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      user_id: null == user_id
+          ? _value.user_id
+          : user_id // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -113,19 +113,20 @@ class __$$CreateVisitationParamsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CreateVisitationParamsImpl implements _CreateVisitationParams {
-  _$CreateVisitationParamsImpl({required this.toiletId, required this.userId});
+  _$CreateVisitationParamsImpl(
+      {required this.toilet_id, required this.user_id});
 
   factory _$CreateVisitationParamsImpl.fromJson(Map<String, dynamic> json) =>
       _$$CreateVisitationParamsImplFromJson(json);
 
   @override
-  final int toiletId;
+  final int toilet_id;
   @override
-  final String userId;
+  final String user_id;
 
   @override
   String toString() {
-    return 'CreateVisitationParams(toiletId: $toiletId, userId: $userId)';
+    return 'CreateVisitationParams(toilet_id: $toilet_id, user_id: $user_id)';
   }
 
   @override
@@ -133,14 +134,14 @@ class _$CreateVisitationParamsImpl implements _CreateVisitationParams {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateVisitationParamsImpl &&
-            (identical(other.toiletId, toiletId) ||
-                other.toiletId == toiletId) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.toilet_id, toilet_id) ||
+                other.toilet_id == toilet_id) &&
+            (identical(other.user_id, user_id) || other.user_id == user_id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, toiletId, userId);
+  int get hashCode => Object.hash(runtimeType, toilet_id, user_id);
 
   @JsonKey(ignore: true)
   @override
@@ -159,16 +160,16 @@ class _$CreateVisitationParamsImpl implements _CreateVisitationParams {
 
 abstract class _CreateVisitationParams implements CreateVisitationParams {
   factory _CreateVisitationParams(
-      {required final int toiletId,
-      required final String userId}) = _$CreateVisitationParamsImpl;
+      {required final int toilet_id,
+      required final String user_id}) = _$CreateVisitationParamsImpl;
 
   factory _CreateVisitationParams.fromJson(Map<String, dynamic> json) =
       _$CreateVisitationParamsImpl.fromJson;
 
   @override
-  int get toiletId;
+  int get toilet_id;
   @override
-  String get userId;
+  String get user_id;
   @override
   @JsonKey(ignore: true)
   _$$CreateVisitationParamsImplCopyWith<_$CreateVisitationParamsImpl>
