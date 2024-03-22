@@ -124,7 +124,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       AppText('저장할까요?',
                           style: Theme.of(context).textTheme.bodyMedium!),
                       AppSpacerV(value: Dimens.space20),
-                      AppText('바꾼 정보를 저장할까요?',
+                      AppText('바꾼 정보를 저장합니다?',
                           style: Theme.of(context).textTheme.labelLarge!),
                       AppSpacerV(value: Dimens.space20),
                       Row(

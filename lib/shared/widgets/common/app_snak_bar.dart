@@ -76,3 +76,12 @@ void NotifyGuideProfileEditSnackBar(BuildContext context) {
         ],
       )));
 }
+
+// 화장실 리뷰를 등록했어요!
+void NotifyReviewWritedSnackBar(BuildContext context) {
+  context.showSnackBar(AppSnackBar(
+      context,
+      height: Dimens.space12,
+      AppText('화장실 리뷰를 등록했어요!',
+          style: Theme.of(context).textTheme.bodySmall!)));
+}

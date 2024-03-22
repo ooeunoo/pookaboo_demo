@@ -19,6 +19,7 @@ import 'package:pookaboo/shared/widgets/app_rating_card.dart';
 import 'package:pookaboo/shared/widgets/app_star_point.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
+import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 import 'package:pookaboo/shared/widgets/common/app_text_input.dart';
@@ -100,6 +101,7 @@ class _ReviewFormState extends State<ReviewForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<ReviewBloc, ReviewState>(listener: ((context, state) {
       if (state is SuccessCreateToiletReviewState) {
+        NotifyReviewWritedSnackBar(context);
         context
             .read<VisitataionBloc>()
             .add(GetToiletVisitationsByUserIdEvent(user_id: widget.userId));

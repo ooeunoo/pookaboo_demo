@@ -68,7 +68,9 @@ class _DetailSheetReviewState extends State<DetailSheetReview> {
           /////////////////////////////////////////////////////////////////////////////////
           ////// RATINGS
           /////////////////////////////////////////////////////////////////////////////////
-          ..._reviews.map((review) {
+          ..._reviews.asMap().entries.map((entry) {
+            final int index = entry.key;
+            final review = entry.value;
             return Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: Dimens.space20, vertical: Dimens.space12),
@@ -76,10 +78,10 @@ class _DetailSheetReviewState extends State<DetailSheetReview> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AppReviewCard(review: review),
-                  AppSpacerV(
-                    value: Dimens.space20,
-                  ),
-                  AppDivider(color: Palette.coolGrey08, height: Dimens.space1),
+                  AppSpacerV(value: Dimens.space20),
+                  if (index != _reviews.length - 1)
+                    AppDivider(
+                        color: Palette.coolGrey08, height: Dimens.space1),
                 ],
               ),
             );

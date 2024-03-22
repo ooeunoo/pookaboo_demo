@@ -44,7 +44,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: Dimens.space8),
+      // margin: EdgeInsets.symmetric(vertical: Dimens.space8),
       height: height ?? Dimens.buttonH,
       width: width,
       decoration:

@@ -117,56 +117,57 @@ class _ReviewPageState extends State<ReviewPage> {
         }
 
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: Dimens.space20),
-          child: ListView.builder(
-            itemCount: _reviews.isEmpty ? 0 : _reviews.length,
-            itemBuilder: (context, index) {
-              final review = _reviews[index];
+            padding: EdgeInsets.symmetric(vertical: Dimens.space20),
+            child: ListView.builder(
+              itemCount: _reviews.isEmpty ? 0 : _reviews.length,
+              itemBuilder: (context, index) {
+                final review = _reviews[index];
 
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Dimens.space20, vertical: Dimens.space12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppReviewHeader(
-                        image: null,
-                        name: review.toilet!.name,
-                        date: review.created_at),
-                    AppSpacerV(value: Dimens.space20),
-                    AppReviewCard(review: review),
-                    AppSpacerV(
-                      value: Dimens.space20,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          onTap: () {
-                            _openConfirmModal(review.id);
-                          },
-                          child: AppText("삭제",
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimens.space20, vertical: Dimens.space12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppReviewHeader(
+                          image: null,
+                          name: review.toilet!.name,
+                          date: review.created_at),
+                      AppSpacerV(value: Dimens.space20),
+                      AppReviewCard(review: review),
+                      AppSpacerV(value: Dimens.space20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            onTap: () {
+                              _openConfirmModal(review.id);
+                            },
+                            child: AppText(
+                              "삭제",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                      color: Palette.red01,
-                                      fontWeight: FontWeight.w600)),
-                        )
-                      ],
-                    ),
-                    AppSpacerV(
-                      value: Dimens.space16,
-                    ),
-                    AppDivider(
-                        color: Palette.coolGrey08, height: Dimens.space1),
-                  ],
-                ),
-              );
-            },
-          ),
-        );
+                                    color: Palette.red01,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          )
+                        ],
+                      ),
+                      AppSpacerV(value: Dimens.space16),
+                      if (index !=
+                          _reviews.length -
+                              1) // Render AppDivider for all except the last index
+                        AppDivider(
+                            color: Palette.coolGrey08, height: Dimens.space1),
+                    ],
+                  ),
+                );
+              },
+            ));
       }),
     );
   }
