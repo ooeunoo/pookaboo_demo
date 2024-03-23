@@ -107,7 +107,6 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
 
       final List<Toilet> toilets =
           data.map((json) => Toilet.fromJson(json[buildObject])).toList();
-      log.d(toilets);
       return Right(toilets);
     } catch (e) {
       log.e(e);
