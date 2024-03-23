@@ -1,0 +1,194 @@
+[
+    {
+        "id": "202",
+        "latLng": {
+            "latitude": 37.5828753440739,
+            "longitude": 127.050584853459
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "836",
+        "latLng": {
+            "latitude": 37.5779707132726,
+            "longitude": 127.047727123176
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>2.4</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "872",
+        "latLng": {
+            "latitude": 37.5831287972742,
+            "longitude": 127.037822836862
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "904",
+        "latLng": {
+            "latitude": 37.5862762489616,
+            "longitude": 127.047285432947
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "1409",
+        "latLng": {
+            "latitude": 37.5901543124647,
+            "longitude": 127.042267790362
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "1750",
+        "latLng": {
+            "latitude": 37.5800156958555,
+            "longitude": 127.041540567516
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "2130",
+        "latLng": {
+            "latitude": 37.5819432475232,
+            "longitude": 127.04086416922
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "2430",
+        "latLng": {
+            "latitude": 37.5840533051123,
+            "longitude": 127.045719712546
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>3.2</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "2452",
+        "latLng": {
+            "latitude": 37.5801566069562,
+            "longitude": 127.041037763689
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "2789",
+        "latLng": {
+            "latitude": 37.5899695058832,
+            "longitude": 127.047289694219
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "2866",
+        "latLng": {
+            "latitude": 37.5798178856903,
+            "longitude": 127.046026412905
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>1.6</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "2961",
+        "latLng": {
+            "latitude": 37.5813398477496,
+            "longitude": 127.045318865802
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>2.3</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "3132",
+        "latLng": {
+            "latitude": 37.5880092172875,
+            "longitude": 127.042553030596
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "3537",
+        "latLng": {
+            "latitude": 37.5895837930767,
+            "longitude": 127.043537625987
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "3846",
+        "latLng": {
+            "latitude": 37.5800249265392,
+            "longitude": 127.051082862686
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    },
+    {
+        "id": "4051",
+        "latLng": {
+            "latitude": 37.5864699557701,
+            "longitude": 127.0516032116
+        },
+        "content": "<div class='chip' style='outline:none; display:inline-flex; align-items:center; padding:2px 8px; gap:4px; border-radius:20px; border:1px solid #191A1F; background-color:#202328; box-shadow:none; box-sizing:border-box; font-family:Pretendard Variable; line-height:26px; color:#F2F3F5;'><span class='chip-icon' style='font-size:14px;'>🏢</span><span class='chip-rating' style='opacity:0.9; font-size:16px; font-weight:bold; font-family:Roboto;'>0.0</span></div>",
+        "isClickable": true,
+        "xAnchor": 0.5,
+        "yAnchor": 1.0,
+        "zIndex": 3
+    }
+]

@@ -5,12 +5,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/data/models/coord/coord.dart';
 import 'package:pookaboo/layers/data/models/route/route.dart';
+import 'package:pookaboo/layers/data/models/toilet/custom_marker.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/get_nearby_toilets_params.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/domain/usecases/review/review_usecase.dart';
 import 'package:pookaboo/layers/domain/usecases/toilet/toilet_usecase.dart';
+import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
@@ -94,12 +96,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           genderFilter: _hasFillter(ToiletFilter.gender));
 
       final response = await _getNearByToiletsUseCase.call(params);
-      Set<CustomOverlay> markers = {};
+      Set<CustomMarker> markers = {};
       response.fold((left) {}, (right) async {
-        markers = right.map<CustomOverlay>((toilet) {
-          return CustomOverlay(
+        markers = right.map<CustomMarker>((toilet) {
+          return CustomMarker(
+              id: toilet.id.toString(),
               isClickable: true,
-              customOverlayId: toilet.id.toString(),
               latLng: LatLng(toilet.lat!, toilet.lng!),
               content: getDefaultMarkerInnerText(toilet.type, toilet.rating!));
         }).toSet();
@@ -117,8 +119,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     try {
       final Position position = await _geolocatorService.getPosition();
       LatLng myPosition = LatLng(position.latitude, position.longitude);
+      Marker myMarker = Marker(
+          markerId: '나의 위치',
+          latLng: LatLng(myPosition.latitude, myPosition.longitude),
+          markerImageSrc: Assets.myMarkerImage);
       _mapController.panTo(myPosition);
-      emit(MovedMyPositionState(loc: myPosition));
+      emit(MovedMyPositionState(myMarker: myMarker));
     } catch (e) {
       await _geolocatorService.askPermission();
       log.e(e);
@@ -209,13 +215,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
                 strokeWidth: 10,
                 strokeStyle: StrokeStyle.solid)
           };
-          CustomOverlay startMarker = CustomOverlay(
-              customOverlayId: 'start',
-              latLng: mpLoc,
-              content: getStartMarkerInnerText());
+          CustomMarker startMarker = CustomMarker(
+              id: 'start', latLng: mpLoc, content: getStartMarkerInnerText());
 
-          CustomOverlay endMarker = CustomOverlay(
-              customOverlayId: toilet.id.toString(),
+          CustomMarker endMarker = CustomMarker(
+              id: toilet.id.toString(),
               latLng: tpLoc,
               content: getEndMarkerInnerText(toilet.type));
 

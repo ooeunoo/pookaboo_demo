@@ -94,8 +94,8 @@ class StartNavigationEvent extends MapEvent {
 
 class LoadNavigationEvent extends MapEvent {
   final Toilet toilet;
-  final CustomOverlay startMarker;
-  final CustomOverlay endMarker;
+  final CustomMarker startMarker;
+  final CustomMarker endMarker;
   final Set<Polyline> polylines;
   final int time;
 

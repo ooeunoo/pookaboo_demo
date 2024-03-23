@@ -22,7 +22,7 @@ String getDefaultMarkerInnerText(int type, Rating rating) {
   String image = type == ToiletType.building.index ? '🏢' : '☕️';
   double avgRating = Rating.getAverageRating(rating);
 
-  String chipStyle = 'outline: none;'
+  String chipStyle = 'outline:none;'
       'display:inline-flex;'
       'align-items:center;'
       'padding:2px 8px;'
@@ -33,9 +33,7 @@ String getDefaultMarkerInnerText(int type, Rating rating) {
       'box-shadow:none;'
       'box-sizing:border-box;'
       'font-family:Pretendard Variable;'
-      'line-height:26px;'
-      'color:#F2F3F5;';
-
+      'line-height:26px; color:#F2F3F5;';
   String chipIconStyle = 'font-size:14px;';
 
   String chipRatingStyle = 'opacity:0.9;'
@@ -43,10 +41,10 @@ String getDefaultMarkerInnerText(int type, Rating rating) {
       'font-weight:bold;'
       'font-family:Roboto;';
 
-  String innerText = '<div class="chip" style="$chipStyle">'
-      '<span class="chip-icon" style="$chipIconStyle">$image</span>'
-      '<span class="chip-rating" style="$chipRatingStyle">$avgRating</span>'
-      '</div>';
+  String innerText = "<div class='chip' style='$chipStyle'>"
+      "<span class='chip-icon' style='$chipIconStyle'>$image</span>"
+      "<span class='chip-rating' style='$chipRatingStyle'>$avgRating</span>"
+      "</div>";
 
   return innerText;
 }
@@ -107,4 +105,72 @@ String getEndMarkerInnerText(int type) {
       '<div>';
 
   return innerText;
+}
+
+String getAddCustomMarkersClusterScripts() {
+  return '''
+function addCustomMarkersCluster(customMarkers) {
+  clearMarkerClusterer();
+
+  const markerList = customMarkers.map(function (customMarker) {
+    const { id, latLng, content, isClickable, xAnchor, yAnchor, zIndex } = customMarker;
+    const position = new kakao.maps.LatLng(latLng.latitude, latLng.longitude);
+
+    const element = document.createElement('div');
+    element.innerHTML = content;
+    element.style.webkitTapHighlightColor = 'transparent';
+
+    element.addEventListener('click', () => {
+       addCustomOverlayListener(id, latLng.latitude, latLng.longitude);
+    });
+
+    const marker = new kakao.maps.CustomOverlay({
+      clickable: true,
+      position: position,
+      content: element,
+      xAnchor: xAnchor,
+      yAnchor: yAnchor,
+      zIndex: zIndex,
+    });
+    return marker;
+  })
+
+  // 클러스터 생성
+  clusterer = new kakao.maps.MarkerClusterer({
+    map: map,
+    gridSize: 35,
+    averageCenter: true,
+    minLevel: 2,
+    disableClickZoom: true,
+    styles: [{
+      width: '24px',
+      height: '24px',
+      opacity: '0px',
+      fontFamily: 'Pretendard Variable',
+      fontSize: '18px',
+      fontWeight: '600',
+      textAlign: 'center',
+      color: '#F2F3F5',
+      background: '#202328',
+      padding: '10px 8px 10px 8px',
+      gap: '4px',
+      borderRadius: '16px',
+      border: '4px',
+    }]
+  });
+        
+  // 클러스터에 추가
+  clusterer.addMarkers(markerList);
+
+  kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster) {
+    let latLng = cluster.getCenter();
+    const clickLatLng = {
+      latitude: latLng.getLat(),
+      longitude: latLng.getLng(),
+      zoomLevel: map.getLevel(),
+    }
+    onMarkerClustererTap.postMessage(JSON.stringify(clickLatLng))
+  });
+}
+''';
 }

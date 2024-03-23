@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
+import 'package:pookaboo/layers/data/models/toilet/custom_marker.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_utils.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
@@ -32,13 +35,15 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   final Debouncer _debouncer = Debouncer(milliseconds: 300);
-  // final Debouncer _changeCenterDebouncer = Debouncer(milliseconds: 300);
-  // final Debouncer _updateChangedCenterDebouncer = Debouncer(milliseconds: 300);
+  final Debouncer _changeCenterDebouncer = Debouncer(milliseconds: 300);
+  final Debouncer _updateChangedCenterDebouncer = Debouncer(milliseconds: 300);
 
   bool isOpenDetailSheet = false;
-  // bool isChangedCenter = false;
+  bool isChangedCenter = false;
 
   late KakaoMapController _controller;
+  Marker? myMarker;
+
   List<ToiletFilter> _filtered = [];
 
   @override
@@ -87,17 +92,42 @@ class _MapPageState extends State<MapPage> {
     await _controller.clearCustomOverlay();
     await _controller.clearMarkerClusterer();
     await _controller.clearPolyline();
-    // setState(() {
-    //   isChangedCenter = false;
-    // });
+    setState(() {
+      isChangedCenter = false;
+    });
   }
 
-  Future<void> _drawMarker(Set<CustomOverlay> markers) async {
-    await _controller.addCustomOverlay(customOverlays: markers.toList());
+  Future<void> _drawMarker(Set<CustomMarker> markers,
+      {bool showMyMarker = true}) async {
+    List<CustomMarker> markerList = markers.toList();
+    _drawCluster(markerList);
+    // await _controller.addCustomOverlay(customOverlays: markerList);
+
+    if (showMyMarker) {
+      _drawMyMarker();
+    } else {
+      _removeMyMarker();
+    }
+  }
+
+  void _drawCluster(List<CustomMarker> markers) {
+    _controller.webViewController
+        .runJavaScript('''${getAddCustomMarkersClusterScripts()}
+      addCustomMarkersCluster(${jsonEncode(markers.map((marker) => marker.toJson()).toList())})''');
   }
 
   Future<void> _drawPolyline(Set<Polyline> polylines) async {
     await _controller.addPolyline(polylines: polylines.toList());
+  }
+
+  Future<void> _drawMyMarker() async {
+    if (myMarker != null) {
+      await _controller.addMarker(markers: [myMarker!]);
+    }
+  }
+
+  Future<void> _removeMyMarker() async {
+    await _controller.clearMarker();
   }
 
   void _updateVisibleOfBottomNavigation(bool state) {
@@ -110,25 +140,28 @@ class _MapPageState extends State<MapPage> {
     _controller.panTo(loc);
   }
 
-  // void _changedCenter(LatLng lat) {
-  //   if (mounted) {
-  //     setState(() {
-  //       isChangedCenter = false;
-  //     });
+  void _changedCenter(LatLng lat) {
+    if (mounted) {
+      setState(() {
+        isChangedCenter = false;
+      });
 
-  //     _updateChangedCenterDebouncer.run(() => setState(() {
-  //           isChangedCenter = true;
-  //         }));
-  //   }
-  // }
+      _updateChangedCenterDebouncer.run(() => setState(() {
+            isChangedCenter = true;
+          }));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MapBloc, MapState>(
       listener: (context, state) async {
         // 내 위치 이동 & 길찾기 종료
-        if (state is MovedMyPositionState ||
-            state is StoppedToiletNavigationState) {
+        if (state is MovedMyPositionState) {
+          myMarker = state.myMarker;
+          context.read<MapBloc>().add(GetNearByToiletMarkersEvent());
+        }
+        if (state is StoppedToiletNavigationState) {
           _updateVisibleOfBottomNavigation(true);
           context.read<MapBloc>().add(GetNearByToiletMarkersEvent());
         }
@@ -143,14 +176,13 @@ class _MapPageState extends State<MapPage> {
         }
         // 선택 화장실 길 정보 불러오기 완료
         else if (state is LoadedToiletNavigationState) {
-          log.d(state);
           await _clear();
 
           // 마커 및 경로 그리기
-          Set<CustomOverlay> markers = {};
+          Set<CustomMarker> markers = {};
           markers.addAll({state.startMarker, state.endMarker});
           await _drawPolyline(state.polylines);
-          await _drawMarker(markers);
+          await _drawMarker(markers, showMyMarker: false);
           _moveToCenter(state.startMarker.latLng);
 
           _updateVisibleOfBottomNavigation(false);
@@ -178,13 +210,13 @@ class _MapPageState extends State<MapPage> {
               maxLevel: Zoom.city.index,
               center: Config.get.initialCenter,
               onMapTap: (LatLng loc) {},
+              markers: myMarker != null ? [myMarker!] : null,
               onMapCreated: ((controller) async {
                 _controller = controller;
                 context
                     .read<MapBloc>()
                     .add(MapCreateEvent(controller: controller));
               }),
-
               onCustomOverlayTap: (String customOverlayId, LatLng latLng) {
                 if (!isOpenDetailSheet &&
                     state is! LoadedToiletNavigationState) {
@@ -192,9 +224,12 @@ class _MapPageState extends State<MapPage> {
                       toiletId: int.parse(customOverlayId)));
                 }
               },
-              // onCenterChangeCallback: (LatLng latlng, int zoomLevel) {
-              //   // _changeCenterDebouncer.run(() => _changedCenter(latlng));
-              // },
+              onMarkerClustererTap: (LatLng latLng, int zoomLevel) {
+                log.d(latLng);
+              },
+              onCenterChangeCallback: (LatLng latlng, int zoomLevel) {
+                _changeCenterDebouncer.run(() => _changedCenter(latlng));
+              },
             ),
 
             ////////////////////////////////////
@@ -293,65 +328,65 @@ class _MapPageState extends State<MapPage> {
             ////////////////////////////////////
             ///  Search Modal
             ///////////////////////////////////
-            // if (isChangedCenter) ...{
-            //   Positioned(
-            //       left: Dimens.space100,
-            //       right: Dimens.space100,
-            //       bottom: Dimens.bottomBarHeight(context) + Dimens.space60,
-            //       child: InkWell(
-            //         splashColor: Colors.transparent,
-            //         onTap: () {
-            //           onMediumVibration();
-            //           setState(() {
-            //             isChangedCenter = false;
-            //           });
+            if (isChangedCenter) ...{
+              Positioned(
+                  left: Dimens.space100,
+                  right: Dimens.space100,
+                  bottom: Dimens.bottomBarHeight(context) + Dimens.space60,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      onMediumVibration();
+                      setState(() {
+                        isChangedCenter = false;
+                      });
 
-            //           context
-            //               .read<MapBloc>()
-            //               .add(GetNearByToiletMarkersEvent());
-            //         },
-            //         child: Container(
-            //           width: Dimens.space20,
-            //           height: Dimens.space40,
-            //           padding: EdgeInsets.all(Dimens.space8),
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(Dimens.space12),
-            //             border: Border.all(
-            //                 width: Dimens.space1,
-            //                 color: Palette.coolGrey02.withOpacity(0.7)),
-            //             color: Palette.coolGrey02.withOpacity(0.7),
-            //             boxShadow: [
-            //               BoxShadow(
-            //                 color: Palette.coolGrey12.withOpacity(0.2),
-            //                 blurRadius: 10,
-            //                 offset: const Offset(0, 4),
-            //               ),
-            //             ],
-            //           ),
-            //           child: Row(
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             children: [
-            //               SvgPicture.asset(
-            //                 Assets.refresh,
-            //                 width: Dimens.space16,
-            //                 height: Dimens.space16,
-            //                 colorFilter: const ColorFilter.mode(
-            //                   Palette.coolGrey08,
-            //                   BlendMode.srcIn,
-            //                 ),
-            //               ),
-            //               const AppSpacerH(),
-            //               AppText('현 지도에서 검색',
-            //                   align: TextAlign.center,
-            //                   style: Theme.of(context)
-            //                       .textTheme
-            //                       .bodySmall!
-            //                       .copyWith(color: Palette.coolGrey08)),
-            //             ],
-            //           ),
-            //         ),
-            //       )),
-            // },
+                      context
+                          .read<MapBloc>()
+                          .add(GetNearByToiletMarkersEvent());
+                    },
+                    child: Container(
+                      width: Dimens.space20,
+                      height: Dimens.space40,
+                      padding: EdgeInsets.all(Dimens.space8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimens.space12),
+                        border: Border.all(
+                            width: Dimens.space1,
+                            color: Palette.coolGrey02.withOpacity(0.7)),
+                        color: Palette.coolGrey02.withOpacity(0.7),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Palette.coolGrey12.withOpacity(0.2),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            Assets.refresh,
+                            width: Dimens.space16,
+                            height: Dimens.space16,
+                            colorFilter: const ColorFilter.mode(
+                              Palette.coolGrey08,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                          const AppSpacerH(),
+                          AppText('현 지도에서 검색',
+                              align: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(color: Palette.coolGrey08)),
+                        ],
+                      ),
+                    ),
+                  )),
+            },
 
             ////////////////////////////////////
             ///  Navigation

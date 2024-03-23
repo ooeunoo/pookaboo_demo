@@ -28,6 +28,7 @@ class Assets {
   // PNG
   static const String noImage = 'assets/images/no_image.png';
   static const String noImageSmall = 'assets/images/no_image_small.png';
+  static const String myMarker = 'assets/images/my_marker.png';
 
   // GIF
   static const String markerGif = 'assets/gif/marker.gif';
@@ -35,4 +36,7 @@ class Assets {
   // JSON
   static const String splash = 'assets/json/splash.json';
   static const String finish = 'assets/json/finish.json';
+
+  static const String myMarkerImage =
+      'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDY2RkYiIGZpbGwtb3BhY2l0eT0iMC4yIi8+CjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjE5LjUiIHN0cm9rZT0iIzAwNjZGRiIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI4IiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMTM5XzEzNDEpIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8xMzlfMTM0MSIgeDE9IjE2IiB5MT0iMTQiIHgyPSIyNC41IiB5Mj0iMjciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzAwNjZGRiIvPgo8c3RvcCBvZmZzZXQ9IjAuOTY4NzkyIiBzdG9wLWNvbG9yPSIjNDM4RkZGIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+Cg==';
 }
