@@ -30,9 +30,7 @@ class SecureStorage extends LocalStorage {
   ));
 
   @override
-  Future<void> initialize() async {
-    storage.deleteAll();
-  }
+  Future<void> initialize() async {}
 
   @override
   Future<String?> accessToken() async {

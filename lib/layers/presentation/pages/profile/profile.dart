@@ -52,9 +52,9 @@ class _ProfilePageState extends State<ProfilePage> {
     menu = [
       MenuItem(
           section: 1,
-          title: '신규 화장실 등록하기',
+          title: '공지사항',
           onTap: () {
-            context.push(AppRoutes.toilet_proposal.path, extra: extra);
+            context.push(AppRoutes.announcement.path, extra: extra);
           }),
       MenuItem(
           section: 2,
@@ -67,6 +67,12 @@ class _ProfilePageState extends State<ProfilePage> {
           title: '나의 리뷰',
           onTap: () {
             context.push(AppRoutes.reviews.path, extra: extra);
+          }),
+      MenuItem(
+          section: 2,
+          title: '신규 화장실 등록하기',
+          onTap: () {
+            context.push(AppRoutes.toilet_proposal.path, extra: extra);
           }),
       MenuItem(
           section: 3,

@@ -7,6 +7,7 @@ import 'package:pookaboo/layers/presentation/pages/app.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/announcement/announcement.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/edit_profile/edit_profile.dart';
 import 'package:pookaboo/layers/presentation/pages/profile/profile.dart';
 import 'package:pookaboo/layers/presentation/pages/splash/splash.dart';
@@ -31,6 +32,8 @@ enum AppRoutes {
 
   // visitation page
   visitation('/visitation'),
+  // Announcement page
+  announcement('/announcement'),
 
   // review page
   reviews("/reviews"),
@@ -89,6 +92,13 @@ class AppRoute {
             name: AppRoutes.profile.name,
             pageBuilder: (context, state) => const NoTransitionPage(
               child: ProfilePage(),
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.announcement.path,
+            name: AppRoutes.announcement.name,
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: AnnouncementPage(),
             ),
           ),
           GoRoute(
