@@ -1,29 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pookaboo/layers/data/models/review/review.dart';
 import 'package:pookaboo/layers/data/models/user/app_user.dart';
 import 'package:pookaboo/layers/domain/entities/user/update_user_params.dart';
-import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/utils/helper/time_helper.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:pookaboo/shared/widgets/app_review_card.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
-import 'package:pookaboo/shared/widgets/common/app_divider.dart';
-import 'package:pookaboo/shared/widgets/common/app_dropdown.dart';
 import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
-import 'package:pookaboo/shared/widgets/app_review_header.dart';
 import 'package:pookaboo/shared/widgets/common/app_text_input.dart';
-import 'package:pookaboo/shared/widgets/form/material/select_option_card.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});

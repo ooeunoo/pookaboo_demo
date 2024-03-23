@@ -156,8 +156,10 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
           .from(UserTable.user.name)
           .delete()
           .eq('id', userId);
+
       return const Right(true);
     } catch (e) {
+      log.e(e);
       return Left(ServerFailure(e.toString()));
     }
   }

@@ -10,7 +10,6 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/get_nearby_toilets_params.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:pookaboo/layers/domain/usecases/review/review_usecase.dart';
 import 'package:pookaboo/layers/domain/usecases/toilet/toilet_usecase.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/constant/config.dart';
@@ -117,6 +116,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Future<void> _onMoveToMyPositionEvent(
       MoveToMyPositionEvent event, Emitter<MapState> emit) async {
     try {
+      bool hasPermission = await _geolocatorService.hasPermission();
+      if (!hasPermission) {
+        emit(ErrorNavigationState());
+        return;
+      }
+
       final Position position = await _geolocatorService.getPosition();
       LatLng myPosition = LatLng(position.latitude, position.longitude);
       Marker myMarker = Marker(

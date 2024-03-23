@@ -32,18 +32,22 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late List<MenuItem> menu = [];
+  AppUser? user;
 
   @override
   void initState() {
     super.initState();
     UserState state = context.read<UserBloc>().state;
     if (state is AuthenticatedState) {
-      _generateMenu(state.user.id);
+      setState(() {
+        user = state.user;
+      });
+      _generateMenu(state.user);
     }
   }
 
-  void _generateMenu(String userId) {
-    ExtraParams extra = ExtraParams(userId: userId);
+  void _generateMenu(AppUser user) {
+    ExtraParams extra = ExtraParams(userId: user.id);
 
     menu = [
       MenuItem(
@@ -79,13 +83,14 @@ class _ProfilePageState extends State<ProfilePage> {
       MenuItem(
           section: 3,
           title: '회원 탈퇴',
+          titleColor: Palette.red02,
           onTap: () {
-            _confirmUpdate();
+            _confirmDelete();
           }),
     ];
   }
 
-  void _confirmUpdate() async {
+  void _confirmDelete() async {
     showDialog(
         context: context,
         builder: (context) {
@@ -103,6 +108,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       const AppSpacerV(),
                       AppText('탈퇴하시겠습니까?',
                           style: Theme.of(context).textTheme.bodyMedium!),
+                      AppSpacerV(value: Dimens.space20),
+                      AppText('삭제된 정보는 복구하실 수 없습니다.',
+                          style: Theme.of(context).textTheme.labelLarge!),
                       AppSpacerV(value: Dimens.space20),
                       Row(
                         children: [
@@ -123,6 +131,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Palette.red01,
                                 onPressed: () {
                                   context.back();
+                                  context
+                                      .read<UserBloc>()
+                                      .add(DeleteUserEvent(userId: user!.id));
                                 }),
                           )
                         ],
@@ -174,7 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 context.go(AppRoutes.map.path);
                 _showUpdateUserProfileSheet();
               }
-              _generateMenu(user.id);
+              _generateMenu(user);
             }
           },
           builder: (context, state) {
@@ -197,7 +208,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       return ListTile(
                         title: AppText(
                           item.title,
-                          style: Theme.of(context).textTheme.bodySmall!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color: item.titleColor ?? Palette.coolGrey01),
                         ),
                         onTap: item.onTap,
                       );

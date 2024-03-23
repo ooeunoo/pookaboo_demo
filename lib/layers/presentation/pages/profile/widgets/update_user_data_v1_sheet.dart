@@ -12,6 +12,7 @@ import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_dropdown.dart';
 import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
+import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 import 'package:pookaboo/shared/widgets/common/app_text_input.dart';
@@ -40,6 +41,7 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
 
   final _nicknameFocusNode = FocusNode();
   final _ageFocusNode = FocusNode();
+  final _genderFocusNode = FocusNode();
 
   late bool _isValidNickname = false;
   late bool _isValidAge = false;
@@ -61,6 +63,7 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
     _ageController.dispose();
     _ageFocusNode.dispose();
     _genderController.dispose();
+    _genderFocusNode.dispose();
     super.dispose();
   }
 
@@ -187,10 +190,6 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
   }
 
   Widget _stepGender() {
-    List<SelectOption> options = [
-      SelectOption(text: Gender.male.ko, value: Gender.male.ko),
-      SelectOption(text: Gender.female.ko, value: Gender.female.ko)
-    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -200,29 +199,70 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
         AppText("성별에 맞는 콘텐츠를 제공해드릴게요.",
             style: Theme.of(context).textTheme.labelLarge!),
         AppSpacerV(value: Dimens.space20),
-        ListView.separated(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: options.length,
-          itemBuilder: (BuildContext context, int index) {
-            return SelectOptionCard(
-              option: options[index],
-              selected: _genderController.text == options[index].value,
-              onSelected: (SelectOption option) async {
-                setState(() {
-                  _genderController.text = option.value;
-                });
-              },
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(
-              height: Dimens.space12,
-            );
-          },
+        Row(
+          children: [
+            Expanded(
+              child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.labelMedium!,
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimens.space12,
+                      horizontal: Dimens.space16,
+                    ),
+                    backgroundColor: _isSelected(Gender.male)
+                        ? Palette.coolGrey02
+                        : Palette.coolGrey12,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        Dimens.space12,
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _genderController.text = Gender.male.name;
+                    });
+                  },
+                  child: Text("남성",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: _isSelected(Gender.male)
+                              ? Palette.coolGrey12
+                              : Palette.coolGrey02))),
+            ),
+            AppSpacerH(
+              value: Dimens.space20,
+            ),
+            Expanded(
+              child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    textStyle: Theme.of(context).textTheme.labelMedium!,
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimens.space12,
+                      horizontal: Dimens.space16,
+                    ),
+                    backgroundColor: _isSelected(Gender.female)
+                        ? Palette.coolGrey02
+                        : Palette.coolGrey12,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        Dimens.space12,
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _genderController.text = Gender.female.name;
+                    });
+                  },
+                  child: Text("여성",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: _isSelected(Gender.female)
+                              ? Palette.coolGrey12
+                              : Palette.coolGrey02))),
+            ),
+          ],
         ),
-        const AppSpacerV(),
+        AppSpacerV(value: Dimens.space40),
         AppButton(
             title: '완료',
             disable: false,
@@ -231,5 +271,9 @@ class _UpdateUserDataV1SheetState extends State<UpdateUserDataV1Sheet> {
             }),
       ],
     );
+  }
+
+  bool _isSelected(Gender gender) {
+    return _genderController.text == gender.name;
   }
 }

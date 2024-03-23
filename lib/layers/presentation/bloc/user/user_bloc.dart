@@ -83,7 +83,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onDeleteUserEvent(
       DeleteUserEvent event, Emitter<UserState> emit) async {
     try {
-      await _deleteUserUseCase.call(event.userId);
+      await _deleteUserUseCase
+          .call(event.userId)
+          .whenComplete(() => _secureStorage.removePersistedSession());
       await _triggerBeforeUnAuthenticatedState(emit);
     } catch (e) {}
   }

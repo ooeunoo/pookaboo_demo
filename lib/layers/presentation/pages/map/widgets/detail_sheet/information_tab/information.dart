@@ -171,10 +171,12 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 ImageSwiper(
-                    toilet: toilet, images: _images, isOwner: user!.isOwner()),
+                    toilet: toilet,
+                    images: _images,
+                    isOwner: user == null ? false : user!.isOwner()),
                 const AppSpacerV(),
                 // 관리자라면 사진 올리기 버튼!
-                if (user!.isOwner()) ...{
+                if (user != null && user!.isOwner()) ...{
                   if (_uploadImages.isNotEmpty) ...{
                     Column(
                       children: [

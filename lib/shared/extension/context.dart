@@ -26,35 +26,10 @@ extension ContextExtensions on BuildContext {
   showSnackBar(SnackBar snackbar) =>
       ScaffoldMessenger.of(this).showSnackBar(snackbar);
 
-  Future<void> show() => showDialog(
-        context: this,
-        barrierDismissible: false,
-        builder: (c) {
-          ctx = c;
-
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: Material(
-              color: Colors.transparent,
-              child: Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color:
-                        Theme.of(this).extension<PookabooColors>()?.background,
-                    borderRadius: BorderRadius.circular(Dimens.space16),
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: Dimens.space30),
-                  padding: EdgeInsets.all(Dimens.space24),
-                  child: const AppLoading(),
-                ),
-              ),
-            ),
-          );
-        },
-      );
-
   void back() {
-    Navigator.of(this).pop();
+    if (Navigator.of(this).canPop()) {
+      Navigator.of(this).pop();
+    }
   }
 
   void dismiss() {
