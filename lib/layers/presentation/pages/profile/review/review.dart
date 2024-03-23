@@ -131,7 +131,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppReviewHeader(
-                          image: getMainImageUrl(review.toilet!.id),
+                          image: review.toilet!.image_url,
                           name: review.toilet!.name,
                           date: review.created_at),
                       AppSpacerV(value: Dimens.space20),

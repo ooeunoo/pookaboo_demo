@@ -179,7 +179,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       _streamPosition =
           _geolocatorService.getPositionStream().listen((position) async {
-        log.d(position);
         LatLng mpLoc = LatLng(position.latitude, position.longitude);
         LatLng tpLoc = LatLng(toilet.lat!, toilet.lng!);
 

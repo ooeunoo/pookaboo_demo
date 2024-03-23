@@ -119,7 +119,7 @@ class _VisitationPageState extends State<VisitationPage> {
                   child: Column(
                     children: [
                       AppReviewHeader(
-                        image: getMainImageUrl(visitation.toilet.id),
+                        image: visitation.toilet.image_url,
                         name: visitation.toilet.name,
                         date: visitation.created_at,
                         reviewed: visitation.reviewed,

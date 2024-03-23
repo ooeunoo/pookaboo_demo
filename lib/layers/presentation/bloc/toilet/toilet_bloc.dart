@@ -68,6 +68,7 @@ class ToiletBloc extends Bloc<ToiletEvent, ToiletState> {
   Future<void> _onUpdateToiletMainImageEvent(
       UpdateToiletMainImageEvent event, Emitter<ToiletState> emit) async {
     try {
+      emit(LoadingToiletImagesState());
       final response = await _updateToiletMainImageUseCase.call(event.params);
       response.fold((l) {
         log.e(l);

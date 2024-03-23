@@ -142,7 +142,7 @@ class _ReviewFormState extends State<ReviewForm> {
                 child: Column(
                   children: [
                     AppReviewHeader(
-                        image: getMainImageUrl(widget.visitation.toilet.id),
+                        image: widget.visitation.toilet.image_url,
                         name: widget.visitation.toilet.name,
                         date: widget.visitation.created_at),
                     const AppSpacerV(),

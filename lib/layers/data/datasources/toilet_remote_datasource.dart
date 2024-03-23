@@ -12,6 +12,7 @@ import 'package:pookaboo/layers/domain/entities/visitation/create_visitation_par
 import 'package:pookaboo/layers/domain/entities/toilet/get_nearby_toilets_params.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/service/supabase/supabase_service.dart';
+import 'package:pookaboo/shared/utils/helper/url_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -320,22 +321,27 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
       UpdateToiletMainImageParams params) async {
     try {
       String toiletId = params.toilet_id;
+
+      // 기존 메인 이미지가 있다면 일반 이미지로 변경
       if (params.has_main) {
         String prevMainPath = '$toiletId/main';
         String afterMainPath =
             '$toiletId/${DateTime.now().millisecondsSinceEpoch}';
-        log.d(prevMainPath);
         await _supabaseService.client.storage
             .from(ToiletStorage.image.name)
             .move(prevMainPath, afterMainPath);
       }
 
+      // 메인 이미지로 변경
       String newPath = '$toiletId/${params.file_name}';
       String mainPath = '$toiletId/main';
       await _supabaseService.client.storage.from(ToiletStorage.image.name).move(
             newPath,
             mainPath,
           );
+
+      await _supabaseService.client.from(ToiletTable.toilet.name).update(
+          {'image_url': getMainImageUrl(toiletId)}).match({'id': toiletId});
       return const Right(true);
     } catch (e) {
       log.e(e);

@@ -7,6 +7,7 @@ import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/extension/string.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class ImageSwiper extends StatefulWidget {
@@ -79,13 +80,25 @@ class _ImageSwiperState extends State<ImageSwiper> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: Dimens.bigImageW,
-          margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: _sortedImages.isEmpty
-              ? noImageContainer()
-              : imagesContainer(_sortedImages),
-        ),
+        BlocBuilder<ToiletBloc, ToiletState>(builder: (context, state) {
+          if (state is LoadingToiletImagesState) {
+            return SizedBox(
+                height: Dimens.bigImageW,
+                // margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                child: const Center(
+                    child: CircularProgressIndicator(
+                  color: Palette.lemon01,
+                )));
+          } else {
+            return Container(
+              height: Dimens.bigImageW,
+              margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: _sortedImages.isEmpty
+                  ? noImageContainer()
+                  : imagesContainer(_sortedImages),
+            );
+          }
+        })
       ],
     );
   }

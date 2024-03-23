@@ -10,14 +10,14 @@ import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class AppReviewHeader extends StatefulWidget {
-  final String image;
+  final String? image;
   final String name;
   final DateTime date;
   final bool? reviewed;
 
   const AppReviewHeader(
       {super.key,
-      required this.image,
+      this.image,
       required this.name,
       required this.date,
       this.reviewed});
@@ -38,20 +38,19 @@ class _AppReviewHeaderState extends State<AppReviewHeader> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(6.67),
-              child: Image.network(
-                widget.image,
-                width: Dimens.imageW,
-                height: Dimens.imageW,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    Assets.noImageSmall,
-                    width: Dimens.imageW,
-                    height: Dimens.imageW,
-                    fit: BoxFit.cover,
-                  );
-                },
-              ),
+              child: widget.image != null
+                  ? Image.network(
+                      widget.image!,
+                      width: Dimens.imageW,
+                      height: Dimens.imageW,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      Assets.noImageSmall,
+                      width: Dimens.imageW,
+                      height: Dimens.imageW,
+                      fit: BoxFit.cover,
+                    ),
             ),
             AppSpacerH(
               value: Dimens.space12,

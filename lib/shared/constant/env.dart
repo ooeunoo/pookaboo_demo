@@ -13,4 +13,6 @@ class Env {
   String supaBaseAnonKey = const String.fromEnvironment('SUPA_BASE_ANON_KEY');
   String supaBaseDataBasePassword =
       const String.fromEnvironment('SUPA_BASE_DATA_BASE_PASSWORD');
+
+  String sentryDsn = const String.fromEnvironment('SENTRY_SDN');
 }
