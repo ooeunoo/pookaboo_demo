@@ -93,16 +93,6 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsDatasource(
       GetNearByToiletsParams params) async {
     try {
-      final String publicUrl = _supabaseService.client.storage
-          .from('toilet_review_images')
-          .getPublicUrl(
-            '2961/1.png',
-            transform: const TransformOptions(
-              width: 200,
-              height: 200,
-            ),
-          );
-      log.d(publicUrl);
       final List<Map<String, dynamic>> data = await _supabaseService.client
           .rpc(ToiletFunction.get_nearby_toilets.name, params: {
         'min_lat': params.bounds.sw.latitude,

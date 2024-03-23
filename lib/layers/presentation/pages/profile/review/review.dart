@@ -7,6 +7,7 @@ import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/utils/helper/url_helper.dart';
 import 'package:pookaboo/shared/widgets/app_review_card.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
@@ -130,7 +131,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppReviewHeader(
-                          image: null,
+                          image: getMainImageUrl(review.toilet!.id),
                           name: review.toilet!.name,
                           date: review.created_at),
                       AppSpacerV(value: Dimens.space20),

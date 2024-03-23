@@ -8,6 +8,7 @@ import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/time_helper.dart';
+import 'package:pookaboo/shared/utils/helper/url_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
@@ -118,7 +119,7 @@ class _VisitationPageState extends State<VisitationPage> {
                   child: Column(
                     children: [
                       AppReviewHeader(
-                        image: null,
+                        image: getMainImageUrl(visitation.toilet.id),
                         name: visitation.toilet.name,
                         date: visitation.created_at,
                         reviewed: visitation.reviewed,

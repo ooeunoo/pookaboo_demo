@@ -12,6 +12,7 @@ import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/utils/helper/url_helper.dart';
 import 'package:pookaboo/shared/widgets/app_rating_card.dart';
 import 'package:pookaboo/shared/widgets/app_star_point.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
@@ -141,7 +142,7 @@ class _ReviewFormState extends State<ReviewForm> {
                 child: Column(
                   children: [
                     AppReviewHeader(
-                        image: null,
+                        image: getMainImageUrl(widget.visitation.toilet.id),
                         name: widget.visitation.toilet.name,
                         date: widget.visitation.created_at),
                     const AppSpacerV(),
