@@ -30,6 +30,19 @@ class GetToiletImagesEvent extends ToiletEvent {
 }
 
 /////////////////////////////////
+/// Update Toilet Main Image Event
+////////////////////////////////
+class UpdateToiletMainImageEvent extends ToiletEvent {
+  final UpdateToiletMainImageParams params;
+
+  @override
+  UpdateToiletMainImageEvent({required this.params});
+
+  @override
+  List<Object> get props => [params];
+}
+
+/////////////////////////////////
 /// Create Proposal Event
 ////////////////////////////////
 class CreateToiletProposalEvent extends ToiletEvent {

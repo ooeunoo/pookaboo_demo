@@ -12,13 +12,25 @@ extension StringExtension on String {
     ).hasMatch(this);
   }
 
+  // 파일 확장자 제거
+  String extractFileNameWithoutExtension() {
+    String fileNameWithExtension = split('/').last;
+    String fileNameWithoutExtension = fileNameWithExtension.split('.').first;
+    return fileNameWithoutExtension;
+  }
+
+  String extractValueFromUrl() {
+    List<String> parts = split('?');
+    String value = parts.first.split('/').last;
+    return value;
+  }
+
   void toToastError(BuildContext context) {
     try {
       final message = isEmpty ? "error" : this;
 
       //dismiss before show toast
       dismissAllToast(showAnim: true);
-
       showToastWidget(
         AppToast(
           bgColor: Palette.redLatte,

@@ -15,4 +15,7 @@ class Config {
   String routeIds = '11277825,434235';
   // 위치 업데이트 거리 (미터 단위)
   int positionStreamDistanceFilter = 50;
+
+  String mainImageUrl =
+      'https://orlbgeqydvmfkynxbsjj.supabase.co/storage/v1/object/public/toilet_main_images/2961.jpg';
 }

@@ -20,6 +20,7 @@ _$ToiletImpl _$$ToiletImplFromJson(Map<String, dynamic> json) => _$ToiletImpl(
       road_address: json['road_address'] as String,
       location_tip: json['location_tip'] as String,
       city: json['city'] as String,
+      image_url: json['image_url'] as String?,
       lat: (json['lat'] as num?)?.toDouble(),
       lng: (json['lng'] as num?)?.toDouble(),
       convenience: json['convenience'] == null
@@ -51,6 +52,7 @@ Map<String, dynamic> _$$ToiletImplToJson(_$ToiletImpl instance) =>
       'road_address': instance.road_address,
       'location_tip': instance.location_tip,
       'city': instance.city,
+      'image_url': instance.image_url,
       'lat': instance.lat,
       'lng': instance.lng,
       'convenience': instance.convenience,

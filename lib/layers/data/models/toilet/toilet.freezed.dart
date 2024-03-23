@@ -33,6 +33,7 @@ mixin _$Toilet {
   String get road_address => throw _privateConstructorUsedError;
   String get location_tip => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
+  String? get image_url => throw _privateConstructorUsedError;
   double? get lat => throw _privateConstructorUsedError;
   double? get lng => throw _privateConstructorUsedError;
   Convenience? get convenience => throw _privateConstructorUsedError;
@@ -64,6 +65,7 @@ abstract class $ToiletCopyWith<$Res> {
       String road_address,
       String location_tip,
       String city,
+      String? image_url,
       double? lat,
       double? lng,
       Convenience? convenience,
@@ -103,6 +105,7 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
     Object? road_address = null,
     Object? location_tip = null,
     Object? city = null,
+    Object? image_url = freezed,
     Object? lat = freezed,
     Object? lng = freezed,
     Object? convenience = freezed,
@@ -163,6 +166,10 @@ class _$ToiletCopyWithImpl<$Res, $Val extends Toilet>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
+      image_url: freezed == image_url
+          ? _value.image_url
+          : image_url // ignore: cast_nullable_to_non_nullable
+              as String?,
       lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
@@ -260,6 +267,7 @@ abstract class _$$ToiletImplCopyWith<$Res> implements $ToiletCopyWith<$Res> {
       String road_address,
       String location_tip,
       String city,
+      String? image_url,
       double? lat,
       double? lng,
       Convenience? convenience,
@@ -301,6 +309,7 @@ class __$$ToiletImplCopyWithImpl<$Res>
     Object? road_address = null,
     Object? location_tip = null,
     Object? city = null,
+    Object? image_url = freezed,
     Object? lat = freezed,
     Object? lng = freezed,
     Object? convenience = freezed,
@@ -361,6 +370,10 @@ class __$$ToiletImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
+      image_url: freezed == image_url
+          ? _value.image_url
+          : image_url // ignore: cast_nullable_to_non_nullable
+              as String?,
       lat: freezed == lat
           ? _value.lat
           : lat // ignore: cast_nullable_to_non_nullable
@@ -406,6 +419,7 @@ class _$ToiletImpl implements _Toilet {
       required this.road_address,
       required this.location_tip,
       required this.city,
+      this.image_url,
       this.lat,
       this.lng,
       this.convenience,
@@ -445,6 +459,8 @@ class _$ToiletImpl implements _Toilet {
   @override
   final String city;
   @override
+  final String? image_url;
+  @override
   final double? lat;
   @override
   final double? lng;
@@ -459,7 +475,7 @@ class _$ToiletImpl implements _Toilet {
 
   @override
   String toString() {
-    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, total_reviews: $total_reviews, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, rating: $rating, time: $time)';
+    return 'Toilet(id: $id, name: $name, type: $type, visible: $visible, gender: $gender, password: $password, password_tip: $password_tip, total_reviews: $total_reviews, location_type: $location_type, address: $address, road_address: $road_address, location_tip: $location_tip, city: $city, image_url: $image_url, lat: $lat, lng: $lng, convenience: $convenience, equipment: $equipment, rating: $rating, time: $time)';
   }
 
   @override
@@ -486,6 +502,8 @@ class _$ToiletImpl implements _Toilet {
             (identical(other.location_tip, location_tip) ||
                 other.location_tip == location_tip) &&
             (identical(other.city, city) || other.city == city) &&
+            (identical(other.image_url, image_url) ||
+                other.image_url == image_url) &&
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.lng, lng) || other.lng == lng) &&
             (identical(other.convenience, convenience) ||
@@ -513,6 +531,7 @@ class _$ToiletImpl implements _Toilet {
         road_address,
         location_tip,
         city,
+        image_url,
         lat,
         lng,
         convenience,
@@ -550,6 +569,7 @@ abstract class _Toilet implements Toilet {
       required final String road_address,
       required final String location_tip,
       required final String city,
+      final String? image_url,
       final double? lat,
       final double? lng,
       final Convenience? convenience,
@@ -585,6 +605,8 @@ abstract class _Toilet implements Toilet {
   String get location_tip;
   @override
   String get city;
+  @override
+  String? get image_url;
   @override
   double? get lat;
   @override

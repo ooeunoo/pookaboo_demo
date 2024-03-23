@@ -44,6 +44,14 @@ class SuccessUploadToiletImagesState extends ToiletState {
 }
 
 /////////////////////////////////
+///
+////////////////////////////////
+class SuccessUpdateToiletMainImageState extends ToiletState {
+  @override
+  List<Object> get props => [];
+}
+
+/////////////////////////////////
 /// Error
 ////////////////////////////////
 class ErrorState extends ToiletState {

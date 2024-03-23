@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:pookaboo/layers/domain/entities/toilet/update_toilet_main_image_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/upload_toilet_images_params.dart';
 import 'package:pookaboo/layers/domain/usecases/toilet/toilet_usecase.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
@@ -19,15 +20,17 @@ class ToiletBloc extends Bloc<ToiletEvent, ToiletState> {
   final CreateToiletProposalUseCase _createToiletProposalUseCase;
   final UploadToiletImagesUseCase _uploadToiletImagesUseCase;
   final GetToiletImagesUseCase _getToiletImagesUseCase;
+  final UpdateToiletMainImageUseCase _updateToiletMainImageUseCase;
 
   /////////////////////////////////
   /// Event Mapping
   ////////////////////////////////
   ToiletBloc(this._createToiletProposalUseCase, this._uploadToiletImagesUseCase,
-      this._getToiletImagesUseCase)
+      this._getToiletImagesUseCase, this._updateToiletMainImageUseCase)
       : super(InitialState()) {
     on<CreateToiletProposalEvent>(_onCreateToiletProposalEvent);
     on<UploadToiletImagesEvent>(_onUploadToiletImagesEvent);
+    on<UpdateToiletMainImageEvent>(_onUpdateToiletMainImageEvent);
     on<GetToiletImagesEvent>(_onGetToiletImagesEvent);
   }
 
@@ -58,6 +61,18 @@ class ToiletBloc extends Bloc<ToiletEvent, ToiletState> {
         log.e(l);
       }, (r) {
         emit(SuccessUploadToiletImagesState());
+      });
+    } catch (e) {}
+  }
+
+  Future<void> _onUpdateToiletMainImageEvent(
+      UpdateToiletMainImageEvent event, Emitter<ToiletState> emit) async {
+    try {
+      final response = await _updateToiletMainImageUseCase.call(event.params);
+      response.fold((l) {
+        log.e(l);
+      }, (r) {
+        emit(SuccessUpdateToiletMainImageState());
       });
     } catch (e) {}
   }

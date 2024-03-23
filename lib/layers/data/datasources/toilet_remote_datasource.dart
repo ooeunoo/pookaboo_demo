@@ -6,6 +6,7 @@ import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/data/models/visitation/visitation.dart';
 import 'package:pookaboo/layers/domain/entities/review/create_review_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
+import 'package:pookaboo/layers/domain/entities/toilet/update_toilet_main_image_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/upload_toilet_images_params.dart';
 import 'package:pookaboo/layers/domain/entities/visitation/create_visitation_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/get_nearby_toilets_params.dart';
@@ -78,6 +79,9 @@ abstract class ToiletRemoteDatasource {
       UploadToiletImagesParams params);
 
   Future<Either<Failure, List<String>>> getToiletImagesDatasource(int toiletId);
+
+  Future<Either<Failure, bool>> updateToiletMainImageDatasource(
+      UpdateToiletMainImageParams params);
 }
 
 class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
@@ -89,6 +93,16 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsDatasource(
       GetNearByToiletsParams params) async {
     try {
+      final String publicUrl = _supabaseService.client.storage
+          .from('toilet_review_images')
+          .getPublicUrl(
+            '2961/1.png',
+            transform: const TransformOptions(
+              width: 200,
+              height: 200,
+            ),
+          );
+      log.d(publicUrl);
       final List<Map<String, dynamic>> data = await _supabaseService.client
           .rpc(ToiletFunction.get_nearby_toilets.name, params: {
         'min_lat': params.bounds.sw.latitude,
@@ -304,6 +318,34 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
                   const FileOptions(cacheControl: '3600', upsert: false),
             );
       }
+      return const Right(true);
+    } catch (e) {
+      log.e(e);
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateToiletMainImageDatasource(
+      UpdateToiletMainImageParams params) async {
+    try {
+      String toiletId = params.toilet_id;
+      if (params.has_main) {
+        String prevMainPath = '$toiletId/main';
+        String afterMainPath =
+            '$toiletId/${DateTime.now().millisecondsSinceEpoch}';
+        log.d(prevMainPath);
+        await _supabaseService.client.storage
+            .from(ToiletStorage.image.name)
+            .move(prevMainPath, afterMainPath);
+      }
+
+      String newPath = '$toiletId/${params.file_name}';
+      String mainPath = '$toiletId/main';
+      await _supabaseService.client.storage.from(ToiletStorage.image.name).move(
+            newPath,
+            mainPath,
+          );
       return const Right(true);
     } catch (e) {
       log.e(e);

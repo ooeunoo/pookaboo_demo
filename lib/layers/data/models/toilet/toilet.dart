@@ -21,6 +21,7 @@ class Toilet with _$Toilet {
     required String road_address,
     required String location_tip,
     required String city,
+    String? image_url,
     double? lat,
     double? lng,
     Convenience? convenience,

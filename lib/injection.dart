@@ -104,6 +104,8 @@ Future<void> _useCase() async {
       () => UploadToiletImagesUseCase(sl()));
   sl.registerLazySingleton<GetToiletImagesUseCase>(
       () => GetToiletImagesUseCase(sl()));
+  sl.registerLazySingleton<UpdateToiletMainImageUseCase>(
+      () => UpdateToiletMainImageUseCase(sl()));
 }
 
 Future<void> _bloc() async {
@@ -112,7 +114,7 @@ Future<void> _bloc() async {
   sl.registerFactory(() => ReviewBloc(sl(), sl(), sl(), sl()));
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));
   sl.registerFactory(() => ProfileBloc());
-  sl.registerFactory(() => ToiletBloc(sl(), sl(), sl()));
+  sl.registerFactory(() => ToiletBloc(sl(), sl(), sl(), sl()));
 }
 
 Future<void> _cubit() async {

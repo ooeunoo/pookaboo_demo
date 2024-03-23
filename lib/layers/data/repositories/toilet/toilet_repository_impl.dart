@@ -5,10 +5,10 @@ import 'package:pookaboo/layers/data/models/route/route.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/get_nearby_toilets_params.dart';
+import 'package:pookaboo/layers/domain/entities/toilet/update_toilet_main_image_params.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/upload_toilet_images_params.dart';
 import 'package:pookaboo/layers/domain/repositories/toilet/toilet_repository.dart';
 import 'package:pookaboo/shared/error/failure.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ToiletRepositoryImpl implements ToiletRepository {
   final ToiletRemoteDatasource toiletRemoteDatasource;
@@ -53,6 +53,14 @@ class ToiletRepositoryImpl implements ToiletRepository {
       int toiletId) async {
     final response =
         await toiletRemoteDatasource.getToiletImagesDatasource(toiletId);
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateToiletMainImageImpl(
+      UpdateToiletMainImageParams params) async {
+    final response =
+        await toiletRemoteDatasource.updateToiletMainImageDatasource(params);
     return response;
   }
 }

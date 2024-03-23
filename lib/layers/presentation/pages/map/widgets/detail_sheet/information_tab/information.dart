@@ -157,7 +157,8 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
           ////// Image Swipe
           /////////////////////////////////////////////////////////////////////////////////
           BlocConsumer<ToiletBloc, ToiletState>(listener: (context, state) {
-            if (state is SuccessUploadToiletImagesState) {
+            if (state is SuccessUploadToiletImagesState ||
+                state is SuccessUpdateToiletMainImageState) {
               _fetchImages();
             }
             if (state is LoadedToiletImagesState) {
@@ -170,8 +171,7 @@ class _DetailSheetInformationState extends State<DetailSheetInformation> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 ImageSwiper(
-                  images: _images,
-                ),
+                    toilet: toilet, images: _images, isOwner: user!.isOwner()),
                 const AppSpacerV(),
                 // 관리자라면 사진 올리기 버튼!
                 if (user!.isOwner()) ...{

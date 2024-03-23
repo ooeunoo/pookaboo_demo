@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pookaboo/injection.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/data/models/visitation/visitation.dart';
 import 'package:pookaboo/layers/domain/entities/review/create_review_params.dart';
@@ -11,10 +10,8 @@ import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dar
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
-import 'package:pookaboo/shared/service/storage/secure_storage.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/app_rating_card.dart';
 import 'package:pookaboo/shared/widgets/app_star_point.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
@@ -42,6 +39,7 @@ class _ReviewFormState extends State<ReviewForm> {
   bool _disable = true;
   Rating _ratingController =
       Rating(cleanliness: 0, safety: 0, convenience: 0, management: 0);
+  final List<XFile> _uploadImages = [];
 
   @override
   void initState() {
@@ -164,11 +162,22 @@ class _ReviewFormState extends State<ReviewForm> {
               /////////////////////////////////
               ///  COMMENT & BUTTON
               /////////////////////////////////
-              ///   SizedBox(
-              // height: _commentFocusNode.hasFocus
-              //     ? EdgeInsets.only(
-              //         bottom: MediaQuery.of(context).viewInsets.bottom)
-              //     : const EdgeInsets.only(bottom: 0))
+              Padding(
+                padding: EdgeInsets.only(
+                  right: Dimens.space20,
+                  left: Dimens.space20,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText("사진",
+                        style: Theme.of(context).textTheme.bodyMedium!),
+                    _uploadImageForm(),
+                    AppSpacerV(value: Dimens.space30),
+                    AppSpacerV(value: Dimens.space30),
+                  ],
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.only(
                   right: Dimens.space20,
@@ -191,6 +200,10 @@ class _ReviewFormState extends State<ReviewForm> {
             ],
           ));
     });
+  }
+
+  Widget _uploadImageForm() {
+    return Container();
   }
 
   Widget _commentTextInputForm(

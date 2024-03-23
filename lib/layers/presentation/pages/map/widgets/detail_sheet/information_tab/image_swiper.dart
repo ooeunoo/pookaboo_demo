@@ -1,20 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
+import 'package:pookaboo/layers/domain/entities/toilet/update_toilet_main_image_params.dart';
+import 'package:pookaboo/layers/presentation/bloc/toilet/toilet_bloc.dart';
 import 'package:pookaboo/shared/constant/assets.dart';
 import 'package:pookaboo/shared/extension/context.dart';
+import 'package:pookaboo/shared/extension/string.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class ImageSwiper extends StatefulWidget {
+  final Toilet toilet;
   final List<String> images;
   final bool isOwner;
 
-  const ImageSwiper({super.key, required this.images, this.isOwner = false});
+  const ImageSwiper({
+    super.key,
+    required this.images,
+    required this.toilet,
+    this.isOwner = false,
+  });
 
   @override
   State<ImageSwiper> createState() => _ImageSwiperState();
 }
 
 class _ImageSwiperState extends State<ImageSwiper> {
+  Toilet get toilet => widget.toilet;
+  List<String> get images => widget.images;
   bool get isOwner => widget.isOwner;
+
+  String? _mainUrl;
+  List<String> _sortedImages = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _sortingUrl();
+  }
+
+  void _sortingUrl() {
+    List<String> urls = List.from(images);
+
+    for (String img in urls) {
+      if (img.extractValueFromUrl() == 'main') {
+        setState(() {
+          _mainUrl = img;
+        });
+        break;
+      }
+    }
+
+    if (_mainUrl != null && urls.isNotEmpty) {
+      urls.remove(_mainUrl);
+      urls.insert(0, _mainUrl!);
+    }
+    setState(() {
+      _sortedImages = urls;
+    });
+  }
+
+  void onUpdateMainImage(String url) {
+    context.read<ToiletBloc>().add(UpdateToiletMainImageEvent(
+            params: UpdateToiletMainImageParams(
+          has_main: _mainUrl != null,
+          toilet_id: toilet.id.toString(),
+          file_name: url.extractValueFromUrl(),
+        )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +82,21 @@ class _ImageSwiperState extends State<ImageSwiper> {
         Container(
           height: Dimens.bigImageW,
           margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: widget.images.isEmpty
-              ? _noImageContainer()
-              : _imagesContainer(widget.images),
+          child: _sortedImages.isEmpty
+              ? noImageContainer()
+              : imagesContainer(_sortedImages),
         ),
       ],
     );
   }
 
-  Widget _imagesContainer(List<String> images) {
+  Widget imagesContainer(List<String> images) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: images.isEmpty ? 1 : images.length,
       itemBuilder: (context, index) {
+        bool isMain = images[index].extractValueFromUrl() == 'main';
+
         return Stack(
           children: [
             Container(
@@ -56,17 +116,11 @@ class _ImageSwiperState extends State<ImageSwiper> {
                 left: Dimens.space10,
                 child: GestureDetector(
                   onTap: () {
-                    // _removeUploadImages(index);
+                    onUpdateMainImage(images[index]);
                   },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.red,
-                    ),
-                    child: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
+                  child: Icon(
+                    Icons.star,
+                    color: isMain ? Colors.yellow : Colors.white,
                   ),
                 ),
               ),
@@ -77,7 +131,7 @@ class _ImageSwiperState extends State<ImageSwiper> {
     );
   }
 
-  Widget _noImageContainer() {
+  Widget noImageContainer() {
     return Container(
         height: Dimens.bigImageW,
         margin: const EdgeInsets.only(left: 20.0, right: 20.0),
