@@ -251,7 +251,6 @@ class _SurveyFlowState extends State<ToiletProposal> {
         return params;
     }
 
-    log.d(params.urinal);
     return params;
   }
 }

@@ -117,7 +117,6 @@ class _DetailSheetPropertyState extends State<DetailSheetProperty> {
 
     bool isCurrentOpen = isCurrentlyOpen(currentTime, openTime, closeTime);
 
-    log.d('$openTime, $closeTime');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -85,3 +85,12 @@ void NotifyReviewWritedSnackBar(BuildContext context) {
       AppText('화장실 리뷰를 등록했어요!',
           style: Theme.of(context).textTheme.bodySmall!)));
 }
+
+// [설정]에서 위치 접근을 허용해주세요!
+void NotifyLocationPermissionSnackBar(BuildContext context) {
+  context.showSnackBar(AppSnackBar(
+      context,
+      height: Dimens.space12,
+      AppText("[설정]에서 위치 접근을 허용해주세요!",
+          style: Theme.of(context).textTheme.bodySmall!)));
+}

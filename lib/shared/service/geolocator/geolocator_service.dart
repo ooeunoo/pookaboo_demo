@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geolocator_apple/geolocator_apple.dart';
-import 'package:geolocator_android/geolocator_android.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
+import 'package:pookaboo/shared/constant/config.dart';
 
 ///[gradle.properties]
 /******************************** 
@@ -30,23 +27,16 @@ android {
 *******************************/
 
 ///[Info.plist]
-/******************************* 
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>This app needs access to location when open.</string>
-
-<key>NSLocationTemporaryUsageDescriptionDictionary</key>
-<dict>
-  <key>YourPurposeKey</key>
-  <string>The example App requires temporary access to the device&apos;s precise location.</string>
-</dict>
-*******************************/
+////////////////////////////////////////////////
+///<key>NSLocationWhenInUseUsageDescription</key>
+///<string>This app needs access to location when open.</string>
+///<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+///<dict>
+///  <key>YourPurposeKey</key>
+///  <string>The example App requires temporary access to the device&apos;s precise location.</string>
+///</dict>
 
 class GeolocatorService {
-  final distanceFilter = 100;
-  final intervalDuration = 10;
-  late LocationSettings locationSettings;
-  late StreamSubscription<Position> positionStream;
-
   Future<Position> getPosition() async {
     bool permission = await hasPermission();
 
@@ -56,6 +46,14 @@ class GeolocatorService {
 
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+  }
+
+  Stream<Position> getPositionStream() {
+    return Geolocator.getPositionStream(
+        locationSettings: LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: Config.get.positionStreamDistanceFilter, // 미터
+    ));
   }
 
   Future<bool> hasPermission() async {

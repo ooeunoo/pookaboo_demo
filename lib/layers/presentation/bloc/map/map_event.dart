@@ -92,6 +92,24 @@ class StartNavigationEvent extends MapEvent {
   List<Object> get props => [toilet];
 }
 
+class LoadNavigationEvent extends MapEvent {
+  final Toilet toilet;
+  final CustomOverlay startMarker;
+  final CustomOverlay endMarker;
+  final Set<Polyline> polylines;
+  final int time;
+
+  LoadNavigationEvent(
+      {required this.toilet,
+      required this.startMarker,
+      required this.endMarker,
+      required this.polylines,
+      required this.time});
+
+  @override
+  List<Object> get props => [toilet, startMarker, endMarker, polylines, time];
+}
+
 /////////////////////////////////
 /// Stop Navigation
 /// 화장실 길찾기 종료

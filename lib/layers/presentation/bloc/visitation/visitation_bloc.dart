@@ -46,7 +46,6 @@ class VisitataionBloc extends Bloc<VisitationEvent, VisitationState> {
       response.fold((l) {
         log.e(l);
       }, (r) {
-        log.d(r);
         // emit(LoadedToiletVisitationsByUserIdState(visitations: r));
       });
     } catch (e) {}

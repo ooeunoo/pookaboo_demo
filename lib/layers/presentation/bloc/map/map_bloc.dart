@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kakao_map_plugin/kakao_map_plugin.dart';
@@ -9,6 +11,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pookaboo/layers/domain/usecases/review/review_usecase.dart';
 import 'package:pookaboo/layers/domain/usecases/toilet/toilet_usecase.dart';
+import 'package:pookaboo/shared/constant/config.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
@@ -39,10 +42,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       : super(InitialState()) {
     on<MapCreateEvent>(_onMapCreateEvent);
     on<GetNearByToiletMarkersEvent>(_onGetNearByToiletMarkersEvent);
-    on<ClickToClusterEvent>(_onClickToClusterEvent);
+    // on<ClickToClusterEvent>(_onClickToClusterEvent);
     on<MoveToMyPositionEvent>(_onMoveToMyPositionEvent);
     on<SelecteToiletMarkerEvent>(_onSelecteToiletMarkerEvent);
     on<StartNavigationEvent>(_onStartNavigationEvent);
+    on<LoadNavigationEvent>(_onLoadNavigationEvent);
     on<StopNavigationEvent>(_onStopNavigationEvent);
     on<UpdateToiletFilterEvent>(_onUpdateToiletFilterEvent);
   }
@@ -51,9 +55,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   /// Property
   ////////////////////////////////
   late KakaoMapController _mapController;
-  late final List<ToiletFilter> _filters = [];
-  late Set<CustomOverlay> _markers = {};
-  late Set<Polyline> _polylines = {};
+  final List<ToiletFilter> _filters = [];
+
+  StreamSubscription<Position>? _streamPosition;
+
+  @override
+  Future<void> close() {
+    _streamPosition?.cancel();
+    return super.close();
+  }
 
   /////////////////////////////////
   Future<void> _onMapCreateEvent(
@@ -84,8 +94,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           genderFilter: _hasFillter(ToiletFilter.gender));
 
       final response = await _getNearByToiletsUseCase.call(params);
+      Set<CustomOverlay> markers = {};
       response.fold((left) {}, (right) async {
-        _markers = right.map<CustomOverlay>((toilet) {
+        markers = right.map<CustomOverlay>((toilet) {
           return CustomOverlay(
               isClickable: true,
               customOverlayId: toilet.id.toString(),
@@ -93,7 +104,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               content: getDefaultMarkerInnerText(toilet.type, toilet.rating!));
         }).toSet();
 
-        emit(LoadedNearByToiletMarkersState(markers: _markers));
+        emit(LoadedNearByToiletMarkersState(markers: markers));
       });
     } catch (e) {
       log.e(e);
@@ -115,21 +126,21 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   ////////////////////////////////
-  Future<void> _onClickToClusterEvent(
-      ClickToClusterEvent event, Emitter<MapState> emit) async {
-    try {
-      int zoomLevel = event.zoomLevel;
-      LatLng loc = event.loc;
-      LatLng position = LatLng(loc.latitude, loc.longitude);
-      await _mapController.panTo(position);
-      if (zoomLevel > 1) {
-        await _mapController.setLevel(zoomLevel - 1);
-      }
-      emit(ZoomToClusterState(markers: _markers));
-    } catch (e) {
-      log.e(e);
-    }
-  }
+  // Future<void> _onClickToClusterEvent(
+  //     ClickToClusterEvent event, Emitter<MapState> emit) async {
+  //   try {
+  //     int zoomLevel = event.zoomLevel;
+  //     LatLng loc = event.loc;
+  //     LatLng position = LatLng(loc.latitude, loc.longitude);
+  //     await _mapController.panTo(position);
+  //     if (zoomLevel > 1) {
+  //       await _mapController.setLevel(zoomLevel - 1);
+  //     }
+  //     emit(ZoomToClusterState(markers: _markers));
+  //   } catch (e) {
+  //     log.e(e);
+  //   }
+  // }
 
   /////////////////////////////////
   Future<void> _onSelecteToiletMarkerEvent(
@@ -149,71 +160,92 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   }
 
   /////////////////////////////////
-  Future<void> _onStartNavigationEvent(
+  FutureOr<void> _onStartNavigationEvent(
       StartNavigationEvent event, Emitter<MapState> emit) async {
     emit(SearchingToiletNavigationState());
     Toilet toilet = event.toilet;
     try {
-      final Position position = await _geolocatorService.getPosition();
-      LatLng mpLoc = LatLng(position.latitude, position.longitude);
-      LatLng tpLoc = LatLng(toilet.lat!, toilet.lng!);
+      bool hasPermission = await _geolocatorService.hasPermission();
+      if (!hasPermission) {
+        emit(ErrorNavigationState());
+        return;
+      }
 
-      Document mp = coordconvWGS84ToWCONGNAMUL(
-        mpLoc.longitude,
-        mpLoc.latitude,
-      );
-      Document tp = coordconvWGS84ToWCONGNAMUL(tpLoc.longitude, tpLoc.latitude);
+      _streamPosition =
+          _geolocatorService.getPositionStream().listen((position) async {
+        log.d(position);
+        LatLng mpLoc = LatLng(position.latitude, position.longitude);
+        LatLng tpLoc = LatLng(toilet.lat!, toilet.lng!);
 
-      GetRouteParams params = GetRouteParams(
-          sName: '나의 위치',
-          sX: mp.x,
-          sY: mp.y,
-          eName: toilet.name,
-          eX: tp.x,
-          eY: tp.y,
-          ids: '11277825,434235');
+        Document mp = coordconvWGS84ToWCONGNAMUL(
+          mpLoc.longitude,
+          mpLoc.latitude,
+        );
+        Document tp =
+            coordconvWGS84ToWCONGNAMUL(tpLoc.longitude, tpLoc.latitude);
 
-      final response = await _getRoutesUseCase.call(params);
+        GetRouteParams params = GetRouteParams(
+            sName: '나의 위치',
+            sX: mp.x,
+            sY: mp.y,
+            eName: toilet.name,
+            eX: tp.x,
+            eY: tp.y,
+            ids: Config.get.routeIds);
 
-      await response.fold((l) {
-        log.e(l);
-      }, (r) async {
-        _polylines = {
-          Polyline(
-              polylineId: 'polyline',
-              points: r.points.map((route) {
-                return LatLng(route.y, route.x);
-              }).toList(),
-              strokeColor: const Color(0xff0078FF),
-              strokeWidth: 10,
-              strokeStyle: StrokeStyle.solid)
-        };
+        final response = await _getRoutesUseCase.call(params);
 
-        CustomOverlay startMarker = CustomOverlay(
-            customOverlayId: 'start',
-            latLng: mpLoc,
-            content: getStartMarkerInnerText());
+        response.fold((l) {
+          log.e(l);
+        }, (r) {
+          int time = r.time;
+          Set<Polyline> polylines = {
+            Polyline(
+                polylineId: 'polyline',
+                points: r.points.map((route) {
+                  return LatLng(route.y, route.x);
+                }).toList(),
+                strokeColor: const Color(0xff0078FF),
+                strokeWidth: 10,
+                strokeStyle: StrokeStyle.solid)
+          };
+          CustomOverlay startMarker = CustomOverlay(
+              customOverlayId: 'start',
+              latLng: mpLoc,
+              content: getStartMarkerInnerText());
 
-        CustomOverlay endMarer = CustomOverlay(
-            customOverlayId: toilet.id.toString(),
-            latLng: tpLoc,
-            content: getEndMarkerInnerText(toilet.type));
+          CustomOverlay endMarker = CustomOverlay(
+              customOverlayId: toilet.id.toString(),
+              latLng: tpLoc,
+              content: getEndMarkerInnerText(toilet.type));
 
-        emit(LoadedToiletNavigationState(
-            startMarker: startMarker,
-            endMarker: endMarer,
-            toilet: toilet,
-            polylines: _polylines,
-            time: r.time));
+          add(LoadNavigationEvent(
+              toilet: toilet,
+              startMarker: startMarker,
+              endMarker: endMarker,
+              polylines: polylines,
+              time: time));
+        });
       });
     } catch (e) {
       log.e(e);
     }
   }
 
+  Future<void> _onLoadNavigationEvent(
+      LoadNavigationEvent event, Emitter<MapState> emit) async {
+    emit(LoadedToiletNavigationState(
+        startMarker: event.startMarker,
+        endMarker: event.endMarker,
+        toilet: event.toilet,
+        polylines: event.polylines,
+        time: event.time));
+  }
+
   /////////////////////////////////
   Future<void> _onStopNavigationEvent(
       StopNavigationEvent event, Emitter<MapState> emit) async {
+    _streamPosition?.cancel();
     emit(StoppedToiletNavigationState());
   }
 

@@ -6,6 +6,7 @@ import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/presentation/bloc/map/map_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
+import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_button.dart';
 
@@ -37,6 +38,7 @@ class _DetailSheetButtonState extends State<DetailSheetButton> {
   }
 
   void _startNavigation() {
+    context.back();
     if (user != null) {
       context.read<VisitataionBloc>().add(CreateToiletVisitationEvent(
           user_id: user!.id, toilet_id: widget.toilet.id));

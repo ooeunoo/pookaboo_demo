@@ -98,10 +98,4 @@ class StoppedToiletNavigationState extends MapState {}
 /////////////////////////////////
 /// Error
 ////////////////////////////////
-class ErrorState extends MapState {
-  final String message;
-
-  ErrorState({
-    required this.message,
-  });
-}
+class ErrorNavigationState extends MapState {}

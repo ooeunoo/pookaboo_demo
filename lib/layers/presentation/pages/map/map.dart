@@ -19,6 +19,7 @@ import 'package:pookaboo/shared/utils/helper/debounce_helper.dart';
 import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_chip.dart';
+import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_h.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
@@ -142,6 +143,7 @@ class _MapPageState extends State<MapPage> {
         }
         // 선택 화장실 길 정보 불러오기 완료
         else if (state is LoadedToiletNavigationState) {
+          log.d(state);
           await _clear();
 
           // 마커 및 경로 그리기
@@ -151,7 +153,6 @@ class _MapPageState extends State<MapPage> {
           await _drawMarker(markers);
           _moveToCenter(state.startMarker.latLng);
 
-          context.back();
           _updateVisibleOfBottomNavigation(false);
         }
         // 클러스터 줌
@@ -164,6 +165,9 @@ class _MapPageState extends State<MapPage> {
           _filtered = state.filters;
           _debouncer.run(
               () => context.read<MapBloc>().add(GetNearByToiletMarkersEvent()));
+        } else if (state is ErrorNavigationState) {
+          context.back();
+          NotifyLocationPermissionSnackBar(context);
         }
       },
       builder: (context, state) {

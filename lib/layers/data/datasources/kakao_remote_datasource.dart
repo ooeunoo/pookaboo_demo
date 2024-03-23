@@ -1,17 +1,11 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/data/models/coord/coord.dart';
 import 'package:pookaboo/layers/data/models/route/route.dart';
 import 'package:pookaboo/shared/constant/api.dart';
-import 'package:pookaboo/shared/constant/enum.dart';
-import 'package:pookaboo/shared/constant/env.dart';
 import 'package:pookaboo/shared/error/failure.dart';
 import 'package:pookaboo/shared/utils/helper/coord_helper.dart';
 import 'package:pookaboo/shared/utils/helper/time_helper.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
 
 abstract class KakaoRemoteDatasource {
   Future<Either<Failure, GetRouteFormatResponse>> getRoutes(
@@ -80,24 +74,3 @@ class KakaoRemoteDatasourceImpl implements KakaoRemoteDatasource {
     return linkPoints;
   }
 }
-
-
-
-//  if (isSuccess && hasDirections) {
-//     const directions = data.directions[0]; // 일단 0번째 경로 사용, 추후 변경
-//     const guideList = directions.sections[0].guideList;
-//     const time = convertSecondsToMinutes(directions.sections[0].time);
-
-//     if (onlyTime) {
-//       return {time, points: []};
-//     }
-
-//     const linkPoints: any = [];
-//     guideList.forEach((guide) => {
-//       if (guide.guideCode !== 'END') {
-//         const points = parseDirectionWayPoint(guide.link.points);
-//         linkPoints.push(...points);
-//       }
-//     });
-//     return {time, points: linkPoints};
-//   }

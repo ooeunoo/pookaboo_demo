@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pookaboo/injection.dart';
-import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
-import 'package:pookaboo/layers/presentation/pages/profile/widgets/update_user_data_v1_sheet.dart';
 import 'package:pookaboo/layers/presentation/pages/widgets/navigation_bar_item_widget.dart';
-import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/router/app_routes.dart';
-import 'package:pookaboo/shared/service/storage/secure_storage.dart';
-import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/utils/helper/vibration_helper.dart';
-import 'package:pookaboo/shared/utils/logging/log.dart';
-import 'package:pookaboo/shared/widgets/common/app_snak_bar.dart';
-import 'package:pookaboo/shared/widgets/common/app_text.dart';
 
 class AppPage extends StatelessWidget {
   final Widget screen;
