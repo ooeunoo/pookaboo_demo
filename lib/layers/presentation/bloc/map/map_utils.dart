@@ -141,7 +141,7 @@ function addCustomMarkersCluster(customMarkers) {
     gridSize: 35,
     averageCenter: true,
     minLevel: 2,
-    disableClickZoom: true,
+    disableClickZoom: false,
     styles: [{
       width: '24px',
       height: '24px',

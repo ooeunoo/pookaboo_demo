@@ -101,7 +101,6 @@ class _MapPageState extends State<MapPage> {
       {bool showMyMarker = true}) async {
     List<CustomMarker> markerList = markers.toList();
     _drawCluster(markerList);
-    // await _controller.addCustomOverlay(customOverlays: markerList);
 
     if (showMyMarker) {
       _drawMyMarker();
@@ -223,9 +222,6 @@ class _MapPageState extends State<MapPage> {
                   context.read<MapBloc>().add(SelecteToiletMarkerEvent(
                       toiletId: int.parse(customOverlayId)));
                 }
-              },
-              onMarkerClustererTap: (LatLng latLng, int zoomLevel) {
-                log.d(latLng);
               },
               onCenterChangeCallback: (LatLng latlng, int zoomLevel) {
                 _changeCenterDebouncer.run(() => _changedCenter(latlng));
