@@ -111,7 +111,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       AppText('저장할까요?',
                           style: Theme.of(context).textTheme.bodyMedium!),
                       AppSpacerV(value: Dimens.space20),
-                      AppText('바꾼 정보를 저장합니다?',
+                      AppText('바꾼 정보를 저장합니다.',
                           style: Theme.of(context).textTheme.labelLarge!),
                       AppSpacerV(value: Dimens.space20),
                       Row(
@@ -126,14 +126,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 }),
                           ),
                           const AppSpacerH(),
-                          AppButton(
-                              title: '네',
-                              titleColor: Palette.coolGrey12,
-                              color: Palette.lemon01,
-                              onPressed: () {
-                                _onUpdate();
-                                context.back();
-                              }),
+                          Expanded(
+                            child: AppButton(
+                                title: '네',
+                                titleColor: Palette.coolGrey12,
+                                color: Palette.lemon01,
+                                onPressed: () {
+                                  _onUpdate();
+                                  context.back();
+                                }),
+                          )
                         ],
                       )
                     ],

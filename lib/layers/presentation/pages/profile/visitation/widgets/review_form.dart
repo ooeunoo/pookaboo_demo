@@ -163,22 +163,22 @@ class _ReviewFormState extends State<ReviewForm> {
               /////////////////////////////////
               ///  COMMENT & BUTTON
               /////////////////////////////////
-              Padding(
-                padding: EdgeInsets.only(
-                  right: Dimens.space20,
-                  left: Dimens.space20,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText("사진",
-                        style: Theme.of(context).textTheme.bodyMedium!),
-                    _uploadImageForm(),
-                    AppSpacerV(value: Dimens.space30),
-                    AppSpacerV(value: Dimens.space30),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.only(
+              //     right: Dimens.space20,
+              //     left: Dimens.space20,
+              //   ),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       AppText("사진",
+              //           style: Theme.of(context).textTheme.bodyMedium!),
+              //       _uploadImageForm(),
+              //       AppSpacerV(value: Dimens.space30),
+              //       AppSpacerV(value: Dimens.space30),
+              //     ],
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.only(
                   right: Dimens.space20,

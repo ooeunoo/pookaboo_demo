@@ -97,9 +97,11 @@ class AppRoute {
           GoRoute(
             path: AppRoutes.announcement.path,
             name: AppRoutes.announcement.name,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: AnnouncementPage(),
-            ),
+            pageBuilder: (context, state) {
+              return const MaterialPage(
+                child: AnnouncementPage(),
+              );
+            },
           ),
           GoRoute(
             path: AppRoutes.visitation.path,
