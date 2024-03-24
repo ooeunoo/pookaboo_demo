@@ -91,7 +91,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       GetNearByToiletsParams params = GetNearByToiletsParams(
           loc: loc,
-          radius: 1000,
+          radius: 2000,
           passwordFilter: _hasFillter(ToiletFilter.password),
           timeFilter: _hasFillter(ToiletFilter.time),
           genderFilter: _hasFillter(ToiletFilter.gender));

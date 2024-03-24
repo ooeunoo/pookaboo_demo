@@ -117,8 +117,18 @@ String _getWebViewPreventInteraction() {
   ''';
 }
 
+String _loadFont() {
+  return 'var link = document.createElement("link");'
+      'link.rel = "stylesheet";'
+      'link.as = "style";'
+      'link.crossOrigin = "anonymous";'
+      'link.href = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css";'
+      'document.head.appendChild(link);';
+}
+
 String getAddCustomMarkersClusterScripts() {
   return '''${_getWebViewPreventInteraction()}
+  ${_loadFont()}
 function addCustomMarkersCluster(customMarkers) {
   clearMarkerClusterer();
 

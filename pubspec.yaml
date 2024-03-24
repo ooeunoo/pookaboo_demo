@@ -62,7 +62,7 @@ dependencies:
   lottie: ^3.1.0
   permission_handler: ^11.3.0
   sentry_flutter: ^7.18.0
-
+  
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +71,7 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 
   build_runner: ^2.4.8
+  flutter_launcher_icons: ^0.13.1
 
   # Freezed
   freezed: ^2.4.7
@@ -92,6 +93,7 @@ flutter:
     - assets/svg/
     - assets/gif/
     - assets/json/
+    - assets/icons/
 
   # example:
   fonts:
@@ -102,6 +104,15 @@ flutter:
         - asset: assets/fonts/Pretendard-Regular.ttf
         - asset: assets/fonts/Pretendard-Medium.ttf
 
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+    
 scripts:
   run: flutter run --dart-define-from-file=".env"
   build_l10n: flutter pub run intl_generator:generate_from_arb --output-dir=lib/shared/localization/generated --no-use-deferred-loading lib/main.dart lib/shared/localization/intl_*.arb

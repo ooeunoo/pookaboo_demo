@@ -191,6 +191,7 @@ class _MapPageState extends State<MapPage> {
               markers: myMarker != null ? [myMarker!] : null,
               onMapCreated: ((controller) async {
                 _controller = controller;
+
                 context
                     .read<MapBloc>()
                     .add(MapCreateEvent(controller: controller));
@@ -203,8 +204,12 @@ class _MapPageState extends State<MapPage> {
                 }
               },
               onCenterChangeCallback: (LatLng latLng, int zoomLevel) {
-                _debouncer.run(() =>
-                    context.read<MapBloc>().add(GetNearByToiletMarkersEvent()));
+                if (!isOpenDetailSheet &&
+                    state is! LoadedToiletNavigationState) {
+                  _debouncer.run(() => context
+                      .read<MapBloc>()
+                      .add(GetNearByToiletMarkersEvent()));
+                }
               },
             ),
 
