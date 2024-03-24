@@ -37,7 +37,7 @@ class _MapPageState extends State<MapPage> {
   bool isOpenDetailSheet = false;
 
   late KakaoMapController _controller;
-  Marker? myMarker;
+  Marker? _myMarker;
 
   List<ToiletFilter> _filtered = [];
 
@@ -84,6 +84,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> _clear() async {
+    await _controller.clearMarker();
     await _controller.clearCustomOverlay();
     await _controller.clearMarkerClusterer();
     await _controller.clearPolyline();
@@ -112,8 +113,8 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> _drawMyMarker() async {
-    if (myMarker != null) {
-      await _controller.addMarker(markers: [myMarker!]);
+    if (_myMarker != null) {
+      await _controller.addMarker(markers: [_myMarker!]);
     }
   }
 
@@ -136,7 +137,7 @@ class _MapPageState extends State<MapPage> {
       listener: (context, state) async {
         // 내 위치 이동 & 길찾기 종료
         if (state is MovedMyPositionState) {
-          myMarker = state.myMarker;
+          _myMarker = state.myMarker;
           context.read<MapBloc>().add(GetNearByToiletMarkersEvent());
         }
         if (state is StoppedToiletNavigationState) {
@@ -187,8 +188,6 @@ class _MapPageState extends State<MapPage> {
               currentLevel: Zoom.street.level,
               maxLevel: Zoom.city.index,
               center: Config.get.initialCenter,
-              onMapTap: (LatLng loc) {},
-              markers: myMarker != null ? [myMarker!] : null,
               onMapCreated: ((controller) async {
                 _controller = controller;
 
