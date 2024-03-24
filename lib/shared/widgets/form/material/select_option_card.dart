@@ -82,7 +82,9 @@ class SelectOptionCard extends StatelessWidget {
           option.text,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: optionTextStyle ?? Theme.of(context).textTheme.bodyLarge!,
+          style: optionTextStyle ??
+              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: selected ? Palette.coolGrey12 : Palette.coolGrey02),
         ),
         if (option.description?.isNotEmpty == true)
           Padding(
@@ -97,15 +99,15 @@ class SelectOptionCard extends StatelessWidget {
   }
 
   Color _getSelectedColor(BuildContext context) {
-    return Palette.coolGrey08;
+    return Palette.coolGrey02;
   }
 
   Color? _getBackgroundColor(BuildContext context) {
     if (!enabled && !selected) {
-      return Palette.coolGrey04;
+      return Palette.coolGrey12;
     } else if (selected) {
       return _getSelectedColor(context);
     }
-    return Palette.coolGrey04;
+    return Palette.coolGrey12;
   }
 }

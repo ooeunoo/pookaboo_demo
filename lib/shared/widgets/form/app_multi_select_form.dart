@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Step;
 import 'package:pookaboo/shared/entities/form/multi_select_step.dart';
 import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/styles/palette.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_description.dart';
@@ -77,15 +78,17 @@ class _MultiSelectFormState extends State<AppMultiSelectForm> {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: step.options.length,
       itemBuilder: (BuildContext context, int index) {
+        bool isSelected = _selected.contains(step.options[index].value);
         return SelectOptionCard.multi(
           option: step.options[index],
           loading: isLoading,
-          optionTextStyle: Theme.of(context).textTheme.bodyMedium,
+          optionTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: isSelected ? Palette.coolGrey12 : Palette.coolGrey02),
           enabled: !maximumItemsSelected,
           selected: _selected.contains(step.options[index].value),
           onSelected: (SelectOption option) async {
             setState(() {
-              if (_selected.contains(option.value)) {
+              if (isSelected) {
                 _selected.remove(option.value);
               } else {
                 _selected.add(option.value);
