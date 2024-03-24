@@ -1,4 +1,4 @@
-package com.example.pookaboo
+package com.miriarea.pookaboo
 
 import io.flutter.embedding.android.FlutterActivity
 
