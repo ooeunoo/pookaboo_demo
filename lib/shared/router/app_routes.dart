@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pookaboo/injection.dart';
+import 'package:pookaboo/layers/presentation/bloc/announcement/announcement_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/presentation/pages/app.dart';
 import 'package:pookaboo/layers/presentation/bloc/user/user_bloc.dart';
@@ -98,6 +99,7 @@ class AppRoute {
             path: AppRoutes.announcement.path,
             name: AppRoutes.announcement.name,
             pageBuilder: (context, state) {
+              context.read<AnnouncementBloc>().add(GetAnnouncementsEvent());
               return const MaterialPage(
                 child: AnnouncementPage(),
               );
@@ -140,9 +142,12 @@ class AppRoute {
           GoRoute(
             path: AppRoutes.toilet_proposal.path,
             name: AppRoutes.toilet_proposal.name,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: ToiletProposal(),
-            ),
+            pageBuilder: (context, state) {
+              final extra = state.extra! as ExtraParams;
+              return MaterialPage(
+                child: ToiletProposal(userId: extra.userId),
+              );
+            },
           ),
         ],
       ),

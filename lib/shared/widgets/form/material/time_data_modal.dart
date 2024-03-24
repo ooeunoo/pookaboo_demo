@@ -56,33 +56,11 @@ Future<TimeOfDay?> showPlatformTimePicker(
 }) async {
   initialDate = initialDate ?? DateTime.now();
 
-  if (kIsWeb) {
-    return showTimePicker(
+  return showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(initialDate),
-    );
-  }
-  // else if (Platform.isIOS || Platform.isMacOS) {
-  //   final DateTime? dateTime = await _showCupertinoModalDialog(
-  //     context,
-  //     CupertinoDatePicker(
-  //       initialDateTime: initialDate,
-  //       mode: CupertinoDatePickerMode.time,
-  //       use24hFormat: true,
-  //       onDateTimeChanged: onDateTimeChanged,
-  //     ),
-  //   );
-  //   return dateTime != null ? TimeOfDay.fromDateTime(dateTime) : null;
-  // }
-  else {
-    return showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.fromDateTime(initialDate),
-        initialEntryMode: TimePickerEntryMode.inputOnly,
-        hourLabelText: "",
-        minuteLabelText: "",
-        helpText: helperText);
-  }
+      initialEntryMode: TimePickerEntryMode.inputOnly,
+      helpText: helperText);
 }
 
 Future<DateTime?> showPlatformDateAndTimePicker(

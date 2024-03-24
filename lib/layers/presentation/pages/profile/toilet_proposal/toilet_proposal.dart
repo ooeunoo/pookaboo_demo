@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart' hide Step;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/layers/data/models/toilet/toilet.dart';
 import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
+import 'package:pookaboo/layers/presentation/bloc/toilet/toilet_bloc.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/entities/form/confirm_step.dart';
 import 'package:pookaboo/shared/entities/form/data_option.dart';
@@ -32,8 +35,11 @@ import 'package:pookaboo/shared/widgets/form/app_single_select_form.dart';
 import 'package:pookaboo/shared/utils/logging/log.dart';
 
 class ToiletProposal extends StatefulWidget {
+  final String userId;
+
   const ToiletProposal({
     super.key,
+    required this.userId,
   });
 
   @override
@@ -50,6 +56,9 @@ class _SurveyFlowState extends State<ToiletProposal> {
   }
 
   void _onSave() {
+    context.read<ToiletBloc>().add(CreateToiletProposalEvent(
+        params: params.copyWith(user_id: widget.userId)));
+
     context.go(AppRoutes.profile.path);
   }
 
@@ -63,13 +72,6 @@ class _SurveyFlowState extends State<ToiletProposal> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: steps.length,
             itemBuilder: (BuildContext context, int index) {
-              Step step = steps[index];
-
-              // if (step.id == 'password_tip' && !params.password) {
-              //   _passToNextPage(_controller, index);
-              //   return Container();
-              // }
-
               return _mapStep(context, steps[index]);
             },
           ),
@@ -145,10 +147,7 @@ class _SurveyFlowState extends State<ToiletProposal> {
     }
 
     if (_controller.page?.toInt() == steps.length - 1) {
-      bool shouldFinish = true;
-
       _onSave();
-      // return;
     }
 
     // 다음 페이지 이동
@@ -172,6 +171,7 @@ class _SurveyFlowState extends State<ToiletProposal> {
   CreateToiletParam _updateParamsWithKey(
       CreateToiletParam params, StepResult result) {
     String key = result.stepId;
+
     dynamic value = result.value;
     switch (key) {
       case 'name':
@@ -247,6 +247,12 @@ class _SurveyFlowState extends State<ToiletProposal> {
           disable_seat: value["disable_seat"],
           washbasin: value["washbasin"],
         );
+      case 'images':
+        return params.copyWith(images: value);
+      case 'map':
+        LatLng loc = value;
+        return params.copyWith(
+            coordinates: 'POINT(${loc.longitude} ${loc.latitude})');
       default:
         return params;
     }
@@ -255,110 +261,111 @@ class _SurveyFlowState extends State<ToiletProposal> {
   }
 }
 
-List<Step> steps = [
-  InformationStep(
-      id: 'Intro',
-      title: '새로운 화장실 등록해볼까요?',
-      description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
-  //////////////
-  MapStep(id: 'coordinates', title: ''),
-  ////////////////////
-  DataStep(
-      id: 'name',
-      title: '화장실 이름을 알려주세요',
-      description: "등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
-      type: InputDataType.text),
-  ////////////////////
-  SingleSelectStep(
-      id: 'type',
-      title: '화장실이 어떤 곳에 있나요?',
-      description: "",
-      options: [
-        SelectOption(text: '빌딩', value: 0),
-        SelectOption(text: '카페', value: 1),
-      ]),
-  //////////////////
-  SingleSelectStep(
-      id: 'password',
-      title: '🔒 잠금이 걸려있나요?',
-      description: "",
-      options: [
-        SelectOption(text: '잠김', value: true),
-        SelectOption(text: '안잠김', value: false),
-      ],
-      expandCondition: SelectOption(text: '잠김', value: true),
-      expand: DataStep(
-          id: 'password_tip',
-          title: '화장실이 잠금되어있다면 열 수있는 방법이 있나요?',
-          description: "예를 들어, 스타벅스 카운터에 문의, 빌딩 관리자에게 요청",
-          type: InputDataType.text)),
-  //////////////////
-  // DataStep(
-  //     id: 'password_tip',
-  //     title: '화장실이 잠금되어있다면 열 수있는 방법이 있나요?',
-  //     description: "예를 들어, 스타벅스 카운터에 문의, 빌딩 관리자에게 요청",
-  //     type: InputDataType.text),
-  ////////////////////
-  SingleSelectStep(
-      id: 'gender',
-      title: '👫 화장실은 남녀가 분리되어있나요?',
-      description: "",
-      options: [
-        SelectOption(text: '공용', value: false),
-        SelectOption(text: '남녀분리', value: true),
-      ]),
-  ///////////////////////
-  MultiSelectStep(
-      id: 'convenience',
-      title: '화장실에 있는 편의시설을 알려주세요!',
-      description: "",
-      options: [
-        ...ConvenienceKey.values.map((value) {
-          return SelectOption(
-              text: '${value.emoji} ${value.name}', value: value.key);
-        }),
-        ...AmenityKey.values.map((value) {
-          return SelectOption(
-              text: '${value.emoji} ${value.name}', value: value.key);
-        })
-      ]),
-  //////////////////
-  EquipmentDataStep(
-      id: 'equipment',
-      title: '화장실에 있는 시설 개수를 알려주세요!',
-      description: "",
-      type: InputDataType.numberInt,
-      options: [
-        ...EquipmentKey.values.expand((value) {
-          List<DataOption> options = [];
-          for (var (key, label) in value.keys) {
-            options.add(DataOption(id: key, label: label));
-          }
-          return options;
-        })
-      ]),
-  ////////////////////
-  MultiTimeDataStep(
-    id: 'time',
-    title: '화장실의 운영시간을 알려주세요!',
-    description: "",
-    type: InputTimeDataType.time,
-    dateFormat: "HH:mm",
-    options: [
-      ...WeekKey.values.map((value) {
-        return DataOption(id: value.key, label: value.ko);
-      })
-    ],
-  ),
-  ////////////////////
-  PictureStep(id: 'images', title: '화장실 이미지를 올려주세요'),
-  ////////////////////
-  ConfirmStep(
-      id: 'confirm',
-      title: '등록이 완료되었습니다!',
-      description: '빠른 시일 내에 검토 후 등록 완료됩니다.',
-      image: '')
-];
+List<Step> get steps => [
+      InformationStep(
+          id: 'Intro',
+          title: '새로운 화장실 등록해볼까요?',
+          description: '먼저 화장실의 위치가 어디인지 알려주세요!'),
+      //////////////
+      MapStep(
+        id: 'coordinates',
+        title: '',
+      ),
+      ////////////////////
+      DataStep(
+          id: 'name',
+          title: '화장실 이름을 알려주세요',
+          description: "등록된 이름은 다른 사용자에게도 동일하게 표시돼요.",
+          type: InputDataType.text),
+      ////////////////////
+      SingleSelectStep(
+          id: 'type',
+          title: '화장실이 어떤 곳에 있나요?',
+          description: "",
+          options: [
+            SelectOption(text: '빌딩', value: 0),
+            SelectOption(text: '카페', value: 1),
+          ]),
+      //////////////////
+      SingleSelectStep(
+        id: 'password',
+        title: '🔒 잠금이 걸려있나요?',
+        description: "",
+        options: [
+          SelectOption(text: '잠김', value: true),
+          SelectOption(text: '안잠김', value: false),
+        ],
+        // expandCondition: SelectOption(text: '잠김', value: true),
+        // expandId: 'password_tip',
+        // expandType: InputDataType.text,
+      ),
+      //////////////////
+      // DataStep(
+      //     id: 'password_tip',
+      //     title: '화장실이 잠금되어있다면 열 수있는 방법이 있나요?',
+      //     description: "예를 들어, 스타벅스 카운터에 문의, 빌딩 관리자에게 요청",
+      //     type: InputDataType.text),
+      ////////////////////
+      SingleSelectStep(
+          id: 'gender',
+          title: '👫 화장실은 남녀가 분리되어있나요?',
+          description: "",
+          options: [
+            SelectOption(text: '공용', value: false),
+            SelectOption(text: '남녀분리', value: true),
+          ]),
+      ///////////////////////
+      MultiSelectStep(
+          id: 'convenience',
+          title: '화장실에 있는 편의시설을 알려주세요!',
+          description: "",
+          options: [
+            ...ConvenienceKey.values.map((value) {
+              return SelectOption(
+                  text: '${value.emoji} ${value.name}', value: value.key);
+            }),
+            ...AmenityKey.values.map((value) {
+              return SelectOption(
+                  text: '${value.emoji} ${value.name}', value: value.key);
+            })
+          ]),
+      //////////////////
+      EquipmentDataStep(
+          id: 'equipment',
+          title: '화장실에 있는 시설 개수를 알려주세요!',
+          description: "",
+          type: InputDataType.numberInt,
+          options: [
+            ...EquipmentKey.values.expand((value) {
+              List<DataOption> options = [];
+              for (var (key, label) in value.keys) {
+                options.add(DataOption(id: key, label: label));
+              }
+              return options;
+            })
+          ]),
+      ////////////////////
+      MultiTimeDataStep(
+        id: 'time',
+        title: '화장실의 운영시간을 알려주세요!',
+        description: "",
+        type: InputTimeDataType.time,
+        dateFormat: "HH:mm",
+        options: [
+          ...WeekKey.values.map((value) {
+            return DataOption(id: value.key, label: value.ko);
+          })
+        ],
+      ),
+      ////////////////////
+      PictureStep(id: 'images', title: '화장실 이미지를 올려주세요'),
+      ////////////////////
+      ConfirmStep(
+          id: 'confirm',
+          title: '등록이 완료되었습니다!',
+          description: '빠른 시일 내에 검토 후 등록 완료됩니다.',
+          image: '')
+    ];
 
 void _passToNextPage(PageController controller, int curIndex) {
   controller.animateToPage(curIndex + 1,

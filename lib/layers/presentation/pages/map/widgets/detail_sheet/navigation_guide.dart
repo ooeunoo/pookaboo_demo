@@ -10,7 +10,7 @@ class NavigationGuide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      AppText('조금만 참아주세요! 거의 다 도착했어요😊',
+      AppText('조금만 참아주세요! 거의 다 도착했어요 😊',
           style: Theme.of(context)
               .textTheme
               .labelMedium!

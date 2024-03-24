@@ -22,7 +22,7 @@ GetNearByToiletsParams _$GetNearByToiletsParamsFromJson(
 /// @nodoc
 mixin _$GetNearByToiletsParams {
   LatLng get loc => throw _privateConstructorUsedError;
-  int get radius => throw _privateConstructorUsedError;
+  int get radius => throw _privateConstructorUsedError; // meter
   bool get passwordFilter => throw _privateConstructorUsedError;
   bool get timeFilter => throw _privateConstructorUsedError;
   bool get genderFilter => throw _privateConstructorUsedError;
@@ -170,6 +170,7 @@ class _$GetNearByToiletsParamsImpl implements _GetNearByToiletsParams {
   final LatLng loc;
   @override
   final int radius;
+// meter
   @override
   @JsonKey()
   final bool passwordFilter;
@@ -235,7 +236,7 @@ abstract class _GetNearByToiletsParams implements GetNearByToiletsParams {
   LatLng get loc;
   @override
   int get radius;
-  @override
+  @override // meter
   bool get passwordFilter;
   @override
   bool get timeFilter;

@@ -1,3 +1,4 @@
+import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
 import 'package:pookaboo/shared/entities/form/step.dart';
 
 class ConfirmStep implements Step {
@@ -9,14 +10,22 @@ class ConfirmStep implements Step {
   String? description;
   String? image;
 
+  @override
+  CreateToiletParam? params;
+
   ConfirmStep(
-      {required this.id, required this.title, this.description, this.image});
+      {required this.id,
+      required this.title,
+      this.description,
+      this.image,
+      this.params});
 
   factory ConfirmStep.fromJson(Map<String, dynamic> json) => ConfirmStep(
         id: json["id"],
         title: json["title"],
         description: json["description"],
         image: json["image"],
+        params: json['params'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -24,5 +33,6 @@ class ConfirmStep implements Step {
         "title": title,
         "description": description,
         'image': image,
+        'params': params,
       };
 }

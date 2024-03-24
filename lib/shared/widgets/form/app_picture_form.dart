@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide Step;
 import 'package:image_picker/image_picker.dart';
 import 'package:pookaboo/shared/entities/form/picutre_step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/service/image_picker/image_picker_service.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_header.dart';
@@ -34,9 +35,21 @@ class AppPictureForm extends StatefulWidget {
 
 class _PictureFormState extends State<AppPictureForm> {
   final List<XFile> _images = [];
-  final ImagePicker _picker = ImagePicker();
+  final ImagePickerService _pickerServiece = ImagePickerService();
 
   PictureStep get step => widget.step;
+
+  void _uploadImages(ImageSource imageSource) async {
+    try {
+      List<XFile> images = await _pickerServiece.getImages(imageSource);
+
+      setState(() {
+        _images.addAll(images.map((XFile file) => XFile(file.path)));
+      });
+    } catch (e) {
+      await _pickerServiece.askPermission();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +75,75 @@ class _PictureFormState extends State<AppPictureForm> {
                 ),
               ],
             ),
-          const AppSpacerV(),
+
+          /////////////////////////////////////////////////////////////////////////////////
+          ////// Image Swipe
+          const Spacer(),
+          /////////////////////////////////////////////////////////////////////////////////
+          Container(
+              height: Dimens.bigImageW,
+              margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: Stack(
+                children: [
+                  if (_images.isEmpty) ...{
+                    SizedBox(
+                      width: context.widthInPercent(100),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(Dimens.space12),
+                        child: Image.asset(
+                          Assets.noImage,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  } else ...{
+                    ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _images.isEmpty ? 1 : _images.length,
+                      itemBuilder: (context, index) {
+                        return Stack(
+                          children: [
+                            Container(
+                              width: Dimens.bigImageW,
+                              margin: const EdgeInsets.only(right: 10.0),
+                              child: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.circular(Dimens.space12),
+                                child: Image.file(
+                                  File(_images[index].path),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: Dimens.space8,
+                              right: Dimens.space20,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _images.removeAt(index);
+                                  });
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.red,
+                                  ),
+                                  child: const Icon(
+                                    Icons.close,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  }
+                ],
+              )),
+          AppSpacerV(value: Dimens.space20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,10 +151,11 @@ class _PictureFormState extends State<AppPictureForm> {
               Expanded(
                 child: AppButton(
                   title: '사진첩',
-                  color: Palette.skyblue01,
+                  color: Palette.coolGrey12,
                   titleColor: Palette.white,
+                  splashColor: Colors.transparent,
                   onPressed: () {
-                    getImage(ImageSource.gallery);
+                    _uploadImages(ImageSource.gallery);
                   },
                 ),
               ),
@@ -81,100 +163,41 @@ class _PictureFormState extends State<AppPictureForm> {
               Expanded(
                   child: AppButton(
                       title: '카메라',
-                      color: Palette.skyblue01,
+                      color: Palette.coolGrey12,
                       titleColor: Palette.white,
+                      splashColor: Colors.transparent,
                       onPressed: () {
-                        getImage(ImageSource.camera);
+                        _uploadImages(ImageSource.camera);
                       }))
             ],
-          ),
-          /////////////////////////////////////////////////////////////////////////////////
-          ////// Image Swipe
-          const Spacer(),
-          /////////////////////////////////////////////////////////////////////////////////
-          Container(
-            height: Dimens.bigImageW,
-            margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _images.isEmpty ? 1 : _images.length,
-              itemBuilder: (context, index) {
-                return _images.isEmpty
-                    ? SizedBox(
-                        width: context.widthInPercent(100),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(Dimens.space12),
-                          child: Image.asset(
-                            Assets.noImage,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    : Stack(
-                        children: [
-                          Container(
-                            width: Dimens.bigImageW,
-                            margin: const EdgeInsets.only(right: 10.0),
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.circular(Dimens.space12),
-                              child: Image.file(
-                                File(_images[index].path),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: Dimens.space8,
-                            right: Dimens.space20,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _images.removeAt(index);
-                                });
-                              },
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.red,
-                                ),
-                                child: const Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-              },
-            ),
           ),
           const Spacer(),
           FormButton(
             onNextPress: widget.onNextPress,
             onBackPress: widget.onBackPress,
-            result: StepResult(stepId: step.id, value: _images),
+            result: StepResult(
+                stepId: step.id,
+                value: _images.map((image) => File(image.path)).toList()),
           ),
         ],
       ),
     );
   }
 
-  Future getImage(ImageSource imageSource) async {
-    List<XFile> files = [];
+  // Future getImage(ImageSource imageSource) async {
+  //   try {
+  //     List<XFile> files = [];
 
-    if (imageSource == ImageSource.gallery) {
-      files = await _picker.pickMultiImage();
-    } else {
-      XFile? picturedImage = await _picker.pickImage(source: imageSource);
-      if (picturedImage != null) {
-        files.add(picturedImage);
-      }
-    }
+  //     if (imageSource == ImageSource.gallery) {
+  //       files = await _picker.pickMultiImage();
+  //     } else {
+  //       XFile? picturedImage = await _picker.pickImage(source: imageSource);
+  //       files.add(picturedImage);
+  //     }
 
-    setState(() {
-      _images.addAll(files.map((XFile file) => XFile(file.path)));
-    });
-  }
+  //     setState(() {
+  //       _images.addAll(files.map((XFile file) => XFile(file.path)));
+  //     });
+  //   } catch (e) {}
+  // }
 }

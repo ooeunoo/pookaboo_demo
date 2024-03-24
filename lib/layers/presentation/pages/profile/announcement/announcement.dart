@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pookaboo/layers/data/models/announcement/announcement.dart';
+import 'package:pookaboo/layers/presentation/bloc/announcement/announcement_bloc.dart';
+import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
+import 'package:pookaboo/layers/presentation/pages/profile/announcement/widget/announcement_header.dart';
 import 'package:pookaboo/shared/extension/context.dart';
 import 'package:pookaboo/shared/styles/dimens.dart';
 import 'package:pookaboo/shared/styles/palette.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/common/app_divider.dart';
 import 'package:pookaboo/shared/widgets/common/app_spacer_v.dart';
 import 'package:pookaboo/shared/widgets/common/app_text.dart';
@@ -14,29 +20,44 @@ class AnnouncementPage extends StatefulWidget {
 }
 
 class _AnnouncementPageState extends State<AnnouncementPage> {
-  final List<String> _announcements = [];
+  late List<Announcement> _announcements = [];
+
+  void _setAnnouncements(List<Announcement> announcements) {
+    setState(() {
+      _announcements = announcements;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: Padding(
-            padding: EdgeInsets.only(left: Dimens.space16),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                context.back();
-              },
-            ),
-          ),
-          title: AppText(
-            '공지사항',
-            style: Theme.of(context).textTheme.bodyLarge!,
+      appBar: AppBar(
+        leading: Padding(
+          padding: EdgeInsets.only(left: Dimens.space16),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              context.back();
+            },
           ),
         ),
-        body: Padding(
+        title: AppText(
+          '최근에 방문한 화장실',
+          style: Theme.of(context).textTheme.bodyLarge!,
+        ),
+      ),
+      body: BlocConsumer<AnnouncementBloc, AnnouncementState>(
+          listener: (context, state) {
+        if (state is LoadedAnnouncementsState) {
+          log.d(state.announcements);
+          _setAnnouncements(state.announcements);
+        }
+      }, builder: (context, state) {
+        return Padding(
           padding: EdgeInsets.symmetric(vertical: Dimens.space20),
           child: ListView.builder(
-            itemCount: _announcements.length,
+            itemCount:
+                _announcements.isEmpty ? 0 : _announcements.length * 2 - 1,
             itemBuilder: (context, index) {
               if (index.isOdd) {
                 return Padding(
@@ -48,33 +69,23 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
                 );
               }
 
-              final anouncementIndex = index ~/ 2;
-              final anouncement = _announcements[anouncementIndex];
+              final announcementsIndex = index ~/ 2;
+              final announcement = _announcements[announcementsIndex];
 
               return InkWell(
                 splashColor: Colors.transparent,
-                onTap: () {
-                  // if (!visitation.reviewed) {
-                  //   _showBottomSheet(visitation);
-                  // }
-                },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimens.space20, vertical: Dimens.space20),
-                  child: const Column(
-                    children: [
-                      // AppReviewHeader(
-                      //   image: visitation.toilet.image_url,
-                      //   name: visitation.toilet.name,
-                      //   date: visitation.created_at,
-                      //   reviewed: visitation.reviewed,
-                      // )
-                    ],
+                  child: Column(
+                    children: [AnnouncementHeader(header: announcement.header)],
                   ),
                 ),
               );
             },
           ),
-        ));
+        );
+      }),
+    );
   }
 }

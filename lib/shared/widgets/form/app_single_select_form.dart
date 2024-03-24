@@ -32,7 +32,6 @@ class _SingleSelectFormState extends State<AppSingleSelectForm> {
   SelectOption? _selected;
 
   SingleSelectStep get step => widget.step;
-  DataStep? get expandStep => widget.step.expand;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +46,6 @@ class _SingleSelectFormState extends State<AppSingleSelectForm> {
             FormDescription(description: step.description!),
           AppSpacerV(value: Dimens.space100),
           _options(context),
-          if (step.expandCondition == _selected) ...{
-            // AppDataForm(step.expand)
-          },
           AppSpacerV(value: Dimens.space40),
           FormButton(onBackPress: widget.onBackPress),
           const SizedBox(),

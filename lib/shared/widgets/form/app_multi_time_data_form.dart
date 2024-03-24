@@ -80,14 +80,14 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
               ...List.generate(step.options.length, (index) {
                 final option = step.options[index];
                 return Padding(
-                  padding: EdgeInsets.only(top: Dimens.space24),
+                  padding: EdgeInsets.only(top: Dimens.space10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       AppText(
                         option.label,
-                        style: Theme.of(context).textTheme.bodyMedium!,
+                        style: Theme.of(context).textTheme.bodySmall!,
                       ),
                       GestureDetector(
                         onTap: !isLoading
@@ -102,11 +102,7 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
                             child: TextField(
                               focusNode: _focusNodes[index][0],
                               controller: _controllers[index][0],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      height: Dimens.space20 / Dimens.space16),
+                              style: Theme.of(context).textTheme.bodySmall!,
                               enabled: !isLoading,
                               decoration: _decoration(context),
                               textAlign: TextAlign.center,
@@ -120,12 +116,8 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
                           ),
                         ),
                       ),
-                      AppText('~',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  height: Dimens.space20 / Dimens.space16)),
+                      AppText('-',
+                          style: Theme.of(context).textTheme.bodyLarge!),
                       GestureDetector(
                         onTap: !isLoading
                             ? () async {
@@ -139,11 +131,7 @@ class _MultiTimeDataFormState extends State<AppMultiTimeDataForm> {
                             child: TextField(
                               focusNode: _focusNodes[index][1],
                               controller: _controllers[index][1],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      height: Dimens.space20 / Dimens.space16),
+                              style: Theme.of(context).textTheme.bodySmall!,
                               enabled: !isLoading,
                               decoration: _decoration(context),
                               textAlign: TextAlign.center,

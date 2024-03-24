@@ -50,30 +50,25 @@ class _ProfilePageState extends State<ProfilePage> {
     ExtraParams extra = ExtraParams(userId: user.id);
 
     menu = [
+      // MenuItem(
+      //     section: 1,
+      //     title: '공지사항',
+      //     onTap: () {
+      //       context.push(AppRoutes.announcement.path, extra: extra);
+      //     }),
       MenuItem(
           section: 1,
-          title: '공지사항',
-          onTap: () {
-            context.push(AppRoutes.announcement.path, extra: extra);
-          }),
-      MenuItem(
-          section: 2,
           title: '최근에 방문한 화장실',
           onTap: () {
             context.push(AppRoutes.visitation.path, extra: extra);
           }),
       MenuItem(
-          section: 2,
+          section: 1,
           title: '나의 리뷰',
           onTap: () {
             context.push(AppRoutes.reviews.path, extra: extra);
           }),
-      MenuItem(
-          section: 2,
-          title: '신규 화장실 등록하기',
-          onTap: () {
-            context.push(AppRoutes.toilet_proposal.path, extra: extra);
-          }),
+
       MenuItem(
           section: 3,
           title: '내 정보 수정',
@@ -94,6 +89,17 @@ class _ProfilePageState extends State<ProfilePage> {
             _confirmDelete();
           }),
     ];
+
+    if (user.isOwner()) {
+      menu.insert(
+          0,
+          MenuItem(
+              section: 1,
+              title: '신규 화장실 등록하기',
+              onTap: () {
+                context.push(AppRoutes.toilet_proposal.path, extra: extra);
+              }));
+    }
   }
 
   void _confirmDelete() async {

@@ -1,5 +1,10 @@
 import 'package:get_it/get_it.dart';
+import 'package:pookaboo/layers/data/datasources/announcement_remote_datasource.dart';
 import 'package:pookaboo/layers/data/datasources/user_remote_datasource.dart';
+import 'package:pookaboo/layers/data/repositories/announcement/announcement_repository_impl.dart';
+import 'package:pookaboo/layers/domain/repositories/announcement/announcement_repository.dart';
+import 'package:pookaboo/layers/domain/usecases/announcement/announcement_usecase.dart';
+import 'package:pookaboo/layers/presentation/bloc/announcement/announcement_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/toilet/toilet_bloc.dart';
 import 'package:pookaboo/layers/presentation/cubit/app/app_cubit.dart';
 import 'package:pookaboo/layers/data/repositories/user/user_repository_impl.dart';
@@ -55,6 +60,8 @@ Future<void> _repositories() async {
   sl.registerLazySingleton<ReviewRepository>(() => ReviewRepositoryImpl(sl()));
   sl.registerLazySingleton<VisitationRepository>(
       () => VisitationRepositoryImpl(sl()));
+  sl.registerLazySingleton<AnnouncementRepository>(
+      () => AnnouncementRepositoryImpl(sl()));
 }
 
 Future<void> _dataSources() async {
@@ -62,6 +69,8 @@ Future<void> _dataSources() async {
       () => ToiletRemoteDatasourceImpl(sl()));
   sl.registerLazySingleton<UserRemoteDatasource>(
       () => UserRemoteDatasourceImpl(sl()));
+  sl.registerLazySingleton<AnnouncementRemoteDatasource>(
+      () => AnnouncementRemoteDatasourceImpl(sl()));
   sl.registerLazySingleton<KakaoRemoteDatasource>(
       () => KakaoRemoteDatasourceImpl());
 }
@@ -97,6 +106,9 @@ Future<void> _useCase() async {
   sl.registerLazySingleton<GetToiletVisitationsByUserIdUseCase>(
       () => GetToiletVisitationsByUserIdUseCase(sl()));
 
+  sl.registerLazySingleton<GetAnnouncementsUseCase>(
+      () => GetAnnouncementsUseCase(sl()));
+
   // Toilet
   sl.registerLazySingleton<CreateToiletProposalUseCase>(
       () => CreateToiletProposalUseCase(sl()));
@@ -115,6 +127,7 @@ Future<void> _bloc() async {
   sl.registerFactory(() => VisitataionBloc(sl(), sl()));
   sl.registerFactory(() => ProfileBloc());
   sl.registerFactory(() => ToiletBloc(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => AnnouncementBloc(sl()));
 }
 
 Future<void> _cubit() async {

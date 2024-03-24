@@ -1,3 +1,4 @@
+import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
 import 'package:pookaboo/shared/entities/form/data_option.dart';
 import 'package:pookaboo/shared/entities/form/step.dart';
 import 'package:pookaboo/shared/constant/enum.dart';
@@ -14,12 +15,16 @@ class EquipmentDataStep implements Step {
 
   List<DataOption> options;
 
+  @override
+  CreateToiletParam? params;
+
   EquipmentDataStep(
       {required this.id,
       required this.title,
       this.description,
       required this.options,
       required this.type,
+      this.params,
       this.isGenderSeperate});
 
   factory EquipmentDataStep.fromJson(Map<String, dynamic> json) =>
@@ -29,6 +34,7 @@ class EquipmentDataStep implements Step {
           options: json["options"],
           description: json["description"],
           type: json["type"],
+          params: json['params'],
           isGenderSeperate: json['isGenderSeperate']);
 
   Map<String, dynamic> toJson() => {
@@ -37,6 +43,7 @@ class EquipmentDataStep implements Step {
         "options": options,
         "description": description,
         "type": type,
+        'params': params,
         'isGenderSeperate': isGenderSeperate
       };
 }

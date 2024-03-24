@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
 import 'package:pookaboo/shared/entities/form/data_option.dart';
 import 'package:pookaboo/shared/entities/form/data_step.dart';
 import 'package:pookaboo/shared/entities/form/select_option.dart';
@@ -18,6 +19,9 @@ class MultiTimeDataStep implements Step {
 
   List<DataOption> options;
 
+  @override
+  CreateToiletParam? params;
+
   MultiTimeDataStep({
     required this.id,
     required this.title,
@@ -25,6 +29,7 @@ class MultiTimeDataStep implements Step {
     required this.options,
     required this.type,
     this.dateFormat,
+    this.params,
   });
 
   factory MultiTimeDataStep.fromJson(Map<String, dynamic> json) =>
@@ -34,6 +39,7 @@ class MultiTimeDataStep implements Step {
         options: json["options"],
         description: json["description"],
         type: json["type"],
+        params: json['params'],
         dateFormat: json["dateFormat"],
       );
 
@@ -43,6 +49,7 @@ class MultiTimeDataStep implements Step {
         "options": options,
         "description": description,
         "type": type,
+        'params': params,
         "dateFormat": dateFormat
       };
 }

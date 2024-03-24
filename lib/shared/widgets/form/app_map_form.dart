@@ -5,6 +5,7 @@ import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/shared/entities/form/map_step.dart';
 import 'package:pookaboo/shared/entities/form/step_result.dart';
+import 'package:pookaboo/shared/utils/logging/log.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_button.dart';
 import 'package:pookaboo/shared/widgets/form/material/form_container.dart';
 import 'package:pookaboo/shared/constant/config.dart';
@@ -61,7 +62,7 @@ class _MapFormState extends State<AppMapForm> {
                     setState(() {});
                   }),
                   onDragChangeCallback:
-                      (LatLng latLng, int zoomLevel, DragType dragType) {
+                      (LatLng latLng, int zoomLevel, DragType dragType) async {
                     _marker.latLng = latLng;
                     setState(() {});
                   },

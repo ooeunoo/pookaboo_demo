@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
+import 'package:pookaboo/shared/constant/enum.dart';
 import 'package:pookaboo/shared/entities/form/data_step.dart';
 import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/entities/form/step.dart';
@@ -14,16 +16,15 @@ class SingleSelectStep implements Step {
 
   List<SelectOption> options;
 
-  SelectOption? expandCondition;
-  DataStep? expand;
+  @override
+  CreateToiletParam? params;
 
   SingleSelectStep({
     required this.id,
     required this.title,
     required this.options,
     this.description,
-    this.expandCondition,
-    this.expand,
+    this.params,
   });
 
   factory SingleSelectStep.fromJson(Map<String, dynamic> json) =>
@@ -32,8 +33,7 @@ class SingleSelectStep implements Step {
         title: json["title"],
         options: json["options"],
         description: json["description"],
-        expandCondition: json['expandCondition'],
-        expand: json["expand"],
+        params: json["params"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,7 +41,6 @@ class SingleSelectStep implements Step {
         "title": title,
         "options": options,
         "description": description,
-        "expandCondition": expandCondition,
-        "expand": expand,
+        'params': params
       };
 }

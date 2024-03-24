@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:pookaboo/layers/domain/entities/toilet/create_toilet_params.dart';
 import 'package:pookaboo/shared/entities/form/select_option.dart';
 import 'package:pookaboo/shared/entities/form/step.dart';
 
@@ -15,11 +16,15 @@ class MultiSelectStep implements Step {
   int? maxOptionsSelected;
   int? minOptionsSelected;
 
+  @override
+  CreateToiletParam? params;
+
   MultiSelectStep({
     required this.id,
     required this.title,
     required this.options,
     this.description,
+    this.params,
     this.maxOptionsSelected,
     this.minOptionsSelected,
   });
@@ -30,6 +35,7 @@ class MultiSelectStep implements Step {
         title: json["title"],
         options: json["options"],
         description: json["description"],
+        params: json['params'],
         maxOptionsSelected: json["maxOptionsSelected"],
         minOptionsSelected: json["minOptionsSelected"],
       );
@@ -39,6 +45,7 @@ class MultiSelectStep implements Step {
         "title": title,
         "options": options,
         "description": description,
+        'params': params,
         "maxOptionsSelected": maxOptionsSelected,
         "minOptionsSelected": minOptionsSelected,
       };

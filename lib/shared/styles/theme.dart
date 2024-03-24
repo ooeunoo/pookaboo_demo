@@ -14,20 +14,21 @@ ThemeData themeLight(BuildContext context) => ThemeData(
       splashColor: Colors.transparent,
       scaffoldBackgroundColor: Palette.coolGrey12,
       timePickerTheme: TimePickerThemeData(
-          backgroundColor: Palette.coolGrey10,
-          hourMinuteColor: Palette.coolGrey05,
-          cancelButtonStyle:
-              TextButton.styleFrom(foregroundColor: Palette.coolGrey06),
-          confirmButtonStyle: TextButton.styleFrom(
-            foregroundColor: Palette.coolGrey02,
-          ),
-          hourMinuteTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                fontSize: Dimens.headerMedium,
-                color: Palette.white,
-              ),
-          helpTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Palette.white,
-              )),
+        backgroundColor: Palette.coolGrey10,
+        hourMinuteColor: Palette.coolGrey05,
+        cancelButtonStyle:
+            TextButton.styleFrom(foregroundColor: Palette.coolGrey06),
+        confirmButtonStyle: TextButton.styleFrom(
+          foregroundColor: Palette.coolGrey02,
+        ),
+        hourMinuteTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              fontSize: Dimens.headerMedium,
+              color: Palette.white,
+            ),
+        // helpTextStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
+        //       color: Palette.white,
+        //     )
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Palette.coolGrey12,
         type: BottomNavigationBarType.fixed,
