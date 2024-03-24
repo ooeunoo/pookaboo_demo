@@ -7,7 +7,8 @@ part 'get_nearby_toilets_params.g.dart';
 @freezed
 class GetNearByToiletsParams with _$GetNearByToiletsParams {
   factory GetNearByToiletsParams(
-      {required LatLngBounds bounds,
+      {required LatLng loc,
+      required int radius, // meter
       @Default(true) bool passwordFilter,
       @Default(false) bool timeFilter,
       @Default(false) bool genderFilter}) = _GetNearByToiletsParams;

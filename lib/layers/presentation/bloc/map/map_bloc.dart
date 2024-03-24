@@ -87,9 +87,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     Emitter<MapState> emit,
   ) async {
     try {
-      LatLngBounds bounds = await _mapController.getBounds();
+      LatLng loc = await _mapController.getCenter();
+
       GetNearByToiletsParams params = GetNearByToiletsParams(
-          bounds: bounds,
+          loc: loc,
+          radius: 1000,
           passwordFilter: _hasFillter(ToiletFilter.password),
           timeFilter: _hasFillter(ToiletFilter.time),
           genderFilter: _hasFillter(ToiletFilter.gender));

@@ -43,6 +43,7 @@ enum ToiletTable {
 
 enum ToiletFunction {
   get_nearby_toilets('get_nearby_toilets'),
+  get_toilets_in_radius('get_toilets_in_radius'),
   get_toilet('get_toilet'),
   ;
 
@@ -94,12 +95,21 @@ class ToiletRemoteDatasourceImpl implements ToiletRemoteDatasource {
   Future<Either<Failure, List<Toilet>>> getNearByToiletsDatasource(
       GetNearByToiletsParams params) async {
     try {
+      // final List<Map<String, dynamic>> data = await _supabaseService.client
+      //     .rpc(ToiletFunction.get_nearby_toilets.name, params: {
+      //   'min_lat': params.bounds.sw.latitude,
+      //   'min_long': params.bounds.sw.longitude,
+      //   'max_lat': params.bounds.ne.latitude,
+      //   'max_long': params.bounds.ne.longitude,
+      //   'gender_filter': params.genderFilter,
+      //   'password_filter': params.passwordFilter,
+      //   'time_filter': params.timeFilter,
+      // });
       final List<Map<String, dynamic>> data = await _supabaseService.client
-          .rpc(ToiletFunction.get_nearby_toilets.name, params: {
-        'min_lat': params.bounds.sw.latitude,
-        'min_long': params.bounds.sw.longitude,
-        'max_lat': params.bounds.ne.latitude,
-        'max_long': params.bounds.ne.longitude,
+          .rpc(ToiletFunction.get_toilets_in_radius.name, params: {
+        'lat': params.loc.latitude,
+        'lng': params.loc.longitude,
+        'radius': params.radius,
         'gender_filter': params.genderFilter,
         'password_filter': params.passwordFilter,
         'time_filter': params.timeFilter,

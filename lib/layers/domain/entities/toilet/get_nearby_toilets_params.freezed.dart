@@ -21,7 +21,8 @@ GetNearByToiletsParams _$GetNearByToiletsParamsFromJson(
 
 /// @nodoc
 mixin _$GetNearByToiletsParams {
-  LatLngBounds get bounds => throw _privateConstructorUsedError;
+  LatLng get loc => throw _privateConstructorUsedError;
+  int get radius => throw _privateConstructorUsedError;
   bool get passwordFilter => throw _privateConstructorUsedError;
   bool get timeFilter => throw _privateConstructorUsedError;
   bool get genderFilter => throw _privateConstructorUsedError;
@@ -39,7 +40,8 @@ abstract class $GetNearByToiletsParamsCopyWith<$Res> {
       _$GetNearByToiletsParamsCopyWithImpl<$Res, GetNearByToiletsParams>;
   @useResult
   $Res call(
-      {LatLngBounds bounds,
+      {LatLng loc,
+      int radius,
       bool passwordFilter,
       bool timeFilter,
       bool genderFilter});
@@ -59,16 +61,21 @@ class _$GetNearByToiletsParamsCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bounds = null,
+    Object? loc = null,
+    Object? radius = null,
     Object? passwordFilter = null,
     Object? timeFilter = null,
     Object? genderFilter = null,
   }) {
     return _then(_value.copyWith(
-      bounds: null == bounds
-          ? _value.bounds
-          : bounds // ignore: cast_nullable_to_non_nullable
-              as LatLngBounds,
+      loc: null == loc
+          ? _value.loc
+          : loc // ignore: cast_nullable_to_non_nullable
+              as LatLng,
+      radius: null == radius
+          ? _value.radius
+          : radius // ignore: cast_nullable_to_non_nullable
+              as int,
       passwordFilter: null == passwordFilter
           ? _value.passwordFilter
           : passwordFilter // ignore: cast_nullable_to_non_nullable
@@ -95,7 +102,8 @@ abstract class _$$GetNearByToiletsParamsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {LatLngBounds bounds,
+      {LatLng loc,
+      int radius,
       bool passwordFilter,
       bool timeFilter,
       bool genderFilter});
@@ -114,16 +122,21 @@ class __$$GetNearByToiletsParamsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? bounds = null,
+    Object? loc = null,
+    Object? radius = null,
     Object? passwordFilter = null,
     Object? timeFilter = null,
     Object? genderFilter = null,
   }) {
     return _then(_$GetNearByToiletsParamsImpl(
-      bounds: null == bounds
-          ? _value.bounds
-          : bounds // ignore: cast_nullable_to_non_nullable
-              as LatLngBounds,
+      loc: null == loc
+          ? _value.loc
+          : loc // ignore: cast_nullable_to_non_nullable
+              as LatLng,
+      radius: null == radius
+          ? _value.radius
+          : radius // ignore: cast_nullable_to_non_nullable
+              as int,
       passwordFilter: null == passwordFilter
           ? _value.passwordFilter
           : passwordFilter // ignore: cast_nullable_to_non_nullable
@@ -144,7 +157,8 @@ class __$$GetNearByToiletsParamsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$GetNearByToiletsParamsImpl implements _GetNearByToiletsParams {
   _$GetNearByToiletsParamsImpl(
-      {required this.bounds,
+      {required this.loc,
+      required this.radius,
       this.passwordFilter = true,
       this.timeFilter = false,
       this.genderFilter = false});
@@ -153,7 +167,9 @@ class _$GetNearByToiletsParamsImpl implements _GetNearByToiletsParams {
       _$$GetNearByToiletsParamsImplFromJson(json);
 
   @override
-  final LatLngBounds bounds;
+  final LatLng loc;
+  @override
+  final int radius;
   @override
   @JsonKey()
   final bool passwordFilter;
@@ -166,7 +182,7 @@ class _$GetNearByToiletsParamsImpl implements _GetNearByToiletsParams {
 
   @override
   String toString() {
-    return 'GetNearByToiletsParams(bounds: $bounds, passwordFilter: $passwordFilter, timeFilter: $timeFilter, genderFilter: $genderFilter)';
+    return 'GetNearByToiletsParams(loc: $loc, radius: $radius, passwordFilter: $passwordFilter, timeFilter: $timeFilter, genderFilter: $genderFilter)';
   }
 
   @override
@@ -174,7 +190,8 @@ class _$GetNearByToiletsParamsImpl implements _GetNearByToiletsParams {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetNearByToiletsParamsImpl &&
-            (identical(other.bounds, bounds) || other.bounds == bounds) &&
+            (identical(other.loc, loc) || other.loc == loc) &&
+            (identical(other.radius, radius) || other.radius == radius) &&
             (identical(other.passwordFilter, passwordFilter) ||
                 other.passwordFilter == passwordFilter) &&
             (identical(other.timeFilter, timeFilter) ||
@@ -186,7 +203,7 @@ class _$GetNearByToiletsParamsImpl implements _GetNearByToiletsParams {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, bounds, passwordFilter, timeFilter, genderFilter);
+      runtimeType, loc, radius, passwordFilter, timeFilter, genderFilter);
 
   @JsonKey(ignore: true)
   @override
@@ -205,7 +222,8 @@ class _$GetNearByToiletsParamsImpl implements _GetNearByToiletsParams {
 
 abstract class _GetNearByToiletsParams implements GetNearByToiletsParams {
   factory _GetNearByToiletsParams(
-      {required final LatLngBounds bounds,
+      {required final LatLng loc,
+      required final int radius,
       final bool passwordFilter,
       final bool timeFilter,
       final bool genderFilter}) = _$GetNearByToiletsParamsImpl;
@@ -214,7 +232,9 @@ abstract class _GetNearByToiletsParams implements GetNearByToiletsParams {
       _$GetNearByToiletsParamsImpl.fromJson;
 
   @override
-  LatLngBounds get bounds;
+  LatLng get loc;
+  @override
+  int get radius;
   @override
   bool get passwordFilter;
   @override
