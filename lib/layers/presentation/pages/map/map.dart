@@ -306,69 +306,6 @@ class _MapPageState extends State<MapPage> {
             },
 
             ////////////////////////////////////
-            ///  Search Modal
-            ///////////////////////////////////
-            // if (isChangedCenter) ...{
-            //   Positioned(
-            //       left: Dimens.space100,
-            //       right: Dimens.space100,
-            //       bottom: Dimens.bottomBarHeight(context) + Dimens.space60,
-            //       child: InkWell(
-            //         splashColor: Colors.transparent,
-            //         onTap: () {
-            //           onMediumVibration();
-            //           setState(() {
-            //             isChangedCenter = false;
-            //           });
-
-            //           context
-            //               .read<MapBloc>()
-            //               .add(GetNearByToiletMarkersEvent());
-            //         },
-            //         child: Container(
-            //           width: Dimens.space20,
-            //           height: Dimens.space40,
-            //           padding: EdgeInsets.all(Dimens.space8),
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(Dimens.space12),
-            //             border: Border.all(
-            //                 width: Dimens.space1,
-            //                 color: Palette.coolGrey02.withOpacity(0.7)),
-            //             color: Palette.coolGrey02.withOpacity(0.7),
-            //             boxShadow: [
-            //               BoxShadow(
-            //                 color: Palette.coolGrey12.withOpacity(0.2),
-            //                 blurRadius: 10,
-            //                 offset: const Offset(0, 4),
-            //               ),
-            //             ],
-            //           ),
-            //           child: Row(
-            //             mainAxisAlignment: MainAxisAlignment.center,
-            //             children: [
-            //               SvgPicture.asset(
-            //                 Assets.refresh,
-            //                 width: Dimens.space16,
-            //                 height: Dimens.space16,
-            //                 colorFilter: const ColorFilter.mode(
-            //                   Palette.coolGrey08,
-            //                   BlendMode.srcIn,
-            //                 ),
-            //               ),
-            //               const AppSpacerH(),
-            //               AppText('현 지도에서 검색',
-            //                   align: TextAlign.center,
-            //                   style: Theme.of(context)
-            //                       .textTheme
-            //                       .bodySmall!
-            //                       .copyWith(color: Palette.coolGrey08)),
-            //             ],
-            //           ),
-            //         ),
-            //       )),
-            // },
-
-            ////////////////////////////////////
             ///  Navigation
             ///////////////////////////////////
             if (state is LoadedToiletNavigationState) ...{
