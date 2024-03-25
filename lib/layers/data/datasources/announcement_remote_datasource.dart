@@ -31,7 +31,6 @@ class AnnouncementRemoteDatasourceImpl implements AnnouncementRemoteDatasource {
           .select('*')
           .order('created_at', ascending: true);
 
-      log.d(data);
       final List<Announcement> announcements =
           data.map((json) => Announcement.fromJson(json)).toList();
 

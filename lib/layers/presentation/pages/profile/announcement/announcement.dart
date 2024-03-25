@@ -49,7 +49,6 @@ class _AnnouncementPageState extends State<AnnouncementPage> {
       body: BlocConsumer<AnnouncementBloc, AnnouncementState>(
           listener: (context, state) {
         if (state is LoadedAnnouncementsState) {
-          log.d(state.announcements);
           _setAnnouncements(state.announcements);
         }
       }, builder: (context, state) {
