@@ -7,6 +7,7 @@ import 'package:pookaboo/injection.dart';
 import 'package:pookaboo/pookaboo_app.dart';
 import 'package:pookaboo/shared/constant/env.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
   runZonedGuarded(
@@ -15,6 +16,7 @@ void main() {
 
       /// Register Service locator
       await configureDependencies();
+      await dotenv.load(fileName: ".env");
 
       return SystemChrome.setPreferredOrientations(
         [

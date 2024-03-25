@@ -1,5 +1,5 @@
 name: pookaboo
-description: "A new Flutter project."
+description: "주변 화장실 찾기!"
 publish_to: 'none' 
 
 version: 1.0.0+1
@@ -39,8 +39,8 @@ dependencies:
   lottie: ^3.1.0
   permission_handler: ^11.3.0
   sentry_flutter: ^7.18.0
+  flutter_dotenv: ^5.1.0
   
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,6 +59,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/images/
     - assets/fonts/
     - assets/svg/
@@ -75,13 +76,23 @@ flutter:
         - asset: assets/fonts/Pretendard-Regular.ttf
         - asset: assets/fonts/Pretendard-Medium.ttf
 
-
-
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icons/logo.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icons/logo.png"
+    background_color: "#FFEB39"
+    theme_color: "#FFEB39"
+  window:
+    generate: true
+    image_path: "assets/icons/logo.png"
+    icon_size: 48,
+  macos:
+    generate: true
+    image_path: "assets/icons/logo.png"
 
     
 scripts:
