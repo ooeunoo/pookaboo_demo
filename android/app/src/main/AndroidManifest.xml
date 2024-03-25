@@ -1,16 +1,30 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.miriarea.pookaboo">
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <!-- Queries -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <data android:mimeType="text/plain" />
+        </intent>
+    </queries>
+
     <application
         android:label="pookaboo"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        android:usesCleartextTraffic="true">
 
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <!--                             -->
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -21,66 +35,35 @@
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme"
-            />
+                android:resource="@style/NormalTheme" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
-            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-            <!-- 카카오톡 공유, 카카오톡 메시지 커스텀 URL 스킴 설정 -->
-            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            <!-- KakaoTalk share and custom URL scheme -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.miriarea.pookaboo" android:host="oauth" />
 
-                <data android:host="kakaolink"
-                    android:scheme="kakao0bcb28dbbadf43d92ed1a962f38e8df3" />
+                <!-- <data android:host="kakaolink"
+                    android:scheme="kakao0bcb28dbbadf43d92ed1a962f38e8df3" /> -->
             </intent-filter>
         </activity>
 
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
-        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <activity
+        <!-- Kakao login custom URL scheme -->
+        <!-- <activity
             android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
             android:exported="true">
             <intent-filter android:label="flutter_web_auth">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="kakao0bcb28dbbadf43d92ed1a962f38e8df3"
                     android:host="oauth" />
             </intent-filter>
-        </activity>
-
-
-    </application>
-
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <!--                    Queries                     -->
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT" />
-            <data android:mimeType="text/plain" />
-        </intent>
-    </queries>
-
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <!--                   Permission                   -->
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
-    <application
-        android:usesCleartextTraffic="true">
-        ...
+        </activity> -->
     </application>
 </manifest>

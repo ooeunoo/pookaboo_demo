@@ -7,8 +7,8 @@ class Config {
 
   String appName = "Pookaboo";
 
-  String supabaseLoginRedirectTo =
-      'io.supabase.flutterquickstart://login-callback/';
+  // String supabaseLoginRedirectTo = 'com.miriarea.pooakboo://login-callback/';
+  // 'io.supabase.flutterquickstart://login-callback/';
 
   LatLng initialCenter = LatLng(37.584690, 127.046502);
 

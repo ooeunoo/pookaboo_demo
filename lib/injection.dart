@@ -28,7 +28,6 @@ import 'package:pookaboo/layers/presentation/bloc/review/review_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/visitation/visitation_bloc.dart';
 import 'package:pookaboo/layers/presentation/bloc/profile/profile_bloc.dart';
 import 'package:pookaboo/shared/service/geolocator/geolocator_service.dart';
-import 'package:pookaboo/shared/service/hive/main_box.dart';
 import 'package:pookaboo/shared/service/kakao/kakao_map_service.dart';
 import 'package:pookaboo/shared/service/kakao/kakao_service.dart';
 import 'package:pookaboo/shared/service/storage/secure_storage.dart';

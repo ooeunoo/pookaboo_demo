@@ -118,11 +118,12 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
 
   @override
   Future<bool> signInWithKakaoDatasource() async {
-    final bool response =
-        await _supabaseService.client.auth.signInWithOAuth(OAuthProvider.kakao,
-            authScreenLaunchMode: LaunchMode.externalApplication,
-            // scopes: 'profile_nickname profile_image account_email gender',
-            redirectTo: kIsWeb ? null : Config.get.supabaseLoginRedirectTo);
+    final bool response = await _supabaseService.client.auth.signInWithOAuth(
+      OAuthProvider.kakao,
+      authScreenLaunchMode: LaunchMode.externalApplication,
+      // scopes: 'profile_nickname profile_image account_email gender',
+      // redirectTo: kIsWeb ? null : Config.get.supabaseLoginRedirectTo
+    );
 
     return response;
   }
